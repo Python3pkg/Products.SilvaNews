@@ -16,3 +16,6 @@ SilvaNews changes
     Bugs fixed
 
       - Fixed just about all Silva 0.9.3 conversion issues.
+
+    Note: SilvaNews 0.9 is incompatible with previously released
+    versions.
