@@ -1,14 +1,14 @@
-$Revision: 1.6 $
+$Revision: 1.6.6.1 $
 
-Copyright (c) 2002 Infrae. All rights reserved.
+Copyright (c) 2002, 2004 Infrae. All rights reserved.
 See also LICENSE.txt
 
 Meta::
 
-  Valid for:  Silva News 0.8.1
-  Author:     Guido Wesdorp, Martijn Faassen
-  Email:      guido@infrae.com, faassen@infrae.com
-  CVS:        $Revision: 1.6 $
+  Valid for:  Silva News 0.9
+  Author:     Guido Wesdorp, Martijn Faassen, Guido Goldstein
+  Email:      guido@infrae.com, faassen@infrae.com, gst@infrae.com
+  CVS:        $Revision: 1.6.6.1 $
 
 Silva is developed by Infrae (http://www.infrae.com). Initial (and
 continued) development was for the Erasmus University Rotterdam
@@ -20,6 +20,7 @@ Infrae Silva team:
   Kit Blake <kitblake@infrae.com>
   Jan-Wijbrand Kolman <jw@infrae.com>
   Guido Wesdorp <guido@infrae.com>
+  Guido Goldstein <gst@infrae.com>
   Christian Zagrodnick <zagy@infrae.com>
   Torvald de Boskat <torvald@infrae.com>
 
