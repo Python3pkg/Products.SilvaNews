@@ -4,7 +4,8 @@
   global fields python:view.form.get_fields();
   global split_render_after string:code;
   global lastclass string:even;
-  global editable python:model.get_editable()" />
+  global editable python:model.get_editable()" 
+tal:omit-tag="" />
  
 <form method="POST" name="form" action="submit">
 <table class="listing" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -18,7 +19,7 @@
 
 <tr>
 <td class="invisible" width="16">&nbsp;</td>
-<th class="align-right" style="border-left:1px solid #617681;">
+<th class="align-right" style="border-left:1px solid #617681;" width="15%">
 element
 </th>
 <th>
