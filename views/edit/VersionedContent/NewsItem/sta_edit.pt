@@ -5,7 +5,6 @@
   global split_render_after string:code;
   global editable python:model.get_editable()" />
  
-<br />
 <form method="POST" name="form" action="sta_submit">
 <table class="listing">
 <tr valign="top">

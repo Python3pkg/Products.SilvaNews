@@ -6,7 +6,6 @@
   global lastclass string:even;
   global editable python:model.get_editable()" />
  
-<br />
 <form method="POST" name="form" action="submit">
 <table class="listing" width="100%" cellspacing="0" cellpadding="0" border="0">
 <tr>
