@@ -1,6 +1,6 @@
 # Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.6.2.1 $
+# $Revision: 1.6.2.2 $
 
 # Zope
 from AccessControl import ClassSecurityInfo
@@ -65,6 +65,10 @@ class NewsPublication(ObjectTitle, Publication):
         """Returns the path of the parent of this source
         """
         return '/'.join(self.aq_inner.aq_parent.getPhysicalPath())
+        
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'idx_parent_path')
+    idx_parent_path = parent_path
 
     # MANIPULATORS
 
