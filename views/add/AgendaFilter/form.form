@@ -23,7 +23,7 @@
           <required type="int">1</required>
           <css_class></css_class>
           <default></default>
-          <title>Id</title>
+          <title>id</title>
           <truncate type="int">0</truncate>
           <description>id: no spaces or special characters besides an underscore (_).</description>
           <extra>style="width:100%;"</extra>
@@ -44,8 +44,8 @@
           <required type="int">0</required>
           <css_class></css_class>
           <default></default>
-          <title>Title</title>
-          <description>The title will be publicly visible, and is used as the default link in indexes.</description>
+          <title>title</title>
+          <description></description>
           <extra></extra>
           <unicode type="int">1</unicode>
         </values>

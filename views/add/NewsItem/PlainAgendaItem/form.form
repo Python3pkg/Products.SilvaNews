@@ -23,7 +23,7 @@
           <required type="int">1</required>
           <css_class></css_class>
           <default></default>
-          <title>Id</title>
+          <title>id</title>
           <truncate type="int">0</truncate>
           <description></description>
           <extra></extra>
@@ -44,7 +44,7 @@
           <required type="int">1</required>
           <css_class></css_class>
           <default></default>
-          <title>Title</title>
+          <title>title</title>
           <description></description>
           <extra></extra>
           <unicode type="int">1</unicode>
@@ -66,8 +66,8 @@
           <required type="int">1</required>
           <default_now type="int">0</default_now>
           <css_class></css_class>
-          <title>Startdate/time</title>
-          <description>Format: DD/MM/YYYY</description>
+          <title>start date/time</title>
+          <description>Format: d/m/y, time is optional.</description>
         </values>
         <tales>
           <time_separator>python:form.get_time_punctuation()</time_separator>
@@ -81,7 +81,7 @@
           <hidden type="int">0</hidden>
           <items>[]</items>
           <default>[]</default>
-          <title>Subjects</title>
+          <title>subjects</title>
           <orientation>vertical</orientation>
           <css_class></css_class>
           <external_validator></external_validator>
@@ -89,7 +89,7 @@
         </values>
         <tales>
           <items>python:form.service_news.subject_form_tree()</items>
-          <description>python: test(form.service_news.subjects(), 'Choose subjects', '&lt;span style="color: red"&gt;No subjects defined yet! Ask the manager to add subjects to the news service!&lt;/span&gt;')</description>
+          <description>python: test(form.service_news.subjects(), 'Choose at least one subject.', '&lt;span style="color: #c00"&gt;No subjects defined yet! Ask the manager to add subjects to the news service!&lt;/span&gt;')</description>
         </tales>
       </field>
       <field><id>target_audiences</id> <type>MultiCheckBoxField</type>
@@ -100,7 +100,7 @@
           <hidden type="int">0</hidden>
           <items>[]</items>
           <default>[]</default>
-          <title>Target audiences</title>
+          <title>target audiences</title>
           <orientation>vertical</orientation>
           <css_class></css_class>
           <external_validator></external_validator>
@@ -108,7 +108,7 @@
         </values>
         <tales>
           <items>python:form.service_news.target_audience_form_tree()</items>
-          <description>python: test(form.service_news.target_audiences(), 'Choose target audiences', '&lt;span style="color: red"&gt;No target audiences defined yet! Ask the manager to add target audiences to the news service!&lt;/span&gt;')</description>
+          <description>python: test(form.service_news.target_audiences(), 'Choose target audiences.', '&lt;span style="color: #c00"&gt;No target audiences defined yet! Ask the manager to add target audiences to the news service!&lt;/span&gt;')</description>
         </tales>
       </field>
       </fields>
