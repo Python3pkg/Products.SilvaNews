@@ -1,6 +1,6 @@
-# Copyright (c) 2002 Infrae. All rights reserved.
+# Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.6 $
+# $Revision: 1.6.2.1 $
 
 # Zope
 from AccessControl import ClassSecurityInfo
@@ -54,6 +54,10 @@ class NewsPublication(ObjectTitle, Publication):
         """Returns the private-state
         """
         return self._is_private
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'idx_is_private')
+    idx_is_private = is_private
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'parent_path')

@@ -1,6 +1,6 @@
-# Copyright (c) 2002 Infrae. All rights reserved.
+# Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.19 $
+# $Revision: 1.19.2.1 $
 
 from OFS import SimpleItem
 from AccessControl import ClassSecurityInfo
@@ -119,16 +119,16 @@ class AgendaFilter(Filter):
         enddate = DateTime(year, endmonth, 1)
     
         query = {}
-        query['start_datetime'] = [startdate, enddate]
-        query['start_datetime_usage'] = 'range:min:max'
+        query['idx_start_datetime'] = [startdate, enddate]
+        query['idx_start_datetime_usage'] = 'range:min:max'
         query['version_status'] = 'public'
         query['path'] = self._sources
-        query['subjects'] = {'query': self._subjects,
+        query['idx_subjects'] = {'query': self._subjects,
                                 'operator': 'or'}
-        query['target_audiences'] = {'query': self._target_audiences,
+        query['idx_target_audiences'] = {'query': self._target_audiences,
                                         'operator': 'or'}
         query['meta_type'] = meta_types
-        query['sort_on'] = 'start_datetime'
+        query['sort_on'] = 'idx_start_datetime'
         query['sort_order'] = 'ascending'
         result = self.service_catalog(query)
         return [r for r in result if not r.object_path in self._excluded_items]
@@ -159,9 +159,9 @@ class AgendaFilter(Filter):
                                                 'range': 'minmax'}
         query['version_status'] = 'public'
         query['path'] = self._sources
-        query['subjects'] = {'query': self._subjects,
+        query['idx_subjects'] = {'query': self._subjects,
                                 'operator': 'or'}
-        query['target_audiences'] = {'query': self._target_audiences,
+        query['idx_target_audiences'] = {'query': self._target_audiences,
                                         'operator': 'or'}
         query['meta_type'] = meta_types
         query['sort_on'] = 'silva-extrapublicationtime'
@@ -190,14 +190,14 @@ class AgendaFilter(Filter):
             year = year + 1
         enddate = DateTime(year, endmonth, 1)
         query = {}
-        query['start_datetime'] = [startdate, enddate]
-        query['start_datetime_usage'] = 'range:min:max'
+        query['idx_start_datetime'] = [startdate, enddate]
+        query['idx_start_datetime_usage'] = 'range:min:max'
         query['version_status'] = 'public'
         query['path'] = self._sources
-        query['subjects'] = self._subjects
-        query['target_audiences'] = self._target_audiences
+        query['idx_subjects'] = self._subjects
+        query['idx_target_audiences'] = self._target_audiences
         query['meta_type'] = meta_types
-        query['sort_on'] = 'start_datetime'
+        query['sort_on'] = 'idx_start_datetime'
         query['sort_order'] = 'ascending'
         result = self.service_catalog(query)
 

@@ -1,6 +1,6 @@
-# Copyright (c) 2002 Infrae. All rights reserved.
+# Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.21 $
+# $Revision: 1.21.2.1 $
 
 """Install and Uninstall for Silva News
 """
@@ -72,6 +72,7 @@ def registerViews(reg):
                  'Silva Article', ['edit', 'VersionedContent', 'NewsItem', 'PlainArticle'])
     reg.register('edit',
                  'Silva Agenda Item', ['edit', 'VersionedContent', 'NewsItem', 'PlainAgendaItem'])
+
     # public
     reg.register('public',
                  'Silva Agenda Filter', ['public', 'AgendaFilter'])
@@ -81,8 +82,9 @@ def registerViews(reg):
     reg.register('public', 'Silva News Viewer', ['public', 'NewsViewer'])
     reg.register('public', 'Silva RSS Aggregator', ['public', 'RSSAggregator'])
     reg.register('public', 'Silva Agenda Viewer', ['public', 'AgendaViewer'])
-    reg.register('public', 'Silva Article', ['public', 'PlainArticle'])
-    reg.register('public', 'Silva Agenda Item', ['public', 'PlainAgendaItem'])
+    reg.register('public', 'Silva Article Version', ['public', 'PlainArticle'])
+    reg.register('public', 'Silva Agenda Item Version', ['public', 'PlainAgendaItem'])
+    
     # add
     reg.register('add', 'Silva Agenda Filter', ['add', 'AgendaFilter'])
     reg.register('add', 'Silva News Filter', ['add', 'NewsFilter'])
@@ -179,15 +181,15 @@ def setup_catalog(silva_root):
     """Sets the ZCatalog up"""
     catalog = silva_root.service_catalog
     
-    columns = ['object_path',]
+    columns = ['idx_object_path',]
 
     indexes = [
-        ('is_private', 'FieldIndex'),
-        ('object_path', 'FieldIndex'),
-        ('parent_path', 'FieldIndex'),
-        ('start_datetime', 'DateIndex'),
-        ('subjects', 'KeywordIndex'),
-        ('target_audiences', 'KeywordIndex'),
+        ('idx_is_private', 'FieldIndex'),
+        ('idx_object_path', 'FieldIndex'),
+        ('idx_parent_path', 'FieldIndex'),
+        ('idx_start_datetime', 'DateIndex'),
+        ('idx_subjects', 'KeywordIndex'),
+        ('idx_target_audiences', 'KeywordIndex'),
         ]
 
     existing_columns = catalog.schema()

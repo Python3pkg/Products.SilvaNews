@@ -1,6 +1,6 @@
-# Copyright (c) 2002, 2004 Infrae. All rights reserved.
+# Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.31 $
+# $Revision: 1.31.2.1 $
 
 from OFS import SimpleItem
 from AccessControl import ClassSecurityInfo
@@ -54,9 +54,9 @@ class NewsFilter(Filter):
         query = {}
         query['path'] = self._sources
         query['version_status'] = 'public'
-        query['subjects'] = {'query': self._subjects,
+        query['idx_subjects'] = {'query': self._subjects,
                                 'operator': 'or'}
-        query['target_audiences'] = {'query': self._target_audiences,
+        query['idx_target_audiences'] = {'query': self._target_audiences,
                                         'operator': 'or'}
         if not meta_types:
             meta_types = self.get_allowed_meta_types()
@@ -119,8 +119,8 @@ class NewsFilter(Filter):
         query = self._prepare_query(meta_types)
         if not self._sources:
             return []
-        query['start_datetime'] = (lastnight, enddate)
-        query['start_datetime_usage'] = 'range:min:max'
+        query['idx_start_datetime'] = (lastnight, enddate)
+        query['idx_start_datetime_usage'] = 'range:min:max'
         result = self.service_catalog(query)
 
         return [r for r in result if not r.object_path in self._excluded_items]
@@ -171,8 +171,8 @@ class NewsFilter(Filter):
         query = self._prepare_query(meta_types)
         if not self._sources:
             return []
-        query['start_datetime'] = [startdate, enddate]
-        query['start_datetime_usage'] = 'range:min:max'
+        query['idx_start_datetime'] = [startdate, enddate]
+        query['idx_start_datetime_usage'] = 'range:min:max'
         result = self.service_catalog(query)
 
         return [r for r in result if not r.object_path in self._excluded_items]
@@ -185,9 +185,9 @@ class NewsFilter(Filter):
     security.declarePrivate('get_allowed_meta_types')
     def get_allowed_meta_types(self):
         """Returns the allowed meta_types for this filter"""
-        allowed = self._article_meta_types
+        allowed = self._article_meta_types[:]
         if self.show_agenda_items():
-            allowed += self._agenda_item_meta_types
+            allowed += self._agenda_item_meta_types[:]
         return allowed
 
     # MANIPULATORS
