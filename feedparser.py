@@ -1619,6 +1619,11 @@ def _getCharacterEncoding(http_headers, xml_data):
             true_encoding = http_encoding
         else:
             true_encoding = 'us-ascii'
+        # XXX added by Guido, since I don't agree on the algorithm
+        try:
+            xml_data.encode(true_encoding)
+        except UnicodeError:
+            true_encoding = xml_encoding
     else:
         true_encoding = xml_encoding or 'utf-8'
     return true_encoding, http_encoding, xml_encoding
