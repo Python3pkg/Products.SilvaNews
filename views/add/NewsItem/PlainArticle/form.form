@@ -44,7 +44,7 @@
           <required type="int">1</required>
           <css_class></css_class>
           <default></default>
-          <title>Titel</title>
+          <title>Title</title>
           <description></description>
           <extra></extra>
           <unicode type="int">1</unicode>
