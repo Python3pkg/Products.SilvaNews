@@ -14,8 +14,8 @@
     title model/get_title_editable;
     vein string:edit;
     fields view/settingsform/get_fields;
-    rssfields view/rssform/get_fields;
 ">
+<!--    rssfields view/rssform/get_fields; -->
 
   <table class="columns columns2">
     <tbody>
@@ -130,22 +130,22 @@
         </tr>
 
         <span tal:replace="nothing"> -------------- form content ------------- </span>
-        <tal:block tal:repeat="field rssfields">
-          <tr class="even" tal:attributes="class python: test(repeat['field'].odd(), 'odd', 'even')">
-            <td class="field-title">
-              <nobr>
-                <span tal:replace="field/title">Title</span>
-                <span class="warning" tal:condition="field/is_required">*</span>
-              </nobr>
-            </td>
-            <td tal:content="structure field/render">
-              Field
-            </td>
-            <td tal:content="field/description">
-              Description
-            </td>
-          </tr>
-        </tal:block>
+<!--         <tal:block tal:repeat="field rssfields"> -->
+<!--           <tr class="even" tal:attributes="class python: test(repeat['field'].odd(), 'odd', 'even')"> -->
+<!--             <td class="field-title"> -->
+<!--               <nobr> -->
+<!--                 <span tal:replace="field/title">Title</span> -->
+<!--                 <span class="warning" tal:condition="field/is_required">*</span> -->
+<!--               </nobr> -->
+<!--             </td> -->
+<!--             <td tal:content="structure field/render"> -->
+<!--               Field -->
+<!--             </td> -->
+<!--             <td tal:content="field/description"> -->
+<!--               Description -->
+<!--             </td> -->
+<!--           </tr> -->
+<!--         </tal:block> -->
 
       </tbody>
 
