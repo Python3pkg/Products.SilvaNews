@@ -16,7 +16,7 @@
         </h2>
         <a style="float:right; margin-top:0.3em;"
           tal:condition="channel/link" 
-          tal:attributes="href channel/link">
+          tal:attributes="href model/rss_feed">
           <img border="0" width="36" height="14"
             tal:attributes="src string:${silva_root}/globals/xml.gif" />
         </a>
