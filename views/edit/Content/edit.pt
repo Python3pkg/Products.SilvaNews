@@ -118,8 +118,8 @@
           <p>
             This News Viewer will supply an RSS feed using RDF.
             The URL of the feed is: 
-            <a tal:attributes="href string:${model/absolute_url}/rss.xml">
-              <span tal:replace="string:${model/absolute_url}/rss.xml">feed</span>
+            <a tal:attributes="href string:${model/absolute_url}/rss">
+              <span tal:replace="string:${model/absolute_url}/rss">feed</span>
             </a>
           </p>
         </div>
