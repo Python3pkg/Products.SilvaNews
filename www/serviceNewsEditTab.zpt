@@ -1,7 +1,7 @@
 <!--
 Copyright (c) 2002 Infrae. All rights reserved.
 See also LICENSE.txt
-Version of this file: $Revision: 1.7 $
+Version of this file: $Revision: 1.7.4.1 $
 -->
 
 <tal:block define="dummy python: here.REQUEST.RESPONSE.setHeader('Content-Type', 'text/html;; charset=UTF-8')" />
@@ -16,7 +16,6 @@ Version of this file: $Revision: 1.7 $
 
 <body bgcolor="#ffffff" link="#000099" alink="#000099" vlink="#000099">
 
-
 <span tal:define="manage_tabs_message options/manage_tabs_message | nothing"
     tal:replace="structure here/manage_tabs">Tabs</span>
 
@@ -24,6 +23,8 @@ Version of this file: $Revision: 1.7 $
                     global subject_tree view/subject_tree;
                     global target_audience_tree view/target_audience_tree;
                     " />
+
+<h4><a href="../manage_services">Silva Services</a></h4>
 
 <table width="100%">
 <tr>
