@@ -21,28 +21,26 @@
           <display_maxwidth></display_maxwidth>
           <display_width type="int">20</display_width>
           <required type="int">1</required>
-          <css_class></css_class>
+          <css_class>store</css_class>
           <default></default>
           <title>id</title>
           <truncate type="int">0</truncate>
           <description>id: no spaces or special characters besides an underscore (_).</description>
-          <extra>style="width:100%;"</extra>
+          <extra></extra>
         </values>
         <tales>
         </tales>
       </field>
-      <field><id>object_title</id> <type>TextAreaField</type>
+      <field><id>object_title</id> <type>StringField</type>
         <values>
           <alternate_name></alternate_name>
           <hidden type="int">0</hidden>
-          <max_linelength></max_linelength>
           <max_length></max_length>
-          <max_lines></max_lines>
-          <width type="int">40</width>
           <external_validator></external_validator>
-          <height type="int">2</height>
+          <display_maxwidth></display_maxwidth>
+          <display_width type="int">20</display_width>
           <required type="int">0</required>
-          <css_class></css_class>
+          <css_class>store</css_class>
           <default></default>
           <title>title</title>
           <description></description>
