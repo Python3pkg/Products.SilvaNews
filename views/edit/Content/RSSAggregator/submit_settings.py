@@ -17,6 +17,6 @@ except FormValidationError, e:
 
 model.sec_update_last_author_info()
 
-model.set_feeds(result['rss_feed'])
+model.set_feeds(result['rss_feeds'])
 
 return view.tab_edit(message_type="feedback", message="Viewer data changed")

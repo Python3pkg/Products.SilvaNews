@@ -12,7 +12,7 @@
       <title>Default</title>
       <fields>
       <field>
-        <id>rss_feed</id> 
+        <id>rss_feeds</id> 
         <type>TextAreaField</type>
         <values>
           <alternate_name></alternate_name>

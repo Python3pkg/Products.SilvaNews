@@ -28,6 +28,19 @@
 
 
   <form action="." name="silvaObjects" method="POST">
+    <script type="text/javascript">
+      
+      function focus_editor() {
+        /* focus the RSS feed input field if we're the RSS Viewer's edit page */
+        var form = document.forms[0];
+        if (form && form.field_rss_feed) {
+          form.field_rss_feed.focus();
+        } else if (form && form.field_rss_feeds) {
+          form.field_rss_feeds.focus();
+        };
+      };
+      
+    </script>
     <table class="listing">
       <thead>
         <tal:block replace="nothing">
