@@ -22,9 +22,8 @@
           <title>subjects</title>
           <orientation>vertical</orientation>
           <description>
-            Subjects are for organizing displayed news for your users.
-            If no subject is available, ask the system administrator
-            to add subjects at the news filter extension.</description>
+            Select the news subjects to filter on.
+          </description>
           <css_class></css_class>
           <external_validator></external_validator>
           <unicode type="int">1</unicode>
@@ -44,10 +43,7 @@
           <title>target audiences</title>
           <orientation>vertical</orientation>
           <description>
-            Target audiences are people who might interessted in
-            the displayed news items. If there is now target audience is
-            available, ask the system administrator to add them to the news
-            filter extension.
+            Select the target audiences to filter on.
           </description>
           <css_class></css_class>
           <external_validator></external_validator>
