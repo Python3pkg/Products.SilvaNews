@@ -120,7 +120,7 @@
                     name="add_object:method"
                     type="submit"
                     value="new..."
-                    title="add a new item - alt-n"
+                    title="add a new item: alt-n"
                     accesskey="n"
                     tal:attributes="onClick string:location.href='${url}/edit/add_object?meta_type='+this.form.meta_type.options[this.form.meta_type.selectedIndex].value" 
                     i18n:attributes="value title"
@@ -131,9 +131,9 @@
                     i18n:attributes="title"
                   >
                   </label>
-                  <select class="manipulator"
+                  <select class="transport"
                     name="meta_type"
-                    title="select a new item - alt-s"
+                    title="select a new item: alt-s"
                     tal:attributes="onChange string:location.href='${url}/edit/add_object?meta_type='+this.options[this.selectedIndex].value"
                     i18n:attributes="title"
                   >
