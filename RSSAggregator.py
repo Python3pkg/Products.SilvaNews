@@ -15,7 +15,7 @@ from Products.SilvaNews.NewsViewer import NewsViewer, XMLBuffer, quote_xml, RDF_
 
 import feedparser
 
-icon = 'www/rss_viewer.png'
+icon = 'www/rss_aggregator.png'
 
 class RSSAggregator(NewsViewer):
     """An RSS aggregator that merges a number of feeds into 1 public view"""
