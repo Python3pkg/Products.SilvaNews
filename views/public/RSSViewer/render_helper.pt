@@ -1,67 +1,61 @@
-<tal:block define="global view here;
-                   global model view/REQUEST/model;
-                   global result python:model.get_channel();
-                   global silva_root view/silva_root;
-                   " />
+<tal:block define="view here;
+                   model view/REQUEST/model;
+                   result python:model.get_channel();
+                   silva_root view/silva_root;
+                   channel result/channel;
+                   " >
 
-<table border="0" cellpadding="0" cellspacing="5">
-<tr>
-  <td colspan="2">
-    <h2><span class="folder-title" tal:content="python: result['title'] or model.get_title()">View News</span></h2>
-    <span tal:replace="result/textinput/description" tal:condition="python: result['textinput'] and result['textinput']['description']" /><br />
-    <form tal:attributes="action result/textinput/link" method="POST" tal:condition="python: result['textinput'] and result['textinput']['name'] and result['textinput']['link'] and result['textinput']['title']">
-        <input type="text" tal:attributes="name result/textinput/name" /><input type="submit" tal:attributes="value result/textinput/title" /><br /><br />
-    </form>
-  </td>
-</tr>
-<tr>
-  <td valign="top" colspan="2" tal:condition="python: result['image']">
-    <a tal:attributes="href result/image/link" tal:condition="result/image/link | nothing"><img border="0" tal:condition="result/image/url" tal:attributes="src result/image/url; alt result/image/title" style="margin-right: 5px; mergin-bottom: 5px; float: left;" /></a>
-    <img border="0" tal:condition="python: result['image']['url'] and not result['image']['link']" tal:attributes="src result/image/url; alt result/image/title" style="margin-right: 5px; mergin-bottom: 5px; float: left;" />
-    <a tal:condition="result/link" tal:attributes="href result/link">
-      <span tal:content="structure result/link" /><br /><br />
-    </a>
-    <tal:block condition="result/description">
-      <span tal:replace="structure result/description" /><br /><br />
-    </tal:block>
-  </td>
-</tr>
-<tr>
-  <td colspan="2">
-    <tal:block condition="result/copyright">
-      <span tal:replace="structure result/copyright" /><br /><br />
-    </tal:block>
-    <tal:block condition="result/pubdate">
-      <span replace="structure string:Published: ${result/pubdate}" />
-    </tal:block>
-  </td>
-</tr>
-</table>
-<br />
+  <table border="0" cellpadding="0" cellspacing="5">
+    <tr>
+      <td colspan="2">
+        <h2><span class="folder-title" tal:content="channel/title | nothing">View News</span></h2>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" colspan="2">
+        <a tal:condition="channel/link" tal:attributes="href channel/link">
+          <span tal:content="structure channel/link" /><br /><br />
+        </a>
+        <tal:block condition="channel/description">
+            <span tal:replace="structure channel/description" /><br /><br />
+        </tal:block>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <tal:block condition="channel/copyright | nothing">
+          <span tal:replace="structure channel/copyright" /><br /><br />
+        </tal:block>
+      </td>
+    </tr>
+  </table>
+  <br />
 
-<table width="100%" cellspacing="0" cellpadding="3" border="2"
-  tal:attributes="cellspacing container/table_cellspacing;
-                  cellpadding container/table_cellpadding;
-                  border container/table_border">
 
-<toc_entry tal:omit-tag=""
-  tal:repeat="item result/rssitems">
+  <table width="100%" cellspacing="0" cellpadding="3" border="2"
+    tal:attributes="cellspacing container/table_cellspacing;
+    cellpadding container/table_cellpadding;
+    border container/table_border">
 
-<tr class="focus">
+    <toc_entry tal:omit-tag=""
+      tal:repeat="item python: result['items']">
 
-<span tal:replace="nothing"> _______ title cell _______ </span>
-<td valign="top" align="left">
-<h2 tal:content="structure item/title" tal:condition="item/title | nothing">title</h2>
-</td>
-</tr>
+      <tr class="focus">
 
-<tr class="focus-cycle">
-<td align="left" valign="top">
-<b tal:content="structure item/description" tal:condition="item/description | nothing">Lead</b><br /><br />
-<a href="#" tal:attributes="href item/link" tal:condition="item/link | nothing">view article</a>
-</td>
-</tr>
+        <span tal:replace="nothing"> _______ title cell _______ </span>
+        <td valign="top" align="left">
+          <h2 tal:content="structure item/title" tal:condition="item/title | nothing">title</h2>
+        </td>
+      </tr>
 
-</toc_entry>
+      <tr class="focus-cycle">
+        <td align="left" valign="top">
+          <b tal:content="structure item/description" tal:condition="item/description | nothing">Lead</b><br /><br />
+          <a href="#" tal:attributes="href item/link" tal:condition="item/link | nothing">view article</a>
+        </td>
+      </tr>
 
-</table><br />
+    </toc_entry>
+
+  </table><br />
+</tal:block>
