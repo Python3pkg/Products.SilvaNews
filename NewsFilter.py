@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.26 $
+# $Revision: 1.26.2.1 $
 
 from OFS import SimpleItem
 from AccessControl import ClassSecurityInfo
@@ -46,6 +46,8 @@ class NewsFilter(Filter):
         self._allow_rss_search = 0
         self._rss_search_description = ''
         self._rss_image = ''
+
+    # ACCESSORS
 
     def _prepare_query ( self, meta_types ):
         """private method preparing the common fields for a catalog query.
@@ -192,22 +194,11 @@ class NewsFilter(Filter):
     def show_agenda_items(self):
         return self._show_agenda_items
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_rss_description')
-    def set_rss_description(self, value):
-        """Sets the RSS description"""
-        self._rss_description = value
-
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'rss_description')
     def rss_description(self):
         """Returns the description"""
         return self._rss_description
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_show_agenda_items')
-    def set_show_agenda_items(self, value):
-        self._show_agenda_items = not not int(value)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'allow_rss_export')
@@ -215,35 +206,17 @@ class NewsFilter(Filter):
         """Returns true if the filter allows RSS export"""
         return self._allow_rss_export
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_allow_rss_export')
-    def set_allow_rss_export(self, yesorno):
-        """Sets whether it is allowed to export to RSS"""
-        self._allow_rss_export = not not yesorno
-
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'allow_rss_search')
     def allow_rss_search(self):
         """Returns true if searching through RSS is allowed"""
         return self._allow_rss_search
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_allow_rss_search')
-    def set_allow_rss_search(self, yesorno):
-        """Sets allow_rss_search"""
-        self._allow_rss_search = not not yesorno
-
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'rss_search_description')
     def rss_search_description(self):
         """Returns RSS search description"""
         return self._rss_search_description
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_rss_search_description')
-    def set_rss_search_description(self, value):
-        """Sets the description"""
-        self._rss_search_description = value
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'rss_link')
@@ -253,35 +226,17 @@ class NewsFilter(Filter):
 
         return self._rss_link
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_rss_link')
-    def set_rss_link(self, value):
-        """Sets the RSS link"""
-        self._rss_link = value
-
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'rss_copyright')
     def rss_copyright(self):
         """Returns the copyright notice to be used for the RSS feed"""
         return self._rss_copyright
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_rss_copyright')
-    def set_rss_copyright(self, value):
-        """Sets the RSS copyright notice"""
-        self._rss_copyright = value
-
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'rss_image')
     def rss_image(self):
         """Returns the image to be used for the RSS feed"""
         return self._rss_image
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_rss_image')
-    def set_rss_image(self, value):
-        """Sets the RSS image"""
-        self._rss_image = value
 
     security.declarePrivate('get_allowed_meta_types')
     def get_allowed_meta_types(self):
@@ -365,6 +320,56 @@ class NewsFilter(Filter):
         text = text.replace('>', '&gt;')
 
         return text
+
+
+    # MANIPULATORS
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_rss_description')
+    def set_rss_description(self, value):
+        """Sets the RSS description"""
+        self._rss_description = value
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_show_agenda_items')
+    def set_show_agenda_items(self, value):
+        self._show_agenda_items = not not int(value)
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_allow_rss_export')
+    def set_allow_rss_export(self, yesorno):
+        """Sets whether it is allowed to export to RSS"""
+        self._allow_rss_export = not not yesorno
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_allow_rss_search')
+    def set_allow_rss_search(self, yesorno):
+        """Sets allow_rss_search"""
+        self._allow_rss_search = not not yesorno
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_rss_search_description')
+    def set_rss_search_description(self, value):
+        """Sets the description"""
+        self._rss_search_description = value
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_rss_link')
+    def set_rss_link(self, value):
+        """Sets the RSS link"""
+        self._rss_link = value
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_rss_image')
+    def set_rss_image(self, value):
+        """Sets the RSS image"""
+        self._rss_image = value
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_rss_copyright')
+    def set_rss_copyright(self, value):
+        """Sets the RSS copyright notice"""
+        self._rss_copyright = value
 
 InitializeClass(NewsFilter)
 

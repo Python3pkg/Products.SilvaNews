@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.16 $
+# $Revision: 1.16.2.1 $
 
 # Zope
 from AccessControl import ClassSecurityInfo
@@ -29,8 +29,6 @@ class AgendaItem(NewsItem):
     security = ClassSecurityInfo()
 
     __implements__ = IAgendaItem, IVersionedContent
-
-    # ACCESSORS
 
 InitializeClass(AgendaItem)
 

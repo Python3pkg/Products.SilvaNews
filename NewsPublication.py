@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.4 $
+# $Revision: 1.4.2.1 $
 
 # Zope
 from AccessControl import ClassSecurityInfo
@@ -45,6 +45,9 @@ class NewsPublication(ObjectTitle, Publication):
         NewsPublication.inheritedAttribute('__init__')(self, id)
         self._is_private = 0
 
+
+    # ACCESSORS
+
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'is_private')
     def is_private(self):
@@ -60,18 +63,18 @@ class NewsPublication(ObjectTitle, Publication):
         return '/'.join(self.aq_inner.aq_parent.getPhysicalPath())
 
     # MANIPULATORS
+
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                               'set_private')
     def set_private(self, on_or_off):
         """
-        Sets the is_private-setting for this source, is_private can
-        restrict the availability of this source towards the
+        Sets the is_private-setting for this source.
+
+        is_private can restrict the availability of this source towards the
         outside-world (when set, the source can only be found by
         filters in the same subdirectory)
         """
         self._is_private = on_or_off
-        self.reindex_object()
-        self._p_changed = 1
         self.reindex_object()
 
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
@@ -127,6 +130,8 @@ class NewsPublication(ObjectTitle, Publication):
         return (fields, versionpaths)
 
 InitializeClass(NewsPublication)
+
+###
 
 manage_addNewsPublicationForm = PageTemplateFile(
     "www/newsPublicationAdd", globals(),

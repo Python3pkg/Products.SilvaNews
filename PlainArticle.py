@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.15 $
+# $Revision: 1.15.2.1 $
 
 # Zope
 from AccessControl import ClassSecurityInfo
@@ -50,9 +50,6 @@ class PlainArticleVersion(NewsItemVersion):
 
     def __init__(self, id):
         PlainArticleVersion.inheritedAttribute('__init__')(self, id)
-
-    # MANIPULATORS
-    # ACCESSORS
 
 InitializeClass(PlainArticleVersion)
 

@@ -88,7 +88,7 @@
           <default>python: form.REQUEST.model.keep_to_path()</default>
         </tales>
       </field>
-      <!--
+      <!-- XXX feature will be removed !! XXX
       <field><id>allow_rss_export</id> <type>RadioField</type>
         <values>
           <alternate_name></alternate_name>
@@ -109,7 +109,7 @@
           <description>python: "If set to 'yes', this filter can generate an RSS feed. The URL of the feed is: %s/rss_feed" % form.REQUEST.model.absolute_url()</description>
         </tales>
       </field>
-      -->
+      XXX  -->
       </fields>
     </group>
   </groups>

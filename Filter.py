@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.12 $
+# $Revision: 1.12.2.1 $
 
 # Zope
 from OFS import SimpleItem
@@ -43,6 +43,16 @@ class Filter(Asset):
         self._excluded_items = []
         self._sources = []
 
+
+    # ACCESSORS
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'subjects')
+    def subjects(self):
+        """Returns a list of subjects
+        """
+        return self._subjects
+
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'find_sources')
     def find_sources(self):
@@ -76,6 +86,23 @@ class Filter(Asset):
                 urls.append(r.getURL())
 
         return res
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'keep_to_path')
+    def keep_to_path(self):
+        """Returns true if the item should keep to path
+        """
+        return self._keep_to_path
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'target_audiences')
+    def target_audiences(self):
+        """Returns a list of target audiences
+        """
+        return self._target_audiences
+
+
+    # MANIPULATORS
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'sources')
@@ -135,25 +162,14 @@ class Filter(Asset):
         return self._excluded_items
 
     def verify_excluded_items(self):
+        do_reindex = 0
         for item in self._excluded_items:
             result = self._query(object_path=[item])
             if not str(item) in [str(i.object_path) for i in result]:
                 self._excluded_items.remove(item)
-                self.reindex_object()
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'keep_to_path')
-    def keep_to_path(self):
-        """Returns true if the item should keep to path
-        """
-        return self._keep_to_path
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'subjects')
-    def subjects(self):
-        """Returns a list of subjects
-        """
-        return self._subjects
+                do_reindex = 1
+        if do_reindex:
+            self.reindex_object()
 
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                               'set_subjects')
@@ -161,13 +177,6 @@ class Filter(Asset):
         """Sets the subjects"""
         self._subjects = subjects
         self.synchronize_with_service()
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'target_audiences')
-    def target_audiences(self):
-        """Returns a list of target audiences
-        """
-        return self._target_audiences
 
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                               'set_target_audiences')
@@ -250,6 +259,9 @@ class Filter(Asset):
                    self._excluded_items]
 
         return result
+
+
+    # HELPERS
 
     def _query(self, **kw):
         return self.service_catalog(kw)

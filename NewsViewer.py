@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.27.2.2 $
+# $Revision: 1.27.2.3 $
 
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
@@ -22,10 +22,10 @@ except ImportError:
 icon = 'www/news_viewer.png'
 
 class XMLBuffer:
-    """small file-like object for XML
+    """Small file-like object for XML output.
     
-        implicitly converts unicode to UTF-8 and replaces characters to 
-        entities when required
+    Implicitly converts unicode to UTF-8 and replaces characters to 
+    entities when required
     """
 
     def __init__(self):
@@ -37,22 +37,17 @@ class XMLBuffer:
         self._buffer.append(data)
         
     def read(self):
-        """the semantics are different from the plain file interface's read
+        """The semantics are different from the plain file interface's read!
             
-            this will return the full buffer always, and won't move the 
-            pointer
+        This will return the full buffer always, and won't move the 
+        pointer
         """
         ret = ''.join(self._buffer)
         ret = self._convert(ret)
         return ret
 
     def _convert(self, data):
-        """conversion to UTF-8 for XML
-        (does entitizing as well)
-        no it doesn't anymore, because all elements were quoted, which
-        is not the desired result.
-
-        See quote_xml and it's usage.
+        """Convert data to UTF-8.
         """
         data = data.encode('UTF-8')
         return data
@@ -74,11 +69,14 @@ RDF_HEADER = ('<?xml version="1.0" encoding="UTF-8" ?>\n'
               'xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://purl.org/rss/1.0/">\n')
 
 class NewsViewer(Content, Folder.Folder):
-    """Used to show news items on a Silva site. When setting up
-    a newsviewer you can choose which news- or agendafilters it should use to 
-    retrieve the items, and how far back in time it should go. The items will 
-    then be automatically fetched via the filter for each page request.
+    """Used to show news items on a Silva site.
+
+    When setting up a newsviewer you can choose which news- or
+    agendafilters it should use to retrieve the items, and how far
+    back in time it should go. The items will then be automatically
+    fetched via the filter for each page request.
     """
+
     meta_type = 'Silva News Viewer'
 
     security = ClassSecurityInfo()
@@ -91,6 +89,8 @@ class NewsViewer(Content, Folder.Folder):
         self._number_is_days = 0
         self._filters = []
 
+    # ACCESSORS
+
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'number_to_show')
     def number_to_show(self):
@@ -98,6 +98,24 @@ class NewsViewer(Content, Folder.Folder):
         """
         return self._number_to_show
 
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'is_published')
+    def is_published(self):
+        """Returns 1 so the object will be shown in TOCs and such"""
+        return 1
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'is_deletable')
+    def is_deletable(self):
+        """return 1 so this object can always be deleted"""
+        return 1
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'can_set_title')
+    def can_set_title(self):
+        """return 1 so the title can be set"""
+        return 1
+        
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'number_is_days')
     def number_is_days(self):
@@ -217,52 +235,10 @@ class NewsViewer(Content, Folder.Folder):
                 retval.append(item)
         return retval
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_number_to_show')
-    def set_number_to_show(self, number):
-        """Sets the number of items to show
-        """
-        self._number_to_show = number
-        self._p_changed = 1
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_number_is_days')
-    def set_number_is_days(self, onoff):
-        """Sets the number of items to show
-        """
-        self._number_is_days = int(onoff)
-        self._p_changed = 1
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_filter')
-    def set_filter(self, newsfilter, on_or_off):
-        """Adds or removes a filter from the list of filters
-        """
-        self.verify_filters()
-        if on_or_off:
-            if not newsfilter in self._filters:
-                self._filters.append(newsfilter)
-        else:
-            if newsfilter in self._filters:
-                self._filters.remove(newsfilter)
-        self._p_changed = 1
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'is_published')
-    def is_published(self):
-        """Returns 1 so the object will be shown in TOCs and such"""
-        return 1
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'is_deletable')
-    def is_deletable(self):
-        """return 1 so this object can always be deleted"""
-        return 1
-
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'rss')
     def rss(self, REQUEST=None):
-        """return the contents of this viewer as an RSS/RDF (RSS 1.0) feed"""
+        """Return the contents of this viewer as an RSS/RDF (RSS 1.0) feed"""
         if REQUEST is not None:
             REQUEST.RESPONSE.setHeader('Content-Type', 'text/xml;charset=UTF-8')
         # get the newest items
@@ -288,7 +264,7 @@ class NewsViewer(Content, Folder.Folder):
         xml.write('<dc:date>%s</dc:date>\n' % quote_xml(date))
 
 	# output <items> list
-	# and store items in a list
+	# and store items in a list for later use
 	itemlist = []
 	xml.write('<items>\n<rdf:Seq>\n')
         for item in items:
@@ -298,12 +274,11 @@ class NewsViewer(Content, Folder.Folder):
 	    xml.write('<rdf:li rdf:resource="%s" />\n' % url)
 	xml.write('</rdf:Seq>\n</items>\n')
         xml.write('</channel>\n\n')
-        # loop over the itemslist and create a RSS/RDF item elements
+        # loop over the itemslist and create the RSS/RDF item elements
         for item in itemlist:
             self._rss_item_helper(item, xml)
-        # DONE
+        # DONE return XML
         xml.write('</rdf:RDF>\n')
-        # return XML
         return xml.read()
 
     def _rss_item_helper(self, item, xml):
@@ -324,13 +299,38 @@ class NewsViewer(Content, Folder.Folder):
         xml.write('<dc:date>%s</dc:date>\n' %
                   quote_xml(mdbinding.get('silva-extra', 'creationtime').HTML4()))
         xml.write('</item>\n')
-        
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'can_set_title')
-    def can_set_title(self):
-        """return 1 so the title can be set"""
-        return 1
-        
+        return
+
+
+    # MANIPULATORS
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_number_to_show')
+    def set_number_to_show(self, number):
+        """Sets the number of items to show
+        """
+        self._number_to_show = number
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_number_is_days')
+    def set_number_is_days(self, onoff):
+        """Sets the number of items to show
+        """
+        self._number_is_days = int(onoff)
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_filter')
+    def set_filter(self, newsfilter, on_or_off):
+        """Adds or removes a filter from the list of filters
+        """
+        self.verify_filters()
+        if on_or_off:
+            if not newsfilter in self._filters:
+                self._filters.append(newsfilter)
+        else:
+            if newsfilter in self._filters:
+                self._filters.remove(newsfilter)
+
 InitializeClass(NewsViewer)
 
 manage_addNewsViewerForm = PageTemplateFile(
