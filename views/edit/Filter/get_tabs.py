@@ -10,9 +10,9 @@
 # define name, id, up_id
 # define:
 # name, id, up_id, toplink_accesskey, tab_accesskey, uplink_accesskey
-tabs = [('Folders', 'tab_edit', 'tab_edit', '!', '1', '6'),
-        ('Items', 'tab_edit_items', 'tab_edit', '@', '2', '7'),
-        ('Metadata', 'tab_metadata', 'tab_metadata', '#', '3', '8'),
-        ('Access', 'tab_access', 'tab_access', '$', '4', '9'),
+tabs = [('folders', 'tab_edit', 'tab_edit', '!', '1', '6'),
+        ('items', 'tab_edit_items', 'tab_edit', '@', '2', '7'),
+        ('properties', 'tab_metadata', 'tab_metadata', '#', '3', '8'),
+        ('access', 'tab_access', 'tab_access', '$', '4', '9'),
        ]
 return tabs
