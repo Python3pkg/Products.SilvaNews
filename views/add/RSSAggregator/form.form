@@ -21,12 +21,12 @@
           <display_maxwidth></display_maxwidth>
           <display_width type="int">20</display_width>
           <required type="int">1</required>
-          <css_class></css_class>
+          <css_class>store</css_class>
           <default></default>
           <title>id</title>
           <truncate type="int">0</truncate>
           <description>id: no spaces or special characters besides an underscore (_).</description>
-          <extra>style="width:100%;"</extra>
+          <extra></extra>
         </values>
         <tales>
         </tales>
@@ -40,11 +40,11 @@
           <display_maxwidth></display_maxwidth>
           <display_width type="int">20</display_width>
           <required type="int">1</required>
-          <css_class></css_class>
+          <css_class>store</css_class>
           <default></default>
           <title>title</title>
           <description>The title will be publicly visible, and is used as the default link in indexes.</description>
-          <extra>style="width:100%;"</extra>
+          <extra></extra>
           <unicode type="int">1</unicode>
         </values>
         <tales>
