@@ -25,7 +25,7 @@
           <default></default>
           <title>RSS feed</title>
           <truncate type="int">0</truncate>
-          <description>Enter the URL of a RSS feed.</description>
+          <description>Enter the URL of an RSS feed.</description>
           <extra></extra>
         </values>
         <tales>
