@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.10 $
+# $Revision: 1.10.2.1 $
 import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
@@ -61,6 +61,8 @@ class NewsViewerBaseTestCase(SilvaTestCase.SilvaTestCase):
 
         self.newsfilter = add_helper_news(self.sroot, 'NewsFilter', 'newsfilter', 'NewsFilter')
         self.newsfilter.add_source('/root/source1', 1)
+        self.newsfilter.set_subjects(['test', 'test2'])
+        self.newsfilter.set_target_audiences(['test', 'test2'])
 
         self.newsviewer = add_helper_news(self.newsfilter, 'NewsViewer', 'newsviewer', 'NewsViewer')
         self.newsviewer.set_filter('/root/newsfilter', 1)
@@ -77,7 +79,7 @@ class NewsViewerTestCase(NewsViewerBaseTestCase):
         self.assert_(self.newsviewer.findfilters() == ['/root/newsfilter'])
 
     def test_findfilters_pairs(self):
-        self.assert_(self.newsviewer.findfilters_pairs() == [('NewsFilter (/root/newsfilter)', '/root/newsfilter')])
+        self.assert_(self.newsviewer.findfilters_pairs() == [(u'NewsFilter (<a href="/root/newsfilter/edit">/root/newsfilter</a>)', '/root/newsfilter')])
 
     def test_verify_filters(self):
         self.assert_(self.newsviewer.filters() == ['/root/newsfilter'])
