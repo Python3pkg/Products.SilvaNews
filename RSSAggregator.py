@@ -102,8 +102,6 @@ class RSSAggregator(NewsViewer):
         """return the contents of this viewer as an RSS/RDF (RSS 1.0) feed"""
         if REQUEST is not None:
             REQUEST.RESPONSE.setHeader('Content-Type', 'text/xml;charset=UTF-8')
-        # get the newest items
-        items = self.get_items()
         
         # create RDF/XML for the channel
         xml = XMLBuffer()

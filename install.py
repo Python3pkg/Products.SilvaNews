@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.19.4.3 $
+# $Revision: 1.19.4.4 $
 
 """Install and Uninstall for Silva News
 """
@@ -34,7 +34,7 @@ def install(root):
     configureAddables(root)
 
     # install some helper scripts in the root
-    configureLayout(root)
+##     configureLayout(root)
 
     # and add a service_news to the Silva root
     if not hasattr(root, 'service_news'):
@@ -64,8 +64,8 @@ def registerViews(reg):
                  'Silva News Publication', ['edit', 'Container', 'NewsPublication'])
     reg.register('edit',
                  'Silva News Viewer', ['edit', 'Content', 'NewsViewer'])
-    reg.register('edit',
-                 'Silva RSS Viewer', ['edit', 'Content', 'RSSViewer'])
+##     reg.register('edit',
+##                  'Silva RSS Viewer', ['edit', 'Content', 'RSSViewer'])
     reg.register('edit',
                  'Silva RSS Aggregator', ['edit', 'Content', 'RSSAggregator'])
     reg.register('edit',
@@ -81,7 +81,7 @@ def registerViews(reg):
                  'Silva News Filter', ['public', 'NewsFilter'])
     reg.register('public', 'Silva News Publication', ['public', 'NewsPublication'])
     reg.register('public', 'Silva News Viewer', ['public', 'NewsViewer'])
-    reg.register('public', 'Silva RSS Viewer', ['public', 'RSSViewer'])
+##     reg.register('public', 'Silva RSS Viewer', ['public', 'RSSViewer'])
     reg.register('public', 'Silva RSS Aggregator', ['public', 'RSSAggregator'])
     reg.register('public', 'Silva Agenda Viewer', ['public', 'AgendaViewer'])
     reg.register('public', 'Silva Article', ['public', 'PlainArticle'])
@@ -91,7 +91,7 @@ def registerViews(reg):
     reg.register('add', 'Silva News Filter', ['add', 'NewsFilter'])
     reg.register('add', 'Silva News Publication', ['add', 'NewsPublication'])
     reg.register('add', 'Silva News Viewer', ['add', 'NewsViewer'])
-    reg.register('add', 'Silva RSS Viewer', ['add', 'RSSViewer'])
+##     reg.register('add', 'Silva RSS Viewer', ['add', 'RSSViewer'])
     reg.register('add', 'Silva RSS Aggregator', ['add', 'RSSAggregator'])
     reg.register('add', 'Silva Agenda Viewer', ['add', 'AgendaViewer'])
     reg.register('add', 'Silva Article', ['add', 'NewsItem', 'PlainArticle'])
@@ -248,7 +248,7 @@ def configureSecurity(root):
         'Add Silva News Filters',
         'Add Silva News Publications',
         'Add Silva News Viewers',
-        'Add Silva RSS Viewers',
+##         'Add Silva RSS Viewers',
         'Add Silva RSS Aggregators',
         ]
 
@@ -264,7 +264,7 @@ def configureAddables(root):
                         'Silva News Filter',
                         'Silva News Publication',
                         'Silva News Viewer',
-                        'Silva RSS Viewer',
+##                         'Silva RSS Viewer',
                         'Silva RSS Aggregator',
                         'Silva Agenda Viewer'
                         ]

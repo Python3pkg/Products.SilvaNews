@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.12.2.3 $
+# $Revision: 1.12.2.4 $
 
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
@@ -16,6 +16,7 @@ from Products.Silva.helpers import add_and_edit
 from Products.Silva import mangle
 
 from Products.SilvaNews.NewsViewer import NewsViewer
+from Products.SilvaNews.NewsViewer import XMLBuffer, quote_xml, RDF_HEADER
 
 import feedparser
 
@@ -55,7 +56,7 @@ class RSSViewer(NewsViewer):
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_channel')
     def get_channel(self):
-        """Gets the date from the RSS feed
+        """Gets the data from the RSS feed
         """
         if self._rss_feed:
             res = feedparser.parse(self._rss_feed)
@@ -69,6 +70,62 @@ class RSSViewer(NewsViewer):
     def rss_feed(self):
         """Returns the URL of the RSS feed"""
         return self._rss_feed
+
+
+    def rss(self, REQUEST=None):
+        """return the contents of this viewer as an RSS/RDF (RSS 1.0) feed"""
+        if REQUEST is not None:
+            REQUEST.RESPONSE.setHeader('Content-Type', 'text/xml;charset=UTF-8')
+        
+        # create RDF/XML for the channel
+        xml = XMLBuffer()
+        xml.write(RDF_HEADER)
+
+        # get the metadata binding to get the metadata for this viewer
+        mdbinding = self.service_metadata.getMetadata(self)
+        creationdate = mdbinding.get('silva-extra', 'creationtime')
+        
+        # create RDF/XML frame
+        xml.write('<channel rdf:about="%s">\n' % self.absolute_url())
+        xml.write('<title>%s</title>\n' % quote_xml(self.get_title()))
+        xml.write('<link>%s</link>\n' % self.absolute_url())
+        xml.write('<description>%s</description>\n' %
+                  quote_xml(mdbinding.get('silva-extra', 'content_description')))
+        xml.write('<dc:creator>%s</dc:creator>\n' %
+                  quote_xml(mdbinding.get('silva-extra', 'creator')))
+	date = creationdate.HTML4()
+        xml.write('<dc:date>%s</dc:date>\n' % quote_xml(date))
+
+	# output <items> list
+	# and store items in a list
+	itemlist = self.get_channel()['items']
+	xml.write('<items>\n<rdf:Seq>\n')
+        for item in itemlist:
+	    url = quote_xml(item['link'])
+	    xml.write('<rdf:li rdf:resource="%s" />\n' % url)
+	xml.write('</rdf:Seq>\n</items>\n')
+        xml.write('</channel>\n\n')
+        # loop over the itemslist and create a RSS/RDF item elements
+        for item in itemlist:
+            self._rss_item_helper(item, xml)
+        # DONE
+        xml.write('</rdf:RDF>\n')
+        # return XML
+        return xml.read()
+
+    def _rss_item_helper(self, item, xml):
+        """convert a single item (dict) to an RSS/RDF 'item' element"""
+        url = quote_xml(item['link'])
+        xml.write('<item rdf:about="%s">\n' % url)
+        # RSS elements
+        xml.write('<title>%s</title>\n' % quote_xml(item['title']))
+        xml.write('<link>%s</link>\n' % url)
+        try:
+            xml.write('<description>%s</description>\n' %
+                      quote_xml(item['description']))
+        except KeyError:
+            pass
+        xml.write('</item>\n')
 
 InitializeClass(RSSViewer)
 
