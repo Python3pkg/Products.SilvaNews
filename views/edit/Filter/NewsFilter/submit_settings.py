@@ -40,6 +40,8 @@ if model.keep_to_path() != result['keep_to_path']:
     model.set_keep_to_path(result['keep_to_path'])
     messages.append('stick to path changed')
 
+# RSS export disabled, might want to turn it on later
+"""
 if model.allow_rss_export() != result['allow_rss_export']:
     model.set_allow_rss_export(result['allow_rss_export'])
     messages.append('allow rss export changed')
@@ -63,5 +65,5 @@ if model.allow_rss_search() != rss_result['allow_rss_search']:
 if model.rss_search_description() != rss_result['rss_search_description']:
     model.set_rss_search_description(rss_result['rss_search_description'])
     messages.append('rss search description')
-
+"""
 return context.tab_edit(message_type="feedback", message="Settings changed for: %s" % (context.quotify_list(messages)))
