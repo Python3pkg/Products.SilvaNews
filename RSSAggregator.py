@@ -123,7 +123,7 @@ class RSSAggregator(NewsViewer):
 	xml.write('<items>\n<rdf:Seq>\n')
         for item in itemlist:
 	    url = quote_xml(item['link'])
-	    xml.write('<rdf:li resource="%s" />\n' % url)
+	    xml.write('<rdf:li rdf:resource="%s" />\n' % url)
 	xml.write('</rdf:Seq>\n</items>\n')
         xml.write('</channel>\n\n')
         # loop over the itemslist and create a RSS/RDF item elements
