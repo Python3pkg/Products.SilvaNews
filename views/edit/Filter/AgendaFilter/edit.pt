@@ -140,7 +140,7 @@
                   <input type="checkbox" name="cb:list" value="value"
                       tal:attributes="value string:cb_${id}; checked source/check_checkbox" />
                   <a href="edit" title="edit this news source"
-                      tal:attributes="href string:${object_url}/edit/tab_edit"><img tal:replace="structure python:view.render_icon(obj)" /></a>
+                      tal:attributes="href string:${object_url}/edit/tab_edit"><img tal:replace="structure python:view.render_icon(obj.getObject())" /></a>
                 </td>
 
                 <span tal:replace="nothing"> _______ id cell _______ </span>
