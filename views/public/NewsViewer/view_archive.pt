@@ -9,41 +9,37 @@
                    global mangle modules/Products/Silva/mangle;
                    " />
 
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr>
-<td>
-  <div class="margins">
-    <h2>Archive <span tal:replace="model/get_title">View Archive</span></h2>
-  </div>
-</td>
-<tr>
-</table>
+<style type="text/css">
+table.listing a:link {
+  text-decoration: none;
+}
+table.listing a:visited {
+  text-decoration: none;
+}
+</style>
+
+<h2 style="margin-bottom:0.5em">Archive of <span tal:replace="model/get_title">View Archive</span></h2>
 
 <table class="listing">
-<tr class="controls">
-<td class="align-right" colspan="14">
-<form tal:attributes="action model/absolute_url" method="post">
-<input type="text" name="query" />
-<input class="button" type="submit" value="Search" title="Do a full text search: alt-s" accesskey="s"/>
-</form>
-</td>
-</tr>
+   <tr class="divider">
+     <td colspan="14"></td>
+   </tr>
 
       <tbody>
-        <tr>
-          <th>
-            <a href="3" tal:content="python: '<< %s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
-          </th>
+        <tr class="even">
+          <td>
+            <a href="3" tal:content="structure python: '<<&nbsp;%s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
+          </td>
           <tal:repeat repeat="month months">
             <tal:define define="id repeat/month/index">
-              <th align="center" tal:attributes="style python:test(id == int(currentmonth) - 1, 'background-color: #FFFFFF;;', '');">
+              <td align="center" tal:attributes="style python:test(id == int(currentmonth) - 1, 'background-color: #829199;;', '');">
                 <a href="#" tal:content="month" tal:attributes="href python: '?month=%s&year=%s&view=view_archive' % (id + 1, currentyear)"></a>
-              </th>
+              </td>
             </tal:define>
           </tal:repeat>
-          <th>
-            <a href="3" tal:content="python: '%s >>' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a>
-          </th>
+          <td>
+            <a href="3" tal:content="structure python: '%s&nbsp;>>' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a>
+          </td>
         </tr>
       </tbody>
 
@@ -73,17 +69,15 @@
 <span tal:replace="nothing"> _______ title cell _______ </span>
 <td valign="top" align="left" colspan="8">
 <tal:block condition="python:object.get_title() != ''">
-<!-- <img style="height:100%" width="32" height="18" align="left"
-  tal:attributes="src string:${silva_root}/globals/pixel.gif" /> -->
-<a class="blacklink" title="View this item"
+<a title="View this item"
   tal:attributes="href python: object.object().absolute_url()">
-<span tal:content="object/get_title" style="font-size: 14px; font-weight: bold;">title</span>
+<b tal:content="object/get_title">title</b>
 </a>
 </tal:block>
 <tal:block condition="python:object.get_title() == ''">
 <img style="height:100%" width="32" height="18" align="left"
   tal:attributes="src string:${silva_root}/globals/pixel.gif" />
-<a class="blacklink" title="View this item"
+<a title="View this item"
   tal:attributes="href python: object.object().absolute_url()">
 <span tal:replace="obj/id">title</span>
 </a>
@@ -94,9 +88,7 @@
 <td nowrap="1" valign="top" align="left" colspan="3">
 <span tal:replace="python:object.last_author_fullname()" />
 </td>
-
 </tr>
-
 
 </cycle>
 </toc_entry>
@@ -118,21 +110,33 @@ There are no articles for this period.
 <!-- /iteration -->
 
       <tbody>
-        <tr>
-          <th>
-            <a href="3" tal:content="python: '<< %s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
-          </th>
+        <tr class="top-controls">
+          <td colspan="14"></td>
+        </tr>
+        <tr class="even">
+          <td>
+            <a href="3" tal:content="structure python: '<<&nbsp;%s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
+          </td>
           <tal:repeat repeat="month months">
             <tal:define define="id repeat/month/index">
-              <th align="center" tal:attributes="style python:test(id == int(currentmonth) - 1, 'background-color: #FFFFFF;;', '');">
+              <td align="center" tal:attributes="style python:test(id == int(currentmonth) - 1, 'background-color: #829199;;', '');">
                 <a href="#" tal:content="month" tal:attributes="href python: '?month=%s&year=%s&view=view_archive' % (id + 1, currentyear)"></a>
-              </th>
+              </td>
             </tal:define>
           </tal:repeat>
-          <th>
-            <a href="3" tal:content="python: '%s >>' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a>
-          </th>
+          <td class="align-right">
+            <a href="3" tal:content="structure python: '%s&nbsp;>>' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a>
+          </td>
         </tr>
+
+<tr class="controls">
+<td class="align-right" colspan="14">
+<form tal:attributes="action model/absolute_url" method="post">
+<input style="border-width:1px" type="text" name="query" />
+<input class="button" style="border:1px solid #6bb591;" type="submit" value="search" title="Do a full text search: alt-s" accesskey="s"/>
+</form>
+</td>
+</tr>
       </tbody>
     </table>
     

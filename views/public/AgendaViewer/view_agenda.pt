@@ -5,54 +5,34 @@
                    global mangle modules/Products/Silva/mangle;
                    " />
 
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr>
-<td>
-  <div class="margins">
-    <h2><span tal:replace="model/get_title">View Agenda</span></h2>
-  </div>
-</td>
-</tr>
-</table>
+<h2 style="margin-bottom:0.6em"><span tal:replace="model/get_title">View Agenda</span></h2>
 
 <tal:comment condition="nothing">Begin PublicationTable</tal:comment>
 
 <table class="listing">
-
-<tr class="controls" valign="bottom">
-<td class="align-right" colspan="2">
-<form tal:attributes="action model/absolute_url" method="post">
-<input type="text" name="query" />&nbsp;
-<input class="button" type="submit" value="Search" title="Do a full text search: alt-s" accesskey="s" />
-</form>
-</td>
+<tr class="divider">
+<td></td>
 </tr>
 
 <span tal:replace="nothing"> ______________ listing iteration ______________ </span>
 <toc_entry tal:omit-tag=""
   tal:repeat="obj results">
 <tal:block define="object obj/getObject">
-
-<tr class="odd">
-<span tal:replace="nothing"> _______ title cell _______ </span>
-<td valign="top" align="left">
-<h2 tal:content="structure object/get_title">title</h2>
-<h3 tal:content="structure object/subheader">subheader</h3>
-</td>
-</tr>
-
-<tr class="even">
-<td align="left" valign="top">
-<b tal:content="structure object/lead">Lead</b><br /><br />
-<span tal:replace="structure python: 'Startdate/time:<br />%s<br /><br />' % mangle.DateTime(object.start_datetime()).toStr()" tal:condition="object/start_datetime">DateTime</span>
-<a href="#" tal:attributes="href python: object.object().absolute_url()">view article</a>
-</td>
-</tr>
-
-<tr class="divider">
-<td><img tal:attributes="src string:${silva_root}/globals/pixel.gif" width="1" height="1" /></td>
-</tr>
-
+  <tr class="even">
+    <td style="border-bottom-width:2px;">
+      <h4 style="margin-top:0.5em"
+        tal:content="structure object/get_title">title</h4>
+      <h5 style="margin-top:0.3em"
+        tal:content="structure object/subheader"
+        tal:condition="object/subheader">subheader</h5>
+      <b tal:content="structure string:${object/lead}<br />"
+        tal:condition="object/lead">Lead</b>
+      <span tal:replace="structure python: 'Start date/time: %s<br />' % mangle.DateTime(object.start_datetime()).toStr()"
+        tal:condition="object/start_datetime | nothing">DateTime</span>
+      <a tal:attributes="href python:object.object().absolute_url()">view article</a>
+      <br /><br />
+    </td>
+  </tr>
 </tal:block>
 </toc_entry>
 
@@ -67,6 +47,15 @@ There are no articles.
 <td><img tal:attributes="src string:${silva_root}/globals/pixel.gif" width="1" height="1" /></td>
 </tr>
 </check>
+
+<tr class="controls" valign="bottom">
+<td class="align-right" colspan="2">
+<form tal:attributes="action model/absolute_url" method="post">
+<input style="border-width:1px" type="text" name="query" />&nbsp;
+<input class="button" style="border:1px solid #6bb591;" type="submit" value="search" title="Do a full text search: alt-s" accesskey="s" />
+</form>
+</td>
+</tr>
 <!-- /iteration -->
 
 </table><br />
