@@ -25,7 +25,7 @@
           <required type="int">1</required>
           <css_class></css_class>
           <default></default>
-          <title>Title</title>
+          <title>title</title>
           <description></description>
           <extra></extra>
           <unicode type="int">1</unicode>
@@ -47,8 +47,8 @@
           <required type="int">1</required>
           <default_now type="int">0</default_now>
           <css_class></css_class>
-          <title>Date and time</title>
-          <description>Format: DD/MM/YYYY</description>
+          <title>date and time</title>
+          <description>Format: d/m/y, time is optional</description>
         </values>
         <tales>
           <time_separator>python:form.get_time_punctuation()</time_separator>
@@ -68,8 +68,8 @@
           <required type="int">0</required>
           <default_now type="int">0</default_now>
           <css_class></css_class>
-          <title>End date and time</title>
-          <description>Format: DD/MM/YYYY</description>
+          <title>end date and time</title>
+          <description>Format: d/m/y, time is optional</description>
         </values>
         <tales>
           <time_separator>python:form.get_time_punctuation()</time_separator>
@@ -88,7 +88,7 @@
           <required type="int">0</required>
           <css_class></css_class>
           <default></default>
-          <title>Location</title>
+          <title>location</title>
           <description></description>
           <unicode type="int">1</unicode>
           <extra></extra>

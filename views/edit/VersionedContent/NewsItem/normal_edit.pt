@@ -7,33 +7,28 @@
   global editable python:model.get_editable()" />
  
 <br />
-<table width="100%" cellspacing="0" cellpadding="1" border="0">
-<tr valign="top">
-<td width="16"><img tal:attributes="src string:${silva_root}/globals/pixel.gif" width="16" height="16" border="0" alt="not editable" /></td>
-<td colspan="3" width="98%">
-<div class="front3">&nbsp;<tal:block replace="model/meta_type" />&nbsp;<tal:block replace="model/get_title_editable" /></div>
-</td>
-<td width="60" align="right" valign="top">&nbsp;</td>
-</tr>
-</table>
-
 <form method="POST" name="form" action="submit">
-<table class="listing">
+<table class="listing" width="100%" cellspacing="0" cellpadding="0" border="0">
 <tr>
-<th class="transparent" width="16">&nbsp;</th>
-<th align="left">
-Element
+<td class="invisible" width="16"></td>
+<td  class="invisible" colspan="3" width="98%">
+<div class="front3" style="margin-bottom:.5em"><tal:block replace="model/meta_type" />&nbsp;&#xab;<tal:block replace="model/get_title_editable" />&#xbb;</div>
+</td>
+<td class="invisible" width="60" align="right" valign="top">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="invisible" width="16">&nbsp;</td>
+<th class="align-right" style="border-left:1px solid #617681;">
+element
 </th>
-<th align="right">
-&nbsp;
+<th>
+content
 </th>
-<th align="left">
-Content
+<th width="20%">
+note
 </th>
-<th align="left" width="20%">
-Note
-</th>
-<th class="transparent" width="60">&nbsp;</th>
+<td class="invisible" width="60">&nbsp;</td>
 </tr>
 
 <fieldset tal:omit-tag=""
@@ -41,24 +36,14 @@ Note
 <rowset tal:omit-tag=""
   tal:define="global oddrow repeat/field/odd">
 
-<definition tal:define="global class  python:test(lastclass=='odd', 'even', 'odd'); global lastclass class" tal:omit-tag="" />
-<tr class="odd" valign="top"
-  tal:attributes="class class">
-<td class="transparent" width="16">&nbsp;</td>
-<td align="right">
-<span tal:replace="python:field['title']">Title</span>
+<definition tal:define="global class  python:test(lastclass=='even', 'even', 'odd'); global lastclass class" tal:omit-tag="" />
+<tr tal:attributes="class class">
+<td class="invisible" width="16">&nbsp;</td>
+<td class="field-title" style="border-left:1px solid #617681;">
+<span tal:replace="python:field['title']">title</span><span class="warning"
+  tal:condition="python:field.is_required()">*</span>
 </td>
-<td align="right">
-<span class="warning"
-  tal:condition="python:field.is_required()">
-*
-</span>
-<span tal:omit-tag=""
-  tal:condition="not:python:field.is_required()">
-&nbsp;
-</span>
-</td>
-<td align="left">
+<td>
 <input tal:replace="structure python:view.render_field_helper(field)" />
 </td>
 <td>
@@ -66,31 +51,27 @@ Note
 comments here (field description)
 </span>&nbsp;
 </td>
-<td class="transparent" width="60" align="right" valign="top">&nbsp;</td>
+<td class="invisible" width="60" align="right" valign="top">&nbsp;</td>
 </tr>
 </rowset>
 
 <content-editor tal:omit-tag=""
   tal:condition="python:field.id == 'object_title'">
-<tr comment="AgendaItem Content" class="odd" valign="top"
+<tr comment="AgendaItem content" class="odd" valign="top"
   tal:attributes="class class" tal:define="class python:test(lastclass=='odd', 'even', 'odd'); global lastclass class">
-  <td width="16" class="transparent" ><a href="content_mode"><img tal:attributes="src string:${silva_root}/globals/edit_element.gif" width="16" height="16" border="0" alt="edit element" /></a></td>
-  <td class="rowhead" align="right"><a href="content_mode">Content</a></td>
-  <td align="right">&nbsp;</td>
+  <td width="16" class="invisible" >&nbsp;</td>
+  <td class="field-title" style="border-left:1px solid #617681;"><div class="controls"><a href="content_mode"><a class="transport" href="content_mode">content editor...</a></div></td>
   <td><p tal:replace="structure view/get_content" /><p tal:condition="not: view/get_content" tal:replace="structure string:(nothing filled in)" /></td>
   <td>&nbsp;</td>
-  <td class="transparent" width="60" align="right" valign="top">&nbsp;</td>
+  <td class="invisible" width="60" align="right" valign="top">&nbsp;</td>
 </tr>
 </content-editor>
 </fieldset>
 
 <tr class="odd" valign="top" tal:attributes="class python:test(lastclass=='odd', 'even', 'odd')">
-<td class="transparent" width="16">&nbsp;</td>
-<td align="right">
-Subjects:
-</td>
-<td align="right">
-&nbsp;
+<td class="invisible" width="16">&nbsp;</td>
+<td class="field-title" style="border-left:1px solid #617681;">
+subjects
 </td>
 <td align="left">
 <tal:block repeat="subject editable/subjects">
@@ -100,16 +81,13 @@ Subjects:
 <td>
 &nbsp;
 </td>
-<td class="transparent" width="60" align="right" valign="top">&nbsp;</td>
+<td class="invisible" width="60" align="right" valign="top">&nbsp;</td>
 </tr>
 
 <tr class="odd" valign="top" tal:attributes="class lastclass">
-<td class="transparent" width="16">&nbsp;</td>
-<td align="right">
-Target audiences:
-</td>
-<td align="right">
-&nbsp;
+<td class="invisible" width="16">&nbsp;</td>
+<td class="field-title" style="border-left:1px solid #617681;">
+target audiences
 </td>
 <td align="left">
 <tal:block repeat="ta editable/target_audiences">
@@ -119,35 +97,20 @@ Target audiences:
 <td>
 &nbsp;
 </td>
-<td class="transparent" width="60" align="right" valign="top">&nbsp;</td>
-</tr>
-
-<tr class="odd" valign="top" tal:attributes="class python:test(lastclass=='odd', 'even', 'odd')">
-<td class="transparent" width="16">&nbsp;</td>
-<td align="right">
-&nbsp;
-</td>
-<td align="right">
-&nbsp;
-</td>
-<td align="left">
-<a href="sta_mode">Edit subjects and target audiences</a>
-</td>
-<td>
-&nbsp;
-</td>
-<td class="transparent" width="60" align="right" valign="top">&nbsp;</td>
+<td class="invisible" width="60" align="right" valign="top">&nbsp;</td>
 </tr>
 
 <tr class="controls">
-<td class="transparent" width="16">&nbsp;</td>
-<td colspan="4" class="align-right">
+<td class="invisible" width="16">&nbsp;</td>
+<td>&nbsp;</td>
+<td><div class="controls"><a class="transport" href="sta_mode">modify subjects and target audiences...</a></div></td>
+<td class="align-right" style="border-left:1px solid #617681;">
 <input class="button" type="submit"
-       name="form_submitted" value="Save item"
-       title="Access key: alt-s" accesskey="s"
+       name="form_submitted" value="save item"
+       title="access key: alt-s" accesskey="s"
        />
 </td>
-<td class="transparent" width="60" align="right" valign="top">&nbsp;</td>
+<td class="invisible" width="60" align="right" valign="top">&nbsp;</td>
 </tr>
 </table>
 

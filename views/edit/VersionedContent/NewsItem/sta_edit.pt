@@ -6,33 +6,28 @@
   global editable python:model.get_editable()" />
  
 <br />
-<table width="100%" cellspacing="0" cellpadding="1" border="0">
-<tr valign="top">
-<td width="16"><img tal:attributes="src string:${silva_root}/globals/pixel.gif" width="16" height="16" border="0" alt="not editable" /></td>
-<td colspan="3" width="98%">
-<div class="front3">&nbsp;Article</div>
-</td>
-<td width="60" align="right" valign="top">&nbsp;</td>
-</tr>
-</table>
-
 <form method="POST" name="form" action="sta_submit">
 <table class="listing">
+<tr valign="top">
+<td class="invisible" width="16"><img tal:attributes="src string:${silva_root}/globals/pixel.gif" width="1" height="1" border="0" alt="not editable" /></td>
+<td class="invisible" colspan="3" width="98%">
+<div class="front3" style="margin-bottom:0.5em">Article filtering</div>
+</td>
+<td class="invisible" width="60" align="right" valign="top">&nbsp;</td>
+</tr>
+
 <tr>
-<th width="16">&nbsp;</th>
-<th align="left">
-Element
+<td claa="invisible"  width="16">&nbsp;</td>
+<th style="border-left:1px solid #617681;">
+element
 </th>
-<th align="right">
-&nbsp;
+<th width="60%">
+content
 </th>
-<th align="left">
-Content
+<th width="20%">
+note
 </th>
-<th align="left" width="20%">
-Note
-</th>
-<th width="60">&nbsp;</th>
+<td class="invisible" width="60">&nbsp;</td>
 </tr>
 
 <fieldset tal:omit-tag=""
@@ -42,15 +37,10 @@ Note
 
 <tr class="odd" valign="top"
   tal:define="class python:test(oddrow, 'odd', 'even'); global lastclass class" tal:attributes="class class">
-<td class="transparent" width="16">&nbsp;</td>
-<td align="right">
-<span tal:replace="python:field['title'].capitalize() + ':'">Title</span>
-</td>
-<td align="right">
-<span class="warning"
-  tal:condition="python:field.is_required()">
-*
-</span>
+<td class="invisible" width="16">&nbsp;</td>
+<td  class="field-title" style="border-left:1px solid #617681;">
+<span tal:replace="python:field['title'].lower()">title</span><span class="warning"
+  tal:condition="python:field.is_required()">*</span>
 <span tal:omit-tag=""
   tal:condition="not:python:field.is_required()">
 &nbsp;
@@ -64,37 +54,22 @@ Note
 comments here (field description)
 </span>&nbsp;
 </td>
-<td class="transparent" width="60" align="right" valign="top">&nbsp;</td>
+<td class="invisible" width="60" align="right" valign="top">&nbsp;</td>
 </tr>
 </rowset>
 </fieldset>
 
-<tr class="focus" valign="top"
-  tal:define="class python:test(lastclass=='odd', 'even', 'odd')" tal:attributes="class class">
-<td class="transparent" width="16">&nbsp;</td>
-<td align="right">
-&nbsp;
-</td>
-<td align="right">
-&nbsp;
-</td>
-<td align="left">
-<a href="normal_mode">Back to tab edit</a>
-</td>
-<td>
-&nbsp;
-</td>
-<td class="transparent" width="60" align="right" valign="top">&nbsp;</td>
-</tr>
-
 <tr class="controls">
-<td class="transparent" width="16">&nbsp;</td>
-<td colspan="4" class="align-right">
+<td class="invisible" width="16">&nbsp;</td>
+<td style="border-left:1px solid #617681;">&nbsp;</td>
+<td colspan="2" style="vertical-align:bottom">
+<div class="controls">
 <input class="button" type="submit"
-       name="form_submitted" value=" change item "
-       tal:attributes="value string: Save subjects and target audiences " />
+       name="form_submitted" value="save subjects and target audiences" />
+<a class="transport" href="normal_mode">back to article...</a>
+</div>
 </td>
-<td class="transparent" width="60" align="right" valign="top">&nbsp;</td>
+<td class="invisible" width="60" align="right" valign="top">&nbsp;</td>
 </tr>
 </table>
 
