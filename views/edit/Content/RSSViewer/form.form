@@ -23,9 +23,9 @@
           <required type="int">0</required>
           <css_class></css_class>
           <default></default>
-          <title>RSS-feed</title>
+          <title>RSS feed</title>
           <truncate type="int">0</truncate>
-          <description>Enter the URL of an RSS feed to use as the source of newsitems.</description>
+          <description>Enter the URL of a RSS feed.</description>
           <extra></extra>
         </values>
         <tales>

@@ -5,57 +5,38 @@
                    channel result/channel;
                    " >
 
-  <table border="0" cellpadding="0" cellspacing="5">
+  <table width="100%" border="0" cellpadding="0" cellspacing="5">
     <tr>
-      <td colspan="2">
-        <h2><span class="folder-title" tal:content="channel/title | nothing">View News</span></h2>
-      </td>
-    </tr>
-    <tr>
-      <td valign="top" colspan="2">
-        <a tal:condition="channel/link" tal:attributes="href channel/link">
-          <span tal:content="structure channel/link" /><br /><br />
+      <td>
+        <h2 style="margin-bottom:0.5em; width:100%; padding-bottom:0.5em; border-bottom:2px solid #88a">
+          <a style="text-decoration:none; color:#0000aa;"
+            tal:attributes="href channel/link" tal:content="channel/title | nothing">
+            channel title
+          </a>
+        </h2>
+        <a style="float:right; margin-top:0.3em;"
+          tal:condition="channel/link" 
+          tal:attributes="href channel/link">
+          <img border="0" width="36" height="14"
+            tal:attributes="src string:${silva_root}/globals/xml.gif" />
         </a>
         <tal:block condition="channel/description">
-            <span tal:replace="structure channel/description" /><br /><br />
+            <span tal:replace="structure channel/description" /><br />
         </tal:block>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
         <tal:block condition="channel/copyright | nothing">
-          <span tal:replace="structure channel/copyright" /><br /><br />
+          <span tal:replace="structure channel/copyright" />
         </tal:block>
       </td>
     </tr>
-  </table>
-  <br />
-
-
-  <table width="100%" cellspacing="0" cellpadding="3" border="2"
-    tal:attributes="cellspacing container/table_cellspacing;
-    cellpadding container/table_cellpadding;
-    border container/table_border">
-
     <toc_entry tal:omit-tag=""
       tal:repeat="item python: result['items']">
-
-      <tr class="focus">
-
-        <span tal:replace="nothing"> _______ title cell _______ </span>
+      <tr>
         <td valign="top" align="left">
-          <h2 tal:content="structure item/title" tal:condition="item/title | nothing">title</h2>
-        </td>
-      </tr>
-
-      <tr class="focus-cycle">
-        <td align="left" valign="top">
-          <b tal:content="structure item/description" tal:condition="item/description | nothing">Lead</b><br /><br />
+          <h4 tal:content="structure item/title" tal:condition="item/title | nothing">title</h4>
+          <b tal:content="structure item/description" tal:condition="item/description | nothing">Lead</b><br />
           <a href="#" tal:attributes="href item/link" tal:condition="item/link | nothing">view article</a>
         </td>
       </tr>
-
     </toc_entry>
-
-  </table><br />
+  </table>
 </tal:block>
