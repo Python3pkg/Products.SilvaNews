@@ -1,21 +1,23 @@
-<init tal:define="global model request/model; global view here; global version options/version; global mangle modules/Products/Silva/mangle" />
+<init tal:define="global model request/model; global view here; global version options/version; global mangle modules/Products/Silva/mangle" tal:omit-tag="" />
 
-<table cellspacing="0" width="100%" border="0">
+<table cellspacing="0" cellpadding="1" width="100%" border="0">
 
 <tr>
-<td>
+<td colspan="2">
 <h2 tal:content="structure python:version.get_title()">Title</h2>
 </td>
-<td rowspan="3" width="20%" valign="top" style="font-size: 10px; background-color: #eeeeee; text-align: right;">
+</tr>
+<tr style="vertical-align:top">
+<td style="padding-right:1em">
+<p tal:replace="structure python: view.get_content(version)"></p>
+</td>
+<td width="20%" valign="top" style="font-size: 10px; padding-top:0.8em; text-align: right;">
+<tal:block 
+  define="creationdate python: mangle.DateTime(version.get_metadata_element('silva-extra', 'creationtime')).toStr()"
+  condition="python: creationdate != ''">
 <b>Creation date:</b><br />
-<span tal:replace="structure python:mangle.DateTime(version.get_metadata_element('silva-extra', 'creationtime')).toStr()"></span><br /><br />
+<span tal:replace="structure creationdate"></span><br /><br />
+</tal:block>
 </td>
 </tr>
-
-<tr>
-<td>
-<p tal:content="structure python: view.get_content(version)"></p>
-</td>
-</tr>
-
 </table>
