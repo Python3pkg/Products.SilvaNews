@@ -35,7 +35,8 @@
   <form action="." name="silvaObjects" method="POST">
 
     <tal:comment condition="nothing">__________ date table __________</tal:comment>
-    <table class="listing">
+    <table class="listing"
+      style="margin-bottom:0;">
       <thead>
         <tal:block replace="nothing">
           ______________ vein + title row ______________
@@ -53,36 +54,35 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th>
+        <tr class="even">
+          <td>
             <a href="3" tal:content="python: '<< %s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
-          </th>
+          </td>
           <tal:repeat repeat="month months">
             <tal:define define="id repeat/month/index">
-              <th align="center" tal:attributes="style python:test(id == int(currentmonth) - 1, 'background-color: #FFFFFF;;', '');">
+              <td class="align-center" tal:attributes="style python:test(id == int(currentmonth) - 1, 'background-color: #829199;;', '');">
                 <a href="#" tal:content="month" tal:attributes="href python: '?month=%s&year=%s&view=view_archive' % (id + 1, currentyear)"></a>
-              </th>
+              </td>
             </tal:define>
           </tal:repeat>
-          <th>
+          <td class="align-right">
             <a href="3" tal:content="python: '%s >>' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a>
-          </th>
+          </td>
         </tr>
       </tbody>
     </table>
 
     <tal:comment condition="nothing">Begin PublicationTable</tal:comment>
 
-    <table class="listing">
-
+    <table class="listing interlisting">
 
       <span tal:replace="nothing"> ______________ table header ______________ </span>
       <tr tal:condition="python:len(objects) != 0">
-        <th align="left" width="3%" nowrap="1">Type</th>
-        <th align="left" width="12%">Edit</th>
-        <th align="left">View</th>
-        <th align="left" width="9%">Publish&nbsp;date&nbsp;</th>
-        <th align="right" width="8%">Expiration&nbsp;date</th>
+        <th width="3%">type</th>
+        <th>modify</th>
+        <th>view</th>
+        <th>publication&nbsp;due&nbsp;</th>
+        <th>expiration&nbsp;due</th>
       </tr>
 
       <span tal:replace="nothing"> ______________ listing iteration ______________ </span>
@@ -100,7 +100,7 @@
       <td nowrap="1">
       <input type="checkbox" name="cb:list" value="value"
        tal:attributes="value string:cb_${id}; checked object/check_checkbox" />
-      <a href="edit" title="Edit this item"
+      <a href="edit" title="sdit this item"
         tal:attributes="href string:${object_url}/edit/tab_edit">
       <img tal:replace="structure python:view.render_icon(obj.object())" />
       </a>
@@ -120,7 +120,7 @@
       <tal:block condition="python:obj.get_title != ''">
       <a class="blacklink" title="Preview this item"
         tal:attributes="href string:${object_url}">
-      <b tal:content="structure string:${obj/get_title}">title</b>
+      <span tal:replace="structure string:${obj/get_title}">title</span>
       </a>
       </tal:block>
       <tal:block condition="python:obj.get_title == ''">
@@ -132,10 +132,10 @@
       <td>
       <tal:block define="publication_dt obj/publication_datetime">
         <tal:block condition="publication_dt">
-          <span tal:replace="structure python: mangle.DateTime(publication_dt).toStr()" tal:omit-tag="">21 oct 2001 18:18</span>
+          <span tal:replace="structure python: mangle.DateTime(publication_dt).toStr()">21 oct 2001 18:18</span>
         </tal:block>
         <tal:block condition="not: publication_dt">
-          None
+          &nbsp;
         </tal:block>
       </tal:block>
       </td>
@@ -148,7 +148,7 @@
           <span tal:replace="structure python: mangle.DateTime(expiration_dt).toStr()" tal:omit-tag="">21 oct 2001 18:18</span>
         </tal:block>
         <tal:block condition="not: expiration_dt">
-          None
+          &nbsp;
         </tal:block>
       </tal:block>
       </span>
@@ -170,7 +170,7 @@
       </tr>
       <tr class="odd">
       <td colspan="6">
-      There are no objects for this period.
+      <i>There are no news items for this period. Check that news sources are activated (go to the editor screen) and items in the sources are published.</i>
       </td>
       </tr>
       <tr>
@@ -211,14 +211,14 @@
       <script type="text/javascript">
       <!--
       if (document.forms[0]) {
-        document.write('<input class="button" type="submit" name="selectButton" value="Select all - alt a" accesskey="a" title="Select all items on and below this level" onClick="toggleSelect(); return false">')
+        document.write('<input class="button" type="submit" name="selectButton" value="select all" accesskey="a" title="select all items on and below this level: alt-a" onClick="toggleSelect(); return false">')
         }
       //-->
       </script>
       &nbsp;
       <input type="hidden" name="year" value="" tal:attributes="value currentyear">
       <input type="hidden" name="month" value="" tal:attributes="value currentmonth">
-      <input class="button" type="submit" name="use_items:method" value="Update" title="Use selected items in this filter- alt-u" accesskey="u" />
+      <input class="button" type="submit" name="use_items:method" value="update" title="use selected items in this filter: alt-u" accesskey="u" />
       &nbsp;
       </td>
       <td align="right" colspan="3" nowrap="1">
@@ -230,23 +230,24 @@
 
     </table>
 
-    <tal:comment condition="nothing">__________ date table __________</tal:comment>
-    <table class="listing">
+    <tal:comment condition="nothing"> __________ date table __________ </tal:comment>
+    <table class="listing"
+      style="border-bottom-width:2px;">
       <tbody>
-        <tr>
-          <th>
+        <tr class="even">
+          <td>
             <a href="3" tal:content="python: '<< %s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
-          </th>
+          </td>
           <tal:repeat repeat="month months">
             <tal:define define="id repeat/month/index">
-              <th align="center" tal:attributes="style python:test(id == int(currentmonth) - 1, 'background-color: #FFFFFF;;', '');">
+              <td align="center" tal:attributes="style python:test(id == int(currentmonth) - 1, 'background-color: #829199;;', '');">
                 <a href="#" tal:content="month" tal:attributes="href python: '?month=%s&year=%s&view=view_archive' % (id + 1, currentyear)"></a>
-              </th>
+              </td>
             </tal:define>
           </tal:repeat>
-          <th>
+          <td class="align-right">
             <a href="3" tal:content="python: '%s >>' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a>
-          </th>
+          </td>
         </tr>
       </tbody>
     </table>

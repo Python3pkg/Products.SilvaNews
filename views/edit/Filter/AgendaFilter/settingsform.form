@@ -19,7 +19,7 @@
           <hidden type="int">0</hidden>
           <items>[]</items>
           <default>[]</default>
-          <title>Subjects</title>
+          <title>subjects</title>
           <orientation>vertical</orientation>
           <description></description>
           <css_class></css_class>
@@ -38,7 +38,7 @@
           <hidden type="int">0</hidden>
           <items>[]</items>
           <default>[]</default>
-          <title>Target audiences</title>
+          <title>target audiences</title>
           <orientation>vertical</orientation>
           <description></description>
           <css_class></css_class>
@@ -59,13 +59,13 @@
           <required type="int">1</required>
           <css_class></css_class>
           <default></default>
-          <title>Stick to path</title>
+          <title>stick to path</title>
           <first_item type="int">0</first_item>
-          <description>If set to 'yes', only show items in the same branch of the tree as the filter.</description>
+          <description>Setting to 'yes' keeps the filter local, showing only items in the content tree that are below the location of the filter.</description>
           <external_validator></external_validator>
         </values>
         <tales>
-          <items>python: [('Yes', 1), ('No', 0)]</items>
+          <items>python: [('yes', 1), ('no', 0)]</items>
           <default>python: form.REQUEST.model.keep_to_path()</default>
         </tales>
       </field>

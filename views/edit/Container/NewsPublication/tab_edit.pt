@@ -83,7 +83,7 @@
             <input class="button"
               type="submit" 
               name="settings_submit:method" 
-              value="toggle status"
+              value="open/close"
               title="change the public/private status of the news publication: alt-o"
               accesskey="o"
             />

@@ -55,11 +55,11 @@
 
       <span tal:replace="nothing"> ______________ table header ______________ </span>
       <tr tal:condition="python:len(objects) != 0">
-        <th align="left" width="3%" nowrap="1">In use</th>
-        <th align="left" width="1%">Edit</th>
-        <th align="left">View</th>
-        <th align="left" width="9%">Publish&nbsp;date&nbsp;</th>
-        <th align="left" width="9%">Expiration&nbsp;date&nbsp;</th>
+        <th width="3%" nowrap="1">in use</th>
+        <th>edit</th>
+        <th>view</th>
+        <th>publication&nbsp;due&nbsp;</th>
+        <th>expiration&nbsp;due&nbsp;</th>
       </tr>
 
       <span tal:replace="nothing"> ______________ listing iteration ______________ </span>
@@ -78,30 +78,29 @@
               <td nowrap="1">
                 <input type="checkbox" name="cb:list" value="value"
                     tal:attributes="value string:cb_${id}; checked object/check_checkbox" />
-                <a href="edit" title="Edit this item"
+                <a href="edit" title="edit this item"
                   tal:attributes="href string:${object_url}/edit/tab_edit">
                 <img tal:replace="structure python:view.render_icon(obj.object())" /></a>
               </td>
 
               <span tal:replace="nothing"> _______ id cell _______ </span>
               <td>
-                <a title="Edit this item"
-                  tal:attributes="href string:${object_url}/edit;
-                                  class python:view.get_status_style(object_status)"
+                <a title="edit this item"
+                  tal:attributes="href string:${object_url}/edit"
                   tal:content="python: '/'.join(obj.object().getPhysicalPath())">id</a>
               </td>
 
               <span tal:replace="nothing"> _______ title cell _______ </span>
               <td>
                 <tal:block condition="python:obj.get_title != ''">
-                  <a class="blacklink" title="Preview this item"
+                  <a class="bluelink" title="Preview this item"
                     tal:attributes="href string:${object_url}">
-                    <b tal:content="string:${obj/get_title}">title</b>
+                    <span tal:replace="string:${obj/get_title}">title</span>
                   </a>
                 </tal:block>
-                <tal:block condition="object/check_checkbox">
-                  &nbsp;(Selected)
-                </tal:block>
+                <span class="warning" tal:condition="not: object/check_checkbox">
+                  &nbsp;(deselected)
+                </span>
                 <tal:block condition="python:obj.get_title == ''">
                 </tal:block>
               </td>
@@ -113,7 +112,7 @@
                     <span tal:replace="structure python: mangle.DateTime(publication_dt).toStr()" tal:omit-tag="">21 oct 2001 18:18</span>
                   </tal:block>
                   <tal:block condition="not: publication_dt">
-                    None
+                   &nbsp; 
                   </tal:block>
                 </tal:block>
               </td>
@@ -126,7 +125,7 @@
                       <span tal:replace="structure python: mangle.DateTime(expiration_dt).toStr()" tal:omit-tag="">21 oct 2001 18:18</span>
                     </tal:block>
                     <tal:block condition="not: expiration_dt">
-                      None
+                     &nbsp; 
                     </tal:block>
                   </tal:block>
                 </span>
@@ -150,7 +149,7 @@
         </tr>
         <tr class="focus-light">
           <td colspan="5">
-            There are no publishable objects in this folder.
+            <i>There are no published news items in this filter. Check that news sources are activated (go to the editor screen) and items in the sources are published.</i>
           </td>
         </tr>
         <tr class="divider">
@@ -170,14 +169,14 @@
               for (i = 0; i < document.silvaObjects.length; i++)
                 document.silvaObjects.elements[i].checked = true ;
                 isSelected = true;
-                document.silvaObjects.selectButton.value = "Deselect all";
+                document.silvaObjects.selectButton.value = "deselect all";
                 return isSelected;
             }
             else {
               for (i = 0; i < document.silvaObjects.length; i++)
                 document.silvaObjects.elements[i].checked = false ;
                 isSelected = false;
-                document.silvaObjects.selectButton.value = "Select all";
+                document.silvaObjects.selectButton.value = "select all";
                 return isSelected;
             }
           }
@@ -191,13 +190,13 @@
             <script type="text/javascript">
             <!--
               if (document.forms[0]) {
-                document.write('<input class="button" type="submit" name="selectButton" value="Select all" accesskey="a" title="Select all items on and below this level - alt a" onClick="toggleSelect(); return false">')
+                document.write('<input class="button" type="submit" name="selectButton" value="select all" accesskey="a" title="select all items on and below this level: alt a" onClick="toggleSelect(); return false">')
                 }
             //-->
             </script>
             &nbsp;
             <input type="hidden" name="start" tal:attributes="value startat">
-            <input class="button" type="submit" name="use_items:method" value="Update" title="Use selected items in this filter- alt-u" accesskey="u" />
+            <input class="button" type="submit" name="use_items:method" value="update" title="use selected items in this filter: alt-u" accesskey="u" />
             &nbsp;
           </td>
         </tr>
@@ -208,15 +207,15 @@
 
   </form>
 
-<table width="50%">
+<table width="50%" tal:condition="python: previous or next">
   <tr>
     <td width="50%" align="left">
       &nbsp;
-      <a href="#" tal:attributes="href string:${model/absolute_url}/edit/tab_edit?start:int=${previous/first}&show_details=${show_details}" tal:condition="previous">Previous</a>
+      <a href="#" tal:attributes="href string:${model/absolute_url}/edit/tab_edit?start:int=${previous/first}&show_details=${show_details}" tal:condition="previous">previous</a>
     </td>
     <td width="50%" align="right">
       &nbsp;
-      <a href="#" tal:attributes="href string:${model/absolute_url}/edit/tab_edit?start:int=${next/first}&show_details=${show_details}" tal:condition="next">Next</a></td>
+      <a href="#" tal:attributes="href string:${model/absolute_url}/edit/tab_edit?start:int=${next/first}&show_details=${show_details}" tal:condition="next">next</a></td>
   </tr>
 </table>
 

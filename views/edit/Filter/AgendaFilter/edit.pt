@@ -56,9 +56,9 @@
       <span tal:replace="nothing"> ______________ table header ______________ </span>
       <tbody>
         <tr tal:condition="python:len(sources) != 0">
-          <th align="left" width="3%" nowrap="1">Element</th>
-          <th align="left" width="40%">Content</th>
-          <th align="left">Note</th>
+          <th class="align-right" width="3%" nowrap="1">element</th>
+          <th>content</th>
+          <th width="40%">note</th>
         </tr>
 
         <span tal:replace="nothing"> -------------- form content ------------- </span>
@@ -66,8 +66,7 @@
           <tr class="even" tal:attributes="class python: test(repeat['field'].odd(), 'odd', 'even')">
             <td class="field-title">
               <nobr>
-                <span tal:replace="field/title">Title</span>
-                <span class="warning" tal:condition="field/is_required">*</span>
+                <span tal:replace="field/title">Title</span><span class="warning" tal:condition="field/is_required">*</span>
               </nobr>
             </td>
             <td tal:content="structure field/render">
@@ -88,7 +87,7 @@
             <input class="button" 
               type="submit"
               name="submit_settings:method"
-              value=" Save settings "
+              value="save settings"
               title="access key: alt-s"
               accesskey="s"
             />
@@ -110,8 +109,6 @@
             colspan="3">
             <h2>
               <img tal:replace="structure python:view.render_icon(model)" />
-              <span style="text-transform:lowercase;"
-                tal:content="model/meta_type">Meta type</span> 
               &#xab;<tal:block content="model/get_title_or_id" />&#xbb;
               sources
             </h2>
@@ -122,9 +119,9 @@
       <span tal:replace="nothing"> ______________ table header ______________ </span>
       <tbody>
         <tr tal:condition="python:len(sources) != 0">
-          <th align="left" width="3%" nowrap="1">In use</th>
-          <th align="left" width="40%">Id</th>
-          <th align="left">Title</th>
+          <th width="3%">in use</th>
+          <th>id</th>
+          <th width="40%">title</th>
         </tr>
 
         <span tal:replace="nothing"> ______________ listing iteration ______________ </span>
@@ -142,27 +139,25 @@
                 <td nowrap="1">
                   <input type="checkbox" name="cb:list" value="value"
                       tal:attributes="value string:cb_${id}; checked source/check_checkbox" />
-                  <a href="edit" title="Edit this source"
+                  <a href="edit" title="edit this news source"
                       tal:attributes="href string:${object_url}/edit/tab_edit"><img tal:replace="structure python:view.render_icon(obj)" /></a>
                 </td>
 
                 <span tal:replace="nothing"> _______ id cell _______ </span>
                 <td>
                   <a title="Edit this item"
-                    tal:attributes="href string:${object_url}/edit"
+                    tal:attributes="href string:${object_url}/edit/tab_edit"
                     tal:content="object_url">id</a>
                 </td>
 
                 <span tal:replace="nothing"> _______ title cell _______ </span>
                 <td>
                   <tal:block condition="python:obj.get_title != ''">
-                    <img width="32" height="18" align="left"
-                      tal:attributes="src string:${silva_root}/globals/pixel.gif" />
-                    <b tal:content="structure string:${obj/get_title}">title</b>
+                    <span tal:replace="structure string:${obj/get_title}">title</span>
                   </tal:block>
-                  <tal:block condition="source/check_checkbox">
-                    &nbsp;(Selected)
-                  </tal:block>
+                  <span class="warning" tal:condition="not: source/check_checkbox">
+                    &nbsp;(not activated)
+                  </span>
                   <tal:block condition="python:obj.get_title == ''">
                     &nbsp;
                   </tal:block>
@@ -178,7 +173,7 @@
         <check tal:condition="python:len(sources) == 0 and not model.get_default()">
           <tr class="focus-light">
             <td colspan="3">
-              There are no newssources available
+              There are no news sources available.
             </td>
           </tr>
           <tr class="divider">
@@ -202,14 +197,14 @@
                 for (i = 0; i < document.silvaObjects.length; i++)
                   document.silvaObjects.elements[i].checked = true ;
                   isSelected = true;
-                  document.silvaObjects.selectButton.value = "Deselect all";
+                  document.silvaObjects.selectButton.value = "deselect all";
                   return isSelected;
               }
               else {
                 for (i = 0; i < document.silvaObjects.length; i++)
                   document.silvaObjects.elements[i].checked = false ;
                   isSelected = false;
-                  document.silvaObjects.selectButton.value = "Select all";
+                  document.silvaObjects.selectButton.value = "select all";
                   return isSelected;
               }
             }
@@ -223,13 +218,13 @@
               <script type="text/javascript">
               <!--
               if (document.forms[0]) {
-                document.write('<input class="button" type="submit" name="selectButton" value="Select all" title="Select all items - alt-a" accesskey="a" onClick="toggleSelect(); return false">')
+                document.write('<input class="button" type="submit" name="selectButton" value="select all" title="select all items: alt-a" accesskey="a" onClick="toggleSelect(); return false">')
                 }
               //-->
               </script>
               &nbsp;
               <input type="hidden" name="start" tal:attributes="value startat">
-              <input class="button" type="submit" name="use_sources:method" value="Update sources" title="Use selected sources in this filter - alt-u" accesskey="u" />
+              <input class="button" type="submit" name="use_sources:method" value="update sources" title="use selected sources in this filter: alt-u" accesskey="u" />
             </td>
           </tr>
 

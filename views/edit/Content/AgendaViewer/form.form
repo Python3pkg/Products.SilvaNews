@@ -19,7 +19,7 @@
           <hidden type="int">0</hidden>
           <css_class></css_class>
           <default>[]</default>
-          <title>Filters</title>
+          <title>filters</title>
           <description></description>
           <external_validator></external_validator>
           <items>[]</items>
@@ -42,8 +42,8 @@
           <required type="int">1</required>
           <css_class></css_class>
           <default></default>
-          <title>Number of days</title>
-          <description>The number of days the viewer will get items for</description>
+          <title>number of days</title>
+          <description>Number of days in the future the viewer will show.</description>
           <end></end>
           <extra></extra>
         </values>

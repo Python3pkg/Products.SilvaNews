@@ -21,9 +21,9 @@
           <required type="int">1</required>
           <items>[('Yes', '1'), ('No', '0')]</items>
           <default></default>
-          <title>Show</title>
+          <title>show</title>
           <first_item type="int">0</first_item>
-          <description>Choose whether to show a certain number of items or items of a certain number of days in the past.</description>
+          <description>Show a specific number of items, or show items from a range of days in the past.</description>
           <external_validator></external_validator>
         </values>
         <tales>
@@ -42,7 +42,7 @@
           <required type="int">1</required>
           <css_class></css_class>
           <default></default>
-          <title>Number</title>
+          <title>number</title>
           <description></description>
           <end></end>
           <extra></extra>
@@ -59,7 +59,7 @@
           <hidden type="int">0</hidden>
           <css_class></css_class>
           <default>[]</default>
-          <title>Filters</title>
+          <title>filters</title>
           <orientation>vertical</orientation>
           <items>[]</items>
           <external_validator></external_validator>

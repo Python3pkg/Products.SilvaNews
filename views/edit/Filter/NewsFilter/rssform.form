@@ -25,8 +25,8 @@
           <required type="int">0</required>
           <css_class></css_class>
           <default></default>
-          <title>RSS description</title>
-          <description>Describe the type of news this filter shows.</description>
+          <title>description</title>
+          <description>Describe the type of news this filter delivers.</description>
           <extra></extra>
           <unicode type="int">1</unicode>
         </values>
@@ -45,10 +45,10 @@
           <required type="int">0</required>
           <css_class></css_class>
           <default></default>
-          <title>RSS link</title>
+          <title>link</title>
           <truncate type="int">0</truncate>
           <description>Enter the URL where the RSS feed should point to for information.</description>
-          <extra></extra>
+          <extra>style="width:100%"</extra>
           <unicode type="int">1</unicode>
         </values>
         <tales>
@@ -66,10 +66,10 @@
           <required type="int">0</required>
           <css_class></css_class>
           <default></default>
-          <title>RSS copyright</title>
+          <title>copyright</title>
           <truncate type="int">0</truncate>
           <description>Enter a copyright notice (not used if left empty).</description>
-          <extra></extra>
+          <extra>style="width:100%"</extra>
           <unicode type="int">1</unicode>
         </values>
         <tales>
@@ -85,13 +85,13 @@
           <required type="int">0</required>
           <css_class></css_class>
           <default></default>
-          <title>Allow RSS search</title>
+          <title>allow RSS search</title>
           <first_item type="int">0</first_item>
           <description>If set to 'yes', extra information will be sent along with the RSS feed to enable searching this newsfilter using a remote form (the client will be sent to this Silva instance to view the results).</description>
           <external_validator></external_validator>
         </values>
         <tales>
-          <items>python: [('Yes', 1), ('No', 0)]</items>
+          <items>python: [('yes', 1), ('no', 0)]</items>
           <default>python: form.REQUEST.model.allow_rss_search()</default>
         </tales>
       </field>
@@ -108,7 +108,7 @@
           <required type="int">0</required>
           <css_class></css_class>
           <default></default>
-          <title>RSS search description</title>
+          <title>search description</title>
           <description>Description added to the search form.</description>
           <extra></extra>
           <unicode type="int">1</unicode>
