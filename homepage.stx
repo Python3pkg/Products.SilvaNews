@@ -1,0 +1,24 @@
+SilvaNews is an extension for <a
+href="http://www.zope.org/Members/infrae/Silva">Silva</a>. 
+
+Using SilvaNews an organization can set up News Publications in
+sections of the site. Authors can then contribute news items and
+agenda items to these publications.
+
+News Filters can be set up to pick up and filter published news items
+from particular News Publications. News Viewers can then be used to
+display news items resulting from the filters.
+
+Silva News has contains RSS extensions; a news viewer can publish its
+contents as RSS. There is also an RSS Aggregator that can be used to
+pick up and display news from RSS feeds.
+  
+Silva News 0.9 is compatible with Silva 0.9.3. Note that this version
+is not compatible with previously released versions of Silva News.
+
+SilvaNews is being developed in open-source fashion by <a
+href="http://www.infrae.com">Infrae</a>. If you or your organization
+have special requirements, Infrae is also available for hire to help
+you with Silva extension, customization and deployment.
+
+
