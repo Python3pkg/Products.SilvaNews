@@ -21,7 +21,10 @@
           <default>[]</default>
           <title>subjects</title>
           <orientation>vertical</orientation>
-          <description></description>
+          <description>
+            Subjects are for organizing displayed news for your users.
+            If no subject is available, ask the system administrator
+            to add subjects at the news filter extension.</description>
           <css_class></css_class>
           <external_validator></external_validator>
           <unicode type="int">1</unicode>
@@ -40,7 +43,12 @@
           <default>[]</default>
           <title>target audiences</title>
           <orientation>vertical</orientation>
-          <description></description>
+          <description>
+            Target audiences are people who might interessted in
+            the displayed news items. If there is now target audience is
+            available, ask the system administrator to add them to the news
+            filter extension.
+          </description>
           <css_class></css_class>
           <external_validator></external_validator>
           <unicode type="int">1</unicode>
