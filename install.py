@@ -1,12 +1,13 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.19.4.1 $
+# $Revision: 1.19.4.2 $
 
 """Install and Uninstall for Silva News
 """
 
 from Products.FileSystemSite.DirectoryView import manage_addDirectoryView
-from Products.Silva.install import add_fss_directory_view
+from Products.Silva.install import add_fss_directory_view, add_helper, py_add_helper
+
 
 def install(root):
     """The view infrastructure for Silva.
@@ -31,6 +32,9 @@ def install(root):
 
     # allowed_addables_in_publication
     configureAddables(root)
+
+    # install some helper scripts in the root
+    configureLayout(root)
 
     # and add a service_news to the Silva root
     if not hasattr(root, 'service_news'):
@@ -273,6 +277,10 @@ def configureAddables(root):
         if a not in new_addables:
             new_addables.append(a)
     root.set_silva_addables_allowed_in_publication(new_addables)
+
+def configureLayout(root, default_if_existent=0):
+    """Add some files to the root"""
+    add_helper(root, 'rss.xml.py', globals(), py_add_helper, default_if_existent)
 
 if __name__ == '__main__':
     print """This module is not an installer. You don't have to run it."""
