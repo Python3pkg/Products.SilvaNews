@@ -19,7 +19,10 @@ icon = 'www/rss_aggregator.png'
 addable_priority = 3.5
 
 class RSSAggregator(NewsViewer):
-    """An RSS aggregator that merges a number of feeds into 1 public view"""
+    """The aggregator is used to display content from RSS feeds, either from Silva
+       or from extenal sites. One or more feeds are merged into a listing for public 
+       presentation. The titles and leads of items in the feeds are displayed 
+       together with a link to the original article."""
 
     security = ClassSecurityInfo()
     __implements__ = IContent
