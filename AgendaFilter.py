@@ -1,6 +1,6 @@
 # Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.19.2.1 $
+# $Revision: 1.19.2.2 $
 
 from OFS import SimpleItem
 from AccessControl import ClassSecurityInfo
@@ -50,8 +50,8 @@ class AgendaFilter(Filter):
         lastnight = DateTime(date.year(), date.month(), date.day(), 0, 0, 0)
         enddate = lastnight + numdays
         result = self._query(
-            start_datetime = (lastnight, enddate),
-            start_datetime_usage = 'range:min:max',
+            idx_start_datetime = (lastnight, enddate),
+            idx_start_datetime_usage = 'range:min:max',
             version_status = 'public',
             path = self._sources,
             subjects = {'query': self._subjects,
@@ -59,7 +59,7 @@ class AgendaFilter(Filter):
             target_audiences = {'query': self._target_audiences,
                                 'operator': 'or'},
             meta_type = meta_types,
-            sort_on = 'start_datetime',
+            sort_on = 'idx_start_datetime',
             sort_order = 'ascending')
 
         return [r for r in result if not r.object_path in self._excluded_items]
