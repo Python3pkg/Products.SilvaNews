@@ -1,4 +1,4 @@
-$Revision: 1.9.2.1 $
+$Revision: 1.9.2.2 $
 
 Copyright (c) 2002, 2004 Infrae. All rights reserved.
 See also LICENSE.txt
@@ -8,28 +8,36 @@ Meta::
   Valid for:   Silva News 0.9
   Authors:     Guido Wesdorp, Martijn Faassen, Guido Goldstein
   Emails:      guido@infrae.com, faassen@infrae.com, gst@infrae.com
-  CVS:         $Revision: 1.9.2.1 $
+  CVS:         $Revision: 1.9.2.2 $
 
 Installing Silva News
 
-  This package requires Silva 0.9.3
+  This package requires Silva 0.9.3.
 
-  Unpack the SilvaNews.tar.gz package into the Products directory of
+  Unpack the SilvaNews-0.9.tgz package into the Products directory of
   your Zope installation and restart Zope. Go to the Silva root and
   click on the 'service_extensions' object. Scroll to the SilvaNews
   entry and click 'Install'. The product should now be installed
   correctly.
 
-  Note: for SilvaNews to work correctly, a script needs to be
-  registered to cron so it calls a URL in a certain interval that will
-  search Silva for versions of which the publication status should be
-  updated, and updates that status. This makes that objects that don't
-  get called directly (only using the catalog, like News does) get
-  their publication status updated, which would usually happen by
-  calling them through the web (viewing). A helper script to call a
-  URL from cron can be found in the 'utils' directory of the Silva
-  core package.
+  Note: for SilvaNews to work correctly for news items to be published
+  or expired in the future, a script needs to be registered to cron or
+  some other scheduler so it calls the 'status_update' URL at a
+  regular interval. 'status_update' will search Silva for versions of
+  which the publication status should be updated, and updates that
+  status.
 
+  This makes that objects that don't get called directly (only using
+  the catalog, like News does) get their publication status updated,
+  which would usually happen by calling them through the web
+  (viewing).
+
+  This URL can be constructed from the URL to your Silva root with
+  the name '/status_update' appended.
+
+  A helper script to call a URL called 'call_url.py' can be found in
+  the 'utils' directory of the Silva core package.
+  
 Using Silva News
 
   For more information on how to use Silva News, see README.txt
