@@ -72,7 +72,7 @@
         </tr>
       </thead>
 
-      <span tal:replace="nothing"> ______________ table header ______________ </span>
+      <!-- ______________ table header ______________ -->
       <tbody>
         <tr>
           <th align="left" width="15%" nowrap="1">Element</th>
@@ -80,7 +80,7 @@
           <th align="left">Note</th>
         </tr>
 
-        <span tal:replace="nothing"> -------------- form content ------------- </span>
+        <!-- ______________ form content ____________ -->
         <tal:block tal:repeat="field fields">
           <tr class="even" tal:attributes="class python: test(repeat['field'].odd(), 'odd', 'even')">
             <td class="field-title">
@@ -88,14 +88,8 @@
                 <span tal:replace="field/title">Title</span><span class="warning" tal:condition="field/is_required">*</span>
               </nobr>
             </td>
-            <td tal:content="structure field/render" tal:condition="python: field.id != 'allow_rss_export'">
+            <td tal:content="structure field/render">
               Field
-            </td>
-            <td tal:condition="python: field.id == 'allow_rss_export'">
-              <input value="1" name="field_allow_rss_export" type="radio" onclick="switchRssFormVisibility(1)" 
-                  tal:attributes="checked python: test(model.allow_rss_export(), 'checked', '')"/>yes<br />
-              <input value="0" type="radio" name="field_allow_rss_export" onclick="switchRssFormVisibility(0)"
-                  tal:attributes="checked python: test(model.allow_rss_export(), '', 'checked')"/>no<br />
             </td>
             <td tal:content="field/description">
               Description
@@ -105,49 +99,6 @@
 
       </tbody>
 
-      <thead tal:attributes="style python: test(model.allow_rss_export(), 'display: table-header-group', 'display: none')">
-        <tal:block replace="nothing">
-          ______________ vein + title row RSS ______________
-        </tal:block>
-        <tr>
-          <td class="top"
-            colspan="3">
-            <h2>
-              <img tal:replace="structure python:view.render_icon(model)" />
-              &#xab;<tal:block content="model/get_title_or_id" />&#xbb;
-              rss settings
-            </h2>
-          </td>
-        </tr>
-      </thead>
-
-      <span tal:replace="nothing"> ______________ table header RSS ______________ </span>
-      <tbody tal:attributes="style python: test(model.allow_rss_export(), 'display: table-row-group', 'display: none')">
-        <tr>
-          <th align="left" width="3%" nowrap="1">Element</th>
-          <th align="left" width="40%">Content</th>
-          <th align="left">Note</th>
-        </tr>
-
-        <span tal:replace="nothing"> -------------- form content ------------- </span>
-<!--         <tal:block tal:repeat="field rssfields"> -->
-<!--           <tr class="even" tal:attributes="class python: test(repeat['field'].odd(), 'odd', 'even')"> -->
-<!--             <td class="field-title"> -->
-<!--               <nobr> -->
-<!--                 <span tal:replace="field/title">Title</span> -->
-<!--                 <span class="warning" tal:condition="field/is_required">*</span> -->
-<!--               </nobr> -->
-<!--             </td> -->
-<!--             <td tal:content="structure field/render"> -->
-<!--               Field -->
-<!--             </td> -->
-<!--             <td tal:content="field/description"> -->
-<!--               Description -->
-<!--             </td> -->
-<!--           </tr> -->
-<!--         </tal:block> -->
-
-      </tbody>
 
       <tfoot>
         <tr class="controls">
