@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.19.4.2 $
+# $Revision: 1.19.4.3 $
 
 """Install and Uninstall for Silva News
 """
@@ -280,7 +280,8 @@ def configureAddables(root):
 
 def configureLayout(root, default_if_existent=0):
     """Add some files to the root"""
-    add_helper(root, 'rss.xml.py', globals(), py_add_helper, default_if_existent)
+    if not hasattr(root, 'rss.xml'):
+        add_helper(root, 'rss.xml.py', globals(), py_add_helper, default_if_existent)
 
 if __name__ == '__main__':
     print """This module is not an installer. You don't have to run it."""
