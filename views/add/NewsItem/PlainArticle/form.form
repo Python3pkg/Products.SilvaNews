@@ -21,17 +21,17 @@
           <display_maxwidth></display_maxwidth>
           <display_width type="int">20</display_width>
           <required type="int">1</required>
-          <css_class></css_class>
+          <css_class>store</css_class>
           <default></default>
           <title>id</title>
           <truncate type="int">0</truncate>
-          <description></description>
-          <extra>style="width:100%"</extra>
+          <description>id: no spaces or special characters besides an underscore (_).</description>
+          <extra></extra>
         </values>
         <tales>
         </tales>
       </field>
-      <field><id>object_title</id> <type>TextAreaField</type>
+      <field><id>object_title</id> <type>StringField</type>
         <values>
           <alternate_name></alternate_name>
           <hidden type="int">0</hidden>
@@ -42,10 +42,10 @@
           <external_validator></external_validator>
           <height type="int">2</height>
           <required type="int">1</required>
-          <css_class></css_class>
+          <css_class>store</css_class>
           <default></default>
           <title>title</title>
-          <description></description>
+          <description>The title will be publicly visible, and is used as the default link in indexes.</description>
           <extra></extra>
           <unicode type="int">1</unicode>
         </values>
