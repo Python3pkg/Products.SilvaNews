@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.12.2.2 $
+# $Revision: 1.12.2.3 $
 
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
@@ -20,6 +20,7 @@ from Products.SilvaNews.NewsViewer import NewsViewer
 import feedparser
 
 icon = 'www/rss_viewer.png'
+addable_priority = 3.6
 
 class RSSViewer(NewsViewer):
     """A viewer for (external) RSS streams. 

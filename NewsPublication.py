@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.4.2.1 $
+# $Revision: 1.4.2.2 $
 
 # Zope
 from AccessControl import ClassSecurityInfo
@@ -24,6 +24,7 @@ class DuplicateError(Exception):
     pass
 
 icon = 'www/news_source.png'
+addable_priority = 3
 
 class NewsPublication(ObjectTitle, Publication):
     """A special Silva publication for news items and agenda items.

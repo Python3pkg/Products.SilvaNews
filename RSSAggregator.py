@@ -16,6 +16,7 @@ from Products.SilvaNews.NewsViewer import NewsViewer, XMLBuffer, quote_xml, RDF_
 import feedparser
 
 icon = 'www/rss_aggregator.png'
+addable_priority = 3.5
 
 class RSSAggregator(NewsViewer):
     """An RSS aggregator that merges a number of feeds into 1 public view"""

@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.26.2.1 $
+# $Revision: 1.26.2.2 $
 
 from OFS import SimpleItem
 from AccessControl import ClassSecurityInfo
@@ -19,6 +19,7 @@ from Filter import Filter, MetaTypeException
 from interfaces import INewsItemVersion, INewsFilter, IAgendaItemVersion
 
 icon = 'www/news_filter.png'
+addable_priority = 3.2
 
 class NewsFilter(Filter):
     """To enable editors to channel newsitems on a site, all items

@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.27.2.3 $
+# $Revision: 1.27.2.4 $
 
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
@@ -20,6 +20,7 @@ except ImportError:
     from StringIO import StringIO
 
 icon = 'www/news_viewer.png'
+addable_priority = 3.1
 
 class XMLBuffer:
     """Small file-like object for XML output.
