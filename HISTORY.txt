@@ -3,6 +3,13 @@ See also LICENSE.txt
 
 SilvaNews changes
 
+  1.1
+
+    Bugs fixed
+
+      - Changed the names of indexes so they're less likely to clash with 
+        names of user-generated objects - SEE UPGRADE.txt!
+
   1.0
 
     Bugs fixed

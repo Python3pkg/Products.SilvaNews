@@ -1,0 +1,81 @@
+===================
+Upgrading SilvaNews
+===================
+
+Meta
+----
+
+Copyright (c) 2003-2005 Infrae. All rights reserved.  See also
+LICENSE.txt
+
+Valid for:  SilvaNews 1.1.x
+Author:     Guido Wesdorp
+Email:      guido@infrae.com
+CVS:        $Revision: 1.1.2.1 $
+
+Introduction
+------------
+
+This document describes upgrade instructions for specific version upgrades.  If
+a transition from a certain version to another is not mentioned, the generic
+upgrade instructions, as described on the bottom of this document, apply.
+
+Upgrades
+========
+
+Upgrading SilvaNews 1.0 to 1.1
+------------------------------
+
+To avoid name clashes with user-defined objects, the ids of ZCatalog indexes
+have been changed. This requires, apart from certain actions taken by the
+upgrader, the following manual steps:
+
+  * First make sure you do a generic upgrade as described on the bottom of
+    this document.
+
+  * Next, go to 'service_catalog' in the Silva root, and click on the 
+    'indexes' tab
+
+  * Select the checkbox in front of the following index ids:
+
+    - is_private
+    - parent_path
+    - start_datetime
+    - subjects
+    - target_audiences
+
+  * Press the 'Remove indexes' button
+
+  * Select the checkbox in front of the following index ids:
+
+    - idx_is_private
+    - idx_parent_path
+    - idx_start_datetime
+    - idx_target_audiences
+
+  * Press the 'Reindex' button
+
+This should make sure all indexes with the old name are cleared from the
+catalog and the new ones are properly initialized.
+
+Generic upgrade steps
+=====================
+
+The generic upgrade procedure is much like it is in Silva. Do mind that an
+upgrade of the SilvaNews product usually requires a specific Silva version to
+be installed.
+
+  * Shut down Zope (not strictly necessary if you're not in 'debug_mode').
+
+  * Remove the old 'SilvaNews' directory from your 'Products' directory 
+    (usually located in Zope/lib/python or in your INSTANCE_HOME).
+
+  * Unpack the tarball of the new version inside your 'Products' directory.
+
+  * Restart Zope
+
+  * Go to 'service_extensions' in the Silva root.
+
+  * Press the 'refresh' button inside the SilvaNews box.
+
+
