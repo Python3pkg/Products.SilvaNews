@@ -1,11 +1,10 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.12 $
+# $Revision: 1.12.2.1 $
 
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from OFS import Folder
 from DateTime import DateTime
 import Acquisition
 
@@ -18,7 +17,9 @@ from Products.Silva import mangle
 
 from Products.SilvaNews.NewsViewer import NewsViewer
 
-from rss_parser import RSSLoader
+## from rss_parser import RSSLoader
+
+import feedparser
 
 icon = 'www/rss_viewer.png'
 
@@ -37,7 +38,6 @@ class RSSViewer(NewsViewer):
         self._rss_feed = ''
         self._rss_last_modified = ''
         self._caching_period = 30 # in seconds, 0 means don't cache
-        self._rss_loader = RSSLoader()
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_channel')
@@ -45,8 +45,8 @@ class RSSViewer(NewsViewer):
         """Gets the date from the RSS feed
         """
         if self._rss_feed:
-            self._rss_loader.set_ttl(self._caching_period)
-            res = self._rss_loader.get_rss(self._rss_feed)
+##             self._rss_loader.set_ttl(self._caching_period)
+            res = feedparser.parse(self._rss_feed)
         else:
             raise Exception, 'Please choose a feed first!'
 
@@ -57,6 +57,7 @@ class RSSViewer(NewsViewer):
     def set_rss_feed(self, url):
         """Sets the URL for the RSS feed to use"""
         self._rss_feed = url
+        self._rss_last_modified = ''
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'rss_feed')
