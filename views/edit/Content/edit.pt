@@ -64,9 +64,9 @@
       <tbody>
         <tr>
           <th class="align-right" 
-            width="3%">Element</th>
-          <th width="50%">Content</th>
-          <th>Note</th>
+            width="3%">element</th>
+          <th width="50%">content</th>
+          <th>note</th>
         </tr>
 
         <span tal:replace="nothing"> -------------- form content ------------- </span>
@@ -78,10 +78,10 @@
               </nobr>
             </td>
             <td tal:content="structure field/render">
-              Field
+              field
             </td>
             <td tal:content="field/description">
-              Description
+              description
             </td>
           </tr>
         </tal:block>

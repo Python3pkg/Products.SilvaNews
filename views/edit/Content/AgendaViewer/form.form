@@ -42,8 +42,8 @@
           <required type="int">1</required>
           <css_class></css_class>
           <default></default>
-          <title>number of days</title>
-          <description>Number of days in the future the viewer will show.</description>
+          <title>day range</title>
+          <description>Number of days in the future to show.</description>
           <end></end>
           <extra></extra>
         </values>
