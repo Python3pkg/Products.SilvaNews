@@ -54,30 +54,12 @@
                   tal:condition="may_change_content">
                   <td class="align-right">
                     <div class="controls">
-                      <tal:block condition="python:type == 'Silva Folder'">
-                        <a class="button"
-                          style="float:left;"
-                          href="tab_edit_to_publication"
-                          title="change Folder into Publication: alt-c"
-                          accesskey="c">
-                          Convert to publication
-                        </a>
-                      </tal:block>
-                      <tal:block condition="python:type == 'Silva Publication'">
-                        <a class="button"
-                          style="float:left;"
-                          href="tab_edit_to_folder"
-                          title="change Publication into Folder: alt-c"
-                          accesskey="c">
-                          Convert to folder
-                        </a>
-                      </tal:block>
                       <a class="button"
                         href="settings_addables"
                         title="change the addables allowed in this publication: alt-a"
                         accesskey="c"
                         tal:condition="python:type == 'Silva Publication' or type == 'Silva Root' or type == 'Silva News Publication'">
-                        Configure <u>a</u>ddables...
+                        configure <u>a</u>ddables...
                       </a>
                     </div>
                   </td>

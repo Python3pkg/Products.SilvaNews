@@ -52,7 +52,7 @@
         </tal:block>
         <tr>
           <td class="top"
-            colspan="4">
+            colspan="2">
             <h2>
               <img tal:replace="structure python:view.render_icon(model)" />
               <span style="text-transform:lowercase;"
@@ -66,21 +66,30 @@
 
       <span tal:replace="nothing"> ______________ table header ______________ </span>
       <tbody>
-      
         <tr class="odd">
-          <td width="12%">
-            make news source private
+          <td width="3%">
+            <input type="checkbox"
+              name="is_private"
+              tal:attributes="checked model/is_private"
+            />
           </td>
-          <td align="left" width="50%"><input type="checkbox" name="is_private" tal:attributes="checked model/is_private" /></td>
+          <td>
+            Make news source private so it is not picked up by any filters.
+          </td>
         </tr>
 
         <tr class="controls">
-          <td class="align-right" colspan="4"><input class="button" type="submit" name="settings_submit:method" value="change" /></td>
+          <td colspan="2">
+            <input class="button"
+              type="submit" 
+              name="settings_submit:method" 
+              value="toggle status"
+              title="change the public/private status of the news publication: alt-o"
+              accesskey="o"
+            />
+          </td>
         </tr>
-
-
       </tbody>
-
     </table>
   </form>
 
@@ -107,7 +116,7 @@
               <tr class="top-controls">
                 <td colspan="6">
                   <div style="float: left;">
-                  <input class="navigation"
+                  <input class="transport"
                     name="add_object:method"
                     type="submit"
                     value="new..."
@@ -122,7 +131,7 @@
                     i18n:attributes="title"
                   >
                   </label>
-                  <select class="navigation"
+                  <select class="manipulator"
                     name="meta_type"
                     title="select a new item - alt-s"
                     tal:attributes="onChange string:location.href='${url}/edit/add_object?meta_type='+this.options[this.selectedIndex].value"
@@ -138,7 +147,8 @@
                     </tal:block>
                   </select>
                   </div>
-                  <a class="navigation"
+                  <tal:block replace="nothing">_______ turned off until there *is* an import for news _______ </tal:block>
+                  <a class="transport" tal:replace="nothing"
                     style="float: right;"
                     href="tab_edit_import"
                     title="import XML/ZIP data - alt-i"
@@ -321,7 +331,7 @@
                           tal:attributes="href string:${url}/edit/tab_edit_move_down?id=${item/id}"
                           i18n:attributes="title"
                         >
-                          <img alt="Move down"
+                          <img alt="move down"
                             border="0"
                             height="12"
                             width="16"
@@ -332,7 +342,7 @@
                           tal:attributes="href string:${url}/edit/tab_edit_move_up?id=${item/id}"
                           i18n:attributes="title"
                         >
-                          <img alt="Move up"
+                          <img alt="move up"
                             border="0"
                             height="12"
                             width="16"
@@ -499,17 +509,17 @@
                         <input class="button"
                           name="tab_edit_move_to:method"
                           type="submit"
-                          value="Move"
+                          value="move"
                           title="move selected items into position: alt-m"
                           accesskey="m"
                           i18n:attributes="title"
                         />
                       </div>
                       &nbsp;
-                      <input class="button"
+                      <input class="transport"
                         name="tab_edit_rename_start:method"
                         type="submit"
-                        value=" Rename..."
+                        value="rename..."
                         title="rename and retitle items: alt-r"
                         accesskey="r" 
                         i18n:attributes="value title"
@@ -517,7 +527,7 @@
                       <input class="button"
                         name="tab_edit_cut:method"
                         type="submit"
-                        value="Cut"
+                        value="cut"
                         title="cut items: alt-x"
                         accesskey="x" 
                         i18n:attributes="value title"
@@ -525,7 +535,7 @@
                       <input class="button"
                         name="tab_edit_copy:method"
                         type="submit"
-                        value="Copy"
+                        value="copy"
                         title="copy items: alt-c"
                         accesskey="c" 
                         i18n:attributes="value title"
@@ -540,7 +550,7 @@
                       <input class="button"
                         name="tab_edit_paste:method"
                         type="submit"
-                        value="Paste"
+                        value="paste"
                         title="paste items: alt-v" 
                         accesskey="v" 
                         i18n:attributes="value title"
@@ -548,7 +558,7 @@
                       <input class="button"
                         name="tab_edit_paste_to_ghost:method"
                         type="submit"
-                        value="Paste ghost"
+                        value="paste ghost"
                         title="paste (items on clipboard) as ghost objects: alt-g"
                         accesskey="g" 
                         i18n:attributes="value title"
@@ -558,7 +568,7 @@
                       <input class="warning"
                         name="tab_edit_delete:method"
                         type="submit"
-                        value="Delete"
+                        value="delete"
                         title="there's no undo: alt-d"
                         accesskey="d"
                         onClick="return confirm('Really delete?')"

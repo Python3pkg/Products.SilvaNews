@@ -60,8 +60,7 @@
           <tr class="even" tal:attributes="class python: test(repeat['field'].odd(), 'odd', 'even')">
             <td class="field-title">
               <nobr>
-                <span tal:replace="field/title">Title</span>
-                <span class="warning" tal:condition="field/is_required">*</span>
+                <span tal:replace="field/title">Title</span><span class="warning" tal:condition="field/is_required">*</span>
               </nobr>
             </td>
             <td tal:content="structure field/render">
@@ -82,7 +81,7 @@
             <input class="button" 
               type="submit"
               name="submit_settings:method"
-              value=" Save settings "
+              value="save settings"
               title="access key: alt-s"
               accesskey="s"
             />
