@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.27.2.5 $
+# $Revision: 1.27.2.6 $
 
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
@@ -160,7 +160,8 @@ class NewsViewer(Content, Folder.Folder):
             for item in parent.objectValues(['Silva News Filter',
                                              'Silva Agenda Filter']):
                 joinedpath = '/'.join(item.getPhysicalPath())
-                pairs.append(('%s (%s)' % (item.get_title(), joinedpath),
+                pairs.append(('%s (<a href="%s/edit">%s</a>)' %
+                              (item.get_title(), joinedpath, joinedpath),
                               joinedpath))
             if parent.meta_type == 'Silva Root':
                 break
