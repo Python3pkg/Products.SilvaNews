@@ -1,6 +1,6 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.13 $
+# $Revision: 1.13.2.1 $
 
 # Zope
 from OFS import SimpleItem
@@ -61,7 +61,7 @@ class Filter(Asset):
         results = self._query(
             meta_type=self._allowed_source_types,
             sort_on='id',
-            is_private=0)
+            idx_is_private=0)
 
         pp = []
         cpp = '/'.join(self.aq_inner.aq_parent.getPhysicalPath())
@@ -74,8 +74,8 @@ class Filter(Asset):
         results += self._query(
             meta_type=self._allowed_source_types,
             sort_on='id',
-            is_private=1,
-            parent_path=pp)
+            idx_is_private=1,
+            idx_parent_path=pp)
 
         # remove doubles
         res = []
