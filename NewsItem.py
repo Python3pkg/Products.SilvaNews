@@ -1,6 +1,6 @@
 # Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.23.4.2 $
+# $Revision: 1.23.4.3 $
 
 # Python
 from StringIO import StringIO
@@ -112,6 +112,23 @@ class NewsItemVersion(DocumentVersion):
             if child.nodeName == u'p':
                 return self.service_editorsupport.render_text_as_html(child)
         return ''
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                                'get_intro')
+    def get_intro(self):
+        """returns the subheader and the lead"""
+        ret = []
+        if self.subheader():
+            ret.append('<h4>%s</h4>' % self.subheader())
+        ret.append('<p class="lead">%s</p>' % self.lead())
+        return ''.join(ret)
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                                'get_description')
+    def get_description(self):
+        binding = self.service_metadata.getMetadata(self)
+        desc = binding.get('silva-extra', 'description')
+        return desc
         
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'source_path')
