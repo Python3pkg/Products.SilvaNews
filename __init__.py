@@ -1,9 +1,9 @@
 # Copyright (c) 2002 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.15 $
+# $Revision: 1.15.2.1 $
 
 import AgendaFilter, NewsFilter, ServiceNews
-import NewsPublication, NewsViewer, AgendaViewer, RSSViewer
+import NewsPublication, NewsViewer, AgendaViewer, RSSViewer, RSSAggregator
 import PlainArticle, PlainAgendaItem
 
 from Products.FileSystemSite.DirectoryView import registerDirectory
@@ -19,7 +19,7 @@ def initialize(context):
         [NewsPublication,
          NewsFilter, NewsViewer, PlainArticle,
          AgendaFilter, AgendaViewer, PlainAgendaItem,
-         RSSViewer],
+         RSSViewer, RSSAggregator],
         install, depends_on='Silva')
 
     context.registerClass(
@@ -38,7 +38,7 @@ def initialize(context):
         PlainArticle.PlainArticleVersion,
         AgendaFilter.AgendaFilter, AgendaViewer.AgendaViewer,
         PlainAgendaItem.PlainAgendaItemVersion,
-        RSSViewer.RSSViewer,
+        RSSViewer.RSSViewer, RSSAggregator.RSSAggregator
         ]:
         registerTypeForMetadata(getattr(obj, 'meta_type'))
     

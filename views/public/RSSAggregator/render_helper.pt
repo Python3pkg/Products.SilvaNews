@@ -1,0 +1,39 @@
+<tal:block define="view here;
+                   model view/REQUEST/model;
+                   result python:model.get_merged_feed_contents();
+                   silva_root view/silva_root;
+                   " >
+
+  <table class="listing" width="100%" cellspacing="0" cellpadding="3" border="2"
+    tal:attributes="cellspacing container/table_cellspacing;
+    cellpadding container/table_cellpadding;
+    border container/table_border">
+
+    <toc_entry tal:omit-tag=""
+	tal:repeat="item result">
+
+      <tr class="focus-cycle">
+        <span tal:replace="nothing"> _______ title cell _______ </span>
+        <td valign="top" align="left">
+          <h2 tal:content="structure item/title" tal:condition="item/title | nothing">title</h2>
+        </td>
+      </tr>
+
+      <tr class="focus">
+        <td align="left" valign="top">
+          <tal:block tal:condition="item/description | nothing">
+            <b tal:content="structure item/description">Lead</b>
+            <br />
+          </tal:block>
+          <a href="#" tal:attributes="href item/link" tal:condition="item/link | nothing">view article</a>
+        </td>
+      </tr>
+
+      <tr class="focus-cycle">
+        <td>&nbsp;</td>
+      </tr>
+
+    </toc_entry>
+
+  </table><br />
+</tal:block>
