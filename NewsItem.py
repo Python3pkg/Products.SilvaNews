@@ -1,6 +1,6 @@
 # Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.23.4.4 $
+# $Revision: 1.23.4.5 $
 
 # Python
 from StringIO import StringIO
@@ -120,8 +120,10 @@ class NewsItemVersion(DocumentVersion):
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_intro')
-    def get_intro(self):
+    def get_intro(self, maxchars=None):
         """returns the subheader and the lead"""
+        # XXX currently maxchars is ignored here, since it's rather hard
+        # to cut chunks off of HTML and keep it well-formed
         ret = []
         if self.subheader():
             ret.append('<h4>%s</h4>' % self.subheader())
