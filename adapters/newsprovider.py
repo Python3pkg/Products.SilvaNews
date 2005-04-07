@@ -1,10 +1,11 @@
 # Copyright (c) 2002-2004 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Id: newsprovider.py,v 1.1.2.1 2005/03/23 16:14:37 guido Exp $
+# $Id: newsprovider.py,v 1.1.2.2 2005/04/07 10:00:10 guido Exp $
 #
 
 import Globals
 from AccessControl import ClassSecurityInfo
+from DateTime import DateTime
 
 from Products.Silva.adapters import adapter
 from Products.SilvaNews.adapters import interfaces
@@ -16,54 +17,42 @@ class NewsItemReference:
 
     __allow_access_to_unprotected_subobjects__ = 1
 
-    def __init__(self, id, title, link, description,
-                    intro, creationtime, start_datetime, 
-                    end_datetime, location):
-        self._id = id
-        self._title = title
-        self._link = link
-        self._description = description
-        self._intro = intro
-        self._creationtime = creationtime
-        self._start_datetime = start_datetime
-        self._end_datetime = end_datetime
-        self._location = location
+    def __init__(self, item, context):
+        self._item = item
+        self._context = context
 
     def id(self):
-        """return the id"""
-        return self._id
+        return self._item.id
 
     def title(self):
-        """returns the title"""
-        return self._title
+        return self._item.get_title()
 
-    def description(self):
-        """returns the description"""
-        return self._description
+    def description(self, maxchars=1024):
+        # we can be sure there is no markup here, so just limit
+        desc = self._item.get_description()
+        if desc is None:
+            return ''
+        return desc[:maxchars]
 
     def link(self):
-        """returns a link to the item"""
-        return self._link
+        return self._item.aq_parent.absolute_url()
 
-    def intro(self):
-        """return the info"""
-        return self._intro
-
-    def creationtime(self):
-        """returns the creation time"""
-        return self._creationtime
+    def intro(self, maxchars=1024):
+        return self._item.get_intro(maxchars)
+    
+    def creation_datetime(self):
+        creation_datetime = self._context.service_metadata.getMetadataValue(
+                        self._item, 'silva-extra', 'creationtime')
+        return creation_datetime
 
     def start_datetime(self):
-        """returns the start datetime"""
-        return self._start_datetime
+        return getattr(self._item, 'start_datetime', None)
 
     def end_datetime(self):
-        """return the end datetime"""
-        return self._end_datetime
+        return getattr(self._item, 'end_datetime', None)
 
     def location(self):
-        """returns the location (if any)"""
-        return self._location
+        return getattr(self._item, 'location', None)
 
 Globals.InitializeClass(NewsItemReference)
 
@@ -83,14 +72,7 @@ class NewsViewerNewsProvider(adapter.Adapter):
         ret = []
         for item in results[:number]:
             obj = item.getObject()
-            creationtime = context.service_metadata.getMetadataValue(
-                            obj, 'silva-extra', 'creationtime')
-            ref = NewsItemReference(obj.id, obj.get_title(), 
-                    obj.aq_parent.absolute_url(), obj.get_description(),
-                    obj.get_intro(), creationtime,
-                    getattr(obj, 'start_datetime', lambda: None)(),
-                    getattr(obj, 'end_datetime', lambda: None)(),
-                    getattr(obj, 'location', lambda: None)())
+            ref = NewsItemReference(obj, self.context)
             ret.append(ref)
         return ret
 
@@ -116,15 +98,63 @@ class AgendaViewerNewsProvider(adapter.Adapter):
         ret = []
         for item in results[:number]:
             obj = item.getObject()
-            creationtime = context.service_metadata.getMetadataValue(
-                            obj, 'silva-extra', 'creationtime')
-            ref = NewsItemReference(obj.id, obj.get_title(), 
-                    obj.aq_parent.absolute_url(), obj.get_description(),
-                    obj.get_intro(), creationtime,
-                    obj.start_datetime(), obj.end_datetime(),
-                    obj.location())
+            ref = NewsItemReference(obj, self.context)
             ret.append(ref)
         return ret
+
+class RSSItemReference:
+    """a temporary object to wrap a newsitem"""
+
+    __allow_access_to_unprotected_subobjects__ = 1
+
+    def __init__(self, item, context):
+        self._item = item
+        self._context = context
+
+    def id(self):
+        return self._item['title']
+
+    def title(self):
+        return self._item['title']
+
+    def description(self, maxchars=1024):
+        # XXX we're not so sure about the type of content, so let's not
+        # try to limit it for now...
+        return self._item['description']
+
+    def link(self):
+        return self._item['link']
+
+    def intro(self, maxchars=1024):
+        return self.description(maxchars)
+    
+    def creation_datetime(self):
+        return (self._toDateTime(self._item.get('created')) or 
+                self._toDateTime(self._item.get('date')) or None)
+
+    def start_datetime(self):
+        return None
+
+    def end_datetime(self):
+        return None
+
+    def location(self):
+        return getattr(self._item, 'location', None)
+
+    def _toDateTime(self, dt):
+        """converts a Python datetime object to a Zope DateTime one"""
+        if dt is None:
+            return None
+        if type(dt) in [str, unicode]:
+            # string
+            return DateTime(dt)
+        elif type(dt) == tuple:
+            # tuple 
+            return DateTime(*dt)
+        # datetime?
+        return DateTime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
+
+Globals.InitializeClass(NewsItemReference)
 
 class RSSAggregatorNewsProvider(adapter.Adapter):
     
@@ -136,6 +166,11 @@ class RSSAggregatorNewsProvider(adapter.Adapter):
             note that this may return less than number, since the RSS feed
             might not provide enough items
         """
+        items = self.context.get_merged_feed_contents()
+        ret = []
+        for item in items:
+            ret.append(RSSItemReference(item, self.context))
+        return ret
 
 def getNewsProviderAdapter(context):
     if context.meta_type == 'Silva News Viewer':
