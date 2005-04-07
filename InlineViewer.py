@@ -20,7 +20,8 @@ from Products.Formulator.XMLToForm import XMLToForm
 class InlineViewer(CodeSource):
     """A news viewer object to display news items within a Silva document
     
-        Inspired by Marc Petitmermet's Inline News Viewer
+        Inspired by Marc Petitmermet's Inline News Viewer (some code was
+        copied from that product too, thanks Marc!)
     """
 
     __implements__ = IExternalSource
