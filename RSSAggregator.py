@@ -35,7 +35,6 @@ class RSSAggregator(NewsViewer):
 	self._caching_period = 360 # in seconds
         self._v_cache = None
 
-
     # MANIPULATORS
 
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
@@ -55,14 +54,12 @@ class RSSAggregator(NewsViewer):
             self._v_cache = None
             self.reindex_object()
 
-
     # ACCESSORS
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
 			      'get_feeds')
     def get_feeds(self):
         return self._rss_feeds
-
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
 			      'get_feed_contents')
