@@ -36,30 +36,27 @@
           </h4>
         </tal:block>
 
-        <div>
-          <tal:block tal:define="
-              intro_text item/intro;
-              number_of_characters python:options['number_of_characters']"
-              tal:content="structure python:model.limit_intro(
-                            intro_text, number_of_characters)"
-              tal:condition="python: options['show_intro']=='intro'">
-            Lead
-          </tal:block>
-          <tal:block tal:define="
-              intro_text item/description;
-              number_of_characters python:options['number_of_characters']"
-              tal:content="structure python:model.limit_intro(
-                            intro_text, number_of_characters)"
-              tal:condition="python:(not item.intro() or 
-                                  options['show_intro']=='description')">
-            Lead
-          </tal:block>
+        <div tal:define="maxchars python: int(options['number_of_characters'])">
+          <div class="newsitem_description">
+            <tal:block tal:define="intro python:item.intro(maxchars)"
+                tal:content="structure intro"
+                tal:condition="python: options['show_intro']=='intro'">
+              Lead
+            </tal:block>
+            <tal:block tal:define="intro python: item.description(maxchars)"
+                tal:content="structure intro"
+                tal:condition="python:(not item.intro() or 
+                                    options['show_intro']=='description')">
+              Lead
+            </tal:block>
+          </div>
 
           <div i18n:translate="" 
-                      tal:condition="python:int(options['show_creationdate'])">
+              tal:condition="python:(int(options['show_creationdate']) and 
+                                      item.creation_datetime())">
             Creation date/time: 
             <span i18n:name="datetime" 
-                tal:replace="python:mangle.DateTime(item.creationtime()).toStr()"
+                tal:replace="python:mangle.DateTime(item.creation_datetime()).toStr()"
                 tal:condition="python:int(options['show_creationdate'])">
               date
             </span>
@@ -92,7 +89,7 @@
             </span>
           </div>
            
-          <div tal:condition="python: options['show_link_article'] == 'seperate'">
+          <div tal:condition="python: options['show_link_article'] == 'separate'">
             <a tal:attributes="href item/link"
                 tal:content="structure options/link_text_article">
               view item
@@ -107,12 +104,12 @@
       <i>There are no articles available.</i>
     </div>
 
-    <div tal:condition="python:options['show_link']=='1'">
+    <p tal:condition="python:options['show_link']=='1'">
       <a tal:attributes="href python:viewerobj.absolute_url()"
           tal:content="structure options/link_text_viewer">
         View other articles
       </a>
-    </div>
+    </p>
 
     <!-- <metal:block use-macro="here/feed_footer/macros/footer" /> -->
 
