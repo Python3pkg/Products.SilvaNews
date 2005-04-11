@@ -1,6 +1,6 @@
 # Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.19.2.2 $
+# $Revision: 1.19.2.3 $
 
 from OFS import SimpleItem
 from AccessControl import ClassSecurityInfo
@@ -19,6 +19,13 @@ from interfaces import IAgendaItemVersion
 
 icon = 'www/agenda_filter.png'
 addable_priority = 3.4
+
+def brainsorter(a, b):
+    aobj = a.getObject()
+    atime = aobj.start_datetime()
+    bobj = b.getObject()
+    btime = bobj.start_datetime()
+    return cmp(atime, btime)
 
 class AgendaFilter(Filter):
     """To enable editors to channel newsitems on a site, all items
@@ -45,11 +52,32 @@ class AgendaFilter(Filter):
             return []
         if not meta_types:
             meta_types = self.get_allowed_meta_types()
+            
         self.verify_excluded_items()
+
+        result = []
+        
         date = DateTime()
         lastnight = DateTime(date.year(), date.month(), date.day(), 0, 0, 0)
         enddate = lastnight + numdays
-        result = self._query(
+        result_enddt = self._query(
+            idx_end_datetime = (lastnight, enddate),
+            idx_end_datetime_usage = 'range:min:max',
+            version_status = 'public',
+            path = self._sources,
+            subjects = {'query': self._subjects,
+                        'operator': 'or'},
+            target_audiences = {'query': self._target_audiences,
+                                'operator': 'or'},
+            meta_type = meta_types,
+            sort_on = 'idx_end_datetime',
+            sort_order = 'ascending')
+
+        for item in result_enddt:
+            if not item.object_path in self._excluded_items:
+                result.append(item)
+
+        result_startdt = self._query(
             idx_start_datetime = (lastnight, enddate),
             idx_start_datetime_usage = 'range:min:max',
             version_status = 'public',
@@ -62,7 +90,18 @@ class AgendaFilter(Filter):
             sort_on = 'idx_start_datetime',
             sort_order = 'ascending')
 
-        return [r for r in result if not r.object_path in self._excluded_items]
+        # remove all objects from result_startdt for which an end datetime is 
+        # set (since they're retrieved above)
+        for item in result_startdt:
+            if (not item.object_path in self._excluded_items and 
+                    not hasattr(item, 'end_datetime') or not
+                        item.getObject().end_datetime()):
+                result.append(item)
+
+        result = [r for r in result]
+        result.sort(brainsorter)
+
+        return result
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_last_items')
@@ -84,18 +123,19 @@ class AgendaFilter(Filter):
             target_audiences={'query': self._target_audiences,
                                 'operator': 'or'},
             meta_type=meta_types,
-            sort_on='silva-extrapublicationtime',
-            sort_order='ascending',
             )
         
         filtered_result = [r for r in result
                            if not r.object_path in self._excluded_items]
+
         output = []
         for i in range(len(filtered_result)):
             if i < number:
                 output.append(filtered_result[i])
             else:
                 break
+        output = [r for r in output]
+        output.sort(brainsorter)
         return output
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
@@ -117,7 +157,29 @@ class AgendaFilter(Filter):
             endmonth = 1
             year = year + 1
         enddate = DateTime(year, endmonth, 1)
+
+        result = []
     
+        # first query for objects that do have an end datetime defined
+        query = {}
+        query['idx_end_datetime'] = [startdate, enddate]
+        query['idx_end_datetime_usage'] = 'range:min:max'
+        query['version_status'] = 'public'
+        query['path'] = self._sources
+        query['idx_subjects'] = {'query': self._subjects,
+                                'operator': 'or'}
+        query['idx_target_audiences'] = {'query': self._target_audiences,
+                                        'operator': 'or'}
+        query['meta_type'] = meta_types
+        query['sort_on'] = 'idx_end_datetime'
+        query['sort_order'] = 'ascending'
+        result_enddt = self.service_catalog(query)
+
+        for item in result_enddt:
+            if item.object_path not in self._excluded_items:
+                result.append(item)
+        
+        # now those that don't have end_datetime
         query = {}
         query['idx_start_datetime'] = [startdate, enddate]
         query['idx_start_datetime_usage'] = 'range:min:max'
@@ -130,8 +192,18 @@ class AgendaFilter(Filter):
         query['meta_type'] = meta_types
         query['sort_on'] = 'idx_start_datetime'
         query['sort_order'] = 'ascending'
-        result = self.service_catalog(query)
-        return [r for r in result if not r.object_path in self._excluded_items]
+        result_startdt = self.service_catalog(query)
+
+        # remove the items with an end_dt from the result_startdt
+        for item in result_startdt:
+            if (item.object_path not in self._excluded_items and
+                    not item.getObject().end_datetime()):
+                result.append(item)
+
+        result = [r for r in result]
+        result.sort(brainsorter)
+
+        return result
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items_by_date')
@@ -154,8 +226,12 @@ class AgendaFilter(Filter):
             endmonth = 1
             year = year + 1
         enddate = DateTime(year, endmonth, 1)
+
+        result = []
+
+        # end_datetime items first
         query = {}
-        query['silva-extrapublicationtime'] = {'query': [startdate, enddate],
+        query['idx_end_datetime'] = {'query': [startdate, enddate],
                                                 'range': 'minmax'}
         query['version_status'] = 'public'
         query['path'] = self._sources
@@ -164,11 +240,37 @@ class AgendaFilter(Filter):
         query['idx_target_audiences'] = {'query': self._target_audiences,
                                         'operator': 'or'}
         query['meta_type'] = meta_types
-        query['sort_on'] = 'silva-extrapublicationtime'
+        query['sort_on'] = 'idx_end_datetime'
         query['sort_order'] = 'ascending'
-        result = self.service_catalog(query)
+        result_enddt = self.service_catalog(query)
 
-        return [r for r in result if not r.object_path in self._excluded_items]
+        for item in result_enddt:
+            if item.object_path not in self._excluded_items:
+                result.append(item)
+
+        query = {}
+        query['idx_start_datetime'] = {'query': [startdate, enddate],
+                                                'range': 'minmax'}
+        query['version_status'] = 'public'
+        query['path'] = self._sources
+        query['idx_subjects'] = {'query': self._subjects,
+                                'operator': 'or'}
+        query['idx_target_audiences'] = {'query': self._target_audiences,
+                                        'operator': 'or'}
+        query['meta_type'] = meta_types
+        query['sort_on'] = 'idx_start_datetime'
+        query['sort_order'] = 'ascending'
+        result_startdt = self.service_catalog(query)
+
+        for item in result_startdt:
+            if (item.object_path not in self._excluded_items and
+                    not item.getObject().end_datetime()):
+                result.append(item)
+
+        result = [r for r in result]
+        result.sort(brainsorter)
+
+        return result
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'backend_get_items_by_date')
@@ -189,6 +291,20 @@ class AgendaFilter(Filter):
             endmonth = 1
             year = year + 1
         enddate = DateTime(year, endmonth, 1)
+        
+        # end dt first
+        query = {}
+        query['idx_end_datetime'] = [startdate, enddate]
+        query['idx_end_datetime_usage'] = 'range:min:max'
+        query['version_status'] = 'public'
+        query['path'] = self._sources
+        query['idx_subjects'] = self._subjects
+        query['idx_target_audiences'] = self._target_audiences
+        query['meta_type'] = meta_types
+        query['sort_on'] = 'idx_end_datetime'
+        query['sort_order'] = 'ascending'
+        result = self.service_catalog(query)
+
         query = {}
         query['idx_start_datetime'] = [startdate, enddate]
         query['idx_start_datetime_usage'] = 'range:min:max'
@@ -199,7 +315,15 @@ class AgendaFilter(Filter):
         query['meta_type'] = meta_types
         query['sort_on'] = 'idx_start_datetime'
         query['sort_order'] = 'ascending'
-        result = self.service_catalog(query)
+        result_startdt = self.service_catalog(query)
+
+        result = [r for r in result]
+
+        for item in result_startdt:
+            if not item.getObject().end_datetime():
+                result.append(item)
+
+        result.sort(brainsorter)
 
         return result
 

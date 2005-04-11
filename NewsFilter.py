@@ -1,6 +1,6 @@
 # Copyright (c) 2002-2005 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.31.2.1 $
+# $Revision: 1.31.2.2 $
 
 from OFS import SimpleItem
 from AccessControl import ClassSecurityInfo
@@ -17,6 +17,8 @@ from Products.Silva import mangle
 
 from Filter import Filter, MetaTypeException
 from interfaces import INewsItemVersion, INewsFilter, IAgendaItemVersion
+
+from AgendaFilter import brainsorter
 
 icon = 'www/news_filter.png'
 addable_priority = 3.2
@@ -113,17 +115,38 @@ class NewsFilter(Filter):
         any way because it requres start_datetime to be set. The
         NewsViewer uses only get_last_items.
         """
+        if not self._sources:
+            return []
         date = DateTime()
         lastnight = DateTime(date.year(), date.month(), date.day(), 0, 0, 0)
         enddate = lastnight + numdays
+
+        result = []
+        
+        # first query for items that have an end_datetime defined
         query = self._prepare_query(meta_types)
-        if not self._sources:
-            return []
+        query['idx_end_datetime'] = (lastnight, enddate)
+        query['idx_end_datetime_usage'] = 'range:min:max'
+        result_enddt = self.service_catalog(query)
+
+        for item in result_enddt:
+            if item.object_path not in self._excluded_items:
+                result.append(item)
+
+        query = self._prepare_query(meta_types)
         query['idx_start_datetime'] = (lastnight, enddate)
         query['idx_start_datetime_usage'] = 'range:min:max'
-        result = self.service_catalog(query)
+        result_startdt = self.service_catalog(query)
 
-        return [r for r in result if not r.object_path in self._excluded_items]
+        for item in result_startdt:
+            if (item.object_path not in self._excluded_items and 
+                    not item.getObject().end_datetime()):
+                result.append(item)
+
+        result = [r for r in result]
+        result.sort(brainsorter)
+
+        return result
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items_by_date')
@@ -155,7 +178,7 @@ class NewsFilter(Filter):
         Returns non-excluded published AGENDA-items for a particular
         month. This method is for exclusive use by AgendaViewers only,
         NewsViewers should use get_items_by_date instead (which
-        filters on silva-extrapublicationtime instead of start_datetime and
+        filters on idx_display_datetime instead of start_datetime and
         returns all objects instead of only IAgendaItem-
         implementations)
         """
@@ -168,14 +191,32 @@ class NewsFilter(Filter):
             year = year + 1
         enddate = DateTime(year, endmonth, 1)
 
+        result = []
+        
+        # first query for items that have an end_datetime defined
         query = self._prepare_query(meta_types)
-        if not self._sources:
-            return []
-        query['idx_start_datetime'] = [startdate, enddate]
-        query['idx_start_datetime_usage'] = 'range:min:max'
-        result = self.service_catalog(query)
+        query['idx_end_datetime'] = (startdate, enddate)
+        query['idx_end_datetime_usage'] = 'range:min:max'
+        result_enddt = self.service_catalog(query)
 
-        return [r for r in result if not r.object_path in self._excluded_items]
+        for item in result_enddt:
+            if item.object_path not in self._excluded_items:
+                result.append(item)
+
+        query = self._prepare_query(meta_types)
+        query['idx_start_datetime'] = (startdate, enddate)
+        query['idx_start_datetime_usage'] = 'range:min:max'
+        result_startdt = self.service_catalog(query)
+
+        for item in result_startdt:
+            if (item.object_path not in self._excluded_items and 
+                    not item.getObject().end_datetime()):
+                result.append(item)
+
+        result = [r for r in result]
+        result.sort(brainsorter)
+
+        return result
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'show_agenda_items')
