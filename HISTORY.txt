@@ -4,6 +4,14 @@ See also LICENSE.txt
 SilvaNews changes
 
   1.1
+   
+    Features added
+
+      - Added an object that allows viewing news items inside Silva Documents,
+        called the Inline News Viewer (thanks to Marc Petitmermet for code 
+        and ideas!).
+
+  1.1
 
     Bugs fixed
 
