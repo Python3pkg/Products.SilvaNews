@@ -3,7 +3,15 @@ See also LICENSE.txt
 
 SilvaNews changes
 
-  1.1
+  1.1.2
+
+    Bugs fixed
+
+      - Made the AgendaFilter query code check whether 'end_datetime' is
+        defined on the objects before it tries calling it, which should
+        allow AgendaItems without an end_datetime method to be used.
+
+  1.1.1
    
     Features added
 
