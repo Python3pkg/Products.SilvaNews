@@ -1,1 +1,1 @@
-SilvaNewsNetwork 2.0.2b1
+SilvaNewsNetwork 2.0 CVS branch
