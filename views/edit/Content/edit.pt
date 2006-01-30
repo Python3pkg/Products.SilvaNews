@@ -130,7 +130,7 @@
             The URL of the feed is: 
             </span>
             <a tal:attributes="href string:${model/absolute_url}/rss">
-              <span tal:replace="string:${model/absolute_url}/rss">feed</span>
+              <span tal:replace="python:'%s /rss' % ' /'.join(model.absolute_url().split('/')).replace('http: / /', 'http://')">feed</span>
             </a>
           </p>
         </div>
