@@ -17,30 +17,30 @@
     <h2 class="heading" tal:content="structure python:version.get_title()" />
   </div>
 
-  <div class="newsitem_info">
+  <div class="newsitem-info">
     <div tal:define="creationdate python: formatdate(
                   version.get_metadata_element('silva-extra', 'creationtime'))"
           tal:condition="python: creationdate != ''">
-      <div class="newsitem_info_title creationdate_title" i18n:translate="">Creation date:</div>
+      <div class="newsitem-info-title-creationdate-title" i18n:translate="">Creation date:</div>
       <span class="datetime creationdate" tal:replace="structure creationdate" />
     </div>
-    <div class="newsitem_info_title datetime_title" i18n:translate="">Date and time:</div>
+    <div class="newsitem-info-title datetime-title" i18n:translate="">Date and time:</div>
     <div tal:define="startdate python: formatdate(
                         version.start_datetime(), version.display_time());
                       enddate python: formatdate(
                         version.end_datetime(), version.display_time())"
           tal:condition="startdate"
           class="datetime">
-      <span class="newsitem_info_title startdatetime_title" i18n:translate="">Start:</span>
+      <span class="newsitem-info-title-startdatetime-title" i18n:translate="">Start:</span>
       <div tal:replace="startdate" />
-      <span class="newsitem_info_title enddatetime_title" i18n:translate=""
+      <span class="newsitem-info-title enddatetime-title" i18n:translate=""
             tal:condition="enddate">End:</span>
       <div tal:replace="enddate" />
     </div>
 
   </div>
 
-  <div class="newsitem_content" 
+  <div class="newsitem-content" 
         tal:content="structure python:view.get_content(version)" />
 
 </span>
