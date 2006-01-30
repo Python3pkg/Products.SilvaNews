@@ -100,7 +100,7 @@
         <values>
           <alternate_name></alternate_name>
           <css_class></css_class>
-          <default></default>
+          <default>5</default>
           <description>Number of articles to be shown; max. is set by viewer (AN); empty = all articles (ANR)</description>
           <display_maxwidth></display_maxwidth>
           <display_width type="int">3</display_width>
@@ -109,7 +109,7 @@
           <external_validator></external_validator>
           <extra></extra>
           <hidden type="int">0</hidden>
-          <required type="int">0</required>
+          <required type="int">1</required>
           <start></start>
           <title># of articles</title>
           <whitespace_preserve type="int">0</whitespace_preserve>
