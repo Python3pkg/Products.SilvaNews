@@ -3,6 +3,14 @@ See also LICENSE.txt
 
 SilvaNewsNetwork changes
 
+  2.0.3
+
+    Bugs fixed
+
+      - Fixed links in 'edit items' tab of NewsFilter.
+
+      - Fixed RSS image src.
+
   2.0.2
 
     Bugs fixed
