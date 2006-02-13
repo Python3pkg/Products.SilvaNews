@@ -250,11 +250,11 @@
   <tr>
     <td width="50%" align="left">
       &nbsp;
-      <a href="#" tal:attributes="href string:${model/absolute_url}/edit/tab_edit?start:int=${previous/first}" tal:condition="previous" i18n:translate="">Previous</a>
+      <a href="#" tal:attributes="href string:${model/absolute_url}/edit/tab_edit_items?start:int=${previous/first}" tal:condition="previous" i18n:translate="">Previous</a>
     </td>
     <td width="50%" align="right">
       &nbsp;
-      <a href="#" tal:attributes="href string:${model/absolute_url}/edit/tab_edit?start:int=${next/first}" tal:condition="next" i18n:translate="">Next</a></td>
+      <a href="#" tal:attributes="href string:${model/absolute_url}/edit/tab_edit_items?start:int=${next/first}" tal:condition="next" i18n:translate="">Next</a></td>
   </tr>
 </table>
 

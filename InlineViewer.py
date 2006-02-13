@@ -87,7 +87,7 @@ class InlineViewer(CodeSource):
                 package_home(globals()),
                 'www',
                 'rss10.gif'), 'rb')
-        self._setObject('rss.gif', Image('rss.gif', 'RSS (1.0)', f))
+        self._setObject('rss10.gif', Image('rss.gif', 'RSS (1.0)', f))
         f.close()
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
