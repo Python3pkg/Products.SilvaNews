@@ -197,7 +197,7 @@ class NewsItemVersion(CatalogedVersion):
 
     def __init__(self, id):
         # XXX dummy title?
-        NewsItemVersion.inheritedAttribute('__init__')(self, id)
+        NewsItemVersion.inheritedAttribute('__init__')(self, id, 'dummy')
         self._subjects = []
         self._target_audiences = []
         self._display_datetime = None
