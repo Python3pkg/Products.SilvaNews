@@ -127,6 +127,79 @@ class INewsFilter(Interface):
         """Returns the last self._number_to_show published items
         """
 
+class INewsViewer(Interface):
+    """A viewer of news items.
+    """
+    # manipulators
+    def set_number_to_show(number):
+        """Set the number of items to show on the front page.
+        """
+
+    def set_number_to_show_archive(number):
+        """Set the number to show per page in the archives.
+        """
+
+    def set_number_is_days(onoff):
+        """If set to True, the number to show will be by days back, not number.
+        """
+
+    def set_filter(newsfilter, on_or_off):
+        """Adds or removes a filter from the list of filters.
+
+        If on_or_off is True, add filter, if False, remove filter.
+        """
+        
+    # accessors
+    def number_to_show():
+        """Amount of news items to show.
+        """
+
+    def number_to_show_archive():
+        """Number of items per page to show in the archive.
+        """
+
+    def number_is_days():
+        """If number_is_days is True, the number_to_show will control
+        days back to show instead of number of items.
+        """
+
+    def filters():
+        """Returns a list of the path to all news filters associated.
+        """
+
+    def findfilters():
+        """Returns a list of all paths to all filters.
+        """
+
+    def findfilters_pairs():
+        """Returns a list of tuples (title, path) for all filters.
+        """
+
+    def get_items():
+        """Get items from the filters according to the number to show.
+        """
+
+    def get_items_by_date(month, year):
+        """Given a month and year, give all items published then.
+        """
+
+    def search_items(keywords):
+        """Search the items in the filters.
+        """
+
+    def rss():
+        """Represent this viewer as an RSS feed. (RSS 1.0)
+        """
+    
+class IAgendaViewer(INewsViewer):
+    def days_to_show():
+        """Return number of days to show on front page.
+        """
+
+    def set_days_to_show(number):
+        """Sets the number of days to show in the agenda.
+        """
+
 class IServiceNews(Interface):
     """A service that provides trees of subjects and target_audiences.
 

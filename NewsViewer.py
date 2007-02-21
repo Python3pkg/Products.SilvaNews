@@ -15,6 +15,7 @@ from Products.Silva.Content import Content
 from Products.SilvaDocument.Document import Document
 from Products.Silva.helpers import add_and_edit
 from Products.Silva import mangle
+from Products.SilvaNews.interfaces import INewsViewer
 
 try:
     from cStringIO import StringIO
@@ -85,7 +86,7 @@ class NewsViewer(Content, Folder.Folder):
 
     security = ClassSecurityInfo()
 
-    implements(IContent)
+    implements(IContent, INewsViewer)
 
     def __init__(self, id):
         NewsViewer.inheritedAttribute('__init__')(self, id, 'dummy')
@@ -300,6 +301,9 @@ class NewsViewer(Content, Folder.Folder):
         # RSS elements
         xml.write('<title>%s</title>\n' % quote_xml(item.get_title()))
         xml.write('<link>%s</link>\n' % quote_xml(version_container.absolute_url()))
+        # somehow get_intro fails if it doesn't have 'model' available on
+        # request. as a complete and total hack, make it available.
+        self.REQUEST.model = item
         xml.write('<description>%s</description>\n' %
                   quote_xml(item.get_intro()))
         # DC elements

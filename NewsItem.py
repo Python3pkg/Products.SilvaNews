@@ -27,6 +27,8 @@ from Products.SilvaDocument.transform.Transformer import EditorTransformer
 from Products.SilvaDocument.transform.base import Context
 from Products.Silva.Image import havePIL
 
+from interfaces import INewsItem
+
 class MetaDataSaveHandler(ContentHandler):
     def startDocument(self):
         self.title = ''
@@ -69,7 +71,7 @@ class NewsItem(CatalogedVersionedContent):
     """
     security = ClassSecurityInfo()
 
-    implements(IVersionedContent)
+    implements(IVersionedContent, INewsItem)
 
     # MANIPULATORS
 
@@ -256,6 +258,9 @@ class NewsItemVersion(CatalogedVersion):
             characters in the data returned it will truncate (per element)
             to minimally 1 element
         """
+        # something in here needs 'model', so make sure it's available...
+        self.REQUEST.model = self
+        
         content = self.content._content
         ret = []
         length = 0

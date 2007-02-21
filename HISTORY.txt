@@ -3,11 +3,27 @@ See also LICENSE.txt
 
 SilvaNewsNetwork changes
 
-  svn/unreleased
+  unreleased
 
     Features added
 
-      - the rss views now use the get_intro methodf of the items, instead
+      - added interfaces INewsViewer and IAgendaViewer. These interfaces
+        can be used by SilvaLayout/Five to provide special views for 
+        news/agenda viewers.
+
+      - make AgendaItem and NewsItem actually state properly they 
+        implement their interfaces.
+
+    Bugs fixed
+
+      - using 'get_intro' for RSS feeds introduced a bug in at least some
+        RSS feeds. This has been worked around.
+
+  2.3
+
+    Features added
+
+      - the rss views now use the get_intro method of the items, instead
         of the metadata description.
 
   2.2

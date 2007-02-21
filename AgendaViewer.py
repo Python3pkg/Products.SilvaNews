@@ -17,6 +17,8 @@ from Products.Silva import mangle
 from NewsViewer import NewsViewer
 from Products.SilvaNews.interfaces import IAgendaItemVersion
 
+from Products.SilvaNews.interfaces import IAgendaViewer
+
 icon = 'www/agenda_viewer.png'
 addable_priority = 3.3
 
@@ -31,7 +33,7 @@ class AgendaViewer(NewsViewer):
 
     security = ClassSecurityInfo()
 
-    implements(IContent)
+    implements(IContent, IAgendaViewer)
 
     meta_type = "Silva Agenda Viewer"
 
