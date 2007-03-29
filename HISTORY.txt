@@ -3,7 +3,7 @@ See also LICENSE.txt
 
 SilvaNewsNetwork changes
 
-  unreleased
+  2.3.1 (1.5 version)
 
     Features added
 
