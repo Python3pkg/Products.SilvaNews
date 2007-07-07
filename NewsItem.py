@@ -265,8 +265,8 @@ class NewsItemVersion(CatalogedVersion):
         ret = []
         length = 0
         for child in content.childNodes[0].childNodes:
-            if child.nodeName == 'image':
-                continue
+            #if child.nodeName == 'image':
+            #    continue
             # XXX the viewer is set every iteration because the renderView
             # calls of certain elements will set it to something else
             self.service_editor.setViewer('service_news_sub_viewer')
