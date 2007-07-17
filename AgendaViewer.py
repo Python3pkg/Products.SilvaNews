@@ -39,6 +39,12 @@ class AgendaViewer(NewsViewer):
 
     show_in_tocs = 1
 
+    # XXX 2 months. hardcoded for now. 'None' means show from present day
+    # onwards (the original behavior). AgendaViewer could be extended with
+    # an extra UI field so that people could configure this themselves,
+    # similar to _days_to_show.
+    _past_days_to_show = 62
+    
     def __init__(self, id):
         AgendaViewer.inheritedAttribute('__init__')(self, id)
         self._days_to_show = 31
@@ -84,7 +90,8 @@ class AgendaViewer(NewsViewer):
         results = []
         for newsfilter in self._filters:
             obj = self.aq_inner.restrictedTraverse(newsfilter)
-            res = obj.get_next_items(self._days_to_show)
+            res = obj.get_next_items(self._days_to_show,
+                                     past_days=self._past_days_to_show)
             results += res
 
         results = self._remove_doubles(results)

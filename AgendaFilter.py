@@ -68,8 +68,11 @@ class AgendaFilter(Filter):
     
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_next_items')
-    def get_next_items(self, numdays, meta_types=None):
+    def get_next_items(self, numdays, meta_types=None, past_days=None):
         """Returns published items from now up to a number of days
+
+        If past_days is specified, also give published items in the
+        past_days.
         """
         self.verify_sources()
         if not self._sources:
@@ -83,8 +86,10 @@ class AgendaFilter(Filter):
         
         lastnight = DateTime().earliestTime()
         enddate = lastnight + numdays
+        if past_days is not None:
+            startdate = lastnight - past_days
         result_enddt = self._query(
-            idx_end_datetime = (lastnight, enddate),
+            idx_end_datetime = (startdate, enddate),
             idx_end_datetime_usage = 'range:min:max',
             version_status = 'public',
             path = self._sources,
@@ -101,7 +106,7 @@ class AgendaFilter(Filter):
                 result.append(item)
 
         result_startdt = self._query(
-            idx_start_datetime = (lastnight, enddate),
+            idx_start_datetime = (startdate, enddate),
             idx_start_datetime_usage = 'range:min:max',
             version_status = 'public',
             path = self._sources,

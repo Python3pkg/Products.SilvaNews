@@ -3,6 +3,14 @@ See also LICENSE.txt
 
 SilvaNewsNetwork changes
 
+  2.3.1.2 (1.5 version)
+ 
+    Features added
+
+      - display agenda items for 2 months in the past, not only in the
+        future. For now this is hard-coded, but making the UI work
+        with this would not be much work.
+
   2.3.1.1 (1.5 version)
    
     Features added
