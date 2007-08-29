@@ -25,17 +25,16 @@ class ObjectTitle:
         Is overridden to regain the behaviour of SilvaObject instead of that
         of superclass Silva.Folder
         """
-        binding = self.service_metadata.getMetadata(self)
-        return binding.get('silva-content', element_id='maintitle')
+        return self.service_metadata.getMetadataValue(
+            self, 'silva-content', 'maintitle')
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation, 
                               'get_short_title')
     def get_short_title(self):
         """Get the short title or the title
         """
-        binding = self.service_metadata.getMetadata(self)
-        short_title = binding.get(
-            'silva-content', element_id='shorttitle')
+        short_title = self.service_metadata.getMetadataValue(
+            self, 'silva-content', 'shorttitle')
         if not short_title:
             return self.get_title()
         return short_title

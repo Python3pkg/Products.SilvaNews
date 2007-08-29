@@ -17,9 +17,10 @@
   view news
 </h2>
 
-<tal:feed_item
+<tal:feed
   tal:repeat="item result">
-<h4 tal:define="title item/title | nothing"
+<h4 class="feed"
+  tal:define="title item/title | nothing"
   tal:condition="title"
   tal:content="structure title">
   title
@@ -30,13 +31,12 @@
   tal:content="structure description">
   feed snippet
 </p>
-<p class="articlelink">
-<a tal:define="link item/link"
+<p class="feedlink"
+><a tal:define="link item/link"
   tal:condition="link" 
   tal:attributes="href link"
   i18n:translate="">
   view article
-</a>
-</p>
-</tal:feed_item>
+</a></p>
+</tal:feed>
 </div>

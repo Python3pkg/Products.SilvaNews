@@ -22,9 +22,9 @@
 
 <metal:block fill-slot="script">
   <!-- note that the Kupu scripts need to be loaded *before* widgeteer! -->
-  <tal:block condition="python: hasattr(view, 'kupu')">
+  <tal:block condition="python: hasattr(view, 'service_kupu')">
     <tal:block define="dummy python:request.SESSION.set('edit_field', 'content')" />
-    <metal:macro use-macro="view/kupu_silva/kupumacros/macros/jsincludes" />
+    <metal:macro use-macro="view/service_kupu_silva/kupumacros/macros/jsincludes" />
   </tal:block>
 
   <script type="text/javascript"
@@ -40,19 +40,19 @@
 </metal:block>
 
 <metal:block fill-slot="editor_content">
-<tal:set define="global usekupu python: hasattr(view, 'kupu')" />
+<tal:set define="global usekupu python: hasattr(view, 'service_kupu')" />
 <tal:if condition="usekupu">
   <tal:block define="dummy python:request.SESSION.set('edit_field', 'content')" />
-  <metal:plug use-macro="view/kupu_silva/kupumacros/macros/body" />
+  <metal:plug use-macro="view/service_kupu_silva/kupumacros/macros/body" />
 </tal:if>
-<tal:block condition="python: not hasattr(view, 'kupu')">
+<tal:block condition="python: not hasattr(view, 'service_kupu')">
   Please install Kupu to edit this object!
 </tal:block>
 </metal:block>
 
 <tal:note replace="nothing"> if kupu is live percolate signal upwards</tal:note>
 <metal:fill fill-slot="editorcheck">
-  <tal:set define="global usekupu python:hasattr(view, 'kupu')" />
+  <tal:set define="global usekupu python:hasattr(view, 'service_kupu')" />
   <tal:plug define="global nofeedback python:test(usekupu, 'kupulive', nothing)" />
 </metal:fill>
 

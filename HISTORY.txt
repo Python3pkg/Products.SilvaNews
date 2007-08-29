@@ -3,61 +3,80 @@ See also LICENSE.txt
 
 SilvaNewsNetwork changes
 
-  svn/unreleased
+  2.4.1
+
+    Bugs fixed
+
+      - fix for broken rss feed caused by get_intro() not getting the model
+
+  2.4
 
     Features added
 
-      - the rss views now use the get_intro methodf of the items, instead
+      - added interfaces INewsViewer and IAgendaViewer. These interfaces
+        can be used by SilvaLayout/Five to provide special views for
+        news/agenda viewers.
+
+    Bugs fixed
+
+      - using 'get_intro' for RSS feeds introduced a bug in at least some
+        RSS feeds. This has been worked around.
+
+  2.3
+
+    Features added
+
+      - the rss views now use the get_intro method of the items, instead
         of the metadata description.
 
   2.2
 
     Features
-    
+
       - in tab_edit you can now see in the preview of a published NewsItem an infobox showing all related info
-      
+
       - changed layout more silva-core-like and improved usability cfr issue 1581
-      
+
       - uniformed css classes for view and viewer newsitems, un-div-ing
-      
+
       - more xhtml compliant
 
     Bugs fixed
-   
+
       - fixed bug cfr revision 8871 removed can_approve()
-      
+
       - fixed rss icon cfr issue 1506, 1580
-      
+
       - fixed display date rendering and setting cfr issue 1601, 1603
-      
+
       - fixed publish now cfr issue 1605
-      
+
       - fixed imort/export of InlineNewsViewer cfr issue 1600
-      
+
       - fixed render error when a News viewer has a image and PIL is not installed cfr issue 1604
-      
+
       - news articles show now publication date or display date if set cfr issue 1602
-      
+
       - fixed broken external source cfr issue 1434
-      
+
 
   2.1.3
 
     Features
 
-      - Reworked public templates: removed divs and replaced by p's with Silva 
+      - Reworked public templates: removed divs and replaced by p's with Silva
         style plus news selectors, indenting, language
 
-      - Made layout of the INV (Inline News Viewer) more generic using standard 
+      - Made layout of the INV (Inline News Viewer) more generic using standard
         Silva html classes
 
       - Fixed space above kupu more robustly, so other extensions can control
         the feedback space too.
 
-      - RSS Aggregator public view: removed hard coded table and replaced with 
+      - RSS Aggregator public view: removed hard coded table and replaced with
         standard Silva html rendering
 
-      - Update publish controls with new layout. Still to be fixed is the 
+      - Update publish controls with new layout. Still to be fixed is the
         switch from a publish now checkbox to a publish now button
 
     Bugs fixed
@@ -65,7 +84,7 @@ SilvaNewsNetwork changes
       - Update Kupu css with fixes for the Kupu in Firefox edit html problem
 
       - Fixed space above kupu
-      
+
       - In the news filter the select all button aligns left
 
       - Fixed broken rss image
@@ -76,7 +95,7 @@ SilvaNewsNetwork changes
 
       - Fixed i18n support
 
-      - AgendaItems spanning over a period of more than one month are now 
+      - AgendaItems spanning over a period of more than one month are now
         displayed the whole period rather than only the last month
 
   2.1.2
@@ -86,7 +105,7 @@ SilvaNewsNetwork changes
       - Fixed support for code sources (external sources) in news items.
 
   2.1.1
-  
+
     Bugs fixed
 
       - Fixed some documentation issues: some version numbers were wrong.
@@ -96,7 +115,7 @@ SilvaNewsNetwork changes
     Bugs fixed
 
       - Added upgrader for a specific Zope 2.8.x issue, where some ZCatalog
-        indexes had a new attribute defined, but the upgrader for that 
+        indexes had a new attribute defined, but the upgrader for that
         attribute wasn't executed when required.
 
     Features
@@ -135,14 +154,14 @@ SilvaNewsNetwork changes
 
     Features
 
-      - In each item in a news viewer, the first image of the item's content 
+      - In each item in a news viewer, the first image of the item's content
         (if available) is displayed as a thumbnail.
 
       - Removed all tables from the public views to more easily allow styling
         and layouting with CSS (note that this changes the layout of the public
         views!)
 
-      - Added a new checkbox in Agenda Items, 'display time', to control 
+      - Added a new checkbox in Agenda Items, 'display time', to control
         whether the time part of start and end date/time is displayed in
         the public views, allowing times of 00:00 to be displayed.
 
@@ -158,7 +177,7 @@ SilvaNewsNetwork changes
         re-publishing of an item without moving it in the public view of news
         viewers.
 
-      - Agenda items are now displayed according to the end datetime, if 
+      - Agenda items are now displayed according to the end datetime, if
         available, so that an item disappears from the list of 'current events'
         when it ends rather than when it starts.
 
@@ -172,7 +191,7 @@ SilvaNewsNetwork changes
         on news item content to make the viewers display the items correctly)
         news viewers now display the first *bit* of the news item, regardless
         of the type of elements that contains. Note that this requires some
-        changes in the public templates (the subheader() and lead() methods 
+        changes in the public templates (the subheader() and lead() methods
         have been replaced by one called 'get_intro').
 
     Bugs fixed
@@ -191,7 +210,7 @@ SilvaNewsNetwork changes
 
     Bugs fixed
 
-      - Changed the names of indexes so they're less likely to clash with 
+      - Changed the names of indexes so they're less likely to clash with
         names of user-generated objects - SEE UPGRADE.txt!
 
   1.0
@@ -202,14 +221,14 @@ SilvaNewsNetwork changes
 
       - Fixed some small template issues so it works correctly with Silva 1.0.
 
-      - Problem in some DateTime argument formatting solved that made viewing 
+      - Problem in some DateTime argument formatting solved that made viewing
         certain objects result in an IOError when Silva was running on Windows
         Zope installations.
 
   0.9.1
 
     Bugs fixed
- 
+
       - Silva News really depends on Silva Document, not just Silva core.
 
   0.9

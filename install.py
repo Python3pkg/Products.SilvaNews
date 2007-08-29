@@ -5,7 +5,7 @@
 """Install and Uninstall for Silva News
 """
 
-from Products.FileSystemSite.DirectoryView import manage_addDirectoryView
+from Products.Silva.fssite import manage_addDirectoryView
 from Products.Silva.install import add_fss_directory_view, add_helper, \
                                         py_add_helper
 

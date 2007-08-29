@@ -37,13 +37,13 @@ class MetaDataSaveHandler(ContentHandler):
         if name == 'h2' and not self.title:
             self.inside_title = True
         elif name == 'meta':
-            if (attributes.get('scheme') == 
+            if (attributes.get('scheme') ==
                     'http://infrae.com/namespaces/metadata/silva-news'
                     ):
                 name = attributes.get('name', '')
                 content = attributes.get('content', '')
                 self.metadata[name] = self.parse_content(content)
-                
+
     def endElement(self, name):
         if name == 'h2':
             self.inside_title = False
@@ -53,7 +53,7 @@ class MetaDataSaveHandler(ContentHandler):
             self.title += data
 
     def parse_content(self, content):
-        return [self.deentitize_and_deescape_pipes(x) for 
+        return [self.deentitize_and_deescape_pipes(x) for
                     x in content.split('|')]
 
     def deentitize_and_deescape_pipes(self, data):
@@ -100,7 +100,7 @@ class NewsItem(CatalogedVersionedContent):
         if self._unapproved_version == empty_version:
             raise VersioningError,\
                   _('No unapproved version.')
-        
+
         id = self._unapproved_version[0]
         version = getattr(self, id, None)
         version.set_display_datetime(dt)
@@ -184,7 +184,7 @@ class NewsItem(CatalogedVersionedContent):
         if hasattr(version, 'location'):
             version.set_location(handler.metadata['location'][0])
         version.set_title(handler.title)
-                 
+
 InitializeClass(NewsItem)
 
 class NewsItemVersion(CatalogedVersion):
@@ -197,13 +197,13 @@ class NewsItemVersion(CatalogedVersion):
 
     def __init__(self, id):
         # XXX dummy title?
-        NewsItemVersion.inheritedAttribute('__init__')(self, id, 'dummy')
+        NewsItemVersion.inheritedAttribute('__init__')(self, id)
         self._subjects = []
         self._target_audiences = []
         self._display_datetime = None
         self.content = SilvaXMLAttribute('content')
 
-    # XXX I would rather have this get called automatically on setting 
+    # XXX I would rather have this get called automatically on setting
     # the publication datetime, but that would have meant some nasty monkey-
     # patching would be required...
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
@@ -212,7 +212,7 @@ class NewsItemVersion(CatalogedVersion):
         """set the display datetime
 
             this datetime is used to determine whether an item should be shown
-            in the news viewer, and to determine the order in which the items 
+            in the news viewer, and to determine the order in which the items
             are shown
         """
         self._display_datetime = ddt
@@ -256,6 +256,8 @@ class NewsItemVersion(CatalogedVersion):
             characters in the data returned it will truncate (per element)
             to minimally 1 element
         """
+        # something in here needs 'model', so make sure it's available...
+        self.REQUEST.model = self
         content = self.content._content
         ret = []
         length = 0
@@ -296,19 +298,18 @@ class NewsItemVersion(CatalogedVersion):
         img = self.restrictedTraverse(imgpath)
         if not img:
             return '[broken image]'
-        tag = ('<a class="newsitemthumbnaillink" href="%s">%s</a>' % 
+        tag = ('<a class="newsitemthumbnaillink" href="%s">%s</a>' %
                     (self.object().absolute_url(), img.tag(thumbnail=1)))
         if divclass:
             tag = '<div class="%s">%s</div>' % (divclass, tag)
         return tag
-        
+
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_description')
     def get_description(self):
-        binding = self.service_metadata.getMetadata(self)
-        desc = binding.get('silva-extra', 'content_description')
-        return desc
-        
+        return self.service_metadata.getMetadataValue(
+            self, 'silva-extra', 'content_description')
+
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'source_path')
     def source_path(self):
@@ -388,7 +389,7 @@ class NewsItemVersion(CatalogedVersion):
                                       " ".join(self._subjects),
                                       " ".join(self._target_audiences),
                                       content)
- 
+
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'to_xml')
     def to_xml(self, context):
@@ -412,7 +413,7 @@ class NewsItemVersion(CatalogedVersion):
             f.write(u'<subject>%s</subject>' % self._prepare_xml(subject))
         for audience in self._target_audiences:
             f.write(u'<target_audience>%s</target_audience>' % self._prepare_xml(audience))
-    
+
     def _prepare_xml(self, inputstring):
         inputstring = inputstring.replace(u'&', u'&amp;')
         inputstring = inputstring.replace(u'<', u'&lt;')

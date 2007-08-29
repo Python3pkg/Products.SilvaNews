@@ -48,8 +48,8 @@ class InlineViewer(CodeSource):
     # to write an upgrade script because we're lazy :)
     _is_initialized = True
     
-    def __init__(self, id, title):
-        CodeSource.inheritedAttribute('__init__')(self, id, title)
+    def __init__(self, id):
+        CodeSource.inheritedAttribute('__init__')(self, id)
         self._script_id = 'view'
         self._data_encoding = 'UTF-8'
         self._is_initialized = False
@@ -174,7 +174,8 @@ manage_addInlineViewerForm = PageTemplateFile(
 
 def manage_addInlineViewer(context, id, title, REQUEST=None):
     """Add an Inline Viewer"""
-    v = InlineViewer(id, unicode(title, 'UTF-8'))
+    v = InlineViewer(id)
+    v.title = unicode(title, 'UTF-8')
     context._setObject(id, v)
     add_and_edit(context, id, REQUEST)
     return ''
