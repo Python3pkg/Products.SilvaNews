@@ -257,7 +257,8 @@ class NewsItemVersion(CatalogedVersion):
             to minimally 1 element
         """
         # something in here needs 'model', so make sure it's available...
-        self.REQUEST.model = self
+        model = self.REQUEST.get('model',None)
+        self.REQUEST['model'] = self
         content = self.content._content
         ret = []
         length = 0
@@ -279,6 +280,10 @@ class NewsItemVersion(CatalogedVersion):
             # break after the first <p> node
             #if child.nodeName == 'p':
             #    break
+        if model:
+            self.REQUEST['model'] = model
+        else:
+            del self.REQUEST['model']
         return '\n'.join(ret)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
