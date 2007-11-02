@@ -262,25 +262,25 @@ class NewsItemVersion(CatalogedVersion):
         content = self.content._content
         ret = []
         length = 0
+        se = self.service_editor
         for child in content.childNodes[0].childNodes:
             if child.nodeName == 'image':
                 continue
             # XXX the viewer is set every iteration because the renderView
             # calls of certain elements will set it to something else
-            self.service_editor.setViewer('service_news_sub_viewer')
-            add = self.service_editor.renderView(child)
+            se.setViewer('service_news_sub_viewer')
+            add = se.renderView(child)
             if type(add) != unicode:
                 add = unicode(add, 'UTF-8')
             if len(add) + length > max_size:
-                if ret:
-                    return '\n'.join(ret)
-                return add
+                ret.append(add)
+                break
             length += len(add)
             ret.append(add)
             # break after the first <p> node
             #if child.nodeName == 'p':
             #    break
-        if model:
+        if model: #restore or remove model
             self.REQUEST['model'] = model
         else:
             del self.REQUEST['model']
