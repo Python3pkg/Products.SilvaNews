@@ -257,28 +257,38 @@ class NewsItemVersion(CatalogedVersion):
             to minimally 1 element
         """
         # something in here needs 'model', so make sure it's available...
-        self.REQUEST.model = self
+        model = self.REQUEST.get('model',None)
+        self.REQUEST['model'] = self
         content = self.content._content
         ret = []
         length = 0
+        se = self.service_editor
         for child in content.childNodes[0].childNodes:
             if child.nodeName in ('image','source'):
                 continue
             # XXX the viewer is set every iteration because the renderView
             # calls of certain elements will set it to something else
-            self.service_editor.setViewer('service_news_sub_viewer')
-            add = self.service_editor.renderView(child)
+            se.setViewer('service_news_sub_viewer')
+            add = se.renderView(child)
             if type(add) != unicode:
                 add = unicode(add, 'UTF-8')
             if len(add) + length > max_size:
-                if ret:
-                    return '\n'.join(ret)
-                return add
+                ret.append(add)
+                break
             length += len(add)
             ret.append(add)
             # break after the first <p> node
             #if child.nodeName == 'p':
             #    break
+        if model: #restore or remove model
+            self.REQUEST['model'] = model
+        else:
+            try: #for some reason this doesn't always work ???
+                #it seems that saving from kupu is broken if this isn't
+                #escaped
+                del self.REQUEST['model']
+            except AttributeError:
+                pass
         return '\n'.join(ret)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,

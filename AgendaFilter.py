@@ -108,12 +108,12 @@ class AgendaFilter(Filter):
         query = self._prepare_query()
         query['sort_order'] = 'ascending'
         query['sort_on'] = 'idx_end_datetime'
-        query['idx_end_datetime'] = {'query': [lastnight, enddate],
+        query['idx_end_datetime'] = {'query': [startdate, enddate],
                                      'range': 'minmax' }
         result = self._query(**query)
 
         del query['idx_end_datetime']
-        query['idx_start_datetime'] = {'query': [lastnight, enddate],
+        query['idx_start_datetime'] = {'query': [startdate, enddate],
                                        'range': 'minmax'}
         query['sort_on'] = 'idx_start_datetime'
         result_startdt = self._query(**query)

@@ -66,6 +66,10 @@ SilvaNewsNetwork changes
       - fix in NewsFilter.get_next_items, to catch _all_ agenda item
         cases
 
+      - Publishing using the "publish now" button on the edit tab for news items was slightly 
+        broken.  The resultant page returned after this action had a <base> tag set to the 
+        news item version instead of the news item itself, breaking navigation links.
+
   2.5.1
 
    Bugs fixed

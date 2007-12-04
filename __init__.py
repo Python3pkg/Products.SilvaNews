@@ -50,4 +50,4 @@ import upgrade_13, upgrade_20, upgrade_21
 # the upgrade to work correctly!!
 # use only major and minor version parts, upgrade shouldn't happen
 # on patch-level updates
-software_version = '2.1'
+software_version = '2.6'
