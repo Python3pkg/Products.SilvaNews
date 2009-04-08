@@ -157,7 +157,6 @@ class InlineViewer(CodeSource):
                                 'get_items')
     def get_items(self, number, viewer):
         """returns the items for the selected viewer"""
-        from adapters.newsprovider import getNewsProviderAdapter
         viewerobj = getattr(self.REQUEST.oldmodel, viewer, None)
         if viewerobj == None:
             return []
