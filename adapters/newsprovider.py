@@ -129,12 +129,14 @@ class RSSItemReference(object):
         return getattr(self._item, 'location', None)
 
     def _toDateTime(self, dt):
-        """converts a Python datetime object to a Zope DateTime one"""
+        """converts a Python datetime object to a localized Zope 
+           DateTime one"""
         if dt is None:
             return None
         if type(dt) in [str, unicode]:
             # string
-            return DateTime(dt)
+            dt = DateTime(dt)
+            return dt.toZone(dt.localZone())
         elif type(dt) == tuple:
             # tuple 
             return DateTime(*dt)

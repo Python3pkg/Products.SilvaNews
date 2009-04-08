@@ -82,10 +82,10 @@ class AggregatorFeedEntry(object):
         return []
 
     def date_updated(self):
-        return DateTime(*self.item['modified_parsed'][:6])
+        return DateTime(self.item['modified'])
 
     def date_published(self):
-        return DateTime(*self.item['date_parsed'][:6])
+        return DateTime(self.item['date'])
 
     def keywords(self):
         return []

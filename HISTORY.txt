@@ -6,7 +6,10 @@ SilvaNewsNetwork changes
 
   2.7.6 (unreleased)
 
-   Bugs Fixed
+   Ported from trunk (SNN 2.8)
+
+     - correct localization datetime issues with rssaggregator's rss/atom feeds
+  and inlineviewer newsprovider. 
 
   2.7.5 (2009-03-26)
 
