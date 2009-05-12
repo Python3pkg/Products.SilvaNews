@@ -52,10 +52,7 @@ class AgendaViewer(NewsViewer):
         """Gets the items from the filters
         """
         func = lambda x: x.get_next_items(self._days_to_show)
-        sortattr = None
-        if len(self._filters) > 1: 
-            sortattr = 'start_datetime'
-        return self._get_items_helper(func,sortattr)
+        return self._get_items_helper(func,'start_datetime',reverse=False)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items_by_date')
@@ -63,11 +60,7 @@ class AgendaViewer(NewsViewer):
         """Gets the items from the filters
         """
         func = lambda x: x.get_agenda_items_by_date(month,year)
-        sortattr = None
-        if len(self._filters) > 1: 
-            sortattr = 'start_datetime'
-        results = self._get_items_helper(func,sortattr)
-        return results
+        return self._get_items_helper(func,'start_datetime',reverse=False)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'search_items')
@@ -76,11 +69,7 @@ class AgendaViewer(NewsViewer):
         """
         allowed_meta_types = self.get_allowed_meta_types()
         func = lambda x: x.search_items(keywords,allowed_meta_types)
-        sortattr = None
-        if len(self._filters) > 1: 
-            sortattr = 'start_datetime'
-        results = self._get_items_helper(func,sortattr)
-        return results
+        return self._get_items_helper(func,'start_datetime',reverse=False)
 
     security.declarePrivate('get_allowed_meta_types')
     def get_allowed_meta_types(self):

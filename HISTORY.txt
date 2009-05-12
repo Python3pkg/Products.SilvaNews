@@ -5,6 +5,10 @@ See also LICENSE.txt
 SilvaNewsNetwork changes
 
   2.7.6 (unreleased)
+  
+   Bugs Fixed:
+
+     - always sort agenda viewer results by start datetime
 
    Ported from trunk (SNN 2.8)
 

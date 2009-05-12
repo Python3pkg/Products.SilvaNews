@@ -125,7 +125,7 @@ class NewsViewer(Content, Folder.Folder):
                 self._filters.remove(newsfilter)
                 self._p_changed = 1
 
-    def _get_items_helper(self, func, sortattr=None):
+    def _get_items_helper(self, func, sortattr=None, reverse=True):
         #1) helper function for get_items...this was the same
         #code in NV and AV.  Now this helper contains that code
         #and calls func(obj) for each filter to actually
@@ -147,7 +147,8 @@ class NewsViewer(Content, Folder.Folder):
             results = [ (getattr(r,sortattr,None),getattr(r,'object_path',None),r) for r in results ]
             results.sort()
             results = [ r[2] for r in results ]
-            results.reverse()
+            if reverse:
+                results.reverse()
         return results
         
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
