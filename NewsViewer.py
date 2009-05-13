@@ -2,6 +2,7 @@
 # See also LICENSE.txt
 # $Revision: 1.34 $
 
+from types import StringType
 from zope.interface import implements
 
 # Zope
@@ -144,9 +145,21 @@ class NewsViewer(Content, Folder.Folder):
         results = self._remove_doubles(results)
 
         if sortattr:
-            results = [ (getattr(r,sortattr,None),getattr(r,'object_path',None),r) for r in results ]
-            results.sort()
-            results = [ r[2] for r in results ]
+            sorted_results = []
+            if type(sortattr) is StringType:
+                sortattr = [sortattr]
+            for r in results:
+                r_t = None
+                for s in sortattr:
+                    attr = getattr(r,s,None)
+                    if attr:
+                        r_t = (attr,getattr(r,'object_path',None),r)
+                        break
+                if not r_t:
+                    r_t = (None,getattr(r,'object_path',None), r)
+                sorted_results.append(r_t)
+            sorted_results.sort()
+            results = [ r[-1] for r in sorted_results ]
             if reverse:
                 results.reverse()
         return results
@@ -157,10 +170,10 @@ class NewsViewer(Content, Folder.Folder):
         """Gets the items from the filters
         """
         func = lambda x: x.get_last_items(self._number_to_show,self._number_is_days)
-        #merge/sort results if > 1 filter
-        sortattr = None
-        if len(self._filters) > 1: 
-            sortattr = 'display_datetime'
+        #some news filters include agenda items, and
+        # some filters are agenda filters, so sort first
+        # by start_datetime, then by display_datetime
+        sortattr = ['start_datetime','display_datetime']
         results = self._get_items_helper(func,sortattr)
         if not self._number_is_days:
             return results[:self._number_to_show]
@@ -173,9 +186,10 @@ class NewsViewer(Content, Folder.Folder):
         """Gets the items from the filters
         """
         func = lambda x: x.get_items_by_date(month,year)
-        sortattr = None
-        if len(self._filters) > 1: 
-            sortattr = 'display_datetime'
+        #some news filters include agenda items, and
+        # some filters are agenda filters, so sort first
+        # by start_datetime, then by display_datetime
+        sortattr = ['start_datetime','display_datetime']
         return self._get_items_helper(func,sortattr)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
@@ -184,9 +198,10 @@ class NewsViewer(Content, Folder.Folder):
         """Search the items in the filters
         """
         func = lambda x: x.search_items(keywords)
-        sortattr = None
-        if len(self._filters) > 1:
-            sortattr = 'display_datetime'
+        #some news filters include agenda items, and
+        # some filters are agenda filters, so sort first
+        # by start_datetime, then by display_datetime
+        sortattr = ['start_datetime','display_datetime']
         return self._get_items_helper(func,sortattr)
 
     def _remove_doubles(self, resultlist):
