@@ -57,6 +57,8 @@
     <a tal:condition="next" tal:attributes="href python:'?view=view_archive&month=%s&year=%s&offset=%s' % (currentmonth, currentyear, (offset + batch_size))">next</a>
   </div>
 
+  <div id="archive-content">
+
   <tal:comment condition="nothing">Begin items</tal:comment>
 
   <div class="newsitem" tal:repeat="r batch">
@@ -70,6 +72,8 @@
   </p>
 
   <tal:comment condition="nothing">End items</tal:comment>
+
+  </div>
 
   <div class="offsetnav"
       tal:condition="python: previous or next"
