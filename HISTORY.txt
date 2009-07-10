@@ -18,6 +18,13 @@ SilvaNewsNetwork changes
      - correct localization datetime issues with rssaggregator's rss/atom feeds
   and inlineviewer newsprovider. 
 
+   Features:
+
+     - removing '<<' and '>>' from links and putting the the html
+       entities in a span
+     - adding wrappers for the news and agenda archive content area
+     - adding a vertical separator between months
+
   2.7.5 (2009-03-26)
 
    Bugs Fixed
