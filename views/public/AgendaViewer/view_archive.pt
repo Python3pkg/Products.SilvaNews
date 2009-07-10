@@ -26,21 +26,23 @@
     Archive of <tal:block i18n:name="title" tal:content="model/get_title" />
   </h2>
 
-  <table class="timetable">
+  <table class="timetable top">
     <tbody>
       <tr class="even">
         <td>
-          <a href="3" tal:content="structure python: '<<&nbsp;%s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
+          <span class="previous">&lt;&lt;</span><a href="3" tal:content="structure python: '%s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
         </td>
         <tal:repeat repeat="month months">
           <tal:define define="id repeat/month/index">
+	    <td tal:condition="repeat/month/start" class="vertical-separator"> | </td>
             <td align="center" tal:attributes="class python:test(id == int(currentmonth) - 1, 'selected_month', '');">
               <a href="#" tal:content="month" tal:attributes="href python: '?month=%s&year=%s&view=view_archive' % (id + 1, currentyear)"></a>
             </td>
+	    <td class="vertical-separator"> | </td>
           </tal:define>
         </tal:repeat>
         <td>
-          <a href="3" tal:content="structure python: '%s&nbsp;>>' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a>
+         <a href="3" tal:content="structure python: '%s' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a><span class="next">&gt;&gt;</span>
         </td>
       </tr>
     </tbody>
@@ -73,26 +75,28 @@
       tal:condition="python: previous or next"
       >
     <tal:block tal:condition="previous">
-      <a tal:attributes="href python:'?view=view_archive&month=%s&year=%s&offset=%s' % (currentmonth, currentyear, (offset - batch_size))">previous</a>&nbsp;
+    <a tal:attributes="href python:'?view=view_archive&month=%s&year=%s&offset=%s' % (currentmonth, currentyear, (offset - batch_size))">previous</a>&nbsp;
     </tal:block>
     <a tal:condition="next" tal:attributes="href python:'?view=view_archive&month=%s&year=%s&offset=%s' % (currentmonth, currentyear, (offset + batch_size))">next</a>
   </div>
 
-  <table class="timetable">
+  <table class="timetable bottom">
     <tbody>
       <tr>
         <td>
-          <a href="3" tal:content="structure python: '<<&nbsp;%s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
+           <span class="previous">&lt;&lt;</span><a href="3" tal:content="structure python: '%s' % str(int(currentyear) - 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">2001</a>
         </td>
         <tal:repeat repeat="month months">
           <tal:define define="id repeat/month/index">
+	    <td tal:condition="repeat/month/start" class="vertical-separator"> | </td>
             <td align="center" tal:attributes="class python:test(id == int(currentmonth) - 1, 'selected_month', '');">
               <a href="#" tal:content="month" tal:attributes="href python: '?month=%s&year=%s&view=view_archive' % (id + 1, currentyear)"></a>
             </td>
+	    <td class="vertical-separator"> | </td>
           </tal:define>
         </tal:repeat>
         <td>
-          <a href="3" tal:content="structure python: '%s&nbsp;>>' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a>
+          <a href="3" tal:content="structure python: '%s' % str(int(currentyear) + 1)" tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">2003</a><span class="next">&gt;&gt;</span>
         </td>
       </tr>
     </tbody>
