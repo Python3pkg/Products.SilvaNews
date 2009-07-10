@@ -27,7 +27,7 @@
     Archive of <tal:block i18n:name="title" tal:content="model/get_title" />
   </h2>
 
-  <table class="timetable">
+  <table class="timetable top">
     <tbody>
       <tr class="even">
         <td>
@@ -81,7 +81,7 @@
     <a tal:condition="next" tal:attributes="href python:'?view=view_archive&month=%s&year=%s&offset=%s' % (currentmonth, currentyear, (offset + batch_size))">next</a>
   </div>
 
-  <table class="timetable">
+  <table class="timetable bottom">
     <tbody>
       <tr>
         <td>
