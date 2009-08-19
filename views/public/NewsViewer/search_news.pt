@@ -8,7 +8,6 @@
 
   tal:define="view here;
               model request/model;
-              silva_root view/silva_root;
               global formatdate nocall:view/service_news/format_date;
               "
 >

@@ -55,6 +55,26 @@
           <default>python: form.REQUEST.model.number_to_show_archive()</default>
         </tales>
       </field>
+      <field><id>year_range</id> <type>IntegerField</type>
+        <values>
+          <alternate_name></alternate_name>
+          <hidden type="int">0</hidden>
+          <start></start>
+          <external_validator></external_validator>
+          <display_maxwidth></display_maxwidth>
+          <display_width type="int">20</display_width>
+          <required type="int">1</required>
+          <css_class></css_class>
+          <default></default>
+          <title>Year Range</title>
+          <description>Allow navigation this number of years ahead of / behind today.</description>
+          <end></end>
+          <extra></extra>
+        </values>
+        <tales>
+          <default>python: form.REQUEST.model.year_range()</default>
+        </tales>
+      </field>
       <field><id>filters</id> <type>MultiCheckBoxField</type>
         <values>
           <alternate_name></alternate_name>

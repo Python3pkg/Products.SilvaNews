@@ -28,6 +28,9 @@ if model.number_to_show() != result['number_to_show']:
 if model.number_to_show_archive() != result['number_to_show_archive']:
     model.set_number_to_show_archive(result['number_to_show_archive'])
 
+if model.year_range() != result['year_range']:
+    model.set_year_range(result['year_range'])
+
 model.set_number_is_days(result['number_is_days'])
 
 for path in model.findfilters():

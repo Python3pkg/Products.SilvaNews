@@ -28,6 +28,9 @@ if model.number_to_show_archive() != result['number_to_show_archive']:
 if model.days_to_show() != result['days_to_show']:
     model.set_days_to_show(result['days_to_show'])
 
+if model.year_range() != result['year_range']:
+    model.set_year_range(result['year_range'])
+
 for id, path in model.findfilters_pairs():
     if path in result['filters']:
         model.set_filter(path, 1)

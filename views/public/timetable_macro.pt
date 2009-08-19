@@ -1,0 +1,32 @@
+<metal:macro define-macro="timetable">
+ <table tal:define="toporbottom toporbottom|string:"
+        tal:attributes="class string:timetable $toporbottom">
+ <tbody>
+  <tr class="even">
+   <td>
+    <a tal:condition="python:model.year_in_range(int(currentyear)-1)"
+       tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) - 1)">
+      <span class="previous">&laquo;&nbsp;</span><span tal:content="structure python:str(int(currentyear) - 1)" />
+     </a>
+   </td>
+   <tal:repeat repeat="month months">
+    <tal:define define="id repeat/month/index">
+      <td tal:condition="python:model.year_in_range(int(currentyear)-1) and repeat['month'].start" class="vertical-separator"> | </td>
+      <td align="center" tal:attributes="class python:test(id == int(currentmonth) - 1, 'selected_month', '');">
+      <a tal:content="month" 
+         tal:attributes="href python: '?month=%s&year=%s&view=view_archive' % (id + 1, currentyear)" />
+     </td>
+     <td class="vertical-separator" tal:condition="python:  model.year_in_range(int(currentyear)+1) or not repeat['month'].end"> | </td>
+     </tal:define>
+   </tal:repeat>
+   <td>
+    <a tal:condition="python:model.year_in_range(int(currentyear)+1)"
+       tal:attributes="href python:'?month=%s&year=%s&view=view_archive' % (currentmonth, int(currentyear) + 1)">
+     <span tal:content="structure python:str(int(currentyear) + 1)" /><span class="next">&nbsp;&raquo;</span>
+    </a>
+   </td>
+  </tr>
+ </tbody>
+</table>
+</metal:macro>
+

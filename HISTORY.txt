@@ -15,8 +15,13 @@ SilvaNewsNetwork changes
 
    Ported from trunk (SNN 2.8)
 
+     - News and Agenda Viewers now have a "Year Range" property which
+       controls the number of years in the past and future wich are
+       displayed in the archive.  Attempts to access years outside
+       of this range will raise 404's.
+
      - correct localization datetime issues with rssaggregator's rss/atom feeds
-  and inlineviewer newsprovider. 
+       and inlineviewer newsprovider. 
 
    Features:
 
