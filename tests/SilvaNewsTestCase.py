@@ -21,7 +21,6 @@ def add_helper_news(object, typename, id, title):
 
 class SilvaNewsTestCase(SilvaTestCase.SilvaTestCase):
 
-
     def afterSetUp(self):
         self.root.service_extensions.install('SilvaNews')
 
@@ -32,10 +31,6 @@ class NewsBaseTestCase(SilvaNewsTestCase):
         super(NewsBaseTestCase, self).afterSetUp()
         self.sroot = self.root
         service_news = self.service_news = self.sroot.service_news
-        service_news.add_subject('test', 'Test')
-        service_news.add_subject('test2', 'Test 2')
-        service_news.add_target_audience('test', 'Test')
-        service_news.add_target_audience('test2', 'Test 2')
 
         self.service_catalog = self.sroot.service_catalog
         
@@ -73,9 +68,5 @@ class NewsBaseTestCase(SilvaNewsTestCase):
         getattr(self.item1_3, '0').set_display_datetime(DateTime())
 
         self.newsfilter = add_helper_news(self.sroot, 'NewsFilter', 'newsfilter', 'NewsFilter')
-        self.newsfilter.add_source('/root/source1', 1)
-        self.newsfilter.set_subjects(['test', 'test2'])
-        self.newsfilter.set_target_audiences(['test', 'test2'])
 
         self.newsviewer = add_helper_news(self.newsfilter, 'NewsViewer', 'newsviewer', 'NewsViewer')
-        self.newsviewer.set_filter('/root/newsfilter', 1)

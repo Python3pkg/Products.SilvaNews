@@ -12,6 +12,7 @@ SilvaNewsNetwork changes
      - for news viewers, sort results by either start datetime,
        if present, else display datetime, so that agenda items
        if included in the results, are sorted properly
+     - fixed tests
 
    Ported from trunk (SNN 2.8)
 

@@ -28,6 +28,9 @@ class ServiceNewsTestCase(SilvaNewsTestCase.SilvaNewsTestCase):
     # since the methods are very simple data-manipulating things, not really suited to test in units, also
     # the chance of anything going wrong here is minimal. Still it's nice to know that they work :)
     def test_subjects(self):
+        #first, remove the default subject
+        self.service_news.remove_subject('generic')
+        self.assert_(len(self.service_news.subjects()) == 0)
         self.service_news.add_subject('test1', 'Test 1')
         self.service_news.add_subject('test2', 'Test 2', 'test1')
         self.assert_(('test1', 'Test 1') in self.service_news.subjects())
@@ -41,6 +44,9 @@ class ServiceNewsTestCase(SilvaNewsTestCase.SilvaNewsTestCase):
         self.assert_(self.service_news.subject_tree() == [('test1', 'Test 1', 0)])
 
     def test_target_audiences(self):
+        #first, remove the default target audience
+        self.service_news.remove_target_audience('all')
+        self.assert_(len(self.service_news.target_audiences()) == 0)
         self.service_news.add_target_audience('test1', 'Test 1')
         self.service_news.add_target_audience('test2', 'Test 2', 'test1')
         self.assert_(('test1', 'Test 1')  in self.service_news.target_audiences())

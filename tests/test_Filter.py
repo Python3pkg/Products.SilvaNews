@@ -11,6 +11,13 @@ class NewsFilterTestCase(SilvaNewsTestCase.NewsBaseTestCase):
     """Test the NewsFilter interface.
     """
 
+    def afterSetUp(self):
+        super(NewsFilterTestCase, self).afterSetUp()
+        self.service_news.add_subject('test', 'Test')
+        self.service_news.add_subject('test2', 'Test 2')
+        self.service_news.add_target_audience('test', 'Test')
+        self.service_news.add_target_audience('test2', 'Test 2')
+    
     def test_find_sources(self):
         res = self.newsfilter.find_sources()
         self.assert_('source1' in [i.id for i in res])

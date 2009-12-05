@@ -8,6 +8,18 @@ import SilvaNewsTestCase
 class NewsViewerTestCase(SilvaNewsTestCase.NewsBaseTestCase):
     """Test the NewsViewer interface.
     """
+    def afterSetUp(self):
+        super(NewsViewerTestCase, self).afterSetUp()
+        self.service_news.add_subject('test', 'Test')
+        self.service_news.add_subject('test2', 'Test 2')
+        self.service_news.add_target_audience('test', 'Test')
+        self.service_news.add_target_audience('test2', 'Test 2')
+        #setup the filters and viewers
+        self.newsfilter.set_subjects(['test', 'test2'])
+        self.newsfilter.set_target_audiences(['test', 'test2'])
+        self.newsfilter.add_source('/root/source1', 1)
+        self.newsviewer.set_filter('/root/newsfilter', 1)
+
     def test_filters(self):
         self.assert_(self.newsviewer.filters() == ['/root/newsfilter'])
         self.newsviewer.set_filter('/root/newsfilter', 0)
