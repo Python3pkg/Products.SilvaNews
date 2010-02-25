@@ -18,7 +18,6 @@ except ImportError:
     from Globals import InitializeClass # Zope < 2.12
 
 # Silva
-from silva.core import conf as silvaconf
 from silva.core.smi.interfaces import IFormsEditorSupport
 from silva.core.services.interfaces import ICataloging
 from silva.core.views import views as silvaviews
@@ -35,6 +34,8 @@ from Products.SilvaDocument.Document import Document,DocumentVersion
 
 from silvaxmlattribute import SilvaXMLAttribute
 from interfaces import INewsItem, INewsItemVersion, INewsPublication
+
+from five import grok
 
 class MetaDataSaveHandler(ContentHandler):
     def startDocument(self):
@@ -81,7 +82,7 @@ class NewsItem(Document):
     #remove the formed editor support interface, as news items
     # don't support the forms-based editor
     implementsOnly(INewsItem, [ i for i in implementedBy(Document) if i != IFormsEditorSupport ])
-    silvaconf.baseclass()
+    grok.baseclass()
 
     # MANIPULATORS
 
@@ -161,7 +162,7 @@ class NewsItemVersion(DocumentVersion):
     """Base class for news item versions.
     """
     security = ClassSecurityInfo()
-    silvaconf.baseclass()
+    grok.baseclass()
     implements(INewsItemVersion)
 
     def __init__(self, id):
@@ -383,6 +384,10 @@ class NewsItemVersion(DocumentVersion):
                                       " ".join(self._target_audiences),
                                       content)
 
+    def publicationtime(self):
+        binding = self.service_metadata.getMetadata(self)
+        return binding.get('silva-extra', 'publicationtime')
+
 InitializeClass(NewsItemVersion)
 
 
@@ -391,7 +396,7 @@ from Products.Silva.adapters.indexable import IndexableAdapter
 
 class NewsItemVersionIndexableAdapter(IndexableAdapter):
 
-    silvaconf.context(INewsItemVersion)
+    grok.context(INewsItemVersion)
 
     def getIndexes(self):
         # Override for news items is it change the content attribute
@@ -402,25 +407,6 @@ class NewsItemVersionIndexableAdapter(IndexableAdapter):
 class NewsItemView(silvaviews.View):
     """ View on a News Item (either Article / Agenda ) """
 
-    silvaconf.context(INewsItem)
+    grok.context(INewsItem)
+    template = grok.PageTemplate(filename='templates/news_item.pt')
 
-    def render(self):
-        """Document uses a grok view, but news items aren't
-           ready for that yet, so call back into the silvaviews
-           machinery.  Note: this is a direct copy of the last
-           part of SilvaObject.view_vesion"""
-        self.request.model = self.content
-        self.request['model'] = self.content
-        try:
-            view = self.context.service_view_registry.get_view(
-                'public', self.content.meta_type)
-        except KeyError:
-            msg = 'no public view defined'
-            raise NoViewError, msg
-        else:
-            rendered = view.render()
-            try:
-                del self.request.model
-            except AttributeError, e:
-                pass
-            return rendered

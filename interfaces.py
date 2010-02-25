@@ -16,7 +16,6 @@ class INewsItem(IDocument):
     """Silva News Item interface
     """
 
-
 class INewsItemVersion(IDocumentVersion):
     """Silva news item version.
 
@@ -59,6 +58,16 @@ class INewsItemVersion(IDocumentVersion):
 
         XXX what does this mean?
         (not used by all subclasses)"""
+
+
+class IArticle(INewsItem):
+    """ Article interface
+    """
+
+
+class IArticleVersion(INewsItemVersion):
+    """ Article Version interface
+    """
 
 
 class IAgendaItem(INewsItem):

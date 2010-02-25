@@ -4,20 +4,15 @@
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   i18n:domain="silva_news"
-  tal:define="
-    global model request/model; 
-    global view here; 
-    global version options/version; 
-    global formatdate nocall:view/service_news/format_date;
-">
+  tal:define="global formatdate nocall:context/service_news/format_date;">
 
 <h2 class="heading newsitemheading"
-  tal:content="structure python:version.get_title()" />
+  tal:content="structure python:content.get_title()" />
 
 <div class="newsiteminfo"        
   tal:define="
-    publicationdate python: version.get_metadata_element('silva-extra', 'publicationtime');
-    displaydate python: version.display_datetime();
+    publicationdate python: content.publicationtime();
+    displaydate python: content.display_datetime();
     date_public_view python: displaydate or publicationdate"
   tal:condition="date_public_view">
   <p class="p publicationdate">
@@ -30,7 +25,7 @@
 </div>
 
 <div class="newsitemcontent" 
-  tal:content="structure python:view.get_content(version)">
+  tal:content="structure python:content.get_content()">
   view
 </div>
 
