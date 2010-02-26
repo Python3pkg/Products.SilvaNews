@@ -309,3 +309,43 @@ class NewsViewerSearchView(silvaviews.Page):
         except: pass
 
 
+class NewsViewerArchivesView(silvaviews.Page):
+    """ Archives view
+    """
+
+    grok.context(INewsViewer)
+    grok.name('archives')
+    template = grok.PageTemplate(filename='templates/NewsViewer/archives.pt')
+
+    def update(self):
+        pass
+
+    def currentmonth(self):
+        return DateTime().month()
+
+    def currentyear(self):
+        return DateTime().year()
+
+    def get_months(self):
+        return self.context.service_news.get_month_abbrs()
+
+    def previous_url(self):
+        url_mask = '/archives?&amp;month=%s&amp;year=%s&amp;offset=%s'
+        return url_mask % (currentmonth, currentyear, (offset - batch_size))
+
+    def next_url(self):
+        url_mask = '/archives?&amp;month=%s&amp;year=%s&amp;offset=%s'
+        return url_mask % (currentmonth, currentyear, (offset + batch_size))
+
+    def get_user_role(self):
+        user = self.request.AUTHENTICATED_USER
+        if user.has_role(['Editor', 'ChiefEditor', 'Manager'], self.context):
+            return 'Editor'
+        elif user.has_role(['Author'], self.context):
+            return 'Author'
+        elif user.has_role(['Reader'], self.context):
+            return 'Reader'
+        else:
+            return 'Other'
+
+
