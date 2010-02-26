@@ -97,20 +97,20 @@ class SilvaNewsInstaller(DefaultInstaller):
         reg.register('public',
                      'Silva News Filter', ['public', 'NewsFilter'])
         reg.register('public', 'Silva News Publication', ['public', 'NewsPublication'])
-        reg.register('public', 'Silva News Viewer', ['public', 'NewsViewer'])
+        # reg.register('public', 'Silva News Viewer', ['public', 'NewsViewer'])
         reg.register('public', 'Silva RSS Aggregator', ['public', 'RSSAggregator'])
         reg.register('public', 'Silva Agenda Viewer', ['public', 'AgendaViewer'])
-        reg.register('public', 'Silva Article Version', ['public', 'PlainArticle'])
+        # reg.register('public', 'Silva Article Version', ['public', 'PlainArticle'])
         reg.register('public', 'Silva Agenda Item Version', ['public', 'PlainAgendaItem'])
     
         ## preview - required for e.g. the compare versions feature
-        reg.register('preview', 'Silva News Viewer', ['public', 'NewsViewer'])
+        # reg.register('preview', 'Silva News Viewer', ['public', 'NewsViewer'])
         reg.register('preview', 'Silva News Filter', ['public', 'NewsFilter'])
         reg.register('preview', 'Silva Agenda Viewer', ['public', 'AgendaViewer'])
         reg.register('preview', 'Silva Agenda Filter', ['public', 'AgendaFilter'])
         reg.register('preview', 'Silva News Publication', ['public', 'NewsPublication'])
         reg.register('preview', 'Silva RSS Aggregator', ['public', 'RSSAggregator'])
-        reg.register('preview', 'Silva Article Version', ['public', 'PlainArticle'])
+        # reg.register('preview', 'Silva Article Version', ['public', 'PlainArticle'])
         reg.register('preview', 'Silva Agenda Item Version', ['public', 
                                                             'PlainAgendaItem'])
 
@@ -121,8 +121,8 @@ class SilvaNewsInstaller(DefaultInstaller):
         reg.register('add', 'Silva News Viewer', ['add', 'NewsViewer'])
         reg.register('add', 'Silva RSS Aggregator', ['add', 'RSSAggregator'])
         reg.register('add', 'Silva Agenda Viewer', ['add', 'AgendaViewer'])
-        reg.register('add', 'Silva Article', ['add', 'NewsItem', 'PlainArticle'])
-        reg.register('add', 'Silva Agenda Item', ['add', 'NewsItem', 'PlainAgendaItem'])
+        # reg.register('add', 'Silva Article', ['add', 'NewsItem', 'PlainArticle'])
+        # reg.register('add', 'Silva Agenda Item', ['add', 'NewsItem', 'PlainAgendaItem'])
         reg.register('add', 'Silva News Category Filter', ['add', 'CategoryFilter'])
 
     def unregister_views(self, reg):

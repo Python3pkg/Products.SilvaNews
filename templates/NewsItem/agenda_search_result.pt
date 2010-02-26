@@ -1,0 +1,47 @@
+<h3 class="heading newsitemheading" tal:content="structure context/get_title">article title</h3>
+
+<div class="newsiteminfo">
+ <tal:infopublic
+   tal:define="
+     publicationdate context/publication_time;
+     displaydate context/display_datetime;
+     formatdate nocall:context/service_news/format_date;"
+   tal:condition="publicationdate">
+  <p class="p newsiteminfopublicationdate">
+   <tal:translate i18n:translate="">Publication: </tal:translate>
+   <span class="newsitempublicationdate"
+       tal:content="python: formatdate(displaydate or publicationdate)" />
+  </p>
+ </tal:infopublic>
+
+ <tal:comment tal:omit-tag=""><!-- if the object is an agenda item --></tal:comment>
+ <p class="p eventdates"
+   tal:define="
+     startdate context/start_datetime;
+     enddate context/end_datetime"
+   tal:condition="python: startdate or enddate">
+  <tal:if condition="startdate">
+   <span tal:omit-tag="" i18n:translate="">Start:</span>
+   <tal:startdate replace="python: formatdate(startdate, content.display_time())" />
+  </tal:if>
+  <tal:if condition="enddate"><br />
+   <span tal:omit-tag="" i18n:translate="">End:</span>
+   <tal:enddate replace="python: formatdate(enddate, content.display_time())" />
+  </tal:if>
+ </p>
+</div>
+
+<div class="newsintro">
+ <img 
+   tal:define="classname python: 'newsitem-thumbnail-odd'"
+   tal:replace="structure python: context.get_thumbnail(classname)"
+  />
+<!--   <tal:insertintro replace="structure r/get_intro" />-->
+ <tal:insertintro replace="structure python:context.get_intro(max_size=128)" />
+</div>
+
+<p class="p articlelink">
+ <a href="#" tal:attributes="href python:context.get_content().absolute_url()" i18n:translate="">
+  view article
+ </a>
+</p>

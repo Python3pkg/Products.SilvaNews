@@ -86,6 +86,7 @@ class NewsItemReference(object):
 
     def get_news_item(self):
         return self._item
+
 Globals.InitializeClass(NewsItemReference)
 
 class RSSItemReference(object):

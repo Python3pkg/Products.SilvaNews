@@ -59,6 +59,10 @@ class INewsItemVersion(IDocumentVersion):
         XXX what does this mean?
         (not used by all subclasses)"""
 
+    def publication_time(self):
+        """  publication time metadata
+        """
+
 
 class IArticle(INewsItem):
     """ Article interface
@@ -395,3 +399,5 @@ class ISilvaXMLAttribute(Interface):
      A Silva object could have multiple attributes
      containing silva xml, each of which is a
      SilvaXMLAttribute"""
+
+

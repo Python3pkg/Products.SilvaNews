@@ -30,10 +30,12 @@ from Products.Silva.SilvaObject import NoViewError
 
 from Products.SilvaDocument.transform.Transformer import EditorTransformer
 from Products.SilvaDocument.transform.base import Context
-from Products.SilvaDocument.Document import Document,DocumentVersion
+from Products.SilvaDocument.Document import (Document,
+    DocumentVersion, DocumentView)
 
 from silvaxmlattribute import SilvaXMLAttribute
-from interfaces import INewsItem, INewsItemVersion, INewsPublication
+from Products.SilvaNews.interfaces import (INewsItem, INewsItemVersion,
+    INewsPublication)
 
 from five import grok
 
@@ -384,7 +386,7 @@ class NewsItemVersion(DocumentVersion):
                                       " ".join(self._target_audiences),
                                       content)
 
-    def publicationtime(self):
+    def publication_time(self):
         binding = self.service_metadata.getMetadata(self)
         return binding.get('silva-extra', 'publicationtime')
 
@@ -408,5 +410,19 @@ class NewsItemView(silvaviews.View):
     """ View on a News Item (either Article / Agenda ) """
 
     grok.context(INewsItem)
-    template = grok.PageTemplate(filename='templates/news_item.pt')
+    template = grok.PageTemplate(filename='templates/NewsItem/index.pt')
+
+    def update(self):
+        self.request['model'] = self.content
+        self.document_body = self.content.content.render()
+
+
+class NewsItemListItemView(grok.View):
+    """ Render as a list items (search results)
+    """
+
+    grok.context(INewsItemVersion)
+    grok.name('search_result')
+    template = grok.PageTemplate(filename='templates/NewsItem/search_result.pt')
+
 

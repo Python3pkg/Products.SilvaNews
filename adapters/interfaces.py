@@ -37,3 +37,4 @@ class INewsItemReference(Interface):
 
     def get_news_item(self):
         """get the real item"""
+
