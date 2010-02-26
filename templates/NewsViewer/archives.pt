@@ -62,8 +62,8 @@
    <!-- <metal:macro use-macro="here/timetable_macro/macros/timetable" /> -->
   </tal:block>
 
-   <p class="p viewlink">
-      <a href="#" tal:attributes="href string:?view=view_news" i18n:translate="">view news</a>
-    </p>
+  <p class="p viewlink">
+    <a href="#" tal:attributes="href context/absolute_url" i18n:translate="">view news</a>
+  </p>
 
 </div>

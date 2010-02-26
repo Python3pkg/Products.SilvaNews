@@ -31,10 +31,10 @@
 
   <div class="viewlinks">
     <div class="viewlink">
-      <a href="#" tal:attributes="href string:?view=view_news" i18n:translate="">view news</a>
+      <a href="#" tal:attributes="href context/absolute_url" i18n:translate="">view news</a>
     </div>
     <div class="viewlink">
-      <a href="#" tal:attributes="href string:?view=view_archive" i18n:translate="">view archive</a>
+      <a href="#" tal:attributes="href python:context.absolute_url() + '/archives'" i18n:translate="">view archive</a>
     </div>
   </div>
 

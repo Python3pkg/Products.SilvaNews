@@ -35,7 +35,7 @@
   </p>
 
   <p class="p archivelink">
-    <a tal:attributes="href string:?view=view_archive"
+    <a tal:attributes="href python: context.absolute_url() + '/archives'"
      i18n:translate="">
      view archive
    </a>
