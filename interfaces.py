@@ -1,8 +1,10 @@
 from zope.interface import Interface
+from zope import schema
 from silva.core.interfaces import IAsset, ISilvaService, IPublication, IContent
 from Products.SilvaDocument.interfaces import IDocument, IDocumentVersion
 from Products.SilvaExternalSources.interfaces import IExternalSource
 
+from Products.SilvaNews.schema import RecurrenceRule
 
 class IInlineViewer(IExternalSource):
     """Marker interface for Inline News Viewer"""
@@ -15,6 +17,16 @@ class ISilvaNewsExtension(Interface):
 class INewsItem(IDocument):
     """Silva News Item interface
     """
+
+
+class ICalendarEvent(Interface):
+    """ zope.schema interface for agenda items (aka events)
+    """
+    start_datetime = schema.Datetime(title=u"event start date")
+    end_datetime = schema.Datetime(title=u"event end date")
+    recurrence_rule = RecurrenceRule(title=u"recurrence")
+    all_day = schema.Bool(title=u"all day event ?", default=False)
+
 
 class INewsItemVersion(IDocumentVersion):
     """Silva news item version.
@@ -93,9 +105,6 @@ class IAgendaItemVersion(INewsItemVersion):
 
     def set_location(value):
         """Sets the location"""
-
-    def set_location(value):
-        """Sets the manual location"""
 
 
 class INewsPublication(IPublication):

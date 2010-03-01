@@ -386,6 +386,8 @@ class NewsItemVersion(DocumentVersion):
                                       " ".join(self._target_audiences),
                                       content)
 
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                                'publication_time')
     def publication_time(self):
         binding = self.service_metadata.getMetadata(self)
         return binding.get('silva-extra', 'publicationtime')
