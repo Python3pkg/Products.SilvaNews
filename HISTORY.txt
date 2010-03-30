@@ -13,6 +13,10 @@ SilvaNewsNetwork changes
        if present, else display datetime, so that agenda items
        if included in the results, are sorted properly
      - fixed tests
+     - the <link rel="self" /> tag in the atom.xml feed
+       and the <rss:link> tag in rss.xml feeds now point
+       to the correct absolute urls (they were pointing
+       to the url of the feed without the '.xml' attribute
 
    Ported from trunk (SNN 2.8)
 
