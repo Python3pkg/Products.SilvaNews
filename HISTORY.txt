@@ -4,7 +4,7 @@ See also LICENSE.txt
 
 SilvaNewsNetwork changes
 
-  2.7.6 (unreleased)
+  2.7.6 (2010-03-29)
   
    Bugs Fixed:
 
@@ -16,7 +16,7 @@ SilvaNewsNetwork changes
      - the <link rel="self" /> tag in the atom.xml feed
        and the <rss:link> tag in rss.xml feeds now point
        to the correct absolute urls (they were pointing
-       to the url of the feed without the '.xml' attribute
+       to the url of the feed without the '.xml' attribute)
 
    Ported from trunk (SNN 2.8)
 
