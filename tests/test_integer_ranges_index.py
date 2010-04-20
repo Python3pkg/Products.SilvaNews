@@ -71,6 +71,59 @@ class TestCollectionIndex(unittest.TestCase):
         self.assertEquals(set(ranges2),
             set(map(self._get_range, self.cindex._unindex[docid])))
 
+
+    def test_length(self):
+        now = datetime_to_unixtimestamp(datetime.now())
+        r1 = (now, now + 60,)
+        r2 = (now + 120, now + 240,)
+        r3 = (now, now + 3600)
+        ranges = [r1, r2, r3]
+        ranges2 = [r2, r3]
+        doc1 = Doc(ranges)
+        doc2 = Doc(ranges2)
+        # adding 2 documents
+        self.cindex.index_object(1, doc1)
+        self.assertEquals(1, len(self.cindex))
+        self.cindex.index_object(2, doc2)
+        self.assertEquals(2, len(self.cindex))
+
+        # adding an already indexed documents
+        # nothing should change
+        self.cindex.index_object(1, doc1)
+        self.assertEquals(2, len(self.cindex))
+        self.cindex.index_object(2, doc2)
+        self.assertEquals(2, len(self.cindex))
+
+        # unindexing documents
+        self.cindex.unindex_object(2)
+        self.assertEquals(1, len(self.cindex))
+        self.cindex.unindex_object(1)
+        self.assertEquals(0, len(self.cindex))
+
+    def test_unofficial_size(self):
+        now = datetime_to_unixtimestamp(datetime.now())
+        r1 = (now, now + 60,)
+        r2 = (now + 120, now + 240,)
+        r3 = (now, now + 3600)
+        ranges = [r1, r2, r3]
+        ranges2 = [r2, r3]
+        doc1 = Doc(ranges)
+        doc2 = Doc(ranges2)
+        # adding 2 documents
+        self.cindex.index_object(1, doc1)
+        self.cindex.index_object(2, doc2)
+        self.assertEquals(2, self.cindex.numObjects())
+        self.assertEquals(3, self.cindex.indexSize())
+        doc1.ranges = [r2]
+        self.cindex.index_object(1, doc1)
+        self.assertEquals(2, self.cindex.numObjects())
+        self.assertEquals(2, self.cindex.indexSize())
+        self.cindex.unindex_object(1)
+        self.cindex.unindex_object(2)
+        self.assertEquals(0, self.cindex.numObjects())
+        self.assertEquals(0, self.cindex.indexSize())
+
+
     def test_unindex_object(self):
         now = datetime_to_unixtimestamp(datetime.now())
         r1 = (now, now + 60,)
@@ -122,13 +175,12 @@ class TestCollectionIndex(unittest.TestCase):
         result = self.query(now + 200, now + 210)
         self.assertEquals(set([0,2,3]), result)
 
+
     def query(self, start, end):
         test_range = (start, end)
         (results, used) = self.cindex._apply_index(
             {'ranges': {'start': test_range[0], 'end': test_range[1]}})
         return set(results)
-
-    # Pending test and feature: Size of index, unique indexed values
 
 
 def test_suite():
