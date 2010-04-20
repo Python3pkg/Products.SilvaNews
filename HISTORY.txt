@@ -25,6 +25,8 @@ New Features
 - SilvaNews no longer manages it's own upgraders.  Upgrading SilvaNews
   is now tied into the core Silva upgrade process.
 
+- fixed an issue with the RSS aggregator when pointing to a silva container's atom.xml
+
 New Features ported from SNN 2.7.6
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
