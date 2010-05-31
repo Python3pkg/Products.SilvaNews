@@ -1,1 +1,1 @@
-SilvaNewsNetwork Silva-2.1 branch 2.7.8 (unreleased) 
+SilvaNewsNetwork Silva-2.1 branch 2.7.7 (20110-05-31) 

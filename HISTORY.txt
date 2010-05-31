@@ -4,11 +4,11 @@ See also LICENSE.txt
 
 SilvaNewsNetwork changes
 
-  2.7.7 (unreleased)
+  2.7.7 (2010-05-31)
   
    Bugs Fixed:
    
-     - ...
+     - we prevent an error that could occur if get_viewable is called on None
 
   2.7.6 (2010-03-29)
   
