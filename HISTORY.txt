@@ -1,10 +1,10 @@
 ChangeLog
 =========
 
-SilvaNewsNetwork 2.8 (unreleased)
+SilvaNewsNetwork 2.8 (2010-07-18)
 ---------------------------------
 
-- ...
+- Fix upgrader priority.
 
 SilvaNewsNetwork 2.8b1 (2010-02-01)
 -----------------------------------
