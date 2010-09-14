@@ -1,43 +1,43 @@
-<div tal:omit-tag=""
+<div tal:omit-tag="" 
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:metal="http://xml.zope.org/namespaces/metal"
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   i18n:domain="silva_news"
   tal:define="
-    view here;
-    model view/REQUEST/model;
-    result python:model.get_merged_feed_contents();
+   view here;
+   model view/REQUEST/model;
+   result python:model.get_merged_feed_contents();
 ">
 <h2 tal:define="title model/get_title | nothing"
-  tal:condition="title"
-  tal:content="title">
+    tal:condition="title"
+    tal:content="title">
   view news
 </h2>
 
 <tal:feed
-  tal:repeat="item result">
+    tal:repeat="item result">
 <h4 class="feed"
-  tal:define="title item/title | nothing"
-  tal:condition="title" 
-  tal:content="structure python:title" />
+    tal:define="title item/title | nothing"
+    tal:condition="title" 
+    tal:content="structure python:title" />
 <p class="feed"
-  tal:define="description item/description | nothing"
-  tal:condition="description"
+    tal:define="description item/description | nothing"
+    tal:condition="description"
   tal:content="structure description">
   feed snippet
 </p>
 <p class="feedlink"
 ><a class="articlelink"
-  tal:define="link item/link"
-  tal:condition="link" 
-  tal:attributes="href link"
-  i18n:translate="">view article</a><span class="feedlinkdivider"> | </span><a class="feeduri"
-    tal:define="p item/parent_channel;link p/link;title p/title"
-    tal:condition="title"
-    tal:omit-tag="not:link"
+    tal:define="link item/link"
+    tal:condition="link" 
     tal:attributes="href link"
-    tal:content="structure title" />
+    i18n:translate="">view article</a><span class="feelinkdivider"> | </span><a class="feeduri"
+      tal:define="p item/parent_channel;link p/link;title p/title"
+      tal:condition="title"
+      tal:omit-tag="not:link"
+      tal:attributes="href link"
+      tal:content="structure string:[$title]" />
   </p>
 </tal:feed>
 </div>

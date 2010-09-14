@@ -13,14 +13,12 @@ except ImportError:
     from Globals import InitializeClass # Zope < 2.12
 
 # Silva
-from silva.core.views import views as silvaviews
 from silva.core import conf as silvaconf
 from Products.Silva import SilvaPermissions
 
 # Silva
 from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
-from Products.SilvaNews.interfaces import IArticle, IArticleVersion
-
+from Products.SilvaNews.interfaces import INewsItem, INewsItemVersion
 
 class PlainArticleVersion(NewsItemVersion):
     """Silva News PlainArticle version.
@@ -29,7 +27,7 @@ class PlainArticleVersion(NewsItemVersion):
 
     meta_type = "Silva Article Version"
 
-    implements(IArticleVersion)
+    implements(INewsItemVersion)
 
     def __init__(self, id):
         PlainArticleVersion.inheritedAttribute('__init__')(self, id)
@@ -46,12 +44,9 @@ class PlainArticle(NewsItem):
 
     security = ClassSecurityInfo()
 
-    implements(IArticle)
+    implements(INewsItem)
     meta_type = "Silva Article"
     silvaconf.icon("www/news_item.png")
     silvaconf.priority(3.7)
     silvaconf.versionClass(PlainArticleVersion)
-
 InitializeClass(PlainArticle)
-
-

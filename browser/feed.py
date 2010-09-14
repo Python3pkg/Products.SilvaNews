@@ -21,8 +21,6 @@ class ViewerFeedView(BrowserView):
         
         for item in items:
             i = item.getObject().get_content()
-            if i.get_viewable() is None:
-                continue
             entry = IFeedEntry(i, None)
             if not entry is None:
                 entry_updated = entry.date_updated()

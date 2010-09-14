@@ -3,7 +3,7 @@
 # $Revision: 1.21 $
 
 from zope.interface import implements
-from five import grok
+
 # Zope
 from AccessControl import ClassSecurityInfo
 from OFS.SimpleItem import SimpleItem
@@ -19,7 +19,6 @@ from Products.SilvaNews.interfaces import IAgendaItem, IAgendaItemVersion
 from Products.SilvaNews.interfaces import INewsItem, INewsItemVersion
 
 # Silva
-from silva.core.views import views as silvaviews
 from silva.core import conf as silvaconf
 from Products.Silva import SilvaPermissions
 from silva.core.interfaces import IVersionedContent
@@ -42,7 +41,7 @@ InitializeClass(AgendaItem)
 class AgendaItemVersion(NewsItemVersion):
     """Base class for agenda item versions.
     """
-
+    
     security = ClassSecurityInfo()
 
     implements(IAgendaItemVersion)
@@ -125,11 +124,3 @@ class AgendaItemVersion(NewsItemVersion):
         return "%s %s" % (parenttext, self._location)
 
 InitializeClass(AgendaItemVersion)
-
-class AgendaListItemView(grok.View):
-    """ Render as a list items (search results)
-    """
-
-    grok.context(IAgendaItemVersion)
-    grok.name('agenda_search_result')
-    template = grok.PageTemplate(filename='templates/NewsItem/agenda_search_result.pt')

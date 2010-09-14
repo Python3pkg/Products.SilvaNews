@@ -16,11 +16,8 @@ except ImportError:
 from DateTime import DateTime
 from zExceptions import NotFound
 
-from five import grok
-
 # Silva
 from silva.core import conf as silvaconf
-from silva.core.views import views as silvaviews
 from Products.Silva import SilvaPermissions
 from Products.Silva.Content import Content
 
@@ -186,6 +183,7 @@ class NewsViewer(Content, SimpleItem):
         results = self._get_items_helper(func,sortattr)
         if not self._number_is_days:
             return results[:self._number_to_show]
+
         return results
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
@@ -283,69 +281,4 @@ class NewsViewer(Content, SimpleItem):
             if newsfilter in self._filters:
                 self._filters.remove(newsfilter)
                 self._p_changed = 1
-
 InitializeClass(NewsViewer)
-
-
-class NewsViewerView(silvaviews.View):
-    """ Default view for news viewer
-    """
-    grok.context(INewsViewer)
-    template = grok.PageTemplate(filename='templates/NewsViewer/index.pt')
-
-
-class NewsViewerSearchView(silvaviews.Page):
-    """ Search view for news viewer
-    """
-    grok.context(INewsViewer)
-    grok.name('search')
-    template = grok.PageTemplate(filename='templates/NewsViewer/search.pt')
-
-    def update(self):
-        self.query = self.request.get('query', '')
-        self.results = []
-        try:
-            self.results = self.context.search_items(self.query) or []
-        except: pass
-
-
-class NewsViewerArchivesView(silvaviews.Page):
-    """ Archives view
-    """
-
-    grok.context(INewsViewer)
-    grok.name('archives')
-    template = grok.PageTemplate(filename='templates/NewsViewer/archives.pt')
-
-    def update(self):
-        pass
-
-    def currentmonth(self):
-        return DateTime().month()
-
-    def currentyear(self):
-        return DateTime().year()
-
-    def get_months(self):
-        return self.context.service_news.get_month_abbrs()
-
-    def previous_url(self):
-        url_mask = '/archives?&amp;month=%s&amp;year=%s&amp;offset=%s'
-        return url_mask % (currentmonth, currentyear, (offset - batch_size))
-
-    def next_url(self):
-        url_mask = '/archives?&amp;month=%s&amp;year=%s&amp;offset=%s'
-        return url_mask % (currentmonth, currentyear, (offset + batch_size))
-
-    def get_user_role(self):
-        user = self.request.AUTHENTICATED_USER
-        if user.has_role(['Editor', 'ChiefEditor', 'Manager'], self.context):
-            return 'Editor'
-        elif user.has_role(['Author'], self.context):
-            return 'Author'
-        elif user.has_role(['Reader'], self.context):
-            return 'Reader'
-        else:
-            return 'Other'
-
-

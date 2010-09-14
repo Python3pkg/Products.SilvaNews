@@ -22,13 +22,13 @@ class INewsItemReference(Interface):
 
     def link(self):
         """get the link(url) of this reference"""
-
+        
     def creation_datetime(self):
         """get the creationdatetime of this reference"""
-
+        
     def start_datetime(self):
         """get the sdt of this reference"""
-
+        
     def end_datetime(self):
         """get the edt of this reference"""
 
@@ -37,4 +37,3 @@ class INewsItemReference(Interface):
 
     def get_news_item(self):
         """get the real item"""
-

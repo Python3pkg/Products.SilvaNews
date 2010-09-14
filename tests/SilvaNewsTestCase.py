@@ -11,7 +11,7 @@ from DateTime import DateTime
 class SilvaNewsTestCase(SilvaTestCase.SilvaTestCase):
     def afterSetUp(self):
         self.installExtension('SilvaNews')
-
+        
     def add_news_publication(self, object, id, title, **kw):
         return self.addObject(object, 'NewsPublication', id, title=title, product='SilvaNews', **kw)
 
@@ -26,7 +26,7 @@ class SilvaNewsTestCase(SilvaTestCase.SilvaTestCase):
 
     def add_news_filter(self, object, id, title, **kw):
         return self.addObject(object, 'NewsFilter', id, title=title, product='SilvaNews', **kw)
-
+    
     def add_agenda_filter(self, object, id, title, **kw):
         return self.addObject(object, 'AgendaFilter', id, title=title, product='SilvaNews', **kw)
 

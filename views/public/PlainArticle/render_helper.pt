@@ -1,0 +1,37 @@
+<tal:comment replace="nothing">Keep this comment for a line break</tal:comment>
+<div class="newsitem"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="silva_news"
+  tal:define="
+    global model request/model; 
+    global view here; 
+    global version options/version; 
+    global formatdate nocall:view/service_news/format_date;
+">
+
+<h2 class="heading newsitemheading"
+  tal:content="structure python:version.get_title()" />
+
+<div class="newsiteminfo"        
+  tal:define="
+    publicationdate python: version.get_metadata_element('silva-extra', 'publicationtime');
+    displaydate python: version.display_datetime();
+    date_public_view python: displaydate or publicationdate"
+  tal:condition="date_public_view">
+  <p class="p publicationdate">
+    <tal:translate i18n:translate="">Publication date:</tal:translate>
+    <span class="datetime"
+      tal:content="python:formatdate(date_public_view)">
+      display date
+    </span>
+  </p>
+</div>
+
+<div class="newsitemcontent" 
+  tal:content="structure python:view.get_content(version)">
+  view
+</div>
+
+</div>
