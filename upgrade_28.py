@@ -36,9 +36,9 @@ class SNNRefresher(BaseUpgrader):
                 se.install(name)
         return obj
     
-#give it the highest priority so that the silva core 
+# give it the highest priority so that the silva core 
 # metadata and secondrootupgraders can run first
-SNNRefresher = SNNRefresher(VERSION_B1, 'Silva Root', 0)
+SNNRefresher = SNNRefresher(VERSION_B1, 'Silva Root', 1000)
 
 class NewsPubIsPrivateUpgrader(BaseUpgrader):
     """ upgrade obj._is_private to snn-np-settings: is_private
