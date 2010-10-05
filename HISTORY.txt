@@ -1,6 +1,16 @@
 ChangeLog
 =========
 
+SilvaNewsNetwork 2.8 (2010-10-05)
+---------------------------------
+
+Bugs Fixed
+~~~~~~~~~~
+
+- Fix an upgrade issue while upgrading Silva to Silva 2.2 and
+  SilvaNewsNetwork is installed.
+
+
 SilvaNewsNetwork 2.8b1 (2010-02-01)
 -----------------------------------
 
