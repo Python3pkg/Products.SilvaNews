@@ -6,10 +6,12 @@
   i18n:domain="silva_news">
 
   <h2 class="heading" tal:content="context/get_title"
+    i18n:translate=""
     tal:condition="not:context/suppress_title | context/suppress_title | nothing">View News</h2>
 
   <div class="calendar_actions">
-    <a tal:attributes="href view/subscribe_url" class="next">subscribe</a>
+    <a i18n:translate=""
+       tal:attributes="href view/subscribe_url" class="next">subscribe</a>
   </div>
 
   <div class="calendar" tal:content="structure view/render_calendar" />

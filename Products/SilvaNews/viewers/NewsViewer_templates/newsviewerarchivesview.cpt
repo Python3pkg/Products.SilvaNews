@@ -7,7 +7,7 @@
 >
 
   <h2 class="heading" i18n:translate="">
-    Archive of&nbsp;${context.get_title()}
+    Archive of <span tal:replace="context.get_title()" />
   </h2>
 
   <form action="${request.URL}" method="get"

@@ -13,6 +13,7 @@ from zope.traversing.browser import absoluteURL
 from zope.intid.interfaces import IIntIds
 from zope.interface import alsoProvides
 from zope.cachedescriptors.property import CachedProperty
+from zope.i18nmessageid import MessageFactory
 
 # Zope
 import Products
@@ -35,6 +36,9 @@ from Products.SilvaNews.htmlcalendar import HTMLCalendar
 from Products.SilvaExternalSources.ExternalSource import ExternalSource
 
 from zExceptions import BadRequest
+
+
+_ = MessageFactory('silva_news')
 
 
 class AgendaViewer(NewsViewer, ExternalSource):
@@ -284,11 +288,6 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
         util = getUtility(IIntIds)
         return "event_%s" % util.register(self.context)
 
-    def browser_resource(self, path):
-        return "/".join([self.context_absolute_url,
-                  '++resource++Products.SilvaNews',
-                  path])
-
     @property
     def archive_url(self):
         return self.context_absolute_url + '/archives'
@@ -341,12 +340,12 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
     def intro(self):
         # XXX Should not be done with the method of the Service (who
         # manages settings on how to display the date ?)
-        dayinfo = u"for %s" % localdatetime.get_formatted_date(
+        dayinfo = unicode(localdatetime.get_formatted_date(
             self.day_datetime, size="full",
-            request=self.request, display_time=False)
+            request=self.request, display_time=False))
         if self._day_events:
-            return "Events on %s" % dayinfo
-        return u"No events on %s" % dayinfo
+            return _(u"Events on ${day}", mapping={'day': dayinfo})
+        return _(u"No events on ${day}", mapping={'day': dayinfo})
 
     def subscribe_url(self):
         return "%s/subscribe.html" % self.context_absolute_url

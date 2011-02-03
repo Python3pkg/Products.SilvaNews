@@ -376,7 +376,7 @@ class INewsViewerSchema(Interface):
         required=True)
 
     _proxy = schema.Bool(
-        title=_(u"Proxy mode"),
+        title=_(u"proxy mode"),
         description=_(u"When proxy mode is enabled items of the viewers are "
                       u"displayed as children of the viewer"),
         required=False,

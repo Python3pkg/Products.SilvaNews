@@ -70,8 +70,6 @@ class AgendaCalendar(Calendar, grok.MultiAdapter):
         for brain in self.context.get_items_by_date_range(
                 now + relativedelta(years=-1), now + relativedelta(years=+1)):
             agenda_item_version = brain.getObject()
-            content = agenda_item_version.get_content()
-            self.context.set_proxy(content)
             event_factory = AgendaFactoryEvent(agenda_item_version)
             event = event_factory(self.context, self.request)
             if event is not None:
