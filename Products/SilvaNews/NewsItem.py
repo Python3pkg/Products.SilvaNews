@@ -134,16 +134,18 @@ class NewsItemVersion(DocumentVersion):
         """
         images = self.content.documentElement.getElementsByTagName('image')
         if not images:
-            return ''
+            return u''
         reference_name = images[0].getAttribute('reference')
         service = getUtility(IReferenceService)
         reference = service.get_reference(self, name=reference_name)
+        if reference is None:
+            return u''
         image = reference.target
 
-        tag = ('<a class="newsitemthumbnaillink" href="%s">%s</a>' %
-                    (self.get_content().absolute_url(), image.tag(thumbnail=1)))
+        tag = (u'<a class="newsitemthumbnaillink" href="%s">%s</a>' %
+               (self.get_content().absolute_url(), image.tag(thumbnail=1)))
         if divclass:
-            tag = '<div class="%s">%s</div>' % (divclass, tag)
+            tag = u'<div class="%s">%s</div>' % (divclass, tag)
         return tag
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
