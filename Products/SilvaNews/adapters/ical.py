@@ -64,14 +64,14 @@ class AgendaCalendar(Calendar, grok.MultiAdapter):
         self['PRODID'] = \
             vText('-//Infrae SilvaNews Calendaring//NONSGML Calendar//EN')
         self['VERSION'] = '2.0'
-        self['X-WR-CALNAME'] = self.context.get_title()
-        self['X-WR-TIMEZONE'] = self.context.get_timezone_name()
+        self['X-WR-CALNAME'] = vText(self.context.get_title())
+        self['X-WR-TIMEZONE'] = vText(self.context.get_timezone_name())
         now = datetime.now(UTC)
         for brain in self.context.get_items_by_date_range(
                 now + relativedelta(years=-1), now + relativedelta(years=+1)):
             agenda_item_version = brain.getObject()
             content = agenda_item_version.get_content()
-            content.__parent__ = self.context
+            self.context.set_proxy(content)
             event_factory = AgendaFactoryEvent(agenda_item_version)
             event = event_factory(self.context, self.request)
             if event is not None:
