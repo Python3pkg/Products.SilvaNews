@@ -34,6 +34,8 @@ from Products.SilvaNews.viewers.NewsViewer import NewsViewer
 from Products.SilvaNews.htmlcalendar import HTMLCalendar
 from Products.SilvaExternalSources.ExternalSource import ExternalSource
 
+from zExceptions import BadRequest
+
 
 class AgendaViewer(NewsViewer, ExternalSource):
     """
@@ -296,6 +298,13 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
         now = datetime.now(self.context.get_timezone())
         self.month = int(self.request.get('month', now.month))
         self.year = int(self.request.get('year', now.year))
+
+        now_year = now.year
+        years = self.context.get_year_range()
+        year_range = range(now_year - years, now_year + years + 1)
+        if self.year not in year_range:
+            raise BadRequest('year out of range')
+
         (first_weekday, lastday,) = calendar.monthrange(
             self.year, self.month)
         self.day = int(self.request.get('day', now.day)) or 1
@@ -355,11 +364,31 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
         return map(lambda x: x.get_content(),
                     wrap_event_brains(self.context, items))
 
+    def can_prev(self):
+        year_range = self.context.get_year_range()
+        prev_year = self.year
+        cur_year = datetime.now().year
+        if self.month == 1:
+            prev_year = self.year - 1
+        if cur_year > prev_year and (cur_year - prev_year) > year_range:
+            return False
+        return True
+
+    def can_next(self):
+        year_range = self.context.get_year_range()
+        cur_year = datetime.now().year
+        next_year = self.year
+        if self.month == 12:
+            next_year = self.year + 1
+        if cur_year < next_year and (next_year - cur_year) > year_range:
+            return False
+        return True
+
     def _set_calendar_nav(self):
-        self.calendar.prev_link = \
+        self.calendar.prev_link = self.can_prev() and \
             '<a class="prevmonth caljump" href="%s">&lt;</a>' % \
                 self.prev_month_url()
-        self.calendar.next_link = \
+        self.calendar.next_link = self.can_next() and \
             '<a class="nextmonth caljump" href="%s">&gt</a>' % \
                 self.next_month_url()
 
@@ -375,6 +404,13 @@ class AgendaViewerYearCalendar(silvaviews.Page, CalendarView):
         timezone = self.context.get_timezone()
         now = datetime.now()
         self.year = int(self.request.get('year', now.year))
+
+        now_year = now.year
+        years = self.context.get_year_range()
+        year_range = range(now_year - years, now_year + years + 1)
+        if self.year not in year_range:
+            raise BadRequest('year out of range')
+
         self.start = datetime(self.year, 1, 1, tzinfo=timezone)
         self.end = datetimeutils.end_of_year(self.start)
         self.calendar = self.build_calendar(
