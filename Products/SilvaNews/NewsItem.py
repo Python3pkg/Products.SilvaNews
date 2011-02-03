@@ -142,7 +142,7 @@ class NewsItemVersion(DocumentVersion):
         return tag
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                                'get_thumbnail_url')
+                                'get_thumbnail_image')
     def get_thumbnail_image(self):
         images = self.content.documentElement.getElementsByTagName('image')
         if not images:
