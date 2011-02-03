@@ -132,6 +132,18 @@ class NewsItemVersion(DocumentVersion):
 
             returns '' if no image is available
         """
+        image = self.get_thumbnail_image()
+        if image is None:
+            return u''
+        tag = (u'<a class="newsitemthumbnaillink" href="%s">%s</a>' %
+               (self.get_content().absolute_url(), image.tag(thumbnail=1)))
+        if divclass:
+            tag = u'<div class="%s">%s</div>' % (divclass, tag)
+        return tag
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                                'get_thumbnail_url')
+    def get_thumbnail_image(self):
         images = self.content.documentElement.getElementsByTagName('image')
         if not images:
             return u''
@@ -139,14 +151,8 @@ class NewsItemVersion(DocumentVersion):
         service = getUtility(IReferenceService)
         reference = service.get_reference(self, name=reference_name)
         if reference is None:
-            return u''
-        image = reference.target
-
-        tag = (u'<a class="newsitemthumbnaillink" href="%s">%s</a>' %
-               (self.get_content().absolute_url(), image.tag(thumbnail=1)))
-        if divclass:
-            tag = u'<div class="%s">%s</div>' % (divclass, tag)
-        return tag
+            return None
+        return reference.target
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_description')
