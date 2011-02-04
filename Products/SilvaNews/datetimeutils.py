@@ -133,7 +133,7 @@ class CalendarDatetime(object):
             end_datetime = end_of_day(end_datetime)
         utc_start_datetime = utc_datetime(start_datetime)
         utc_end_datetime = end_datetime and utc_datetime(end_datetime)
-        if not utc_end_datetime:
+        if not utc_end_datetime or utc_end_datetime > utc_start_datetime:
             utc_end_datetime = utc_start_datetime + self.default_duration
 
         self.start_datetime = utc_start_datetime
@@ -255,10 +255,12 @@ class DayWalk(object):
     """ Iterator that yields each days within an interval of datetimes
     """
     def __init__(self, start_datetime, end_datetime, tz=local_timezone):
-        if end_datetime < start_datetime:
-            raise ValueError('end before start')
         self.start_datetime = start_datetime.astimezone(tz)
-        self.end_datetime = end_datetime.astimezone(tz)
+
+        if end_datetime < start_datetime:
+            self.end_datetime = self.start_datetime + relativedelta(days=+1)
+        else:
+            self.end_datetime = end_datetime.astimezone(tz)
         # copy
         self.cursor = start_datetime.astimezone(tz)
 
