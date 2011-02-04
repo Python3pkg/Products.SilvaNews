@@ -258,7 +258,7 @@ class DayWalk(object):
         self.start_datetime = start_datetime.astimezone(tz)
 
         if end_datetime < start_datetime:
-            self.end_datetime = self.start_datetime + relativedelta(days=+1)
+            self.end_datetime = self.start_datetime + relativedelta(hours=+1)
         else:
             self.end_datetime = end_datetime.astimezone(tz)
         # copy
