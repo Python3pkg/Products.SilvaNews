@@ -1,22 +1,28 @@
-# Swedish translation for silva-news-network
-# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
-# This file is distributed under the same license as the silva-news-network package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+# #############################################################################
 #
+# Copyright (c) 2003-2004 Zope Foundation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+# #############################################################################
 msgid ""
 msgstr ""
-"Project-Id-Version: silva-news-network\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Project-Id-Version: 1.0\n"
 "POT-Creation-Date: Fri Feb  4 16:07:13 2011\n"
-"PO-Revision-Date: 2008-05-02 13:17+0000\n"
-"Last-Translator: Mikael Hamre <Unknown>\n"
-"Language-Team: Swedish <sv@li.org>\n"
-"Language: sv\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope-dev@zope.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-10-02 10:16+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"Generated-By: zope/app/locales/extract.py\n"
 
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:13
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:13
@@ -41,13 +47,13 @@ msgstr ""
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:26
 #: Products.SilvaNews:/www/inline_viewer_view.pt:72
 msgid "Start:"
-msgstr "Start:"
+msgstr ""
 
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:30
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:30
 #: Products.SilvaNews:/www/inline_viewer_view.pt:80
 msgid "End:"
-msgstr "Slut:"
+msgstr ""
 
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:40
 msgid "more ..."
@@ -71,7 +77,7 @@ msgstr ""
 #: Products.SilvaNews:/PlainArticle.py:56 Products.SilvaNews:/interfaces.py:58
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:26
 msgid "subjects"
-msgstr "ämne"
+msgstr ""
 
 #: Products.SilvaNews:/ICSNewsPublication.py:155
 msgid "select the subjects that will be set on events"
@@ -129,7 +135,7 @@ msgstr ""
 
 #: Products.SilvaNews:/PlainAgendaItem.py:62
 msgid "start date/time"
-msgstr "start datum/tid"
+msgstr ""
 
 #: Products.SilvaNews:/PlainAgendaItem.py:65
 msgid "end date/time"
@@ -154,7 +160,7 @@ msgstr ""
 #: Products.SilvaNews:/PlainAgendaItem.py:76
 #: Products.SilvaNews:/www/inline_viewer_form.form:325
 msgid "location"
-msgstr "plats"
+msgstr ""
 
 #: Products.SilvaNews:/PlainAgendaItem.py:77
 msgid "The location where the event is taking place."
@@ -347,7 +353,7 @@ msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:350
 msgid "show"
-msgstr "visa"
+msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:351
 msgid ""
@@ -357,7 +363,7 @@ msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:356
 msgid "days / items number"
-msgstr "dagar / objekt nummer"
+msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:357
 msgid "Number of news items to show per page."
@@ -365,7 +371,7 @@ msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:361
 msgid "archive number"
-msgstr "arkiv nummer"
+msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:362
 msgid "Number of archive items to show per page."
@@ -405,7 +411,7 @@ msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:393
 msgid "filters"
-msgstr "filter"
+msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:394
 msgid "Use predefined filters."
@@ -430,7 +436,7 @@ msgstr ""
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:11
 #: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:15
 msgid "Search ${title}"
-msgstr "Sök ${title}"
+msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:19
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerview.pt:16
@@ -448,7 +454,7 @@ msgstr ""
 #: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:33
 #: Products.SilvaNews:/www/inline_viewer_view.pt:37
 msgid "Search"
-msgstr "Sök"
+msgstr ""
 
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:28
 #: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:40
@@ -476,16 +482,16 @@ msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:102
 msgid "type"
-msgstr "typ"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:103
 msgid "modify"
-msgstr "modifiera"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:104
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:67
 msgid "view"
-msgstr "vy"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:105
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:68
@@ -510,7 +516,7 @@ msgstr ""
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:212
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:176
 msgid "deselect all"
-msgstr "välja inga"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:212
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:176
@@ -520,7 +526,7 @@ msgstr ""
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:212
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:176
 msgid "select all"
-msgstr "välj alla"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:271
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:233
@@ -530,13 +536,13 @@ msgstr ""
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:271
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:233
 msgid "update"
-msgstr "uppdatera"
+msgstr ""
 
 #. Default: "silva_news"
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/use_items.py:41
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/use_items.py:40
 msgid "The filter is updated."
-msgstr "Filtret är uppdterat"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:108
 msgid "(deselected)"
@@ -551,19 +557,19 @@ msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:248
 msgid "Previous"
-msgstr "Föregående"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:252
 msgid "Next"
-msgstr "Nästa"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:65
 msgid "in use"
-msgstr "används redan"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:66
 msgid "edit"
-msgstr "redigera"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:69
 msgid "expiration&nbsp;due&nbsp;"
@@ -630,19 +636,19 @@ msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:17
 msgid "There is no unapproved version to approve."
-msgstr "Det finns ingen icke godkänd version att godkänna."
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:69
 msgid "Version published."
-msgstr "Versionen är publicerad"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:71
 msgid "Version approved."
-msgstr "Versionen är godkännd."
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_form_news.form:30
 msgid "display time"
-msgstr "visa tid"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_form_news.form:31
 msgid "The date/time that is displayed for the public."
@@ -674,7 +680,7 @@ msgstr ""
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:243
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:368
 msgid "notes"
-msgstr "anteckningar"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:148
 msgid ""
@@ -709,19 +715,19 @@ msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:227
 msgid "publish new version"
-msgstr "publicera en ny version"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:231
 msgid "publish closed version"
-msgstr "publicera stängd version"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:240
 msgid "settings"
-msgstr "inställningar"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:253
 msgid "publish now"
-msgstr "publicera nu"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:253
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:482
@@ -743,7 +749,7 @@ msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:293
 msgid "day / month / year &nbsp;23:59"
-msgstr "dag / månad / år &nbsp:23:59"
+msgstr ""
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:320
 msgid "access key: alt-h"
@@ -867,7 +873,7 @@ msgstr ""
 
 #: Products.SilvaNews:/views/public/AgendaViewer/view_archive.pt:26
 msgid "Archive of ${title}"
-msgstr "Arkiv för ${title}"
+msgstr ""
 
 #: Products.SilvaNews:/views/public/AgendaViewer/view_archive.pt:50
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerarchivesview.cpt:40
@@ -940,7 +946,7 @@ msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:248
 msgid "image"
-msgstr "bild"
+msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:264
 msgid "Display cration date (AN)"
@@ -948,7 +954,7 @@ msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:273
 msgid "creation date"
-msgstr "skapt datum"
+msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:290
 msgid "Display start/end datetime if available (N)"
@@ -964,7 +970,7 @@ msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:33
 msgid "news source"
-msgstr "nyhets källa"
+msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:342
 msgid "Where to show link to article (ANR)"
@@ -972,7 +978,7 @@ msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:351
 msgid "article link"
-msgstr "artikel länk"
+msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:368
 msgid "Link text for single articles (ANV)"
@@ -980,7 +986,7 @@ msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:377
 msgid "link text"
-msgstr "länk text"
+msgstr ""
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:395
 msgid "Display link to news source (ANR)"
@@ -1029,90 +1035,3 @@ msgstr ""
 #: Products.SilvaNews:/www/inline_viewer_form.form:87
 msgid "div css class"
 msgstr ""
-
-#~ msgid "subjects changed"
-#~ msgstr "byta ämne"
-
-#~ msgid "target audiences changed"
-#~ msgstr "ändrad målgrupp"
-
-#~ msgid "No next version."
-#~ msgstr "Ingen nyare version"
-
-#~ msgid "No unapproved version."
-#~ msgstr "Ingen icke godkännd version."
-
-#~ msgid "id"
-#~ msgstr "id"
-
-#~ msgid "title"
-#~ msgstr "titel"
-
-#~ msgid "Format: d/m/y, time is optional."
-#~ msgstr "Format: d/m/y, tid är valfritt"
-
-#~ msgid "properties"
-#~ msgstr "egenskaper"
-
-#~ msgid "access"
-#~ msgstr "åtkomst"
-
-#~ msgid "element"
-#~ msgstr "element"
-
-#~ msgid "content"
-#~ msgstr "innehåll"
-
-#~ msgid "description"
-#~ msgstr "beskrivning"
-
-#~ msgid "save selection"
-#~ msgstr "spara urval"
-
-#~ msgid "Element"
-#~ msgstr "Element"
-
-#~ msgid "Content"
-#~ msgstr "Innehåll"
-
-#~ msgid "Note"
-#~ msgstr "Anteckning"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid "Title"
-#~ msgstr "Titel"
-
-#~ msgid "Speakers"
-#~ msgstr "Högtalare"
-
-#~ msgid "Enddate and time"
-#~ msgstr "Slut datum och tid"
-
-#~ msgid "Location"
-#~ msgstr "Plats"
-
-#~ msgid "Common Info"
-#~ msgstr "allmän information"
-
-#~ msgid "Subjects"
-#~ msgstr "Ämne"
-
-#~ msgid "note"
-#~ msgstr "anteckning"
-
-#~ msgid "renderer"
-#~ msgstr "läsare"
-
-#~ msgid "RSS feeds"
-#~ msgstr "RSS Kanal"
-
-#~ msgid "Document published"
-#~ msgstr "Dokumentet är publicerat"
-
-#~ msgid "version already approved"
-#~ msgstr "Versionen är redan godkännd"
-
-#~ msgid "Document already published"
-#~ msgstr "Dokumentet är rendan publicerat"

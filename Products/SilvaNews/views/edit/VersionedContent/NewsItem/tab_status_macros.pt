@@ -285,8 +285,7 @@ notes
   accesskey="m"
   tal:content="field/title"
   tal:attributes="for field/id"
-  i18n:attributes="title"
-  i18n:translate="">
+  i18n:attributes="title">
 content publish time
 </label>
 <input tal:replace="structure python: field.render(REQUEST=request)" />
@@ -303,8 +302,7 @@ day / month / year &nbsp;23:59
   accesskey="o"
   tal:content="field/title"
   tal:attributes="for field/id"
-  i18n:attributes="title"
-  i18n:translate="">
+  i18n:attributes="title">
 expiration time
 </label>
 <input tal:replace="structure python: field.render(REQUEST=request)" />
@@ -324,8 +322,7 @@ expiration time
   accesskey="h"
   tal:attributes="for field/id"
   tal:content="field/title"
-  i18n:attributes="title"
-  i18n:translate="">
+  i18n:attributes="title">
   field title
 </label>
 <input tal:replace="structure python: field.render(REQUEST=request)" />

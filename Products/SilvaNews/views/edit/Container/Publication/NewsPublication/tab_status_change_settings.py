@@ -9,6 +9,8 @@ view = context
 from DateTime import DateTime
 from Products.Formulator.Errors import FormValidationError
 
+message_type='feedback'
+
 # Check whether there's any checkboxes checked at all...
 if not refs:
     return view.tab_status(
@@ -105,8 +107,9 @@ if changed_ids:
     msg.append(translate(message))
 
 if not_changed:
-    message = _('<span class="error">could not change settings on: ${ids}</span>')
+    message = _('could not change settings on: ${ids}')
     message.set_mapping({'ids': view.quotify_list_ext(not_changed)})
     msg.append(translate(message))
+    message_type='error'
 
-return view.tab_status(message_type='feedback', message=(', '.join(msg)) )
+return view.tab_status(message_type=message_type, message=(', '.join(msg)) )

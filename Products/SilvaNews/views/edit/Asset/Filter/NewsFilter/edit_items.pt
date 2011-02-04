@@ -92,10 +92,10 @@
 
               <span tal:replace="nothing"> _______ id cell _______ </span>
               <td>
-                <a title="edit this item" i18n:attributes="title"
-                  tal:attributes="href string:${object_url}/edit;
-                                  title meta_type"
-                  tal:content="python: ct(object_path, 30)">id</a>
+                <a title="edit this item"
+                   tal:attributes="href string:${object_url}/edit;
+                                   title meta_type"
+                   tal:content="python: ct(object_path, 30)">id</a>
               </td>
 
               <span tal:replace="nothing"> _______ title cell _______ </span>

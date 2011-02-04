@@ -61,30 +61,32 @@
                tal:condition="python:int(options['show_creationdate']) or int(options['show_datetime']) or int(options['show_location'])">
             <p class="p eventdates">
               <tal:block tal:condition="python:(int(options['show_creationdate']) and item.creation_datetime())">
-                <tal:translate i18n:translate="">Publication date:
-                  <span class="newsitemcreationdate"
-                        tal:content="structure python: formatdate(item.creation_datetime())" i18n:name="datetime" />
+                <tal:translate i18n:translate="">
+                  Publication date:
                 </tal:translate>
+                <span class="newsitemcreationdate"
+                      tal:content="structure python: formatdate(item.creation_datetime())" />
                 <br />
               </tal:block>
               <tal:block tal:condition="python: item.start_datetime() and options['show_datetime']=='1'">
-                <tal:translate i18n:translate="">Starts:
-                  <span class="newsitemstartdate"
-                        tal:content="structure python: formatdate(item.start_datetime())" i18n:name="datetime" />
+                <tal:translate i18n:translate="">
+                  Start:
                 </tal:translate>
+                <span class="newsitemstartdate"
+                      tal:content="structure python: formatdate(item.start_datetime())" />
                 <br />
               </tal:block>
               <tal:block condition="python: item.end_datetime() and options['show_datetime']=='1'">
-                <tal:translate i18n:translate="">Ends:
-                  <span class="newsitemenddate"
-                        tal:content="structure python: formatdate(item.end_datetime())" i18n:name="datetime" />
+                <tal:translate i18n:translate="">
+                  End:
                 </tal:translate>
+                <span class="newsitemenddate"
+                      tal:content="structure python: formatdate(item.end_datetime())" />
                 <br />
               </tal:block>
               <tal:block condition="python: (int(options['show_location']) and item.location())">
-                <tal:translate i18n:translate="">Location:
-                  <span class="newsitemlocation" tal:content="item/location" i18n:name="" />
-                </tal:translate>
+                <tal:translate i18n:translate="">Location:</tal:translate>
+                <span class="newsitemlocation" tal:content="item/location" />
               </tal:block>
             </p>
           </div>

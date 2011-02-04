@@ -77,8 +77,7 @@
             <td class="align-center"
               tal:attributes="style python:test(id == int(currentmonth) - 1, 'background-color:#f3f3d9', '');">
               <a tal:content="month"
-                tal:attributes="href python: 'tab_edit_items?month=%s&year=%s&view=view_archive' % (id + 1, currentyear)"
-                i18n:translate="">
+                tal:attributes="href python: 'tab_edit_items?month=%s&year=%s&view=view_archive' % (id + 1, currentyear)">
                 month
               </a>
             </td>

@@ -2,10 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: instances 286\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Thu Oct  2 12:19:39 2008\n"
+"POT-Creation-Date: Fri Feb  4 16:07:13 2011\n"
 "PO-Revision-Date: 2008-09-29 14:05+0000\n"
 "Last-Translator: thisfred <eric@infrae.com>\n"
 "Language-Team: Dutch <wim@infrae.com>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,125 +19,494 @@ msgstr ""
 "Preferred-encodings: utf-8\n"
 "Generated-By: zope/app/translation_files/extract.py\n"
 
-#: /NewsItem.py:87
-msgid "No next version."
-msgstr "Geen volgende versie."
-
-#: /NewsItem.py:98
-msgid "No unapproved version."
-msgstr "Geen versie die nog niet is goedgekeurd."
-
-#: /views/add/CategoryFilter/form.form:33
-msgid "This field cannot be edited."
-msgstr "Dit veld kan niet bewerkt worden."
-
-#: /views/add/CategoryFilter/form.form:55
-msgid "This is the title for your Category Filter."
-msgstr "Dit is de titel van de Categorie-filter"
-
-#: /views/add/CategoryFilter/form.form:75
-msgid ""
-"\n"
-"            Select the news subjects to filter on. Only those selected "
-"will \n"
-"            appear in this area of the site. Select nothing to have all\n"
-"            show up.\n"
-"          "
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:13
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:13
+msgid "Add this event to my calendar"
 msgstr ""
-"\n"
-"            Selecteer de nieuwsonderwerpen om op te filteren. Alleen de "
-"geselecteerde onderwerpen zullen in dit gedeelte van de site verschijnen. "
-"Selecteer niets om alle onderwerpen te laten verschijnen.\n"
-"          "
 
-#: /views/add/CategoryFilter/form.form:95
-#: /views/edit/Asset/Filter/CategoryFilter/form.form:51
-msgid ""
-"\n"
-"            Select the target audiences to filter on.\n"
-"          "
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:18
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:18
+#: Products.SilvaNews:/NewsItem_templates/newsitemlistitemview.pt:9
+#: Products.SilvaNews:/NewsItem_templates/newsitemview.pt:10
+#: Products.SilvaNews:/www/inline_viewer_view.pt:64
+msgid "Publication date:"
+msgstr "Publicatiedatum:"
+
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:22
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:22
+#: Products.SilvaNews:/www/inline_viewer_view.pt:88
+msgid "Location:"
+msgstr "Locatie:"
+
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:26
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:26
+#: Products.SilvaNews:/www/inline_viewer_view.pt:72
+msgid "Start:"
+msgstr "Start:"
+
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:30
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:30
+#: Products.SilvaNews:/www/inline_viewer_view.pt:80
+msgid "End:"
+msgstr "Einde:"
+
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:40
+msgid "more ..."
 msgstr ""
-"\n"
-"            Selecteer de nieuwsgroepen om op te filteren.\n"
-"          "
 
-#: /views/add/NewsFilter/form.form:27
-#: /views/add/NewsItem/PlainAgendaItem/form.form:24
-#: /views/add/NewsItem/PlainArticle/form.form:31
-#: /views/add/AgendaFilter/form.form:27 /views/add/AgendaViewer/form.form:31
-msgid ""
-"No spaces or special characters besides &#8216;_&#8217; or &#8216;-&#8217; "
-"or &#8216;.&#8217;"
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:9
+#: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:9
+msgid "Add this event to your calendar"
 msgstr ""
-"Geen spaties of speciale tekens behalve &#8216;_&#8217;, &#8216;-&#8217; of "
-"&#8216;.&#8217;"
 
-#: /views/add/NewsFolder/form.form:29 /views/add/NewsFilter/form.form:25
-#: /views/add/NewsItem/PlainAgendaItem/form.form:33
-#: /views/add/NewsItem/PlainArticle/form.form:29
-#: /views/add/AgendaFilter/form.form:25 /views/add/CategoryFilter/form.form:31
-#: /views/add/AgendaViewer/form.form:29
-msgid "id"
-msgstr "id"
-
-#: /views/add/NewsFolder/form.form:31
-msgid "id: no spaces or special characters besides an underscore (_)."
-msgstr "id: geen spaties of speciale tekens behalve een underscore (_)."
-
-#: /views/add/NewsFolder/form.form:48 /views/add/NewsFilter/form.form:45
-#: /views/add/NewsItem/PlainAgendaItem/form.form:60
-#: /views/add/NewsItem/PlainArticle/form.form:51
-#: /views/add/AgendaFilter/form.form:45 /views/add/CategoryFilter/form.form:53
-#: /views/add/AgendaViewer/form.form:49
-msgid "title"
-msgstr "titel"
-
-#: /views/add/NewsFolder/form.form:49
-#: /views/add/NewsItem/PlainAgendaItem/form.form:51
-#: /views/add/NewsItem/PlainArticle/form.form:52
-#: /views/add/AgendaViewer/form.form:50
-msgid ""
-"The title will be publicly visible, and is used as the default link in "
-"indexes."
+#: Products.SilvaNews:/ICSNewsPublication.py:150
+msgid "URL"
 msgstr ""
-"De titel wordt voor iedereen zichtbaar, en zal worden gebruikt voor de link "
-"in indexen."
 
-#: /views/add/NewsItem/PlainAgendaItem/form.form:122
-msgid "end date/time"
-msgstr "einddatum/-tijd"
+#: Products.SilvaNews:/ICSNewsPublication.py:151
+msgid "remote URL of the ics calendar file"
+msgstr ""
 
-#: /views/add/NewsItem/PlainAgendaItem/form.form:140
-msgid "The location where the event is taking place."
-msgstr "De locatie waar het evenement plaatsvindt."
+#: Products.SilvaNews:/ICSNewsPublication.py:154
+#: Products.SilvaNews:/PlainAgendaItem.py:80
+#: Products.SilvaNews:/PlainArticle.py:56 Products.SilvaNews:/interfaces.py:58
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:26
+msgid "subjects"
+msgstr "onderwerpen"
 
-#: /views/add/NewsItem/PlainAgendaItem/form.form:149
-#: /www/inline_viewer_form.form:325
-msgid "location"
-msgstr "locatie"
+#: Products.SilvaNews:/ICSNewsPublication.py:155
+msgid "select the subjects that will be set on events"
+msgstr ""
 
-#: /views/add/NewsItem/PlainAgendaItem/form.form:82
-#: /views/add/NewsItem/PlainAgendaItem/form.form:113
-msgid "Format: d/m/y, time is optional."
-msgstr "Formaat d/m/j, tijd is optioneel."
+#: Products.SilvaNews:/ICSNewsPublication.py:159
+#: Products.SilvaNews:/PlainAgendaItem.py:84
+#: Products.SilvaNews:/PlainArticle.py:60 Products.SilvaNews:/interfaces.py:66
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:32
+msgid "target audiences"
+msgstr "doelgroepen"
 
-#: /views/add/NewsItem/PlainAgendaItem/form.form:91
+#: Products.SilvaNews:/ICSNewsPublication.py:160
+msgid "select the target audiences that will be set on events"
+msgstr ""
+
+#: Products.SilvaNews:/ICSNewsPublication.py:175
+msgid "sync"
+msgstr ""
+
+#: Products.SilvaNews:/ICSNewsPublication.py:176
+msgid "fetch the remote calendar and synchronize data"
+msgstr ""
+
+#: Products.SilvaNews:/NewsItem_templates/newsitemlistitemview.pt:21
+#: Products.SilvaNews:/viewers/RSSAggregator_templates/rssaggregatorview.pt:22
+#: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:57
+msgid "view article"
+msgstr "artikel bekijken"
+
+#: Products.SilvaNews:/PlainAgendaItem.py:107
+msgid "End date must not is before start date."
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:117
+msgid "End recurrence date must not be before start date."
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:122
+msgid "End recurrence date must not be before end date."
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:175
+msgid "agenda item properties"
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:58
+#: Products.SilvaNews:/viewers/NewsViewer.py:373
+msgid "timezone"
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:59
+msgid "Defines the time zone for dates"
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:62
 msgid "start date/time"
 msgstr "startdatum/-tijd"
 
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:105
+#: Products.SilvaNews:/PlainAgendaItem.py:65
+msgid "end date/time"
+msgstr "einddatum/-tijd"
+
+#: Products.SilvaNews:/PlainAgendaItem.py:68
+msgid "all day"
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:69
+msgid "recurrence"
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:71
+msgid "recurrence end date"
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:72
+msgid "Date on which the recurrence stops. Required if any recurrence is set"
+msgstr ""
+
+#: Products.SilvaNews:/PlainAgendaItem.py:76
+#: Products.SilvaNews:/www/inline_viewer_form.form:325
+msgid "location"
+msgstr "locatie"
+
+#: Products.SilvaNews:/PlainAgendaItem.py:77
+msgid "The location where the event is taking place."
+msgstr "De locatie waar het evenement plaatsvindt."
+
+#: Products.SilvaNews:/PlainAgendaItem.py:98
+msgid "End recurrence date must be set when recurrence is."
+msgstr ""
+
+#: Products.SilvaNews:/PlainArticle.py:75
+msgid "article properties"
+msgstr ""
+
+#: Products.SilvaNews:/filters/AgendaFilter.py:132
+#: Products.SilvaNews:/filters/NewsFilter.py:95
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:45
+msgid "stick to path"
+msgstr "filter lokaal houden"
+
+#: Products.SilvaNews:/filters/AgendaFilter.py:136
+#: Products.SilvaNews:/filters/NewsFilter.py:102
+msgid "sources"
+msgstr "bronnen"
+
+#: Products.SilvaNews:/filters/AgendaFilter.py:137
+#: Products.SilvaNews:/filters/NewsFilter.py:103
+msgid "Use predefined sources."
+msgstr ""
+
+#: Products.SilvaNews:/filters/NewsFilter.py:98
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:38
+msgid "show agenda items"
+msgstr "agenda-items tonen"
+
+#: Products.SilvaNews:/filters/smi.py:14
+msgid "items"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:10
+msgid "April"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:11
+msgid "May"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:12
+msgid "June"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:13
+msgid "July"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:14
+msgid "August"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:15
+msgid "September"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:16
+msgid "October"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:17
+msgid "November"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:18
+msgid "December"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:20
+msgid "Mon"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:21
+msgid "Tue"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:22
+msgid "Wed"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:23
+msgid "Thu"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:24
+msgid "Fri"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:25
+msgid "Sat"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:26
+msgid "Sun"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:7
+msgid "January"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:8
+msgid "February"
+msgstr ""
+
+#: Products.SilvaNews:/htmlcalendar.py:9
+msgid "March"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:301
+msgid "number of days"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:302
+msgid "number of items"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:315
+msgid "Monday"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:316
+msgid "Tuesday"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:317
+msgid "Wednesday"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:318
+msgid "Thursday"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:319
+msgid "Friday"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:320
+msgid "Saturday"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:321
+msgid "Sunday"
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:59
+msgid ""
+"Select the news subjects to filter on. Only those selected will appear in "
+"this area of the site. Select nothing to have all show up."
+msgstr ""
+
+#: Products.SilvaNews:/interfaces.py:67
+msgid "Select the target audiences to filter on."
+msgstr ""
+
+#: Products.SilvaNews:/snn-np-settings.xml:31
+msgid "make local"
+msgstr ""
+
+#: Products.SilvaNews:/snn-np-settings.xml:33
+msgid ""
+"Make news source local restricts the availability of this source towards the "
+"outside-world.  When set, the source can only be found by filters in the "
+"same subdirectory."
+msgstr ""
+
+#. Default: ""
+#: Products.SilvaNews:/viewers/AgendaViewer.py:347
+msgid "Events on ${day}"
+msgstr ""
+
+#. Default: ""
+#: Products.SilvaNews:/viewers/AgendaViewer.py:348
+msgid "No events on ${day}"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/AgendaViewer_templates/agendaviewermonthcalendar.pt:13
+msgid "subscribe"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/AgendaViewer_templates/agendaviewermonthcalendar.pt:27
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerview.pt:37
+msgid "view archive"
+msgstr "archief tonen"
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:350
+msgid "show"
+msgstr "tonen"
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:351
+msgid ""
+"Show a specific number of items, or show items from a range of days in the "
+"past."
+msgstr ""
+"Een specifiek aantal items tonen, of items tonen binnen een bereik van dagen "
+"in het verleden"
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:356
+msgid "days / items number"
+msgstr "aantal dagen / items"
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:357
+msgid "Number of news items to show per page."
+msgstr "Aantal nieuwsitems per pagina."
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:361
+msgid "archive number"
+msgstr "aantal archief"
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:362
+msgid "Number of archive items to show per page."
+msgstr "Aantal archiefitems te tonen per pagina"
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:366
+msgid "year range"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:367
+msgid "Allow navigation this number of years ahead of / behind today."
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:374
+msgid ""
+"Defines the time zone for the agenda and news items that will be rendered by "
+"this viewer."
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:379
+msgid "proxy mode"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:380
+msgid ""
+"When proxy mode is enabled items of the viewers are displayed as children of "
+"the viewer"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:386
+msgid "first day of the week"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:388
+msgid "Define first day of the week for calendar display."
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:393
+msgid "filters"
+msgstr "filters"
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:394
+msgid "Use predefined filters."
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:478
+msgid "year"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:482
+msgid "month"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer.py:508
+msgid "go"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerarchivesview.cpt:10
+msgid "Archive of ${DYNAMIC_CONTENT}"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:11
+#: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:15
+msgid "Search ${title}"
+msgstr "Zoek ${title}"
+
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:19
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerview.pt:16
+#: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:29
+#: Products.SilvaNews:/views/public/AgendaViewer/view_agenda.pt:19
+#: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:33
+#: Products.SilvaNews:/www/inline_viewer_view.pt:37
+msgid "Do a full text search: alt-s"
+msgstr "Een volledige tekst-zoekopdracht uitvoeren: alt-s"
+
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:19
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerview.pt:16
+#: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:29
+#: Products.SilvaNews:/views/public/AgendaViewer/view_agenda.pt:19
+#: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:33
+#: Products.SilvaNews:/www/inline_viewer_view.pt:37
+msgid "Search"
+msgstr "Zoeken"
+
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:28
+#: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:40
+msgid "There are no articles corresponding to your query"
+msgstr "Er zijn geen artikelen die overeenkomen met de zoekopdracht"
+
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:34
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerarchivesview.cpt:49
+msgid "view news"
+msgstr "nieuws bekijken"
+
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerview.pt:30
+#: Products.SilvaNews:/views/public/AgendaViewer/view_agenda.pt:35
+msgid "There are no articles available."
+msgstr "Er zijn geen artikelen beschikbaar."
+
+#: Products.SilvaNews:/viewers/RSSAggregator.py:118
+msgid "feeds"
+msgstr ""
+
+#: Products.SilvaNews:/viewers/RSSAggregator.py:119
+msgid ""
+"List the URLs of RSS feeds (one per line) to use as sources of news items."
+msgstr ""
+"De URLs van RSS feeds tonen (één per regel) om als bronnen van nieuwsitems "
+"te gebruiken."
+
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:102
 msgid "type"
 msgstr "type"
 
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:106
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:103
 msgid "modify"
 msgstr "wijzigen"
 
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:109
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:104
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:67
+msgid "view"
+msgstr "bekijken"
+
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:105
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:68
+msgid "publication&nbsp;due&nbsp;"
+msgstr "publicatie&nbsp;op&nbsp;"
+
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:106
 msgid "expiration&nbsp;due"
 msgstr "verloopt op"
 
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:205
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:144
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:104
+msgid "Preview this item"
+msgstr "Voorbeeld van dit item"
+
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:196
 msgid ""
 "There are no news items for this period. Check that news sources are "
 "activated (go to the edit screen) and items in the sources are published."
@@ -145,111 +515,42 @@ msgstr ""
 "geactiveerd zijn (in het scherm 'bewerken') en dat de items in de bronnen "
 "gepubliceerd zijn."
 
-#: /views/edit/Asset/Filter/AgendaFilter/form.form:71
-msgid ""
-"Show only items in the content tree which are below the location of the "
-"filter?"
-msgstr ""
-"Alleen items laten zien die zich lager in de content hiërarchie bevinden dan "
-"de filter?"
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:212
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:176
+msgid "deselect all"
+msgstr "niets selecteren"
 
-# Default: "silva_news"
-#: /views/edit/Asset/Filter/AgendaFilter/submit.py:22
-msgid "Input form errors ${errors}"
-msgstr "Fouten invulformulier ${errors}"
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:212
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:176
+msgid "select all items: alt-a"
+msgstr "alle items selecteren: alt-a"
 
-# Default: "silva_news"
-#: /views/edit/Asset/Filter/AgendaFilter/submit.py:29
-msgid "subjects changed"
-msgstr "onderwerp gewijzigd"
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:212
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:176
+msgid "select all"
+msgstr "alles selecteren"
 
-# Default: "silva_news"
-#: /views/edit/Asset/Filter/AgendaFilter/submit.py:35
-msgid "target audiences changed"
-msgstr "doelgroepen gewijzigd"
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:271
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:233
+msgid "use selected items in this filter: alt-u"
+msgstr "gebruik geselecteerde items in dit filter: alt-u"
 
-# Default: "silva_news"
-#: /views/edit/Asset/Filter/AgendaFilter/submit.py:41
-msgid "stick to path changed"
-msgstr "pad voorkeur veranderd"
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:271
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:233
+msgid "update"
+msgstr "bijwerken"
 
-# Default: "silva_news"
-#: /views/edit/Asset/Filter/AgendaFilter/submit.py:46
-#: /views/edit/Asset/Filter/NewsFilter/submit.py:49
-msgid "Settings changed for: "
-msgstr "Instellingen veranderd voor: "
-
-#: /views/edit/Asset/Filter/AgendaFilter/tab_edit.pt:17
-msgid "${icon} Silva Agenda Filters"
-msgstr "${icon} Silva Agendafilters"
-
-#: /views/edit/Asset/Filter/AgendaFilter/use_items.py:41
-#: /views/edit/Asset/Filter/NewsFilter/use_items.py:40
-#: /views/edit/Asset/Filter/use_sources.py:40
+#. Default: "silva_news"
+#: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/use_items.py:41
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/use_items.py:40
 msgid "The filter is updated."
 msgstr "De filter is bijgewerkt."
 
-#: /views/edit/Asset/Filter/CategoryFilter/form.form:30
-msgid ""
-"\n"
-"            Select the news subjects to filter on.\n"
-"          "
-msgstr ""
-"\n"
-"            Selecteer de nieuwsonderwerpen om op te filteren.\n"
-"          "
-
-#: /views/edit/Asset/Filter/CategoryFilter/get_tabs.py:14
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:68
-msgid "edit"
-msgstr "bewerken"
-
-#: /views/edit/Asset/Filter/CategoryFilter/get_tabs.py:15
-msgid "properties"
-msgstr "eigenschappen"
-
-#: /views/edit/Asset/Filter/CategoryFilter/get_tabs.py:16
-msgid "access"
-msgstr "toegang"
-
-#: /views/edit/Asset/Filter/CategoryFilter/tab_edit.pt:19
-#: /views/edit/Container/tab_settings.pt:117
-msgid "element"
-msgstr "element"
-
-#: /views/edit/Asset/Filter/CategoryFilter/tab_edit.pt:20
-#: /views/edit/Content/tab_edit.pt:24
-#: /views/edit/Container/tab_settings.pt:122
-msgid "content"
-msgstr "inhoud"
-
-#: /views/edit/Asset/Filter/CategoryFilter/tab_edit.pt:21
-msgid "description"
-msgstr "omschrijving"
-
-#: /views/edit/Asset/Filter/CategoryFilter/tab_edit.pt:44
-msgid "save selection"
-msgstr "selectie opslaan"
-
-#: /views/edit/Asset/Filter/CategoryFilter/tab_edit.pt:44
-#: /views/edit/Content/tab_edit.pt:56
-msgid "access key: alt-s"
-msgstr "sneltoets: alt-s"
-
-#: /views/edit/Asset/Filter/CategoryFilter/tab_edit.pt:60
-msgid "<abbr title=\"Silva News Network\">SNN</abbr> Category Filters"
-msgstr "<abbr title=\"Silva News Network\">SNN</abbr> Categorie-filters"
-
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:109
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:153
-msgid "Preview this item"
-msgstr "Voorbeeld van dit item"
-
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:115
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:108
 msgid "(deselected)"
 msgstr "(niet geselecteerd)"
 
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:165
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:160
 msgid ""
 "There are no published news items in this filter. Check that news sources "
 "are activated (go to the editor screen) and items in the sources are "
@@ -259,319 +560,74 @@ msgstr ""
 "geactiveerd zijn (ga naar het scherm 'bewerken') en dat items in de bronnen "
 "gepubliceerd zijn."
 
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:181
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:221
-msgid "select all items: alt-a"
-msgstr "alle items selecteren: alt-a"
-
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:181
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:221
-msgid "select all"
-msgstr "alles selecteren"
-
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:181
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:221
-msgid "deselect all"
-msgstr "niets selecteren"
-
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:238
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:280
-msgid "use selected items in this filter: alt-u"
-msgstr "gebruik geselecteerde items in dit filter: alt-u"
-
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:238
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:280
-msgid "update"
-msgstr "bijwerken"
-
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:253
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:248
 msgid "Previous"
 msgstr "Vorige"
 
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:257
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:252
 msgid "Next"
 msgstr "Volgende"
 
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:67
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:65
 msgid "in use"
 msgstr "in gebruk"
 
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:69
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:107
-msgid "view"
-msgstr "bekijken"
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:66
+msgid "edit"
+msgstr "bewerken"
 
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:70
-#: /views/edit/Asset/Filter/AgendaFilter/edit_items.pt:108
-msgid "publication&nbsp;due&nbsp;"
-msgstr "publicatie&nbsp;op&nbsp;"
-
-#: /views/edit/Asset/Filter/NewsFilter/edit_items.pt:71
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:69
 msgid "expiration&nbsp;due&nbsp;"
 msgstr "verloopt&nbsp;&nbsp;"
 
-#: /views/edit/Asset/Filter/NewsFilter/form.form:29
-#: /views/edit/Asset/Filter/AgendaFilter/form.form:29
-msgid ""
-"\n"
-"            The news subjects to filter on.\n"
-"          "
-msgstr ""
-"\n"
-"            De nieuwsonderwerpen om op te filteren.\n"
-"          "
-
-#: /views/edit/Asset/Filter/NewsFilter/form.form:50
-#: /views/edit/Asset/Filter/AgendaFilter/form.form:50
-msgid ""
-"\n"
-"            The target audiences to filter on.\n"
-"          "
-msgstr ""
-"\n"
-"            De doelgroepen om op te filteren.\n"
-"          "
-
-#: /views/edit/Asset/Filter/NewsFilter/form.form:71
-msgid ""
-"Show only items in the content tree which are below the location of this "
-"filter?"
-msgstr ""
-"Alleen items laten zien die zich lager in de content hiërarchie bevinden dan "
-"deze filter?"
-
-#: /views/edit/Asset/Filter/NewsFilter/form.form:90
-msgid "Show agenda items as well as news items?"
-msgstr "Laat zowel agenda items als nieuwsitems zien?"
-
-#: /views/edit/Asset/Filter/NewsFilter/submit.py:26
-#: /views/add/NewsItem/PlainAgendaItem/form.form:175
-#: /views/add/NewsItem/PlainArticle/form.form:67
-#: /views/add/CategoryFilter/form.form:69
-#: /views/edit/Asset/Filter/NewsFilter/form.form:25
-#: /views/edit/Asset/Filter/AgendaFilter/form.form:25
-#: /views/edit/Asset/Filter/CategoryFilter/form.form:26
-msgid "subjects"
-msgstr "onderwerpen"
-
-#: /views/edit/Asset/Filter/NewsFilter/submit.py:32
-#: /views/add/NewsItem/PlainAgendaItem/form.form:203
-#: /views/add/NewsItem/PlainArticle/form.form:86
-#: /views/add/CategoryFilter/form.form:91
-#: /views/edit/Asset/Filter/NewsFilter/form.form:46
-#: /views/edit/Asset/Filter/AgendaFilter/form.form:46
-#: /views/edit/Asset/Filter/CategoryFilter/form.form:47
-msgid "target audiences"
-msgstr "doelgroepen"
-
-#: /views/edit/Asset/Filter/NewsFilter/submit.py:38
-#: /views/edit/Asset/Filter/NewsFilter/form.form:88
-msgid "show agenda items"
-msgstr "agenda-items tonen"
-
-#: /views/edit/Asset/Filter/NewsFilter/submit.py:45
-#: /views/edit/Asset/Filter/NewsFilter/form.form:69
-#: /views/edit/Asset/Filter/AgendaFilter/form.form:69
-msgid "stick to path"
-msgstr "filter lokaal houden"
-
-#: /views/edit/Asset/Filter/NewsFilter/tab_edit.pt:17
-msgid "${icon} Silva News Filters"
-msgstr "${icon} Silva Nieuwsfilters"
-
-#: /views/edit/Container/Publication/NewsPublication/form.form:44
-msgid "Restrict usage"
-msgstr "Gebruik beperken"
-
 # Default: "silva_news"
-#: /views/edit/Container/Publication/NewsPublication/settings_submit.py:30
-msgid "The news source is now  available."
-msgstr "De nieuwsbron is nu beschikbaar."
+#. Default: "silva_news"
+#: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:49
+msgid "Settings changed for: "
+msgstr "Instellingen veranderd voor: "
 
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk.pt:105
-msgid "The objects have different values."
-msgstr "De objecten hebben verschillende waarden."
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk.pt:123
-msgid "There are no publishable objects found."
-msgstr "Er zijn geen items gevonden die gepubliceerd kunnen worden."
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk.pt:71
-msgid "Element"
-msgstr "Element"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk.pt:77
-msgid "Content"
-msgstr "Inhoud"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk.pt:80
-msgid "Note"
-msgstr "Opmerking"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_ask_recurse.pt:66
-msgid ""
-"Some items of your selection are containers (folders, publications, "
-"newssources etc.). Select which items to recurse (walk through) to add to "
-"the list of objects to updated:<br /><br />"
-msgstr ""
-"Sommige items van de selectie zijn containers (mappen, publicaties, "
-"nieuwsbronnen, etc.) Selecteer welke items recursief aan de lijst toegevoegd "
-"dienen te worden."
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_ask_recurse.pt:74
-msgid "Id"
-msgstr "Id"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_ask_recurse.pt:77
-#: /views/edit/Container/Publication/NewsPublication/form.form:29
-msgid "Title"
-msgstr "Titel"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:109
-msgid "Co-promoter"
-msgstr "Co-promoter"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:131
-msgid "Speakers"
-msgstr "Sprekers"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:153
-msgid "Startdate and time"
-msgstr "Startdatum en -tijd"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:173
-msgid "Enddate and time"
-msgstr "Einddatum en -tijd"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:189
-msgid "Location"
-msgstr "Locatie"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:212
-msgid "Location (if not in list)"
-msgstr "Locatie (indien niet in de lijst)"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:233
-msgid "Pressheader"
-msgstr "Perskop"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:254
-msgid "Subheader"
-msgstr "Subkop"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:275
-msgid "Lead"
-msgstr "Lead"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:29
-msgid "Academic"
-msgstr "Academisch"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:296
-msgid "Pressnote"
-msgstr "Pers-opmerking"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:314
-msgid "Common Info"
-msgstr "Algemene Informatie"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:337
-msgid "Specific Info"
-msgstr "Specifieke Informatie"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:358
-msgid "Specific info (if not in list)"
-msgstr "Specifieke informatie (indien niet in de lijst)"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:379
-msgid "More info links"
-msgstr "Meer informatie links"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:400
-msgid "Embargo Datetime"
-msgstr "Embargodatum/-tijd"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:414
-msgid "Subjects"
-msgstr "Onderwerpen"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:432
-msgid "Target Audiences"
-msgstr "Doelgroepen"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:49
-msgid "Chair"
-msgstr "Voorzitter"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:69
-msgid "Promovendus"
-msgstr "Promovendus"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_edit_form.form:89
-msgid "Promoter"
-msgstr "Promotor"
-
-# Default: "silva_news"
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_submit.py:40
-msgid "${path} is updated"
-msgstr "${path} is bijgewerkt"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_open_now.py:9
-#: /views/edit/Container/Publication/NewsPublication/tab_status_open_now.py:9
-msgid "Nothing was selected, so nothing was approved."
-msgstr "Er is niets geselecteerd, en dus niets goedgekeurd."
-
-#: /views/edit/Container/Publication/NewsPublication/tab_info.pt:17
-msgid "Info for"
-msgstr "Informatie voor"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_info.pt:23
-msgid "Authorized users below this level"
-msgstr "Geauthoriseerde gebruikers onder dit niveau"
-
-#: /views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:103
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:105
 msgid "Changed settings on: ${ids}"
 msgstr "Instellingen gewijzigd op: ${ids}"
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:108
-msgid "<span class=\"error\">could not change settings on: ${ids}</span>"
-msgstr "<span class=\"error\">kon instellingen niet wijzigen op: ${ids}</span>"
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:110
+msgid "could not change settings on: ${ids}"
+msgstr ""
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:16
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:18
 msgid "Nothing was selected, so no settings were changed."
 msgstr "Niets geselecteerd, en dus geen instellingen gewijzigd."
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:34
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:36
 msgid "No publication nor expiration time nor any of the flags were set."
 msgstr ""
 "Geen publicatie- of verloop-tijdstip noch één van de 'flags' ingesteld."
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:51
-#: /views/edit/VersionedContent/NewsItem/preview_open_now.py:18
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:53
 msgid "not applicable"
 msgstr "niet van toepassing"
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:60
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:62
 msgid "no next or public version available"
 msgstr "Geen volgende of publieke versie beschikbaar"
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:64
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:66
 msgid "cannot change publication time of already public versions."
 msgstr "Kan het publicatie-tijdstip van reeds publieke versies niet wijzigen."
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:87
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:89
 msgid "no unapproved version"
 msgstr "geen versie die wacht op goedkeuring"
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:101
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:101
 msgid "<span class=\"error\">No request for approval on: ${ids}</span>"
 msgstr "<span class=\"error\">Geen verzoek tot goedkeuring voor: ${ids}</span>"
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:15
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:15
 msgid "Nothing was selected, so no approval was requested."
 msgstr "Er is niets geselecteerd, en dus geen goedkeuring aangevraagd."
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:88
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:88
 msgid ""
 "Request for approval via a bulk request in the publish screen of /${url} "
 "(automatically generated message)"
@@ -579,213 +635,35 @@ msgstr ""
 "Verzoek tot goedkeuring via een bulk verzoek in het publicatiescherm van /"
 "${url} (automatisch gegenereerd bericht)"
 
-#: /views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:96
+#: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:96
 msgid "Request approval for: ${ids}"
 msgstr "Goedkeuring aanvragen voor: ${ids}"
 
-#: /views/edit/Container/tab_settings.pt:112
-msgid "content renderer"
-msgstr "inhoudsweergave"
-
-#: /views/edit/Container/tab_settings.pt:125
-msgid "note"
-msgstr "opmerking"
-
-#: /views/edit/Container/tab_settings.pt:132
-msgid "renderer"
-msgstr "weergave"
-
-#: /views/edit/Container/tab_settings.pt:151
-msgid "Select a renderer to render this content."
-msgstr "Selecteer een weergave om deze inhoud mee weer te geven."
-
-#: /views/edit/Container/tab_settings.pt:158
-msgid "change renderer"
-msgstr "weergave wijzigen"
-
-#: /views/edit/Container/tab_settings.pt:158
-msgid "change renderer: alt-c"
-msgstr "weergave wijzigen: alt-c"
-
-#: /views/edit/Container/tab_settings.pt:188
-#: /views/edit/Container/tab_settings.pt:259
-msgid "layout settings for &#xab;${title}&#xbb;"
-msgstr "vormgevingsinstellingen voor &#xab;${title}&#xbb;"
-
-#: /views/edit/Container/tab_settings.pt:202
-#: /views/edit/Container/tab_settings.pt:221
-#: /views/edit/Container/tab_settings.pt:241
-msgid "layout settings"
-msgstr "vormgevingsinstellingen"
-
-#: /views/edit/Container/tab_settings.pt:205
-msgid "for approved version of &#xab;${title}&#xbb;"
-msgstr "voor de goedgekeurde versie van &#xab;${title}&#xbb;"
-
-#: /views/edit/Container/tab_settings.pt:224
-msgid "for published version of &#xab;${title}&#xbb;"
-msgstr "voor publieke versie van &#xab;${title}&#xbb;"
-
-#: /views/edit/Container/tab_settings.pt:244
-msgid "for closed version of &#xab;${title}&#xbb;"
-msgstr "voor gesloten versie van &#xab;${title}&#xbb;"
-
-#: /views/edit/Container/tab_settings.pt:60
-msgid "settings for &#xab;${title}&#xbb;"
-msgstr "instellingen voor &#xab;${title}&#xbb;"
-
-#: /views/edit/Container/tab_settings.pt:71
-msgid "local news source setting"
-msgstr "lokale nieuwsbron-instelling"
-
-#: /views/edit/Container/tab_settings.pt:76
-msgid ""
-"Make news source local so it is picked up only by filters in the same path "
-"of the source and below."
-msgstr ""
-"Nieuwsbron lokaal maken zodat deze alleen gevonden wordt door filters in "
-"dezelfde locatie als de bron of eronder."
-
-#: /views/edit/Container/tab_settings.pt:81
-msgid "make local?"
-msgstr "lokaal maken?"
-
-#: /views/edit/Container/tab_settings.pt:94
-msgid "change setting"
-msgstr "instelling wijzigen"
-
-#: /views/edit/Container/tab_settings.pt:94
-msgid "change the global/local status of the news publication: alt-h"
-msgstr "De status 'globaal'/'lokaal' van de nieuwspublicatie wijzigen: alt-h"
-
-#: /views/edit/Content/AgendaViewer/form.form:29
-msgid "day range"
-msgstr "bereik van dagen"
-
-#: /views/edit/Content/AgendaViewer/form.form:30
-msgid "Number of days in the future to show."
-msgstr "Aantal dagen in de toekomst te tonen"
-
-# Default: "silva_news"
-#: /views/edit/Content/AgendaViewer/submit.py:37
-#: /views/edit/Content/NewsViewer/submit.py:39
-#: /views/edit/Content/RSSAggregator/submit.py:27
-msgid "Viewer data changed"
-msgstr "Viewer-gegevens gewijzigd"
-
-#: /views/edit/Content/NewsViewer/form.form:27
-msgid "show"
-msgstr "tonen"
-
-#: /views/edit/Content/NewsViewer/form.form:29
-msgid ""
-"Show a specific number of items, or show items from a range of days in the "
-"past."
-msgstr ""
-"Een specifiek aantal items tonen, of items tonen binnen een bereik van dagen "
-"in het verleden"
-
-#: /views/edit/Content/NewsViewer/form.form:48
-msgid "days / items number"
-msgstr "aantal dagen / items"
-
-#: /views/edit/Content/NewsViewer/form.form:49
-msgid "Number of news items to show per page."
-msgstr "Aantal nieuwsitems per pagina."
-
-#: /views/edit/Content/NewsViewer/form.form:68
-#: /views/edit/Content/AgendaViewer/form.form:49
-msgid "archive number"
-msgstr "aantal archief"
-
-#: /views/edit/Content/NewsViewer/form.form:69
-#: /views/edit/Content/AgendaViewer/form.form:50
-msgid "Number of archive items to show per page."
-msgstr "Aantal archiefitems te tonen per pagina"
-
-#: /views/edit/Content/NewsViewer/form.form:85
-#: /views/edit/Content/AgendaViewer/form.form:65
-msgid "filters"
-msgstr "filters"
-
-#: /views/edit/Content/RSSAggregator/form.form:30
-msgid "RSS feeds"
-msgstr "RSS-feeds"
-
-#: /views/edit/Content/RSSAggregator/form.form:32
-msgid ""
-"List the URLs of RSS feeds (one per line) to use as sources of news items."
-msgstr ""
-"De URLs van RSS feeds tonen (één per regel) om als bronnen van nieuwsitems "
-"te gebruiken."
-
-#: /views/edit/Content/tab_edit.pt:23
-msgid "attributes"
-msgstr "eigenschappen"
-
-#: /views/edit/Content/tab_edit.pt:56
-msgid "save"
-msgstr "opslaan"
-
-#: /views/edit/Content/tab_edit.pt:71
-msgid "${icon} Syndication Feed for ${meta_type}"
-msgstr "${icon} Syndicatiefeed voor ${meta_type}"
-
-#: /views/edit/Content/tab_edit.pt:74
-msgid "A syndication feed is available in either RSS or Atom format."
-msgstr "Een syndicatie-feed is beschikbaar in RSS dan wel Atom formaat."
-
-#: /views/edit/Content/tab_edit.pt:79
-msgid "The URL for the RSS feed is:"
-msgstr "De URL voor de RSS feed is:"
-
-#: /views/edit/Content/tab_edit.pt:87
-msgid "The URL for the Atom feed is:"
-msgstr "De URL voor de Atom feed is:"
-
-#: /views/edit/VersionedContent/NewsItem/preview_open_now.py:14
-msgid "Document published"
-msgstr "Document gepubliceerd"
-
-#: /views/edit/VersionedContent/NewsItem/preview_open_now.py:22
-msgid "version already approved"
-msgstr "versie reeds goedgekeurd"
-
-#: /views/edit/VersionedContent/NewsItem/preview_open_now.py:27
-msgid "Document already published"
-msgstr "Document reeds gepubliceerd"
-
-#: /views/edit/VersionedContent/NewsItem/publish_helper.py:15
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:15
 msgid "There is no unapproved version to publish."
 msgstr "Er is geen versie die nog niet is goedgekeurd om te publiceren."
 
-#: /views/edit/VersionedContent/NewsItem/publish_helper.py:17
-#: /views/edit/VersionedContent/NewsItem/tab_edit_publish.py:12
-#: /views/edit/VersionedContent/NewsItem/tab_metadata_publish.py:12
-#: /views/edit/VersionedContent/NewsItem/tab_preview_publish.py:12
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:17
 msgid "There is no unapproved version to approve."
 msgstr "Er is geen versie die nog niet is goedgekeurd om goed te keuren."
 
-#: /views/edit/VersionedContent/NewsItem/publish_helper.py:69
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:69
 msgid "Version published."
 msgstr "Versie gepubliceerd."
 
-#: /views/edit/VersionedContent/NewsItem/publish_helper.py:71
-#: /views/edit/VersionedContent/NewsItem/tab_edit_publish.py:27
-#: /views/edit/VersionedContent/NewsItem/tab_metadata_publish.py:27
-#: /views/edit/VersionedContent/NewsItem/tab_preview_publish.py:27
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:71
 msgid "Version approved."
 msgstr "Versie goedgekeurd."
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_form_news.form:30
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_form_news.form:30
 msgid "display time"
 msgstr "weergavedatum"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_form_news.form:31
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_form_news.form:31
 msgid "The date/time that is displayed for the public."
 msgstr "De datum/tijd die aan het publiek wordt getoond."
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:108
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:107
 msgid ""
 "A previous request for approval has been rejected / withdrawn by "
 "${requester} on ${some_date}. actually the last message may not have been "
@@ -799,26 +677,26 @@ msgstr ""
 "deze persoon bijvoorbeeld een lege afkeuring heeft verricht, is dit het "
 "bericht van de aanvrager... Het laatste bericht aangaande deze kwestie is:"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:130
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:129
 msgid "for new version"
 msgstr "voor nieuwe versie"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:130
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:129
 msgid "request approval ${for_new_version}"
 msgstr "goedkeuring aanvragen ${for_new_version}"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:135
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:134
 msgid "message to editor"
 msgstr "boodschap aan redacteur"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:138
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:191
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:244
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:372
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:137
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:190
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:243
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:368
 msgid "notes"
 msgstr "opmerkingen"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:149
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:148
 msgid ""
 "This message will remain visible in the status screen for other authors and "
 "editors."
@@ -826,142 +704,140 @@ msgstr ""
 "Deze boodschap zal zichtbaar blijven in het scherm 'status' voor andere "
 "auteurs en redacteuren."
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:160
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:159
 msgid "request approval"
 msgstr "goedkeuring aanvragen"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:160
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:406
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:159
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:402
 msgid "access key: alt-r"
 msgstr "sneltoets: alt-r"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:181
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:180
 msgid "change settings"
 msgstr "instellingen veranderen"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:188
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:187
 msgid "current timings"
 msgstr "huidige tijdstippen"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:203
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:202
 msgid "update timing"
 msgstr "tijdstippen instellen"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:203
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:202
 msgid "access key: alt-u"
 msgstr "sneltoets: alt-u"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:228
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:227
 msgid "publish new version"
 msgstr "nieuwe versie publiceren"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:232
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:231
 msgid "publish closed version"
 msgstr "gesloten versie publiceren"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:241
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk.pt:64
-#: /views/edit/Container/Publication/NewsPublication/tab_edit_bulk_ask_recurse.pt:61
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:240
 msgid "settings"
 msgstr "instellingen"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:254
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:253
 msgid "publish now"
 msgstr "nu publiceren"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:254
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:486
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:253
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:482
 msgid "access key: alt-p"
 msgstr "sneltoets: alt-p"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:263
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:262
 msgid "approve for future"
 msgstr "goedkeuren voor later"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:263
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:303
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:262
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:301
 msgid "access key: alt-o"
 msgstr "sneltoets: alt-o"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:285
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:284
 msgid "access key: alt-m"
 msgstr "sneltoets: alt-m"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:295
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:293
 msgid "day / month / year &nbsp;23:59"
 msgstr "dag / maand / jaar &nbsp;23:59"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:323
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:320
 msgid "access key: alt-h"
 msgstr "sneltoets: alt-h"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:35
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:34
 msgid "Publication time of public version"
 msgstr "Publicatietijdstip van publieke versie"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:351
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:347
 msgid "reject"
 msgstr "weigeren"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:352
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:348
 msgid "withdraw"
 msgstr "intrekken"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:353
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:349
 msgid "request"
 msgstr "aanvraag"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:362
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:358
 msgid "add message on"
 msgstr "boodschap toevoegen over"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:365
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:361
 msgid "rejection"
 msgstr "afwijzing"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:368
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:364
 msgid "withdrawal"
 msgstr "intrekking"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:387
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:383
 msgid "The message may be viewed by local users."
 msgstr "De boodschap mag door lokale gebruikers bekeken worden."
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:397
-msgid "access key: alt-j"
-msgstr "sneltoets: alt-j"
-
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:397
-msgid "reject approval request"
-msgstr "aanvraag voor goedkeuring afwijzen"
-
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:40
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:39
 msgid "Publication and expiration time of public version"
 msgstr "publicatie- en verlooptijdstip van publieke versie"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:406
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:393
+msgid "reject approval request"
+msgstr "aanvraag voor goedkeuring afwijzen"
+
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:393
+msgid "access key: alt-j"
+msgstr "sneltoets: alt-j"
+
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:402
 msgid "withdraw approval request"
 msgstr "verzoek om goedkeuring intrekken"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:431
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:449
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:427
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:445
 msgid "revoke approval"
 msgstr "goedkeuring intrekken"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:440
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:436
 msgid "If further editing is required, first revoke the approval."
 msgstr ""
 "Als verder bewerken nodig is, moet eerst de goedkeuring worden ingetrokken."
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:449
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:445
 msgid "access key: alt-v"
 msgstr "sneltoets: alt-v"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:472
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:468
 msgid "revert to previous version"
 msgstr "terugvallen op vorige versie"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:478
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:474
 msgid ""
 "The current editable version can be replaced with the previous (published) "
 "version. This can not be undone afterwards and will discard all changes made "
@@ -971,15 +847,15 @@ msgstr ""
 "(gepubliceerde) versie. Dit kan daarna niet meer ongedaan gemaakt worden en "
 "gooit alle wijzigingen die in de huidige versie zijn gemaakt weg."
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:486
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:482
 msgid "revert to previous"
 msgstr "terugvallen op vorige"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:510
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:506
 msgid "manual close"
 msgstr "handmatig sluiten"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:517
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:513
 msgid ""
 "If necessary, the published version of this content can be manually closed "
 "(taken offline). It will also be removed from the public index."
@@ -987,126 +863,66 @@ msgstr ""
 "Indien nodig, kan de gepubliceerde versie van deze inhoud handmatig gesloten "
 "(offline gezet) worden. Deze zal ook verwijderd worden uit de publieke index."
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:526
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:522
 msgid "close published version"
 msgstr "gepubliceerde versie sluiten"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:526
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:522
 msgid "access key: alt-c"
 msgstr "sneltoets: alt-c"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:64
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:63
 msgid "messages"
 msgstr "boodschappen"
 
-#: /views/edit/VersionedContent/NewsItem/tab_status_macros.pt:78
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:77
 msgid "${author_id} sent a message on ${some_date} ${with_comments}"
 msgstr "${author_id} verstuurde op ${some_date} een boodschap ${with_comments}"
 
-#: /views/public/AgendaViewer/search_agenda.pt:48
-#: /views/public/AgendaViewer/view_archive.pt:102
+#: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:79
+msgid "with the following comments:"
+msgstr ""
+
+#: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:46
+#: Products.SilvaNews:/views/public/AgendaViewer/view_archive.pt:70
 msgid "view agenda"
 msgstr "agenda tonen"
 
-#: /views/public/AgendaViewer/search_agenda.pt:51
-#: /views/public/AgendaViewer/view_agenda.pt:45
+#: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:49
+#: Products.SilvaNews:/views/public/AgendaViewer/view_agenda.pt:43
 msgid "view past and future articles"
 msgstr "oude en toekomstige artikelen bekijken"
 
-#: /views/public/NewsFilter/search_news.pt:20
-msgid "Search News"
-msgstr "Nieuws doorzoeken"
-
-#: /views/public/NewsFilter/search_news.pt:56
-msgid "Startdate/time:"
-msgstr "Startdatum/-tijd:"
-
-#: /views/public/NewsFilter/search_news.pt:71
-msgid "There are no articles corresponding to your query."
-msgstr "Er zijn geen artikelen die overeenkomen met de zoekopdracht."
-
-#: /views/public/NewsViewer/search_news.pt:17
-#: /views/public/AgendaViewer/search_agenda.pt:17
-msgid "Search ${title}"
-msgstr "Zoek ${title}"
-
-#: /views/public/NewsViewer/search_news.pt:41
-#: /views/public/AgendaViewer/search_agenda.pt:42
-msgid "There are no articles corresponding to your query"
-msgstr "Er zijn geen artikelen die overeenkomen met de zoekopdracht"
-
-#: /views/public/NewsViewer/view_archive.pt:103
-#: /views/public/NewsViewer/search_news.pt:47
-msgid "view news"
-msgstr "nieuws bekijken"
-
-#: /views/public/NewsViewer/view_archive.pt:27
-#: /views/public/AgendaViewer/view_archive.pt:26
+#: Products.SilvaNews:/views/public/AgendaViewer/view_archive.pt:26
 msgid "Archive of ${title}"
 msgstr "Archief van ${title}"
 
-#: /views/public/NewsViewer/view_archive.pt:67
-#: /views/public/AgendaViewer/view_archive.pt:66
+#: Products.SilvaNews:/views/public/AgendaViewer/view_archive.pt:50
+#: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerarchivesview.cpt:40
 msgid "There are no articles available"
 msgstr "Er zijn geen artikelen beschikbaar"
 
-#: /views/public/NewsViewer/view_news.pt:22
-#: /views/public/NewsViewer/search_news.pt:30
-#: /views/public/NewsFilter/search_news.pt:34
-#: /views/public/AgendaViewer/search_agenda.pt:31
-#: /views/public/AgendaViewer/view_agenda.pt:21 /www/inline_viewer_view.pt:38
-msgid "Do a full text search: alt-s"
-msgstr "Een volledige tekst-zoekopdracht uitvoeren: alt-s"
+#: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:19
+msgid "Search News"
+msgstr "Nieuws doorzoeken"
 
-#: /views/public/NewsViewer/view_news.pt:22
-#: /views/public/NewsViewer/search_news.pt:30
-#: /views/public/NewsFilter/search_news.pt:34
-#: /views/public/AgendaViewer/search_agenda.pt:31
-#: /views/public/AgendaViewer/view_agenda.pt:21 /www/inline_viewer_view.pt:38
-msgid "Search"
-msgstr "Zoeken"
+#: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:55
+msgid "Startdate/time:"
+msgstr "Startdatum/-tijd:"
 
-#: /views/public/NewsViewer/view_news.pt:38
-#: /views/public/AgendaViewer/view_agenda.pt:37
-msgid "There are no articles available."
-msgstr "Er zijn geen artikelen beschikbaar."
+#: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:70
+msgid "There are no articles corresponding to your query."
+msgstr "Er zijn geen artikelen die overeenkomen met de zoekopdracht."
 
-#: /views/public/NewsViewer/view_news.pt:45
-#: /views/public/NewsViewer/search_news.pt:50
-msgid "view archive"
-msgstr "archief tonen"
-
-#: /views/public/PlainAgendaItem/render_helper.pt:27
-#: /views/public/PlainArticle/render_helper.pt:24
-msgid "Publication date:"
-msgstr "Publicatiedatum:"
-
-#: /views/public/PlainAgendaItem/render_helper.pt:36
-msgid "Start:"
-msgstr "Start:"
-
-#: /views/public/PlainAgendaItem/render_helper.pt:40
-msgid "End:"
-msgstr "Einde:"
-
-#: /views/public/PlainAgendaItem/render_helper.pt:46
-msgid "Location:"
-msgstr "Locatie:"
-
-#: /views/public/RSSAggregator/render_helper.pt:34
-#: /views/public/NewsFilter/search_news.pt:58
-msgid "view article"
-msgstr "artikel bekijken"
-
-#: /www/inline_viewer_form.form:105
+#: Products.SilvaNews:/www/inline_viewer_form.form:105
 msgid "Display title of viewer (ANR)"
 msgstr "Titel van viewer weergeven (ANR)"
 
-#: /www/inline_viewer_form.form:114
+#: Products.SilvaNews:/www/inline_viewer_form.form:114
 msgid "display title"
 msgstr "titel weergeven"
 
-#: /www/inline_viewer_form.form:131
+#: Products.SilvaNews:/www/inline_viewer_form.form:131
 msgid ""
 "Number of articles to be shown; max. is set by viewer (AN); empty = all "
 "articles (ANR)"
@@ -1114,20 +930,20 @@ msgstr ""
 "Aantal artikelen om weer te geven; maximum is ingesteld door de viewer (AN); "
 "leeg = alle artikelen (ANR)"
 
-#: /www/inline_viewer_form.form:141
+#: Products.SilvaNews:/www/inline_viewer_form.form:141
 msgid "# of articles"
 msgstr "aantal artikelen"
 
-#: /www/inline_viewer_form.form:158
+#: Products.SilvaNews:/www/inline_viewer_form.form:158
 msgid "The heading level for the article title (h3, h4, etc.). (ANR)"
 msgstr ""
 "Het niveau van de kop voor de titel van het artikel (h3, h4, etc.) (ANR)"
 
-#: /www/inline_viewer_form.form:168
+#: Products.SilvaNews:/www/inline_viewer_form.form:168
 msgid "article level"
 msgstr "artikelniveau"
 
-#: /www/inline_viewer_form.form:184
+#: Products.SilvaNews:/www/inline_viewer_form.form:184
 msgid ""
 "Display intro (first elements of the article), the metadata description, or "
 "nothing"
@@ -1135,134 +951,494 @@ msgstr ""
 "Weergave intro (eerste elementen van het artikel,) de metadatabeschrijving, "
 "of niets."
 
-#: /www/inline_viewer_form.form:194
+#: Products.SilvaNews:/www/inline_viewer_form.form:194
 msgid "snippet"
 msgstr "knipsel"
 
-#: /www/inline_viewer_form.form:211
+#: Products.SilvaNews:/www/inline_viewer_form.form:211
 msgid "Number of characters shown in snippet; 0 = all (ANR)"
 msgstr "Aantal tekens getoond in knipsel; 0 = all (ANR)"
 
-#: /www/inline_viewer_form.form:221
+#: Products.SilvaNews:/www/inline_viewer_form.form:221
 msgid "# of chars"
 msgstr "aantal karakters"
 
-#: /www/inline_viewer_form.form:23
+#: Products.SilvaNews:/www/inline_viewer_form.form:23
 msgid "Choose a News Viewer, Agenda Viewer, or RSS Aggregator"
 msgstr "Nieuwsviewer Agendaviewer of RSS-Aggregator kiezen."
 
-#: /www/inline_viewer_form.form:238
+#: Products.SilvaNews:/www/inline_viewer_form.form:238
 msgid "Display image thumbnail? (AN)"
 msgstr "Afbeelding klein weergeveb? (AN)"
 
-#: /www/inline_viewer_form.form:248
+#: Products.SilvaNews:/www/inline_viewer_form.form:248
 msgid "image"
 msgstr "afbeelding"
 
-#: /www/inline_viewer_form.form:264
+#: Products.SilvaNews:/www/inline_viewer_form.form:264
 msgid "Display cration date (AN)"
 msgstr "Aanmaakdatum weergeven (AN)"
 
-#: /www/inline_viewer_form.form:273
+#: Products.SilvaNews:/www/inline_viewer_form.form:273
 msgid "creation date"
 msgstr "aanmaakdatum"
 
-#: /www/inline_viewer_form.form:290
+#: Products.SilvaNews:/www/inline_viewer_form.form:290
 msgid "Display start/end datetime if available (N)"
 msgstr "Start-/einddatum weergeven indien beschikbaar (N)"
 
-#: /www/inline_viewer_form.form:299
+#: Products.SilvaNews:/www/inline_viewer_form.form:299
 msgid "datetimes"
 msgstr "datums en tijden"
 
-#: /www/inline_viewer_form.form:316
+#: Products.SilvaNews:/www/inline_viewer_form.form:316
 msgid "Display location if available (N)"
 msgstr "Lokatie weergeven, indien beschikbaar (N)"
 
-#: /www/inline_viewer_form.form:33
+#: Products.SilvaNews:/www/inline_viewer_form.form:33
 msgid "news source"
 msgstr "nieuwsbron"
 
-#: /www/inline_viewer_form.form:342
+#: Products.SilvaNews:/www/inline_viewer_form.form:342
 msgid "Where to show link to article (ANR)"
 msgstr "Waar de link naar het artikel te tonen (ANR)"
 
-#: /www/inline_viewer_form.form:351
+#: Products.SilvaNews:/www/inline_viewer_form.form:351
 msgid "article link"
 msgstr "artikel-link"
 
-#: /www/inline_viewer_form.form:368
+#: Products.SilvaNews:/www/inline_viewer_form.form:368
 msgid "Link text for single articles (ANV)"
 msgstr "Linktekst voor enkelvoudige artikelen (ANV)"
 
-#: /www/inline_viewer_form.form:377
+#: Products.SilvaNews:/www/inline_viewer_form.form:377
 msgid "link text"
 msgstr "linktekst"
 
-#: /www/inline_viewer_form.form:395
+#: Products.SilvaNews:/www/inline_viewer_form.form:395
 msgid "Display link to news source (ANR)"
 msgstr "Link naar nieuwsbron weergeven (ANR)"
 
-#: /www/inline_viewer_form.form:404
+#: Products.SilvaNews:/www/inline_viewer_form.form:404
 msgid "source link"
 msgstr "bron-link"
 
-#: /www/inline_viewer_form.form:421
+#: Products.SilvaNews:/www/inline_viewer_form.form:421
 msgid "Link text for news source link (ANR)"
 msgstr "Linktekst voor nieuwsbron-link"
 
-#: /www/inline_viewer_form.form:430
+#: Products.SilvaNews:/www/inline_viewer_form.form:430
 msgid "source text"
 msgstr "brontekst"
 
-#: /www/inline_viewer_form.form:448
+#: Products.SilvaNews:/www/inline_viewer_form.form:448
 msgid "Show a footer for the feed (customizable)"
 msgstr "Voettekst voor de feed tonen (aanpasbaar)"
 
-#: /www/inline_viewer_form.form:457
+#: Products.SilvaNews:/www/inline_viewer_form.form:457
 msgid "show footer"
 msgstr "voettekst"
 
-#: /www/inline_viewer_form.form:474
+#: Products.SilvaNews:/www/inline_viewer_form.form:474
 msgid "Show search box (ANR)"
 msgstr "Laat zoekveld zien (ANR)"
 
-#: /www/inline_viewer_form.form:483
+#: Products.SilvaNews:/www/inline_viewer_form.form:483
 msgid "show search"
 msgstr "zoekveld laten zien"
 
-#: /www/inline_viewer_form.form:51
+#: Products.SilvaNews:/www/inline_viewer_form.form:51
 msgid "ID for div tag for inline viewer; default = _blank_ (ANR)"
 msgstr "ID voor div tag voor de inline viewer; standaardwaarde = _blank_ (ANR)"
 
-#: /www/inline_viewer_form.form:60
+#: Products.SilvaNews:/www/inline_viewer_form.form:60
 msgid "div id"
 msgstr "div id"
 
-#: /www/inline_viewer_form.form:78
+#: Products.SilvaNews:/www/inline_viewer_form.form:78
 msgid "CSS class for div tag for inline viewer; default = inv (ANR)"
 msgstr ""
 "CSS class voor div tag voor lopende tekst viewer; standaardwaarde = inv (ANR)"
 
-#: /www/inline_viewer_form.form:87
+#: Products.SilvaNews:/www/inline_viewer_form.form:87
 msgid "div css class"
 msgstr "div css class"
 
-#: /www/inline_viewer_view.pt:66
-msgid "Published: ${datetime}"
-msgstr "Gepubliceerd: ${datetime}"
+# Default: "silva_news"
+#~ msgid "Input form errors ${errors}"
+#~ msgstr "Fouten invulformulier ${errors}"
 
-#: /www/inline_viewer_view.pt:73
-msgid "Starts: ${datetime}"
-msgstr "Begint: ${datetime}"
+# Default: "silva_news"
+#~ msgid "subjects changed"
+#~ msgstr "onderwerp gewijzigd"
 
-#: /www/inline_viewer_view.pt:80
-msgid "Ends: ${datetime}"
-msgstr "Eindigt: ${datetime}"
+# Default: "silva_news"
+#~ msgid "target audiences changed"
+#~ msgstr "doelgroepen gewijzigd"
 
-#: /www/inline_viewer_view.pt:87
-msgid "Location: <span class=\"newsitemlocation\"></span>"
-msgstr "Locatie: <span class=\"newsitemlocation\"></span>"
+# Default: "silva_news"
+#~ msgid "stick to path changed"
+#~ msgstr "pad voorkeur veranderd"
+
+#~ msgid "Starts: ${datetime}"
+#~ msgstr "Begint: ${datetime}"
+
+#~ msgid "Ends: ${datetime}"
+#~ msgstr "Eindigt: ${datetime}"
+
+#~ msgid "<span class=\"error\">could not change settings on: ${ids}</span>"
+#~ msgstr ""
+#~ "<span class=\"error\">kon instellingen niet wijzigen op: ${ids}</span>"
+
+#~ msgid "No next version."
+#~ msgstr "Geen volgende versie."
+
+#~ msgid "No unapproved version."
+#~ msgstr "Geen versie die nog niet is goedgekeurd."
+
+#~ msgid "This field cannot be edited."
+#~ msgstr "Dit veld kan niet bewerkt worden."
+
+#~ msgid "This is the title for your Category Filter."
+#~ msgstr "Dit is de titel van de Categorie-filter"
+
+#~ msgid ""
+#~ "\n"
+#~ "            Select the news subjects to filter on. Only those selected "
+#~ "will \n"
+#~ "            appear in this area of the site. Select nothing to have all\n"
+#~ "            show up.\n"
+#~ "          "
+#~ msgstr ""
+#~ "\n"
+#~ "            Selecteer de nieuwsonderwerpen om op te filteren. Alleen de "
+#~ "geselecteerde onderwerpen zullen in dit gedeelte van de site verschijnen. "
+#~ "Selecteer niets om alle onderwerpen te laten verschijnen.\n"
+#~ "          "
+
+#~ msgid ""
+#~ "\n"
+#~ "            Select the target audiences to filter on.\n"
+#~ "          "
+#~ msgstr ""
+#~ "\n"
+#~ "            Selecteer de nieuwsgroepen om op te filteren.\n"
+#~ "          "
+
+#~ msgid ""
+#~ "No spaces or special characters besides &#8216;_&#8217; or &#8216;-"
+#~ "&#8217; or &#8216;.&#8217;"
+#~ msgstr ""
+#~ "Geen spaties of speciale tekens behalve &#8216;_&#8217;, &#8216;-&#8217; "
+#~ "of &#8216;.&#8217;"
+
+#~ msgid "id"
+#~ msgstr "id"
+
+#~ msgid "id: no spaces or special characters besides an underscore (_)."
+#~ msgstr "id: geen spaties of speciale tekens behalve een underscore (_)."
+
+#~ msgid "title"
+#~ msgstr "titel"
+
+#~ msgid ""
+#~ "The title will be publicly visible, and is used as the default link in "
+#~ "indexes."
+#~ msgstr ""
+#~ "De titel wordt voor iedereen zichtbaar, en zal worden gebruikt voor de "
+#~ "link in indexen."
+
+#~ msgid "Format: d/m/y, time is optional."
+#~ msgstr "Formaat d/m/j, tijd is optioneel."
+
+#~ msgid ""
+#~ "Show only items in the content tree which are below the location of the "
+#~ "filter?"
+#~ msgstr ""
+#~ "Alleen items laten zien die zich lager in de content hiërarchie bevinden "
+#~ "dan de filter?"
+
+#~ msgid "${icon} Silva Agenda Filters"
+#~ msgstr "${icon} Silva Agendafilters"
+
+#~ msgid ""
+#~ "\n"
+#~ "            Select the news subjects to filter on.\n"
+#~ "          "
+#~ msgstr ""
+#~ "\n"
+#~ "            Selecteer de nieuwsonderwerpen om op te filteren.\n"
+#~ "          "
+
+#~ msgid "properties"
+#~ msgstr "eigenschappen"
+
+#~ msgid "access"
+#~ msgstr "toegang"
+
+#~ msgid "element"
+#~ msgstr "element"
+
+#~ msgid "content"
+#~ msgstr "inhoud"
+
+#~ msgid "description"
+#~ msgstr "omschrijving"
+
+#~ msgid "save selection"
+#~ msgstr "selectie opslaan"
+
+#~ msgid "access key: alt-s"
+#~ msgstr "sneltoets: alt-s"
+
+#~ msgid "<abbr title=\"Silva News Network\">SNN</abbr> Category Filters"
+#~ msgstr "<abbr title=\"Silva News Network\">SNN</abbr> Categorie-filters"
+
+#~ msgid ""
+#~ "\n"
+#~ "            The news subjects to filter on.\n"
+#~ "          "
+#~ msgstr ""
+#~ "\n"
+#~ "            De nieuwsonderwerpen om op te filteren.\n"
+#~ "          "
+
+#~ msgid ""
+#~ "\n"
+#~ "            The target audiences to filter on.\n"
+#~ "          "
+#~ msgstr ""
+#~ "\n"
+#~ "            De doelgroepen om op te filteren.\n"
+#~ "          "
+
+#~ msgid ""
+#~ "Show only items in the content tree which are below the location of this "
+#~ "filter?"
+#~ msgstr ""
+#~ "Alleen items laten zien die zich lager in de content hiërarchie bevinden "
+#~ "dan deze filter?"
+
+#~ msgid "Show agenda items as well as news items?"
+#~ msgstr "Laat zowel agenda items als nieuwsitems zien?"
+
+#~ msgid "${icon} Silva News Filters"
+#~ msgstr "${icon} Silva Nieuwsfilters"
+
+#~ msgid "Restrict usage"
+#~ msgstr "Gebruik beperken"
+
+# Default: "silva_news"
+#~ msgid "The news source is now  available."
+#~ msgstr "De nieuwsbron is nu beschikbaar."
+
+#~ msgid "The objects have different values."
+#~ msgstr "De objecten hebben verschillende waarden."
+
+#~ msgid "There are no publishable objects found."
+#~ msgstr "Er zijn geen items gevonden die gepubliceerd kunnen worden."
+
+#~ msgid "Element"
+#~ msgstr "Element"
+
+#~ msgid "Content"
+#~ msgstr "Inhoud"
+
+#~ msgid "Note"
+#~ msgstr "Opmerking"
+
+#~ msgid ""
+#~ "Some items of your selection are containers (folders, publications, "
+#~ "newssources etc.). Select which items to recurse (walk through) to add to "
+#~ "the list of objects to updated:<br /><br />"
+#~ msgstr ""
+#~ "Sommige items van de selectie zijn containers (mappen, publicaties, "
+#~ "nieuwsbronnen, etc.) Selecteer welke items recursief aan de lijst "
+#~ "toegevoegd dienen te worden."
+
+#~ msgid "Id"
+#~ msgstr "Id"
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
+#~ msgid "Co-promoter"
+#~ msgstr "Co-promoter"
+
+#~ msgid "Speakers"
+#~ msgstr "Sprekers"
+
+#~ msgid "Startdate and time"
+#~ msgstr "Startdatum en -tijd"
+
+#~ msgid "Enddate and time"
+#~ msgstr "Einddatum en -tijd"
+
+#~ msgid "Location"
+#~ msgstr "Locatie"
+
+#~ msgid "Location (if not in list)"
+#~ msgstr "Locatie (indien niet in de lijst)"
+
+#~ msgid "Pressheader"
+#~ msgstr "Perskop"
+
+#~ msgid "Subheader"
+#~ msgstr "Subkop"
+
+#~ msgid "Lead"
+#~ msgstr "Lead"
+
+#~ msgid "Academic"
+#~ msgstr "Academisch"
+
+#~ msgid "Pressnote"
+#~ msgstr "Pers-opmerking"
+
+#~ msgid "Common Info"
+#~ msgstr "Algemene Informatie"
+
+#~ msgid "Specific Info"
+#~ msgstr "Specifieke Informatie"
+
+#~ msgid "Specific info (if not in list)"
+#~ msgstr "Specifieke informatie (indien niet in de lijst)"
+
+#~ msgid "More info links"
+#~ msgstr "Meer informatie links"
+
+#~ msgid "Embargo Datetime"
+#~ msgstr "Embargodatum/-tijd"
+
+#~ msgid "Subjects"
+#~ msgstr "Onderwerpen"
+
+#~ msgid "Target Audiences"
+#~ msgstr "Doelgroepen"
+
+#~ msgid "Chair"
+#~ msgstr "Voorzitter"
+
+#~ msgid "Promovendus"
+#~ msgstr "Promovendus"
+
+#~ msgid "Promoter"
+#~ msgstr "Promotor"
+
+# Default: "silva_news"
+#~ msgid "${path} is updated"
+#~ msgstr "${path} is bijgewerkt"
+
+#~ msgid "Nothing was selected, so nothing was approved."
+#~ msgstr "Er is niets geselecteerd, en dus niets goedgekeurd."
+
+#~ msgid "Info for"
+#~ msgstr "Informatie voor"
+
+#~ msgid "Authorized users below this level"
+#~ msgstr "Geauthoriseerde gebruikers onder dit niveau"
+
+#~ msgid "content renderer"
+#~ msgstr "inhoudsweergave"
+
+#~ msgid "note"
+#~ msgstr "opmerking"
+
+#~ msgid "renderer"
+#~ msgstr "weergave"
+
+#~ msgid "Select a renderer to render this content."
+#~ msgstr "Selecteer een weergave om deze inhoud mee weer te geven."
+
+#~ msgid "change renderer"
+#~ msgstr "weergave wijzigen"
+
+#~ msgid "change renderer: alt-c"
+#~ msgstr "weergave wijzigen: alt-c"
+
+#~ msgid "layout settings for &#xab;${title}&#xbb;"
+#~ msgstr "vormgevingsinstellingen voor &#xab;${title}&#xbb;"
+
+#~ msgid "layout settings"
+#~ msgstr "vormgevingsinstellingen"
+
+#~ msgid "for approved version of &#xab;${title}&#xbb;"
+#~ msgstr "voor de goedgekeurde versie van &#xab;${title}&#xbb;"
+
+#~ msgid "for published version of &#xab;${title}&#xbb;"
+#~ msgstr "voor publieke versie van &#xab;${title}&#xbb;"
+
+#~ msgid "for closed version of &#xab;${title}&#xbb;"
+#~ msgstr "voor gesloten versie van &#xab;${title}&#xbb;"
+
+#~ msgid "settings for &#xab;${title}&#xbb;"
+#~ msgstr "instellingen voor &#xab;${title}&#xbb;"
+
+#~ msgid "local news source setting"
+#~ msgstr "lokale nieuwsbron-instelling"
+
+#~ msgid ""
+#~ "Make news source local so it is picked up only by filters in the same "
+#~ "path of the source and below."
+#~ msgstr ""
+#~ "Nieuwsbron lokaal maken zodat deze alleen gevonden wordt door filters in "
+#~ "dezelfde locatie als de bron of eronder."
+
+#~ msgid "make local?"
+#~ msgstr "lokaal maken?"
+
+#~ msgid "change setting"
+#~ msgstr "instelling wijzigen"
+
+#~ msgid "change the global/local status of the news publication: alt-h"
+#~ msgstr ""
+#~ "De status 'globaal'/'lokaal' van de nieuwspublicatie wijzigen: alt-h"
+
+#~ msgid "day range"
+#~ msgstr "bereik van dagen"
+
+#~ msgid "Number of days in the future to show."
+#~ msgstr "Aantal dagen in de toekomst te tonen"
+
+# Default: "silva_news"
+#~ msgid "Viewer data changed"
+#~ msgstr "Viewer-gegevens gewijzigd"
+
+#~ msgid "RSS feeds"
+#~ msgstr "RSS-feeds"
+
+#~ msgid "attributes"
+#~ msgstr "eigenschappen"
+
+#~ msgid "save"
+#~ msgstr "opslaan"
+
+#~ msgid "${icon} Syndication Feed for ${meta_type}"
+#~ msgstr "${icon} Syndicatiefeed voor ${meta_type}"
+
+#~ msgid "A syndication feed is available in either RSS or Atom format."
+#~ msgstr "Een syndicatie-feed is beschikbaar in RSS dan wel Atom formaat."
+
+#~ msgid "The URL for the RSS feed is:"
+#~ msgstr "De URL voor de RSS feed is:"
+
+#~ msgid "The URL for the Atom feed is:"
+#~ msgstr "De URL voor de Atom feed is:"
+
+#~ msgid "Document published"
+#~ msgstr "Document gepubliceerd"
+
+#~ msgid "version already approved"
+#~ msgstr "versie reeds goedgekeurd"
+
+#~ msgid "Document already published"
+#~ msgstr "Document reeds gepubliceerd"
+
+#~ msgid "Published: ${datetime}"
+#~ msgstr "Gepubliceerd: ${datetime}"
+
+#~ msgid "Location: <span class=\"newsitemlocation\"></span>"
+#~ msgstr "Locatie: <span class=\"newsitemlocation\"></span>"
 
 #~ msgid "paragraph"
 #~ msgstr "alinea"
@@ -1356,9 +1532,6 @@ msgstr "Locatie: <span class=\"newsitemlocation\"></span>"
 #~ "Er zijn geen nieuwsberichten voor deze periode. Contoleer dat "
 #~ "nieuwsbronnen geactiveerd zijn (ga naar het bewerkscherm) en dat de items "
 #~ "in de bronnen gepubliceerd zijn."
-
-#~ msgid "sources"
-#~ msgstr "bronnen"
 
 #~ msgid "In use"
 #~ msgstr "In gebruik"
