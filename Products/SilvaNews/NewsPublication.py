@@ -30,11 +30,13 @@ class NewsPublication(Publication):
     silvaconf.icon("www/news_source.png")
     silvaconf.priority(3)
 
-    _addables_allowed_in_container = [
-        'Silva Article', 'Silva Agenda Item',
-        'Silva Publication', 'Silva Folder',
-        'Silva News Viewer', 'Silva Agenda Viewer',
-        'Silva News Filter', 'Silva Agenda Filter']
+    def __init__(self, id):
+        super(NewsPublication, self).__init__(id)
+        self._addables_allowed_in_container = [
+            'Silva Article', 'Silva Agenda Item',
+            'Silva Publication', 'Silva Folder',
+            'Silva News Viewer', 'Silva Agenda Viewer',
+            'Silva News Filter', 'Silva Agenda Filter']
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'parent_path')
