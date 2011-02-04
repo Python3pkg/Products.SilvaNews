@@ -226,7 +226,7 @@ class NewsViewer(Content, SimpleItem, TimezoneMixin):
         #merge/sort results if > 1 filter
         sortattr = None
         if self.has_filter():
-            sortattr = 'sort_index'
+            sortattr = 'display_datetime'
         results = self._get_items_helper(func,sortattr)
         if not self._number_is_days:
             return results[:self._number_to_show]
