@@ -146,7 +146,7 @@ class NewsItemVersion(DocumentVersion):
     def get_thumbnail_image(self):
         images = self.content.documentElement.getElementsByTagName('image')
         if not images:
-            return u''
+            return None
         reference_name = images[0].getAttribute('reference')
         service = getUtility(IReferenceService)
         reference = service.get_reference(self, name=reference_name)
