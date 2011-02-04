@@ -1,6 +1,6 @@
 <metal:newsarticleinfo define-macro="newsitem_info_article">
 <div class="info"
-  style="float: right; width: 20%; margin: 1.5em 0.8em 0.8em 0;"
+  style="float: right; width: 20%; margin: 12px 0.8em 0.8em 0;"
   tal:define="icon python:context.render_icon(model)">
   <h3 i18n:translate="">
     <img tal:replace="structure icon" /> newsitem info
@@ -35,7 +35,7 @@
 </metal:newsarticleinfo>
 
 <metal:newsagendaiteminfo define-macro="newsitem_info_agenda_item">
-<div class="info" style="float: right; width: 20%; margin: 1.5em 0.8em 0.8em 0;"
+<div class="info" style="float: right; width: 20%; margin: 12px 0.8em 0.8em 0;"
   tal:define="icon python:context.render_icon(model)">
   <h3 i18n:translate="">
     <img tal:replace="structure icon" /> newsitem info

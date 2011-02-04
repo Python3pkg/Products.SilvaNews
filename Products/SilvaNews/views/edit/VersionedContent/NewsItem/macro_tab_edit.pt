@@ -15,18 +15,8 @@
   <tal:condition condition="python: not model.get_unapproved_version()">
     <link rel="stylesheet"
           type="text/css"
-          tal:attributes="href here/frontend.css/absolute_url | nothing"
+          tal:attributes="href string:${root_url}/++resource++silva.core.smi/frontend.css"
           />
-    <style type="text/css">
-div.public {
-  margin: 12px 16px 10px 16px;
-  padding: 0.3em 1em 0.7em;
-  border: 1px solid #789;
-  background-color: #e3ecf7;}
-h2 {
-  margin-top: 0.3em;
-}
-    </style>
   </tal:condition>
   <metal:block define-slot="editor_css" />
 </metal:fill-slot>
@@ -54,6 +44,7 @@ h2 {
 <span tal:replace="nothing"> _________ or preview document ____ </span>
 <tal:block condition="python:not model.get_unapproved_version()">
   <tal:public condition="python: model.get_viewable()">
+     <br clear="all" />
     <tal:cond condition="python:model.meta_type == 'Silva Article'">
       <metal:use use-macro="here/macro_newsitem_info/macros/newsitem_info_article">
         this will insert an info box for news articles
