@@ -5,7 +5,6 @@
 from datetime import datetime, date
 from icalendar.interfaces import ICalendar
 import calendar
-import localdatetime
 
 from five import grok
 from zope.component import getMultiAdapter, getUtility
@@ -23,14 +22,15 @@ from App.class_init import InitializeClass
 # Silva
 from Products.Silva import SilvaPermissions
 from silva.core import conf as silvaconf
-from silva.core.views import views as silvaviews
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from silva.core.layout.jquery.interfaces import IJQueryResources
+from silva.core.views import views as silvaviews
 from zeam.form import silva as silvaforms
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 # SilvaNews
 from Products.SilvaNews import datetimeutils
 from Products.SilvaNews.interfaces import IAgendaItemVersion, IAgendaViewer
+from Products.SilvaNews.interfaces import IServiceNews
 from Products.SilvaNews.viewers.NewsViewer import NewsViewer
 from Products.SilvaNews.htmlcalendar import HTMLCalendar
 from Products.SilvaExternalSources.ExternalSource import ExternalSource
@@ -338,14 +338,12 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
                 self.context_absolute_url, month, year)
 
     def intro(self):
-        # XXX Should not be done with the method of the Service (who
-        # manages settings on how to display the date ?)
-        dayinfo = unicode(localdatetime.get_formatted_date(
-            self.day_datetime, size="full",
-            request=self.request, display_time=False))
+        service = getUtility(IServiceNews)
+        day = service.format_date(
+            self.day_datetime, display_time=False, size="full")
         if self._day_events:
-            return _(u"Events on ${day}", mapping={'day': dayinfo})
-        return _(u"No events on ${day}", mapping={'day': dayinfo})
+            return _(u"Events on ${day}", mapping={'day': day})
+        return _(u"No events on ${day}", mapping={'day': day})
 
     def subscribe_url(self):
         return "%s/subscribe.html" % self.context_absolute_url

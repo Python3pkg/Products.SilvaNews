@@ -481,7 +481,7 @@ class ServiceNews(SilvaService, CategoryMixin, TimezoneMixin):
         return self.edit_tab(manage_tabs_message='Locale set')
 
     security.declareProtected('View', 'format_date')
-    def format_date(self, dt, display_time=True):
+    def format_date(self, dt, display_time=True, size=None):
         """returns a formatted datetime string
            takes the service's locale setting into account
         """
@@ -491,9 +491,14 @@ class ServiceNews(SilvaService, CategoryMixin, TimezoneMixin):
             dt = dt.asdatetime()
         return localdatetime.get_formatted_date(
             dt,
-            size=self._date_format,
+            size=size if size else self._date_format,
             locale=self._locale,
             display_time=display_time)
+
+    security.declareProtected('View', 'get_calendar_locales')
+    def get_calendar_locales(self):
+        dates = localdatetime.get_locale_dates(locale=self._locale)
+        return dates.calendars['gregorian']
 
     security.declareProtected('View', 'get_month_abbrs')
     def get_month_abbrs(self):

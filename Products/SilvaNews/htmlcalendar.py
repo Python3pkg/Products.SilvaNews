@@ -1,42 +1,26 @@
+# Copyright (c) 2010 Infrae. All rights reserved.
+# See also LICENSE.txt
+# $Id$
+
 from calendar import Calendar, January
 from datetime import date
-from zope.i18nmessageid import MessageFactory
-_ = MessageFactory('silva_news')
-
-month_name = [None,
-              _('January'),
-              _('February'),
-              _('March'),
-              _('April'),
-              _('May'),
-              _('June'),
-              _('July'),
-              _('August'),
-              _('September'),
-              _('October'),
-              _('November'),
-              _('December')]
-
-day_abbr = [_('Mon'),
-            _('Tue'),
-            _('Wed'),
-            _('Thu'),
-            _('Fri'),
-            _('Sat'),
-            _('Sun')]
+from zope.component import getUtility
+from Products.SilvaNews.interfaces import IServiceNews
 
 
 class HTMLCalendar(Calendar):
     """
     This calendar returns complete HTML pages.
     """
-
     # CSS classes for the day <td>s
     cssclasses = ["mon", "tue", "wed", "thu", "fri", "sat we", "sun we"]
 
     def __init__(self, first_weekday=0, prev_link=None, next_link=None,
             current_day=None, today=None, day_render_callback=None):
         super(HTMLCalendar, self).__init__(first_weekday)
+        locales = getUtility(IServiceNews).get_calendar_locales()
+        self.month_names = locales.getMonthNames()
+        self.day_abbr = locales.getDayAbbreviations()
         self.prev_link = prev_link
         self.next_link = next_link
         self.current_day = current_day
@@ -80,7 +64,8 @@ class HTMLCalendar(Calendar):
         """
         Return a weekday name as a table header.
         """
-        return '<th class="%s">%s</th>' % (self.cssclasses[day], day_abbr[day])
+        return '<th class="%s">%s</th>' % (
+            self.cssclasses[day], self.day_abbr[day])
 
     def formatweekheader(self):
         """
@@ -94,9 +79,9 @@ class HTMLCalendar(Calendar):
         Return a month name as a table row.
         """
         if withyear:
-            s = '%s %s' % (month_name[themonth], theyear)
+            s = '%s %s' % (self.month_names[themonth - 1], theyear)
         else:
-            s = '%s' % month_name[themonth]
+            s = '%s' % self.month_names[themonth - 1]
         return '<tr><th>%s</th><th colspan="5" class="month">%s</th>' \
             '<th>%s</th></tr>' % (
             self.prev_link or "", s, self.next_link or "",)
