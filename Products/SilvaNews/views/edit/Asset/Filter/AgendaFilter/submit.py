@@ -9,9 +9,6 @@
 ##
 from Products.Formulator.Errors import ValidationError, FormValidationError
 
-# I18N stuff
-from Products.Silva.i18n import translate as _
-
 model = context.REQUEST.model
 form = context.form
 messages = []
