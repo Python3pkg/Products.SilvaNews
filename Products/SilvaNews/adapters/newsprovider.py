@@ -1,4 +1,4 @@
-# Copyright (c) 2002-2009 Infrae. All rights reserved.
+# Copyright (c) 2002-2011 Infrae. All rights reserved.
 # See also LICENSE.txt
 # $Id: newsprovider.py,v 1.3 2005/05/02 14:22:52 guido Exp $
 #

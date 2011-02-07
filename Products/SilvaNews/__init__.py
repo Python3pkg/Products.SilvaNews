@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2010 Infrae. All rights reserved.
+# Copyright (c) 2004-2011 Infrae. All rights reserved.
 # See also LICENSE.txt
 # $Id$
 
