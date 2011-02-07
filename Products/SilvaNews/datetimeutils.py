@@ -133,7 +133,7 @@ class CalendarDatetime(object):
             end_datetime = end_of_day(end_datetime)
         utc_start_datetime = utc_datetime(start_datetime)
         utc_end_datetime = end_datetime and utc_datetime(end_datetime)
-        if not utc_end_datetime or utc_end_datetime > utc_start_datetime:
+        if not utc_end_datetime or utc_end_datetime < utc_start_datetime:
             utc_end_datetime = utc_start_datetime + self.default_duration
 
         self.start_datetime = utc_start_datetime
