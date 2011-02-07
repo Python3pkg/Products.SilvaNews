@@ -1,12 +1,15 @@
 ChangeLog
 =========
 
-SilvaNewsNetwork 2.9.1 (unreleased)
+SilvaNewsNetwork 2.9.1 (2010-02-07)
 -----------------------------------
 
-- ...
+- Fix various bugs on the new agenda features, regarding indexing
+  and unicode.
 
-SilvaNewsNetwork 2.9 (2010/12/20)
+- Update translations. Add portuguese translations.
+
+SilvaNewsNetwork 2.9 (2010-12-20)
 ---------------------------------
 
 - Add ajax calendar view with json rest web service.
