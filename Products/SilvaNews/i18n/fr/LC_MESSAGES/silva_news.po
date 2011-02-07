@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Silva\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Fri Feb  4 16:07:13 2011\n"
+"POT-Creation-Date: Mon Feb  7 21:21:47 2011\n"
 "PO-Revision-Date: 2011-02-04 16:26+0100\n"
 "Last-Translator: Sylvain Viollon <sylvain@infrae.com>\n"
 "Language-Team: jpombar\n"
@@ -193,83 +193,6 @@ msgstr "montrer les éléments d'agenda"
 msgid "items"
 msgstr "éléments"
 
-#: Products.SilvaNews:/htmlcalendar.py:10
-msgid "April"
-msgstr "Avril"
-
-# Default: "silva_news"
-#: Products.SilvaNews:/htmlcalendar.py:11
-msgid "May"
-msgstr "May"
-
-#: Products.SilvaNews:/htmlcalendar.py:12
-msgid "June"
-msgstr "Juin"
-
-#: Products.SilvaNews:/htmlcalendar.py:13
-msgid "July"
-msgstr "Juillet"
-
-#: Products.SilvaNews:/htmlcalendar.py:14
-msgid "August"
-msgstr "Août"
-
-#: Products.SilvaNews:/htmlcalendar.py:15
-msgid "September"
-msgstr "Septembre"
-
-#: Products.SilvaNews:/htmlcalendar.py:16
-msgid "October"
-msgstr "Octobre"
-
-#: Products.SilvaNews:/htmlcalendar.py:17
-msgid "November"
-msgstr "Novembre"
-
-#: Products.SilvaNews:/htmlcalendar.py:18
-msgid "December"
-msgstr "Décembre"
-
-#: Products.SilvaNews:/htmlcalendar.py:20
-msgid "Mon"
-msgstr "Lun"
-
-#: Products.SilvaNews:/htmlcalendar.py:21
-msgid "Tue"
-msgstr "Ma"
-
-#: Products.SilvaNews:/htmlcalendar.py:22
-msgid "Wed"
-msgstr "Mer"
-
-#: Products.SilvaNews:/htmlcalendar.py:23
-msgid "Thu"
-msgstr "Jeu"
-
-#: Products.SilvaNews:/htmlcalendar.py:24
-msgid "Fri"
-msgstr "Ven"
-
-#: Products.SilvaNews:/htmlcalendar.py:25
-msgid "Sat"
-msgstr "Sam"
-
-#: Products.SilvaNews:/htmlcalendar.py:26
-msgid "Sun"
-msgstr "Dim"
-
-#: Products.SilvaNews:/htmlcalendar.py:7
-msgid "January"
-msgstr "Janvier"
-
-#: Products.SilvaNews:/htmlcalendar.py:8
-msgid "February"
-msgstr "Février"
-
-#: Products.SilvaNews:/htmlcalendar.py:9
-msgid "March"
-msgstr "Mars"
-
 #: Products.SilvaNews:/interfaces.py:301
 msgid "number of days"
 msgstr "nombre de jours"
@@ -328,12 +251,12 @@ msgid ""
 msgstr ""
 
 #. Default: ""
-#: Products.SilvaNews:/viewers/AgendaViewer.py:347
+#: Products.SilvaNews:/viewers/AgendaViewer.py:345
 msgid "Events on ${day}"
 msgstr "Événement du ${day}"
 
 #. Default: ""
-#: Products.SilvaNews:/viewers/AgendaViewer.py:348
+#: Products.SilvaNews:/viewers/AgendaViewer.py:346
 msgid "No events on ${day}"
 msgstr "Aucun événement le ${day}"
 
@@ -1044,6 +967,64 @@ msgstr ""
 #: Products.SilvaNews:/www/inline_viewer_form.form:87
 msgid "div css class"
 msgstr ""
+
+#~ msgid "April"
+#~ msgstr "Avril"
+
+# Default: "silva_news"
+#~ msgid "May"
+#~ msgstr "May"
+
+#~ msgid "June"
+#~ msgstr "Juin"
+
+#~ msgid "July"
+#~ msgstr "Juillet"
+
+#~ msgid "August"
+#~ msgstr "Août"
+
+#~ msgid "September"
+#~ msgstr "Septembre"
+
+#~ msgid "October"
+#~ msgstr "Octobre"
+
+#~ msgid "November"
+#~ msgstr "Novembre"
+
+#~ msgid "December"
+#~ msgstr "Décembre"
+
+#~ msgid "Mon"
+#~ msgstr "Lun"
+
+#~ msgid "Tue"
+#~ msgstr "Ma"
+
+#~ msgid "Wed"
+#~ msgstr "Mer"
+
+#~ msgid "Thu"
+#~ msgstr "Jeu"
+
+#~ msgid "Fri"
+#~ msgstr "Ven"
+
+#~ msgid "Sat"
+#~ msgstr "Sam"
+
+#~ msgid "Sun"
+#~ msgstr "Dim"
+
+#~ msgid "January"
+#~ msgstr "Janvier"
+
+#~ msgid "February"
+#~ msgstr "Février"
+
+#~ msgid "March"
+#~ msgstr "Mars"
 
 # Default: "silva_news"
 #~ msgid "Input form errors ${errors}"

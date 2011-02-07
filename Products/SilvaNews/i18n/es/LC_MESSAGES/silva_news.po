@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: silva-news-network\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: Fri Feb  4 16:07:13 2011\n"
+"POT-Creation-Date: Mon Feb  7 21:21:47 2011\n"
 "PO-Revision-Date: 2008-07-21 01:01+0000\n"
 "Last-Translator: Marlon Cisternas Milla <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -193,82 +193,6 @@ msgstr "Mostrar los elementos de la agenda"
 msgid "items"
 msgstr ""
 
-#: Products.SilvaNews:/htmlcalendar.py:10
-msgid "April"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:11
-msgid "May"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:12
-msgid "June"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:13
-msgid "July"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:14
-msgid "August"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:15
-msgid "September"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:16
-msgid "October"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:17
-msgid "November"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:18
-msgid "December"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:20
-msgid "Mon"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:21
-msgid "Tue"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:22
-msgid "Wed"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:23
-msgid "Thu"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:24
-msgid "Fri"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:25
-msgid "Sat"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:26
-msgid "Sun"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:7
-msgid "January"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:8
-msgid "February"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:9
-msgid "March"
-msgstr ""
-
 #: Products.SilvaNews:/interfaces.py:301
 msgid "number of days"
 msgstr ""
@@ -327,12 +251,12 @@ msgid ""
 msgstr ""
 
 #. Default: ""
-#: Products.SilvaNews:/viewers/AgendaViewer.py:347
+#: Products.SilvaNews:/viewers/AgendaViewer.py:345
 msgid "Events on ${day}"
 msgstr ""
 
 #. Default: ""
-#: Products.SilvaNews:/viewers/AgendaViewer.py:348
+#: Products.SilvaNews:/viewers/AgendaViewer.py:346
 msgid "No events on ${day}"
 msgstr ""
 

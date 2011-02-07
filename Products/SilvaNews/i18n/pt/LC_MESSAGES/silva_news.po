@@ -1,20 +1,20 @@
 # #############################################################################
-#
+# 
 # Copyright (c) 2003-2004 Zope Foundation and Contributors.
 # All Rights Reserved.
-#
+# 
 # This software is subject to the provisions of the Zope Public License,
 # Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
 # THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
 # WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
-#
+# 
 # #############################################################################
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: Fri Feb  4 16:07:13 2011\n"
+"POT-Creation-Date: Mon Feb  7 21:21:47 2011\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Zope 3 Developers <zope-dev@zope.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:13
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:13
 msgid "Add this event to my calendar"
-msgstr ""
+msgstr "Adicionar ao meu calendário"
 
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:18
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:18
@@ -35,38 +35,38 @@ msgstr ""
 #: Products.SilvaNews:/NewsItem_templates/newsitemview.pt:10
 #: Products.SilvaNews:/www/inline_viewer_view.pt:64
 msgid "Publication date:"
-msgstr ""
+msgstr "Data de publicação:"
 
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:22
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:22
 #: Products.SilvaNews:/www/inline_viewer_view.pt:88
 msgid "Location:"
-msgstr ""
+msgstr "Localização:"
 
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:26
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:26
 #: Products.SilvaNews:/www/inline_viewer_view.pt:72
 msgid "Start:"
-msgstr ""
+msgstr "Início:"
 
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:30
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:30
 #: Products.SilvaNews:/www/inline_viewer_view.pt:80
 msgid "End:"
-msgstr ""
+msgstr "Fim:"
 
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:40
 msgid "more ..."
-msgstr ""
+msgstr "mais..."
 
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemlistitemview.pt:9
 #: Products.SilvaNews:/AgendaItem_templates/agendaitemview.pt:9
 msgid "Add this event to your calendar"
-msgstr ""
+msgstr "Adicionar ao meu calendário"
 
 #: Products.SilvaNews:/ICSNewsPublication.py:150
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: Products.SilvaNews:/ICSNewsPublication.py:151
 msgid "remote URL of the ics calendar file"
@@ -77,253 +77,181 @@ msgstr ""
 #: Products.SilvaNews:/PlainArticle.py:56 Products.SilvaNews:/interfaces.py:58
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:26
 msgid "subjects"
-msgstr ""
+msgstr "assuntos"
 
 #: Products.SilvaNews:/ICSNewsPublication.py:155
 msgid "select the subjects that will be set on events"
-msgstr ""
+msgstr "seleccione os assuntos para serem definidos nos eventos"
 
 #: Products.SilvaNews:/ICSNewsPublication.py:159
 #: Products.SilvaNews:/PlainAgendaItem.py:84
 #: Products.SilvaNews:/PlainArticle.py:60 Products.SilvaNews:/interfaces.py:66
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:32
 msgid "target audiences"
-msgstr ""
+msgstr "público alvo"
 
 #: Products.SilvaNews:/ICSNewsPublication.py:160
 msgid "select the target audiences that will be set on events"
-msgstr ""
+msgstr "seleccione o público alvo para ser definido nos eventos"
 
 #: Products.SilvaNews:/ICSNewsPublication.py:175
 msgid "sync"
-msgstr ""
+msgstr "sincronizar"
 
 #: Products.SilvaNews:/ICSNewsPublication.py:176
 msgid "fetch the remote calendar and synchronize data"
-msgstr ""
+msgstr "sincronizar informação com calendário remoto"
 
 #: Products.SilvaNews:/NewsItem_templates/newsitemlistitemview.pt:21
 #: Products.SilvaNews:/viewers/RSSAggregator_templates/rssaggregatorview.pt:22
 #: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:57
 msgid "view article"
-msgstr ""
+msgstr "ver artigo"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:107
 msgid "End date must not is before start date."
-msgstr ""
+msgstr "A data de fim não pode ser anterior á data de início."
 
 #: Products.SilvaNews:/PlainAgendaItem.py:117
 msgid "End recurrence date must not be before start date."
-msgstr ""
+msgstr "A data final da ocorrência não pode ser anterior á data de início."
 
 #: Products.SilvaNews:/PlainAgendaItem.py:122
 msgid "End recurrence date must not be before end date."
-msgstr ""
+msgstr "A data de fim da ocorrência não deve ser anterior á data de fim."
 
 #: Products.SilvaNews:/PlainAgendaItem.py:175
 msgid "agenda item properties"
-msgstr ""
+msgstr "propriedades de itens da agenda"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:58
 #: Products.SilvaNews:/viewers/NewsViewer.py:373
 msgid "timezone"
-msgstr ""
+msgstr "fuso horário"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:59
 msgid "Defines the time zone for dates"
-msgstr ""
+msgstr "Define o fuso horário para datas"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:62
 msgid "start date/time"
-msgstr ""
+msgstr "data inicial/duração"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:65
 msgid "end date/time"
-msgstr ""
+msgstr "data final/duração"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:68
 msgid "all day"
-msgstr ""
+msgstr "todo o dia"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:69
 msgid "recurrence"
-msgstr ""
+msgstr "ocorrência"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:71
 msgid "recurrence end date"
-msgstr ""
+msgstr "data de fim da ocorrência"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:72
 msgid "Date on which the recurrence stops. Required if any recurrence is set"
 msgstr ""
+"Data em que a ocorrência termina. Necessário se algum recurso estiver "
+"definido"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:76
 #: Products.SilvaNews:/www/inline_viewer_form.form:325
 msgid "location"
-msgstr ""
+msgstr "localização"
 
 #: Products.SilvaNews:/PlainAgendaItem.py:77
 msgid "The location where the event is taking place."
-msgstr ""
+msgstr "A localização onde o evento vai acontecer."
 
 #: Products.SilvaNews:/PlainAgendaItem.py:98
 msgid "End recurrence date must be set when recurrence is."
-msgstr ""
+msgstr "A data de fim da ocorrência deve ser definida ao mesmo tempo que esta."
 
 #: Products.SilvaNews:/PlainArticle.py:75
 msgid "article properties"
-msgstr ""
+msgstr "propriedades de artigo"
 
 #: Products.SilvaNews:/filters/AgendaFilter.py:132
 #: Products.SilvaNews:/filters/NewsFilter.py:95
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:45
 msgid "stick to path"
-msgstr ""
+msgstr "Colar ao caminho"
 
 #: Products.SilvaNews:/filters/AgendaFilter.py:136
 #: Products.SilvaNews:/filters/NewsFilter.py:102
 msgid "sources"
-msgstr ""
+msgstr "fontes"
 
 #: Products.SilvaNews:/filters/AgendaFilter.py:137
 #: Products.SilvaNews:/filters/NewsFilter.py:103
 msgid "Use predefined sources."
-msgstr ""
+msgstr "Usar localização predefinida."
 
 #: Products.SilvaNews:/filters/NewsFilter.py:98
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:38
 msgid "show agenda items"
-msgstr ""
+msgstr "mostrar itens da agenda"
 
 #: Products.SilvaNews:/filters/smi.py:14
 msgid "items"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:10
-msgid "April"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:11
-msgid "May"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:12
-msgid "June"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:13
-msgid "July"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:14
-msgid "August"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:15
-msgid "September"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:16
-msgid "October"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:17
-msgid "November"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:18
-msgid "December"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:20
-msgid "Mon"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:21
-msgid "Tue"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:22
-msgid "Wed"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:23
-msgid "Thu"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:24
-msgid "Fri"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:25
-msgid "Sat"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:26
-msgid "Sun"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:7
-msgid "January"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:8
-msgid "February"
-msgstr ""
-
-#: Products.SilvaNews:/htmlcalendar.py:9
-msgid "March"
-msgstr ""
+msgstr "itens"
 
 #: Products.SilvaNews:/interfaces.py:301
 msgid "number of days"
-msgstr ""
+msgstr "número de dias"
 
 #: Products.SilvaNews:/interfaces.py:302
 msgid "number of items"
-msgstr ""
+msgstr "número de itens"
 
 #: Products.SilvaNews:/interfaces.py:315
 msgid "Monday"
-msgstr ""
+msgstr "Segunda"
 
 #: Products.SilvaNews:/interfaces.py:316
 msgid "Tuesday"
-msgstr ""
+msgstr "Terça"
 
 #: Products.SilvaNews:/interfaces.py:317
 msgid "Wednesday"
-msgstr ""
+msgstr "Quarta"
 
 #: Products.SilvaNews:/interfaces.py:318
 msgid "Thursday"
-msgstr ""
+msgstr "Quinta"
 
 #: Products.SilvaNews:/interfaces.py:319
 msgid "Friday"
-msgstr ""
+msgstr "Sexta"
 
 #: Products.SilvaNews:/interfaces.py:320
 msgid "Saturday"
-msgstr ""
+msgstr "Sábado"
 
 #: Products.SilvaNews:/interfaces.py:321
 msgid "Sunday"
-msgstr ""
+msgstr "Domingo"
 
 #: Products.SilvaNews:/interfaces.py:59
 msgid ""
 "Select the news subjects to filter on. Only those selected will appear in "
 "this area of the site. Select nothing to have all show up."
 msgstr ""
+"Seleccione os novos assuntos para filtrar. Apenas os assuntos seleccionados "
+"irão aparecer nesta área do site. Não seleccione nenhum para mostrar todos."
 
 #: Products.SilvaNews:/interfaces.py:67
 msgid "Select the target audiences to filter on."
-msgstr ""
+msgstr "Seleccione o público alvo para filtrar."
 
 #: Products.SilvaNews:/snn-np-settings.xml:31
 msgid "make local"
-msgstr ""
+msgstr "marcar como local"
 
 #: Products.SilvaNews:/snn-np-settings.xml:33
 msgid ""
@@ -331,112 +259,120 @@ msgid ""
 "outside-world.  When set, the source can only be found by filters in the "
 "same subdirectory."
 msgstr ""
+"Restringir o acesso exterior á fonte de notícias. Quando activado, a fonte "
+"pode apenas ser encontrada através de filtros, na mesma directoria."
 
 #. Default: ""
-#: Products.SilvaNews:/viewers/AgendaViewer.py:347
+#: Products.SilvaNews:/viewers/AgendaViewer.py:345
 msgid "Events on ${day}"
-msgstr ""
+msgstr "Eventos em ${day}"
 
 #. Default: ""
-#: Products.SilvaNews:/viewers/AgendaViewer.py:348
+#: Products.SilvaNews:/viewers/AgendaViewer.py:346
 msgid "No events on ${day}"
-msgstr ""
+msgstr "Sem eventos em ${day}"
 
 #: Products.SilvaNews:/viewers/AgendaViewer_templates/agendaviewermonthcalendar.pt:13
 msgid "subscribe"
-msgstr ""
+msgstr "subscrever"
 
 #: Products.SilvaNews:/viewers/AgendaViewer_templates/agendaviewermonthcalendar.pt:27
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerview.pt:37
 msgid "view archive"
-msgstr ""
+msgstr "ver arquivo"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:350
 msgid "show"
-msgstr ""
+msgstr "mostrar"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:351
 msgid ""
 "Show a specific number of items, or show items from a range of days in the "
 "past."
 msgstr ""
+"Mostrar um número específico de itens, ou mostrar itens de determinados dias "
+"no passado."
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:356
 msgid "days / items number"
-msgstr ""
+msgstr "dias / número de itens"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:357
 msgid "Number of news items to show per page."
-msgstr ""
+msgstr "Número de itens de notícia para mostrar por página."
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:361
 msgid "archive number"
-msgstr ""
+msgstr "número de arquivo"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:362
 msgid "Number of archive items to show per page."
-msgstr ""
+msgstr "Número de arquivos a mostrar por página."
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:366
 msgid "year range"
-msgstr ""
+msgstr "ano"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:367
 msgid "Allow navigation this number of years ahead of / behind today."
-msgstr ""
+msgstr "Permitir navegar este número de anos para a frente / para trás."
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:374
 msgid ""
 "Defines the time zone for the agenda and news items that will be rendered by "
 "this viewer."
 msgstr ""
+"Definir o fuso horário para a agenda e os itens de notícia que vão ser "
+"criadas por este utilizador."
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:379
 msgid "proxy mode"
-msgstr ""
+msgstr "modo proxy"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:380
 msgid ""
 "When proxy mode is enabled items of the viewers are displayed as children of "
 "the viewer"
 msgstr ""
+"Quando o modoe proxy está activado os itens dos utilizadores serão mostrados "
+"como dependentes do utilizador"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:386
 msgid "first day of the week"
-msgstr ""
+msgstr "primeiro dia da semana"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:388
 msgid "Define first day of the week for calendar display."
-msgstr ""
+msgstr "Definir o primeiro dia da semana para ser mostrado no calendário."
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:393
 msgid "filters"
-msgstr ""
+msgstr "filtros"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:394
 msgid "Use predefined filters."
-msgstr ""
+msgstr "Usar filtros predefinidos."
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:478
 msgid "year"
-msgstr ""
+msgstr "ano"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:482
 msgid "month"
-msgstr ""
+msgstr "mês"
 
 #: Products.SilvaNews:/viewers/NewsViewer.py:508
 msgid "go"
-msgstr ""
+msgstr "ir"
 
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerarchivesview.cpt:10
 msgid "Archive of ${DYNAMIC_CONTENT}"
-msgstr ""
+msgstr "Arquivo de  ${DYNAMIC_CONTENT}"
 
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:11
 #: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:15
 msgid "Search ${title}"
-msgstr ""
+msgstr "Procurar ${title}"
 
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:19
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerview.pt:16
@@ -445,7 +381,7 @@ msgstr ""
 #: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:33
 #: Products.SilvaNews:/www/inline_viewer_view.pt:37
 msgid "Do a full text search: alt-s"
-msgstr ""
+msgstr "Fazer uma pesquisa completa de texto: alt-s"
 
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:19
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerview.pt:16
@@ -454,99 +390,104 @@ msgstr ""
 #: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:33
 #: Products.SilvaNews:/www/inline_viewer_view.pt:37
 msgid "Search"
-msgstr ""
+msgstr "Procurar"
 
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:28
 #: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:40
 msgid "There are no articles corresponding to your query"
-msgstr ""
+msgstr "Não existem arquivos que correspondam à sua pesquisa."
 
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewersearchview.pt:34
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerarchivesview.cpt:49
 msgid "view news"
-msgstr ""
+msgstr "ver notícias"
 
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerview.pt:30
 #: Products.SilvaNews:/views/public/AgendaViewer/view_agenda.pt:35
 msgid "There are no articles available."
-msgstr ""
+msgstr "Não existem artigos disponíveis."
 
 #: Products.SilvaNews:/viewers/RSSAggregator.py:118
 msgid "feeds"
-msgstr ""
+msgstr "feeds"
 
 #: Products.SilvaNews:/viewers/RSSAggregator.py:119
 msgid ""
 "List the URLs of RSS feeds (one per line) to use as sources of news items."
 msgstr ""
+"Lista de endereços de RSS feeds (um por linha) para usar como fonte de itens "
+"de notícia."
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:102
 msgid "type"
-msgstr ""
+msgstr "escrever"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:103
 msgid "modify"
-msgstr ""
+msgstr "modificar"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:104
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:67
 msgid "view"
-msgstr ""
+msgstr "ver"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:105
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:68
 msgid "publication&nbsp;due&nbsp;"
-msgstr ""
+msgstr "publicação&nbsp;em&nbsp;"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:106
 msgid "expiration&nbsp;due"
-msgstr ""
+msgstr "expira&nbsp;em"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:144
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:104
 msgid "Preview this item"
-msgstr ""
+msgstr "Pré-visualizar este item"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:196
 msgid ""
 "There are no news items for this period. Check that news sources are "
 "activated (go to the edit screen) and items in the sources are published."
 msgstr ""
+"Não existem itens de notícia para este período. Verifique se as fontes de "
+"notícias estão activadas (ir para o ecrã de edição) e os itens das fontes "
+"estão publicados."
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:212
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:176
 msgid "deselect all"
-msgstr ""
+msgstr "anular selecção"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:212
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:176
 msgid "select all items: alt-a"
-msgstr ""
+msgstr "selecionar todos os itens: alt-a"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:212
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:176
 msgid "select all"
-msgstr ""
+msgstr "seleccionar tudo"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:271
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:233
 msgid "use selected items in this filter: alt-u"
-msgstr ""
+msgstr "usar itens selecionados neste filtro: alt-u"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/edit_items.pt:271
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:233
 msgid "update"
-msgstr ""
+msgstr "actualizar"
 
 #. Default: "silva_news"
 #: Products.SilvaNews:/views/edit/Asset/Filter/AgendaFilter/use_items.py:41
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/use_items.py:40
 msgid "The filter is updated."
-msgstr ""
+msgstr "O filtro está actualizado."
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:108
 msgid "(deselected)"
-msgstr ""
+msgstr "(selecção anulada)"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:160
 msgid ""
@@ -554,105 +495,111 @@ msgid ""
 "are activated (go to the editor screen) and items in the sources are "
 "published."
 msgstr ""
+"Não existem itens de notícia publicados que correspondam ao filtro. "
+"Verifique se as fontes de notícias estão activadas (ir para o ecrã de "
+"edição) e os itens das fontes estão publicados."
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:248
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:252
 msgid "Next"
-msgstr ""
+msgstr "Seguinte"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:65
 msgid "in use"
-msgstr ""
+msgstr "em uso"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:66
 msgid "edit"
-msgstr ""
+msgstr "editar"
 
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/edit_items.pt:69
 msgid "expiration&nbsp;due&nbsp;"
-msgstr ""
+msgstr "expira&nbsp;em&nbsp;"
 
 #. Default: "silva_news"
 #: Products.SilvaNews:/views/edit/Asset/Filter/NewsFilter/submit.py:49
 msgid "Settings changed for: "
-msgstr ""
+msgstr "Definições alteradas para: "
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:105
 msgid "Changed settings on: ${ids}"
-msgstr ""
+msgstr "Definições alteradas em: ${ids}"
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:110
 msgid "could not change settings on: ${ids}"
-msgstr ""
+msgstr "Não foi possível mudar as definições em: ${ids}"
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:18
 msgid "Nothing was selected, so no settings were changed."
-msgstr ""
+msgstr "Nada foi seleccionado, não foram alteradas definições."
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:36
 msgid "No publication nor expiration time nor any of the flags were set."
 msgstr ""
+"A publicação, a data em que expira, nem qualquer das opções foi definida."
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:53
 msgid "not applicable"
-msgstr ""
+msgstr "não aplicável"
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:62
 msgid "no next or public version available"
-msgstr ""
+msgstr "nenhuma versão seguinte ou pública disponível"
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:66
 msgid "cannot change publication time of already public versions."
-msgstr ""
+msgstr "não é possível a hota da publicação de versões já públicas."
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_change_settings.py:89
 msgid "no unapproved version"
-msgstr ""
+msgstr "não há versões por aprovar"
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:101
 msgid "<span class=\"error\">No request for approval on: ${ids}</span>"
-msgstr ""
+msgstr "<span class=\"error\">Nenhum pedido de aprovação em: ${ids}</span>"
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:15
 msgid "Nothing was selected, so no approval was requested."
-msgstr ""
+msgstr "Nada foi selecionado, logo nenhuma aprovação foi requerida."
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:88
 msgid ""
 "Request for approval via a bulk request in the publish screen of /${url} "
 "(automatically generated message)"
 msgstr ""
+"O pedido em massa para aprovação no ecrã de publicação /${url} (mensagem "
+"gerada automaticamente pelo sistema)"
 
 #: Products.SilvaNews:/views/edit/Container/Publication/NewsPublication/tab_status_request_approval.py:96
 msgid "Request approval for: ${ids}"
-msgstr ""
+msgstr "Pedido de aprovação para: ${ids}"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:15
 msgid "There is no unapproved version to publish."
-msgstr ""
+msgstr "Não existe uma versão não aprovado para publicação."
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:17
 msgid "There is no unapproved version to approve."
-msgstr ""
+msgstr "Não existe uma versão não aprovada para aprovar."
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:69
 msgid "Version published."
-msgstr ""
+msgstr "Versão publicada."
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/publish_helper.py:71
 msgid "Version approved."
-msgstr ""
+msgstr "Versão aprovada."
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_form_news.form:30
 msgid "display time"
-msgstr ""
+msgstr "hora de visualização"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_form_news.form:31
 msgid "The date/time that is displayed for the public."
-msgstr ""
+msgstr "A data / hora que será apresentada para o público."
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:107
 msgid ""
@@ -662,163 +609,171 @@ msgid ""
 "made an empty reject, this is the message of the requester ... The last "
 "message regarding this issue is:"
 msgstr ""
+"Um pedido anterior  de  aprovação  foi  rejeitada / retirada pelo "
+"${requester} em ${some_date}. A última mensagem pode não ter sido escrita "
+"pela pessoa que retirou o pedido; se essa pessoa, por exemplo, deu uma "
+"resposta vazia, esta é a mensagem do requerente ... A última mensagem sobre "
+"esta questão é:"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:129
 msgid "for new version"
-msgstr ""
+msgstr "para nova versão"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:129
 msgid "request approval ${for_new_version}"
-msgstr ""
+msgstr "pedido de aprovação ${for_new_version}"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:134
 msgid "message to editor"
-msgstr ""
+msgstr "mensagem ao editor"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:137
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:190
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:243
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:368
 msgid "notes"
-msgstr ""
+msgstr "notas"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:148
 msgid ""
 "This message will remain visible in the status screen for other authors and "
 "editors."
 msgstr ""
+"Esta mensagem ficará visível no ecrã de status para outros autores e "
+"editores."
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:159
 msgid "request approval"
-msgstr ""
+msgstr "pedido de aprovação"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:159
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:402
 msgid "access key: alt-r"
-msgstr ""
+msgstr "chave de acesso: alt-r"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:180
 msgid "change settings"
-msgstr ""
+msgstr "alterar as configurações"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:187
 msgid "current timings"
-msgstr ""
+msgstr "temporização actual"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:202
 msgid "update timing"
-msgstr ""
+msgstr "actualizar temporização"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:202
 msgid "access key: alt-u"
-msgstr ""
+msgstr "chave de acesso: alt-u"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:227
 msgid "publish new version"
-msgstr ""
+msgstr "publicar nova versão"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:231
 msgid "publish closed version"
-msgstr ""
+msgstr "publicar versão fechada"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:240
 msgid "settings"
-msgstr ""
+msgstr "definições"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:253
 msgid "publish now"
-msgstr ""
+msgstr "publicar agora"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:253
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:482
 msgid "access key: alt-p"
-msgstr ""
+msgstr "chave de acesso: alt-p"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:262
 msgid "approve for future"
-msgstr ""
+msgstr "aprovar para o futuro"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:262
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:301
 msgid "access key: alt-o"
-msgstr ""
+msgstr "chave de acesso: alt-o"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:284
 msgid "access key: alt-m"
-msgstr ""
+msgstr "chave de acesso: alt-m"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:293
 msgid "day / month / year &nbsp;23:59"
-msgstr ""
+msgstr "dia / mês / ano &nbsp;23:59"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:320
 msgid "access key: alt-h"
-msgstr ""
+msgstr "chave de acesso: alt-h"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:34
 msgid "Publication time of public version"
-msgstr ""
+msgstr "Hora de publicação da versão pública"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:347
 msgid "reject"
-msgstr ""
+msgstr "rejeitar"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:348
 msgid "withdraw"
-msgstr ""
+msgstr "retirar"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:349
 msgid "request"
-msgstr ""
+msgstr "pedir"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:358
 msgid "add message on"
-msgstr ""
+msgstr "adicionar mensagem em"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:361
 msgid "rejection"
-msgstr ""
+msgstr "rejeição"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:364
 msgid "withdrawal"
-msgstr ""
+msgstr "remoção"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:383
 msgid "The message may be viewed by local users."
-msgstr ""
+msgstr "A mensagem poderá ser vista por utilizadores locais."
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:39
 msgid "Publication and expiration time of public version"
-msgstr ""
+msgstr "Data e hora da publicação e expiração da versão pública"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:393
 msgid "reject approval request"
-msgstr ""
+msgstr "rejeitar pedido de aprovação"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:393
 msgid "access key: alt-j"
-msgstr ""
+msgstr "chave de acesso: alt-j"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:402
 msgid "withdraw approval request"
-msgstr ""
+msgstr "remover pedido de aprovação"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:427
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:445
 msgid "revoke approval"
-msgstr ""
+msgstr "revogar aprovação"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:436
 msgid "If further editing is required, first revoke the approval."
 msgstr ""
+"Se forem necessárias alterações adicionais, é necessário revogar a aprovação"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:445
 msgid "access key: alt-v"
-msgstr ""
+msgstr "chave de acesso: alt-v"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:468
 msgid "revert to previous version"
-msgstr ""
+msgstr "reverter para a versão anterior"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:474
 msgid ""
@@ -826,212 +781,283 @@ msgid ""
 "version. This can not be undone afterwards and will discard all changes made "
 "to the current version."
 msgstr ""
+"A versão actual editavél pode ser substituída pela anterior (publicada) "
+"versão. Não podem ser alteradas mais tarde e eliminará todas as alterações "
+"feitas até ao momento na versão actual."
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:482
 msgid "revert to previous"
-msgstr ""
+msgstr "voltar ao anterior"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:506
 msgid "manual close"
-msgstr ""
+msgstr "fecho manual"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:513
 msgid ""
 "If necessary, the published version of this content can be manually closed "
 "(taken offline). It will also be removed from the public index."
 msgstr ""
+"Caso seja necessário, a versão publicada deste conteúdo pode ser fechada de "
+"forma manual (colocada offline). Também será removido do índice do público."
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:522
 msgid "close published version"
-msgstr ""
+msgstr "fechar versão pública"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:522
 msgid "access key: alt-c"
-msgstr ""
+msgstr "chave de acesso: alt-c"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:63
 msgid "messages"
-msgstr ""
+msgstr "mensagens"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:77
 msgid "${author_id} sent a message on ${some_date} ${with_comments}"
-msgstr ""
+msgstr "${author_id} enviou a mensagem em ${some_date} ${with_comments}"
 
 #: Products.SilvaNews:/views/edit/VersionedContent/NewsItem/tab_status_macros.pt:79
 msgid "with the following comments:"
-msgstr ""
+msgstr "com os seguintes comentários:"
 
 #: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:46
 #: Products.SilvaNews:/views/public/AgendaViewer/view_archive.pt:70
 msgid "view agenda"
-msgstr ""
+msgstr "ver agenda"
 
 #: Products.SilvaNews:/views/public/AgendaViewer/search_agenda.pt:49
 #: Products.SilvaNews:/views/public/AgendaViewer/view_agenda.pt:43
 msgid "view past and future articles"
-msgstr ""
+msgstr "ver artigos antigos e futuros"
 
 #: Products.SilvaNews:/views/public/AgendaViewer/view_archive.pt:26
 msgid "Archive of ${title}"
-msgstr ""
+msgstr "Arquivo de ${title}"
 
 #: Products.SilvaNews:/views/public/AgendaViewer/view_archive.pt:50
 #: Products.SilvaNews:/viewers/NewsViewer_templates/newsviewerarchivesview.cpt:40
 msgid "There are no articles available"
-msgstr ""
+msgstr "Não há artigos disponíveis"
 
 #: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:19
 msgid "Search News"
-msgstr ""
+msgstr "Procurar notícias"
 
 #: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:55
 msgid "Startdate/time:"
-msgstr ""
+msgstr "Data /hora de início:"
 
 #: Products.SilvaNews:/views/public/NewsFilter/search_news.pt:70
 msgid "There are no articles corresponding to your query."
-msgstr ""
+msgstr "Não existem artigos disponíveis para a sua consulta."
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:105
 msgid "Display title of viewer (ANR)"
-msgstr ""
+msgstr "Mostrar o título no ecrã (ANR)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:114
 msgid "display title"
-msgstr ""
+msgstr "título apresentado"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:131
 msgid ""
 "Number of articles to be shown; max. is set by viewer (AN); empty = all "
 "articles (ANR)"
 msgstr ""
+"Número de artigos a serem mostrados; max. é definido pelo utilizador (AN); "
+"nulo = all artigos (ANR)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:141
 msgid "# of articles"
-msgstr ""
+msgstr "# de artigos"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:158
 msgid "The heading level for the article title (h3, h4, etc.). (ANR)"
-msgstr ""
+msgstr "O tamanho do título do artigo (h3, h4, etc.). (ANR)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:168
 msgid "article level"
-msgstr ""
+msgstr "nível do artigo"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:184
 msgid ""
 "Display intro (first elements of the article), the metadata description, or "
 "nothing"
 msgstr ""
+"Mostrar apresentação (primeiros elementos do artigo), a descrição de "
+"metadados, ou nada"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:194
 msgid "snippet"
-msgstr ""
+msgstr "excerto"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:211
 msgid "Number of characters shown in snippet; 0 = all (ANR)"
-msgstr ""
+msgstr "Número de caracteres indicados no excerto; 0 = all (ANR)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:221
 msgid "# of chars"
-msgstr ""
+msgstr "# de caracteres"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:23
 msgid "Choose a News Viewer, Agenda Viewer, or RSS Aggregator"
 msgstr ""
+"Escolher um Visualizador de Notícias, Agenda do utilizador, ou Agregador de "
+"feeds (RSS)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:238
 msgid "Display image thumbnail? (AN)"
-msgstr ""
+msgstr "Mostrar miniatura da imagem? (AN)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:248
 msgid "image"
-msgstr ""
+msgstr "imagem"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:264
 msgid "Display cration date (AN)"
-msgstr ""
+msgstr "Mostrar data de criação (AN)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:273
 msgid "creation date"
-msgstr ""
+msgstr "data de criação"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:290
 msgid "Display start/end datetime if available (N)"
-msgstr ""
+msgstr "Mostrar hora de início e do fim, se disponível (N)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:299
 msgid "datetimes"
-msgstr ""
+msgstr "data e hora"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:316
 msgid "Display location if available (N)"
-msgstr ""
+msgstr "Mostra a localização, se disponível (N)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:33
 msgid "news source"
-msgstr ""
+msgstr "fonte da notícia"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:342
 msgid "Where to show link to article (ANR)"
-msgstr ""
+msgstr "Onde mostrar link para o artigo (ANR)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:351
 msgid "article link"
-msgstr ""
+msgstr "link do artigo"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:368
 msgid "Link text for single articles (ANV)"
-msgstr ""
+msgstr "O texto do link para os artigos individuais (ANV)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:377
 msgid "link text"
-msgstr ""
+msgstr "texto do link"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:395
 msgid "Display link to news source (ANR)"
-msgstr ""
+msgstr "Mostrar link para a fonte da notícia (ANR)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:404
 msgid "source link"
-msgstr ""
+msgstr "link da fonte"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:421
 msgid "Link text for news source link (ANR)"
-msgstr ""
+msgstr "O texto do link para a fonte de notícia (ANR)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:430
 msgid "source text"
-msgstr ""
+msgstr "texto original"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:448
 msgid "Show a footer for the feed (customizable)"
-msgstr ""
+msgstr "Mostrar um rodapé para o feed (personalizável)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:457
 msgid "show footer"
-msgstr ""
+msgstr "mostrar rodapé"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:474
 msgid "Show search box (ANR)"
-msgstr ""
+msgstr "Mostrar caixa de pesquisa (ANR)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:483
 msgid "show search"
-msgstr ""
+msgstr "Mostrar pesquisa"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:51
 msgid "ID for div tag for inline viewer; default = _blank_ (ANR)"
-msgstr ""
+msgstr "ID para a tag div no visualizador inline; default = _blank_ (ANR)"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:60
 msgid "div id"
-msgstr ""
+msgstr "div id"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:78
 msgid "CSS class for div tag for inline viewer; default = inv (ANR)"
-msgstr ""
+msgstr "classe CSS para a tag div no visualizador inline"
 
 #: Products.SilvaNews:/www/inline_viewer_form.form:87
 msgid "div css class"
-msgstr ""
+msgstr "classe css para o div"
+
+#~ msgid "endereço remote URL of the ics calendar file"
+#~ msgstr "endereço remoto do ficheiro de calendário ics"
+
+#~ msgid "April"
+#~ msgstr "Abril"
+
+#~ msgid "May"
+#~ msgstr "Maio"
+
+#~ msgid "June"
+#~ msgstr "Junho"
+
+#~ msgid "July"
+#~ msgstr "Julho"
+
+#~ msgid "August"
+#~ msgstr "Agosto"
+
+#~ msgid "September"
+#~ msgstr "Setembro"
+
+#~ msgid "October"
+#~ msgstr "Outubro"
+
+#~ msgid "November"
+#~ msgstr "Novembro"
+
+#~ msgid "December"
+#~ msgstr "Dezembro"
+
+#~ msgid "Mon"
+#~ msgstr "Seg"
+
+#~ msgid "Tue"
+#~ msgstr "Ter"
+
+#~ msgid "Wed"
+#~ msgstr "Qua"
+
+#~ msgid "Thu"
+#~ msgstr "Qui"
+
+#~ msgid "Fri"
+#~ msgstr "Sex"
+
+#~ msgid "Sat"
+#~ msgstr "Sab"
+
+#~ msgid "Sun"
+#~ msgstr "Dom"
+
+#~ msgid "January"
+#~ msgstr "Janeiro"
+
+#~ msgid "February"
+#~ msgstr "Fevereiro"
+
+#~ msgid "March"
+#~ msgstr "Março"
