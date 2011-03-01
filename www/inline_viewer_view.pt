@@ -27,9 +27,13 @@
                      id python:options['inv_div_id'] or nothing"
 >
 
-<h3 tal:condition="python:options['show_title']=='1'"
-  tal:content="viewerobj/get_title">
+<h3 tal:condition="python:options['show_title']=='1'">
+  <span tal:replace="viewerobj/get_title">
   title
+  </span>
+  <tal:cond tal:condition="python:options['show_icon_link']=='1'">
+    <metal:plug use-macro="here/icon_link/macros/iconlink" />
+  </tal:cond>
 </h3>
 
 <div class="searchbox" tal:condition="python:options['show_search']=='1'">
