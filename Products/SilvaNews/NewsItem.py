@@ -70,13 +70,15 @@ class NewsItemVersion(DocumentVersion):
         self._subjects = []
         self._target_audiences = []
         self._display_datetime = None
+        self._external_link = None
+        self._link_method = 'article'
 
     # XXX I would rather have this get called automatically on setting
     # the publication datetime, but that would have meant some nasty monkey-
     # patching would be required...
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                                 'set_display_datetime')
-    def set_display_datetime(self, ddt):
+    def set_display_datetime(self, ddt, reindex=True):
         """set the display datetime
 
             this datetime is used to determine whether an item should be shown
@@ -84,6 +86,9 @@ class NewsItemVersion(DocumentVersion):
             are shown
         """
         self._display_datetime = ddt
+        #XXX this was in aaltepet silva 2.1, does it still work in 2.3?
+        if reindex:
+            self.reindex_object()
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'display_datetime')
@@ -104,13 +109,24 @@ class NewsItemVersion(DocumentVersion):
 
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                               'set_subjects')
-    def set_subjects(self, subjects):
+    def set_subjects(self, subjects, reindex=True):
         self._subjects = list(subjects)
+        #XXX this was in aaltepet silva 2.1, does it still work in 2.3?
+        if reindex:
+            self.reindex_object()
+
+     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                               'set_link_method')
+     def set_link_method(self, method):
+        self._link_method = method
 
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                               'set_target_audiences')
-    def set_target_audiences(self, target_audiences):
+    def set_target_audiences(self, target_audiences, reindex=True):
         self._target_audiences = list(target_audiences)
+        #XXX this was in aaltepet silva 2.1, does it still work in 2.3?
+        if reindex:
+            self.reindex_object()
 
     # ACCESSORS
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
@@ -158,7 +174,7 @@ class NewsItemVersion(DocumentVersion):
                                 'get_description')
     def get_description(self):
         return self.service_metadata.getMetadataValue(
-            self, 'silva-extra', 'content_description')
+            self, 'syndication', 'teaser')
 
     def _get_source(self):
         c = self.aq_inner.aq_parent
@@ -216,7 +232,17 @@ class NewsItemVersion(DocumentVersion):
         """Returns the target audiences
         """
         return list(self._target_audiences or [])
-
+    
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'external_link')
+    def external_link(self):
+        return self._external_link
+ 
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'link_method')
+    def link_method(self):
+        return self._link_method
+    
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'target_audiences')
     target_audiences = get_target_audiences

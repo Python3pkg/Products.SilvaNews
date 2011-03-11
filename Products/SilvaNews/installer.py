@@ -36,6 +36,11 @@ class SilvaNewsInstaller(DefaultInstaller):
         collection.importSet(fh)
         sm.addTypeMapping('Silva News Publication', ['snn-np-settings'])
         sm.addTypeMapping('Silva News ICS Publication', ['snn-np-settings'])
+        mts = ['Silva News Viewer', 'Silva RSS Aggregator',
+               'Silva Agenda Viewer', 'Silva Article Version',
+               'Silva Agenda Item Version',]
+        for t in mts:
+            sm.addTypeMapping(t, ['syndication'])
         sm.initializeMetadata()
 
     def unconfigure_extra_metadata(self, root):

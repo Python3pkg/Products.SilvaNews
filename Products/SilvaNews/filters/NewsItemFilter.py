@@ -285,7 +285,7 @@ class NewsItemFilter(Filter):
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_next_items')
-    def get_next_items(self, numdays, meta_types=None):
+    def get_next_items(self, numdays, meta_types=None, starting_date=None):
         """ Note: ONLY called by AgendaViewers
         Returns the next <number> AGENDAitems,
         should return items that conform to the
@@ -298,12 +298,14 @@ class NewsItemFilter(Filter):
             return []
 
         results = []
+        if not starting_date:
+            starting_date=DateTime()
 
         #if this is a new filter that doesn't show agenda items
         if (INewsFilter.providedBy(self) and not self.show_agenda_items()):
             return results
 
-        lastnight = (DateTime()-1).latestTime()
+        lastnight = (starting_date-1).latestTime()
         endate = (lastnight + numdays).latestTime()
 
         return self.get_items_by_date_range(

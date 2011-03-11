@@ -13,7 +13,7 @@ class NewsItemFeedEntryAdapter(feedentry.DocumentFeedEntryAdapter):
     grok.context(INewsItem)
 
     def html_description(self):
-        return self.version.get_intro()
+        return self.ms.getMetadataValue(self.version, 'syndication','teaser')
 
     def date_published(self):
         """ This field is used for ordering.

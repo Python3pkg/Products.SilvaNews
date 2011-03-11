@@ -69,10 +69,11 @@ class NewsItemReference(object):
         return self._item.get_thumbnail('inv_thumbnail')
 
     def creation_datetime(self):
-        pub_dt = self._context.service_metadata.getMetadataValue(
-                        self._item, 'silva-extra', 'publicationtime')
-        display_dt = self._item.display_datetime()
-        return display_dt or pub_dt
+        dt = self._item.display_datetime()
+        if not dt:
+            dt = self._context.service_metadata.getMetadataValue(
+                self._item, 'silva-extra', 'publicationtime')
+        return dt
 
     def start_datetime(self):
         return getattr(self._item.aq_explicit, 'start_datetime', lambda: None)()
