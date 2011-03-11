@@ -436,6 +436,43 @@ class NewsItemFilter(Filter):
     def __filter_excluded_items(self, results):
         return [r for r in results if not r.object_path in
                    self._excluded_items]
+    
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'get_last_items_from_date')
+    def get_last_items_from_date(self, number, date, number_is_days=False,
+                                 meta_types=None):
+        """Returns the last number of published items
+        if number_is_days is true, number determines the number of days
+        to look for events, rather than the number of published items.
+        NOTE: This will only pull events (or, items with a start_datetime)
+        """
+        self.verify_sources()
+        if not self._sources:
+            return []
+
+        query = self._prepare_query(meta_types)
+        query['sort_on'] = 'idx_start_datetime'
+        query['sort_order'] = 'ascending'
+
+        if number_is_days:
+            # the number specified must be used to restrict the on number of days instead of the number of items
+            next = (date + number).latestTime()
+            query['idx_start_datetime'] = {'query': [date, next],
+                                           'range': 'minmax'}
+        else:
+            query['idx_start_datetime'] = {'query': date,
+                                           'range': 'min'}
+        #from zLOG import LOG,INFO
+        #LOG('query',INFO,query)
+        result = self._query(**query)
+        filtered_result = [r for r in result if not r.object_path in self._excluded_items]
+
+
+        if not number_is_days:
+            output = filtered_result[:number]
+        else:
+            output = filtered_result
+        return output
 
 
 InitializeClass(NewsItemFilter)

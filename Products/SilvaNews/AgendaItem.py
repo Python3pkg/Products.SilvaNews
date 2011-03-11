@@ -220,6 +220,44 @@ class AgendaItemVersion(NewsItemVersion):
                               'idx_start_datetime')
     idx_start_datetime = get_start_datetime
 
+    #--------HTML Rendering helper functions----------#
+
+    #formatEventSummary is for the SilvaNewsCalendar
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'formatEventSummary')
+    def format_event_summary(self):
+        #XXX this is new, for the silva news calendar
+        # (and, I think needs to be adjusted slightly, according to a fp case
+        title = self.get_title() or str(self.getPhysicalPath())
+        try:
+            title = unicode(title,'utf-8')
+        except:
+            pass
+
+        summary = [html_quote(title)]
+        #for items just added, they don't have a start datetime yet.
+        if not self.start_datetime():
+            return (u''.join(summary))
+        date = self.formatTime(self.start_datetime(),self.end_datetime())
+        if date:
+            summary.append(date)
+        if self.location():
+            summary.append(u', ' + html_quote(self.location()))
+        teaser = self.service_metadata.getMetadataValue(self, 'syndication','teaser')
+        if teaser:
+            #remove any trailing whitespace, append period and teaser
+            summary[-1] = summary[-1].rstrip()
+            if not summary[-1].endswith('.'):
+                summary.append(u'. ')
+            else: #add extra padding "just in case"
+                summary.append(' ')
+            summary.append(teaser)
+        #creating a byte-encoded string instead of unicode
+        #unicode strings with non-ascii characters break the
+        #'look at record' view of the record in the zmi service_catalog
+        #MAKE SURE you convert to unicode when you retrieve this from
+        #the catalog!
+        return (u''.join(summary)).encode('utf-8')
 
 InitializeClass(AgendaItemVersion)
 

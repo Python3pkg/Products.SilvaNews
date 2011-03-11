@@ -24,7 +24,7 @@ class NewsViewerNewsProvider(component.Adapter):
     def getitems(self, number):
         results = self.context.get_items()
         ret = []
-        if len(results) < number:
+        if not number or len(results) < number:
             number = len(results)
         for item in results[:number]:
             newsitem = self.context.set_proxy(item.getObject())
@@ -59,8 +59,18 @@ class NewsItemReference(object):
           desc = desc[:maxchars]
         return desc
 
-    def link(self, request):
-        return str(absoluteURL(self._item, request))
+    def teaser(self):
+        return self._item.teaser()
+
+    def link(self):
+        #this should really do the logic of external/no/newsitem
+        lm = self._item.link_method()
+        if lm == 'external_link':
+            return self._item.external_link()
+        elif lm == 'article':
+            return self._item.aq_parent.absolute_url()
+        else:
+            return None
 
     def intro(self, maxchars=1024):
         return self._item.get_intro(maxchars)
@@ -107,6 +117,9 @@ class RSSItemReference(object):
 
     def title(self):
         return self._item['title']
+
+    def teaser(self):
+        return self.description()
 
     def description(self, maxchars=1024):
         # XXX we're not so sure about the type of content, so let's not
@@ -169,6 +182,8 @@ class RSSAggregatorNewsProvider(component.Adapter):
         ret = []
         for item in items:
             ret.append(RSSItemReference(item, self.context))
+        if not number or len(ret) < number:
+            number = len(ret)
         return ret[:number]
 
 

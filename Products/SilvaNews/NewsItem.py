@@ -2,6 +2,7 @@
 # See also LICENSE.txt
 # $Revision: 1.35 $
 
+import re
 from five import grok
 from zope.component import getUtility
 from zope.i18nmessageid import MessageFactory
@@ -28,6 +29,21 @@ from Products.SilvaNews.datetimeutils import datetime_to_unixtimestamp
 
 _ = MessageFactory('silva_news')
 
+#for formatting the time according to Bethel's standards
+time_re = re.compile('((:00)|((12:00 )?(am|pm)))',re.I)
+def time_replace(matchobj):
+    g0 = matchobj.group(0)
+    if g0 == 'am':
+        return 'a.m.'
+    elif g0 == 'pm':
+        return 'p.m.'
+    elif g0 == '12:00 pm':
+        return 'noon'
+    elif g0 == '12:00 am':
+        return 'midnight'
+    elif g0 == ':00': #strip it!
+        pass
+    return ''
 
 class NewsItem(Document):
     """Base class for all kinds of news items.
@@ -114,10 +130,10 @@ class NewsItemVersion(DocumentVersion):
         #XXX this was in aaltepet silva 2.1, does it still work in 2.3?
         if reindex:
             self.reindex_object()
-
-     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                               'set_link_method')
-     def set_link_method(self, method):
+            
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_link_method')
+    def set_link_method(self, method):
         self._link_method = method
 
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
@@ -285,6 +301,59 @@ class NewsItemVersion(DocumentVersion):
             return datetime_to_unixtimestamp(dt)
         return None
 
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'format_time')
+    def format_time(self,start,end=None, sep=' | '):
+        """helper func to format the time to bethel's
+           official standard"""
+        def doTime1(t):
+            a = t.AMPMMinutes()
+            a = time_re.sub(time_replace,a)
+            if a[0] == '0':
+                return a[1:]
+            return a
+        def doTime2(ta,tb):
+            a = doTime1(ta)
+            b = doTime1(tb)
+            #if the two times aren't on the same day
+            if ta.parts()[0:3] != tb.parts()[0:3]:
+                #XXX not sure what to do here?
+                #there was an event which started at 6pm April 3 and
+                # went through 6pm April 4.  The date was "6-4" with no
+                # indication that the even spanned multiple days
+                pass
+            #same part of day (am or pm)
+            if ta.ampm() == tb.ampm() and a not in ('noon','midnight'):
+                return a[:-5] + u'\u2013' + b
+            else:
+                return a + u'\u2013' + b
+
+        #first, if start has no time, return empty
+        if start.hour() == 0 and start.minute() == 0:
+            return ''
+        if not end or start == end or (end.hour()==0 and end.minute() == 0):
+            return sep + doTime1(start)
+        else:
+            return sep + doTime2(start,end)
+        
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'formatDateLine')
+    def format_date_line(self, start, end=None, sep=' | '):
+        """formats the date line like 
+        May 18, 2010 | 5:43 p.m.
+        for Bethel's news story style
+        """
+        if end is None or start.Date() == end.Date():
+            time = self.formatTime(start, sep=sep)
+            return start.strftime('%B %d, %Y') + time
+        else: 
+            if start.Month() == end.Month() and start.year() == end.year():
+                return start.strftime('%B %d - ') + end.strftime('%d, %Y')
+            elif start.year() == end.year():
+                return start.strftime('%B %d - ') + end.strftime('%B %d, %Y')
+            else:
+                return start.strftime('%B %d - ') + end.strftime('%B %d')
+            
 
 InitializeClass(NewsItemVersion)
 

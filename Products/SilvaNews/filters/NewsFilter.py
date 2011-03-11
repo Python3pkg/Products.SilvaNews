@@ -60,6 +60,33 @@ class NewsFilter(NewsItemFilter):
         query = self._prepare_query(meta_types)
         results = self._query(**query)
         return results
+    
+    
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'get_items_by_userid')
+    def get_items_by_userid(self, userid, meta_types=None):
+        """Returns all items available to this filter that were authored by
+        the given userid. This is an extension of get_all_items().
+        """
+        if not userid:
+            return []
+        if not self._sources:
+            return []
+        query = self._prepare_query(meta_types)
+        query['sec_get_last_author_userid'] = userid
+        results = self._query(**query)
+        return results
+
+    def _get_items_in_range(self, startdate, enddate, meta_types=None):
+        #XXX where is this used?  SilvaNewsCalendar?
+        query = self._prepare_query(meta_types)
+        query['idx_display_datetime'] = {'query': [startdate, enddate],
+                                         'range': 'minmax'}
+        result = self._query(**query)
+ 
+        for r in result:
+            if not r.object_path in self._excluded_items:
+                yield r
 
     security.declarePrivate('get_allowed_meta_types')
     def get_allowed_meta_types(self):

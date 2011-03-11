@@ -62,6 +62,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
         AgendaViewer.inheritedAttribute('__init__')(self, id)
         self._days_to_show = 31
         self._number_is_days = True
+        self._starting_date = None
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'days_to_show')
@@ -70,16 +71,29 @@ class AgendaViewer(NewsViewer, ExternalSource):
         """
         return self._days_to_show
 
+    
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                                'starting_date')
+    def starting_date(self):
+        """returns the starting date, if specified, for the day range"""
+        return self._starting_date
+
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items')
     def get_items(self):
         """Gets the items from the filters
         """
-        func = lambda x: x.get_next_items(self._days_to_show)
+        func = lambda x: x.get_next_items(self._days_to_show,
+                                          starting_date=self._starting_date)
         sortattr = None
         if len(self.get_filters()) > 1:
             sortattr = 'start_datetime'
         return self._get_items_helper(func,sortattr)
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'get_items_from_date')
+    def get_items_from_date(self,date=None, sortattr='start_datetime'):
+        return super(AgendaViewer, self).get_items_from_date(self, date, sortattr)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items_by_date')
@@ -136,6 +150,11 @@ class AgendaViewer(NewsViewer, ExternalSource):
         view.parameters = parameters
         return view()
 
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                                'set_starting_date')
+    def set_starting_date(self, date):
+        """set self._starting_date"""
+        self._starting_date = date
 
 InitializeClass(AgendaViewer)
 
