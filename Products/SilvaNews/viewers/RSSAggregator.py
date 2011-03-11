@@ -25,7 +25,7 @@ from Products.SilvaNews.interfaces import IAggregator
 from Products.SilvaNews import feedparser
 
 #XXX
-from bethel.core.zopecache import timed
+#from bethel.core.zopecache import timed
 
 class RSSAggregator(NewsViewer):
     """The aggregator is used to display content from RSS feeds,

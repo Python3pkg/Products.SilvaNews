@@ -21,7 +21,7 @@
   <five:registerPackage package="." />
 
   <!-- Grok Silva News -->
-  <grok:grok package="." />
+  <grok:grok package="." exclude=".bin" />
 
   <!-- i18n -->
   <i18n:registerTranslations directory="i18n" />

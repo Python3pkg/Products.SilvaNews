@@ -10,9 +10,10 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope import schema
 
-from silva.core.interfaces import IAsset, ISilvaService, IPublication, IContent
+from silva.core.interfaces import (IAsset, ISilvaService, IPublication, IContent,
+                                   IContentLayout, IVersionedContentLayout,
+                                   IVersion)
 
-from Products.SilvaDocument.interfaces import IDocument, IDocumentVersion
 from Products.SilvaExternalSources.interfaces import IExternalSource
 from Products.SilvaNews.datetimeutils import zone_names
 
@@ -28,7 +29,7 @@ class ISilvaNewsExtension(Interface):
     """Marker interface for SNN Extension"""
 
 
-class INewsItem(IDocument):
+class INewsItem(IVersionedContentLayout):
     """Silva News Item interface
     """
 
@@ -69,7 +70,7 @@ class ISubjectTASchema(Interface):
         required=False)
 
 
-class INewsItemVersion(IDocumentVersion):
+class INewsItemVersion(IVersion, IContentLayout):
     """Silva news item version.
 
     This contains the real content for a news item.

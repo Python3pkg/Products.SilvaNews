@@ -36,7 +36,7 @@ from silva.core.references.reference import ReferenceSet
 # SilvaNews
 from Products.SilvaNews.interfaces import (INewsViewer, IServiceNews,
     show_source, timezone_source, week_days_source, filters_source,
-    IAgendsViewer)
+    IAgendaViewer)
 from Products.SilvaNews.ServiceNews import TimezoneMixin
 from Products.SilvaNews.traverser import set_parent
 from BTrees.OOBTree import OOBTree

@@ -1,35 +1,111 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html tal:omit-tag=""
-      lang="en"
-      xml:lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="silva_document"
-      tal:define="global vein string:editor;
-                  model request/model;
-                  no_empty_feedback python:True;
-                  is_editable model/get_unapproved_version;">
+  lang="en"
+  xml:lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:notal="http://www.infrae.com/silva/notal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="silva_document"
+  tal:define="
+    global vein string:editor;
+    model request/model;
+    base_url request/resourcebase/absolute_url
+">
 
-  <metal:block use-macro="here/macro_tab_edit/macros/editor">
+<metal:block use-macro="here/macro_tab_edit/macros/editor">
 
-    <metal:block fill-slot="editor_css">
-      <tal:condition condition="is_editable">
-        <link href="kupustyles.css"
-              type="text/css"
-              rel="stylesheet"
-              tal:attributes="href here/kupustyles.css/absolute_url"
-              />
-      </tal:condition>
-    </metal:block>
+<metal:block fill-slot="script"
+             tal:define="base python:(request['ACTUAL_URL'].startswith('https') and 'https' or 'http') + '://ajax.googleapis.com/ajax/libs/yui/2.8.1/build/'">
+<!-- Sam Skin CSS -->
+<link type="text/css" rel="stylesheet" tal:attributes="href string:${base}fonts/fonts-min.css" />
+<link type="text/css" rel="stylesheet" tal:attributes="href string:${base}assets/skins/sam/skin.css" />
+<!-- YUI JavaScript -->
+<tal:block repeat="file python:['utilities/utilities.js','container/container-min.js','menu/menu-min.js','button/button-min.js', 'logger/logger-min.js','selector/selector-min.js','resize/resize-min.js', 'cookie/cookie-min.js','layout/layout-min.js']">
+<script type="text/javascript" tal:attributes="src string:$base$file"></script>
+</tal:block>
 
-    <metal:block fill-slot="script">
-      <metal:macro use-macro="here/service_kupu_silva/kupumacros/macros/jsincludes" />
-    </metal:block>
-    <metal:block fill-slot="editor_content">
-      <metal:macro use-macro="here/service_kupu_silva/kupumacros/macros/body" />
-    </metal:block>
+<script type="text/javascript"
+    tal:attributes="src string:${base_url}/++resource++silva.core.contentlayout.browser.resources/cl.js"></script>
+<script type="text/javascript"
+  tal:attributes="src context/cl_infopanel_module.js/absolute_url"></script>
 
-  </metal:block>
+<script type="text/javascript">
+YAHOO.util.Event.onDOMReady(function() {
+    window.ContentLayoutApp = new YAHOO.bethel.contentlayout.app();
+});
+</script>
+
+<link rel="stylesheet" type="text/css"
+    tal:attributes="href string:${base_url}/++resource++silva.core.contentlayout.browser.resources/smi.css" />
+    
+<link rel="stylesheet" type="text/css"
+    tal:attributes="href string:${base_url}/service_contentlayout/templateicons.css" />
+
+</metal:block>
+
+
+<metal:block fill-slot="editor_content">
+<div id="main">
+ <tal:cl define="editable model/get_editable"
+        replace="structure editable/@@layoutedittab" />
+</div>
+</metal:block>
+
+<metal:block fill-slot="preview_content">
+ <div id="published-preview">
+  <iframe id="published-preview-iframe" width="100%" height="480"
+    tal:define="url python:model.aq_inner.aq_parent.absolute_url() + '/++preview++/' + model.id"
+    tal:attributes="src url"></iframe>
+  <script type="text/javascript">
+    (function() {
+        YAHOO.util.Event.onDOMReady(function() {
+            /* once the page has loaded, resize the iframe preview. */
+            var iframe = document.getElementById("published-preview-iframe");
+            var ih = iframe.clientHeight;
+            var bh = document.body.clientHeight;
+            var vp = YAHOO.util.Dom.getViewportHeight()
+            /* Resize ONLY IF the viewport is greater than the body height */
+            if (vp > bh) {
+                var diff = vp - bh;
+                iframe.height = ih + diff;
+            }
+            /* register an onResize handler, so the iframe will continue to
+               be resized when the window size changes.  Pass in (as context)
+               the original iframe height and the original body height, which
+               will be used during shrinks to determine the minimum height
+               of the iframe */
+            Event.addListener(window, "resize",
+              function(event, context) {
+              //debugger;
+                var origIFrameHeight = context[0],
+                    origBodyHeight = context[1],
+                    iframe = context[2],
+                    ih = iframe.clientHeight,
+                    bh = document.body.clientHeight,
+                    vp = YAHOO.util.Dom.getViewportHeight();
+                    if (vp > bh) { /* window grow, increase iframe height */
+                        var diff = vp - bh;
+                        iframe.height = ih + diff;
+                    } else {  /* window shrink */
+                        if (vp > origBodyHeight) { /* not smaller than original
+                                                    body height, can still shrink
+                                                    iframe */
+                            var diff = vp - bh;
+                            iframe.height =  ih + diff;
+                        } else { /* smaller than original body height, set
+                                    iframe height to the original size */
+                            iframe.height = origIFrameHeight;
+                        }
+                    }
+              },
+              [ih, bh, iframe]);
+        });
+    }());
+  </script>
+ </div>
+</metal:block>
+
+</metal:block>
 </html>

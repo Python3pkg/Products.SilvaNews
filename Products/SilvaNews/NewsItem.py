@@ -18,10 +18,13 @@ from silva.core.interfaces import IRoot
 from silva.core.interfaces.events import IContentPublishedEvent
 from silva.core.references.interfaces import IReferenceService
 from silva.core.views import views as silvaviews
+from silva.core.contentlayout.contentlayout import ContentLayout
+from silva.core.services.interfaces import ICataloging
 
+from Products.Silva.VersionedContent import CatalogedVersionedContent
+from Products.Silva.Version import CatalogedVersion
 from Products.Silva import SilvaPermissions
 from Products.Silva.transform.renderer.xsltrendererbase import XSLTTransformer
-from Products.SilvaDocument.Document import Document, DocumentVersion
 from Products.SilvaNews.interfaces import INewsItem, INewsItemVersion
 from Products.SilvaNews.interfaces import (INewsPublication, IServiceNews,
     INewsViewer)
@@ -45,7 +48,7 @@ def time_replace(matchobj):
         pass
     return ''
 
-class NewsItem(Document):
+class NewsItem(CatalogedVersionedContent):
     """Base class for all kinds of news items.
     """
     grok.baseclass()
@@ -74,7 +77,7 @@ class NewsItem(Document):
 InitializeClass(NewsItem)
 
 
-class NewsItemVersion(DocumentVersion):
+class NewsItemVersion(CatalogedVersion, ContentLayout):
     """Base class for news item versions.
     """
     security = ClassSecurityInfo()
@@ -83,6 +86,7 @@ class NewsItemVersion(DocumentVersion):
 
     def __init__(self, id):
         super(NewsItemVersion, self).__init__(id)
+        ContentLayout.__init__(self, id)
         self._subjects = []
         self._target_audiences = []
         self._display_datetime = None
@@ -102,9 +106,8 @@ class NewsItemVersion(DocumentVersion):
             are shown
         """
         self._display_datetime = ddt
-        #XXX this was in aaltepet silva 2.1, does it still work in 2.3?
         if reindex:
-            self.reindex_object()
+            ICataloging(self).reindex()
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'display_datetime')
@@ -127,9 +130,8 @@ class NewsItemVersion(DocumentVersion):
                               'set_subjects')
     def set_subjects(self, subjects, reindex=True):
         self._subjects = list(subjects)
-        #XXX this was in aaltepet silva 2.1, does it still work in 2.3?
         if reindex:
-            self.reindex_object()
+            ICataloging(self).reindex()
             
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                               'set_link_method')
@@ -140,22 +142,8 @@ class NewsItemVersion(DocumentVersion):
                               'set_target_audiences')
     def set_target_audiences(self, target_audiences, reindex=True):
         self._target_audiences = list(target_audiences)
-        #XXX this was in aaltepet silva 2.1, does it still work in 2.3?
         if reindex:
-            self.reindex_object()
-
-    # ACCESSORS
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_intro')
-    def get_intro(self, max_size=128, request=None):
-        """Returns first bit of the news item's content
-
-            this returns all elements up to and including the first
-            paragraph, if it turns out that there are more than max_size
-            characters in the data returned it will truncate (per element)
-            to minimally 1 element
-        """
-        return IntroHTML.transform(self, request or self.REQUEST)
+            ICataloging(self).reindex()
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_thumbnail')
@@ -282,6 +270,8 @@ class NewsItemVersion(DocumentVersion):
     def fulltext(self):
         """Returns all data as a flat string for full text-search
         """
+        #XXX not implemented for contentlayout
+        return ""
         keywords = list(self._subjects)
         keywords.extend(self._target_audiences)
         keywords.extend(super(NewsItemVersion, self).fulltext())
