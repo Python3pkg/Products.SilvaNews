@@ -205,14 +205,10 @@ class NewsViewer(Content, SimpleItem, TimezoneMixin):
         #   e.g. on display_datetime or start_datetime
         results = OOBTree()
         for newsfilter in self._get_filters_reference_set():
-            try:  #now that verify_filters caches for 5 minutes, it's possible
-                  # (however slight) that this will fail
-                obj = self.aq_inner.restrictedTraverse(newsfilter)
-            except:
-                continue
-            for result in func(obj):
-                results[result.silva_object_url] = result
-                
+            for result in func(newsfilter):
+                results[result.object_path] = result
+        
+        if sortattr:
             #now use bisect to insert the items in a sorted manner
             sortedresults = []
             for r in results.itervalues():
@@ -220,14 +216,14 @@ class NewsViewer(Content, SimpleItem, TimezoneMixin):
                 # mybrains sometimes raises an error that you can't compare a mybrains
                 # with an implicitacquirerwrapper.  So, silva_object_url is meant as
                 # a quickly-findable unique value
-                bisect.insort_right(sortedresults,(getattr(r,sortattr,None),r.silva_object_url,r))
+                bisect.insort_right(sortedresults,(getattr(r,sortattr,None),r.object_path,r))
             #events should be ordered oldest first
             # (i.e. it's happening sooner)
             #news should be ordered newest first
             # and so sortedresults should be reversed
             if not IAgendaViewer.providedBy(self):
                 sortedresults.reverse()
-            if no_generator:
+            if nogenerator:
                 return [ r[2] for r in sortedresults ]
             else:
                 def make_generator(l):

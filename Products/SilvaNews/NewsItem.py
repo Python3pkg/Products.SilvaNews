@@ -28,6 +28,7 @@ from silva.core.views.interfaces import IPreviewLayer
 from silva.core.contentlayout.contentlayout import ContentLayout
 from silva.core.contentlayout.editor import PropertiesPreviewProvider
 from silva.core.services.interfaces import ICataloging
+from silva.core.layout.interfaces import IMetadata
 from zeam.form import silva as silvaforms
 from zeam.form.silva.actions import EditAction
 from zeam.form import base as baseforms
@@ -173,7 +174,7 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
         if image is None:
             return u''
         tag = (u'<a class="newsitemthumbnaillink" href="%s">%s</a>' %
-               (self.get_content().absolute_url(), image.tag(thumbnail=1)))
+               (self.item_url(), image.tag(thumbnail=1)))
         if divclass:
             tag = u'<div class="%s">%s</div>' % (divclass, tag)
         return tag
@@ -181,6 +182,13 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_thumbnail_image')
     def get_thumbnail_image(self):
+        preview = IMetadata(self.get_content())('syndication','img-preview')
+        if preview:
+            img = self.restrictedTraverse(preview, None)
+            return img
+        return None
+        #XXX this is the new 'references' way, but we aren't pulling the
+        #    first image from the doc content anymore, we're using metadata
         images = self.content.documentElement.getElementsByTagName('image')
         if not images:
             return None
@@ -263,6 +271,16 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
                               'link_method')
     def link_method(self):
         return self._link_method
+    
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'item_url')
+    @CachedProperty
+    def article_url(self):
+        """compute the url for this item.  Different from absolute_url, this
+           will return the external link if settings dictacte"""
+        if self._link_method == 'external_link':
+            return self.external_link()
+        return self.get_content().absolute_url()
     
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'target_audiences')
@@ -519,44 +537,31 @@ class NewsPropertiesPortlet(silvaviews.Viewlet):
         #viewlets ALWAYS need to return a string or unicode
         return ""
 
-#class NewsItemView(silvaviews.View):
-    #""" View on a News Item (either Article / Agenda )
-    #"""
-    #grok.context(INewsItem)
+class NewsItemListItemView(silvaviews.View):
+    """ Render as a list items (search results)
+    """
+    grok.context(INewsItem)
+    grok.name('search_result')
 
-    #@CachedProperty
-    #def article_date(self):
-        #article_date = self.content.display_datetime()
-        #if not article_date:
-            #article_date = self.content.publication_time()
-        #if article_date:
-            #news_service = getUtility(IServiceNews)
-            #return news_service.format_date(
-                #article_date)
-        #return u''
+    @CachedProperty
+    def article_date(self):
+        article_date = self.content.display_datetime()
+        if not article_date:
+            article_date = self.content.publication_time()
+        if article_date:
+            news_service = getUtility(IServiceNews)
+            return news_service.format_date(article_date)
+        return u''
 
-    #@CachedProperty
-    #def article(self):
-        #return ContentHTML.transform(self.content, self.request)
-
-
-#class NewsItemListItemView(NewsItemView):
-    #""" Render as a list items (search results)
-    #"""
-    #grok.context(INewsItem)
-    #grok.name('search_result')
-
-    #@CachedProperty
-    #def article(self):
-        #return IntroHTML.transform(self.content, self.request)
-
+    @CachedProperty
+    def article(self):
+        return IMetadata(self.context)('syndication','teaser')
 
 @grok.subscribe(INewsItemVersion, IContentPublishedEvent)
 def news_item_published(content, event):
     if content.display_datetime() is None:
         now = DateTime()
         content.set_display_datetime(now)
-
 
 @grok.adapter(INewsItem)
 @grok.implementer(INewsViewer)

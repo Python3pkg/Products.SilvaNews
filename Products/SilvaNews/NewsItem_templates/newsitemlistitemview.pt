@@ -3,7 +3,7 @@
      xmlns:tal="http://xml.zope.org/namespaces/tal"
      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
      i18n:domain="silva_news">
-  <h3 class="heading newsitemheading" tal:content="structure context/get_title"/>
+  <h4 class="heading newsitemheading" tal:content="structure context/get_title"/>
   <div class="newsiteminfo">
     <div class="publicationdate" tal:condition="view/article_date">
       <span class="label" i18n:translate="">Publication date:</span>
@@ -18,7 +18,7 @@
    <tal:insertintro replace="structure view/article" />
   </div>
   <p class="p articlelink">
-   <a href="#" tal:attributes="href context/@@absolute_url" i18n:translate="">
+   <a href="#" tal:attributes="href content/article_url" i18n:translate="">
     view article
    </a>
   </p>
