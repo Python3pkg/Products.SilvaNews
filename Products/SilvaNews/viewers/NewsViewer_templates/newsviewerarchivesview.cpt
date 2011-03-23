@@ -6,9 +6,9 @@
   i18n:domain="silva_news"
 >
 
-  <h2 class="heading" i18n:translate="">
+<!--  <h2 class="heading" i18n:translate="">
     Archive of <span tal:replace="context.get_title()" />
-  </h2>
+  </h2>-->
 
   <form action="${request.URL}" method="get"
         enctype="multipart/form-data">

@@ -235,7 +235,7 @@ class NewsViewer(Content, SimpleItem, TimezoneMixin):
                         yield item[2]
                 return make_generator(sortedresults)
         else:
-            if no_generator:
+            if nogenerator:
                 return results.values()
             else:
                 return results.itervalues()
@@ -500,12 +500,12 @@ class NewsViewerSearchView(silvaviews.Page, NewsViewerListView):
         self.request.timezone = self.context.get_timezone()
         self.query = self.request.get('query', '')
         self.results = []
+        self.request['title-extra'] = "Search Archives"
         try:
             self.results = map(self._set_parent,
                                self.context.search_items(self.query) or [])
         except:
             pass
-
 
 @grok.provider(IContextSourceBinder)
 def monthes(context):
@@ -578,5 +578,6 @@ class NewsViewerArchivesView(silvaforms.PublicForm, NewsViewerListView):
         self.request.timezone = self.context.get_timezone()
         # always execute action
         self.request.form['form.action.update'] = '1'
+        self.request['title-extra'] = "Archives"
 
 

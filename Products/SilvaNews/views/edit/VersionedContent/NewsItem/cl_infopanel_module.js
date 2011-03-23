@@ -77,20 +77,20 @@
             this.editDialog = new EditorPanel("news-properties-edit-dlg",{
                 width: '600px',
                 height: '560px',
-		modal: true,
-		draggable: false,
+                modal: true,
+                draggable: false,
                 fixedcenter: true,
                 close: true,
                 visible: false,
                 submitLabel: "Save Properties",
                 defaultTitle: "Edit News Properties",
-                dialogUrl: objurl + "/tab_edit_snn_get_properties_tool",
+                dialogUrl: objurl + "/../editnewsproperties",
                 submitCallback: {fn: this.saveProperties, scope: this}
             }, this.infopanel.app);
             /*add the dialog directly inside the 'content-layout' container.
               this ensures that it receives the same styling treatment as
               the other dialogues */
-	    this.editDialog.render(this.element.ownerDocument.getElementById('content-layout'));
+            this.editDialog.render(this.element.ownerDocument.getElementById('content-layout'));
         }, /* end installInfoPanel */
         
         openPropertiesDialog: function() {
@@ -120,7 +120,7 @@
                needed in the POST in order for zope to trigger
                the appropriate action.  if not present, zope
                thinks that the form is being requested. */
-            postData['form.buttons.apply'] = 'Apply';
+            postData['newsproperties.action.save-changes'] = 'save changes';
             var post = []
             for (var name in postData) {
                 var value = postData[name];
@@ -134,7 +134,7 @@
             post = post.join("&");
             
             /* post to the properties tool */
-            var url = objurl + "/tab_edit_snn_get_properties_tool";
+            var url = Selector.query('form', if_doc.body, true).action;
             Connect.asyncRequest('POST', 
                 url,
                 {success: function(resp) { 
@@ -144,9 +144,9 @@
                         var div = docEl.createElement("div");
                         div.innerHTML = resp.responseText;
                         frag.appendChild(div);
-                        var errorDOM = Selector.query('ul.errors',frag.childNodes[0],true);
+                        var errorDOM = Selector.query('div.form-error',frag.childNodes[0],true);
                         if (errorDOM) {
-      			    this.errorDialog.cfg.setProperty("text", errorDOM.innerHTML);
+                            this.errorDialog.cfg.setProperty("text", errorDOM.innerHTML);
                             this.errorDialog.show();
                         } else {
                             /* success.  close the panel, reload iframe */

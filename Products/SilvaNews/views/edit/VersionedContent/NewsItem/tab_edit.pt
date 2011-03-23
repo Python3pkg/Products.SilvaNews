@@ -28,14 +28,14 @@
 
 <script type="text/javascript"
     tal:attributes="src string:${base_url}/++resource++silva.core.contentlayout.browser.resources/cl.js"></script>
-<script type="text/javascript"
-  tal:attributes="src context/cl_infopanel_module.js/absolute_url"></script>
-
 <script type="text/javascript">
 YAHOO.util.Event.onDOMReady(function() {
     window.ContentLayoutApp = new YAHOO.bethel.contentlayout.app();
 });
 </script>
+<script type="text/javascript"
+  tal:attributes="src context/cl_infopanel_module.js/absolute_url"></script>
+
 
 <link rel="stylesheet" type="text/css"
     tal:attributes="href string:${base_url}/++resource++silva.core.contentlayout.browser.resources/smi.css" />
@@ -48,7 +48,7 @@ YAHOO.util.Event.onDOMReady(function() {
 
 <metal:block fill-slot="editor_content">
 <div id="main">
- <tal:cl define="editable model/get_editable"
+  <tal:cl define="editable model/get_editable"
         replace="structure editable/@@layoutedittab" />
 </div>
 </metal:block>

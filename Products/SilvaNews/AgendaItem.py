@@ -23,8 +23,8 @@ from Products.Silva import SilvaPermissions
 
 # SilvaNews
 from Products.SilvaNews.interfaces import IServiceNews
-from Products.SilvaNews.NewsItem import (NewsItemView, NewsItemListItemView,
-    IntroHTML)
+#from Products.SilvaNews.NewsItem import (NewsItemView, NewsItemListItemView,
+#    IntroHTML)
 from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
 
 from Products.SilvaNews.datetimeutils import (datetime_with_timezone,
@@ -224,7 +224,7 @@ class AgendaItemVersion(NewsItemVersion):
 
     #formatEventSummary is for the SilvaNewsCalendar
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'formatEventSummary')
+                              'format_event_summary')
     def format_event_summary(self):
         #XXX this is new, for the silva news calendar
         # (and, I think needs to be adjusted slightly, according to a fp case
@@ -293,9 +293,9 @@ class AgendaViewMixin(object):
             return service_news.format_date(dt, not self.content.is_all_day())
 
 
-class AgendaItemView(NewsItemView, AgendaViewMixin):
-    """ Index view for agenda items """
-    grok.context(IAgendaItem)
+#class AgendaItemView(NewsItemView, AgendaViewMixin):
+    #""" Index view for agenda items """
+    #grok.context(IAgendaItem)
 
 
 class AgendaItemInlineView(silvaviews.View):
@@ -310,10 +310,10 @@ class AgendaItemInlineView(silvaviews.View):
         return u'<div>' + self.intro + u"</div>"
 
 
-class AgendaItemListItemView(NewsItemListItemView, AgendaViewMixin):
-    """ Render as a list items (search results)
-    """
-    grok.context(IAgendaItem)
+#class AgendaItemListItemView(NewsItemListItemView, AgendaViewMixin):
+    #""" Render as a list items (search results)
+    #"""
+    #grok.context(IAgendaItem)
 
 
 class AgendaItemICS(silvaviews.View):

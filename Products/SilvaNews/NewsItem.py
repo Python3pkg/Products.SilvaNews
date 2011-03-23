@@ -3,23 +3,35 @@
 # $Revision: 1.35 $
 
 import re
+from types import ListType
 from five import grok
-from zope.component import getUtility
+from zope.component import getUtility, getMultiAdapter
 from zope.i18nmessageid import MessageFactory
 from zope.cachedescriptors.property import CachedProperty
+from megrok import pagetemplate as pt
 
 # Zope
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 from DateTime import DateTime
+from zope.interface import Interface, Invalid, invariant
+from zope.schema import Choice, Set, TextLine
+from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 # Silva
 from silva.core.interfaces import IRoot
 from silva.core.interfaces.events import IContentPublishedEvent
 from silva.core.references.interfaces import IReferenceService
 from silva.core.views import views as silvaviews
+from silva.core.views.interfaces import IPreviewLayer
 from silva.core.contentlayout.contentlayout import ContentLayout
+from silva.core.contentlayout.editor import PropertiesPreviewProvider
 from silva.core.services.interfaces import ICataloging
+from zeam.form import silva as silvaforms
+from zeam.form.silva.actions import EditAction
+from zeam.form import base as baseforms
+from zeam.form.base.markers import DISPLAY
 
 from Products.Silva.VersionedContent import CatalogedVersionedContent
 from Products.Silva.Version import CatalogedVersion
@@ -137,6 +149,11 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
                               'set_link_method')
     def set_link_method(self, method):
         self._link_method = method
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_external_link')
+    def set_external_link(self, link):
+        self._external_link = link
 
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                               'set_target_audiences')
@@ -327,14 +344,14 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
             return sep + doTime2(start,end)
         
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'formatDateLine')
+                              'format_date_line')
     def format_date_line(self, start, end=None, sep=' | '):
         """formats the date line like 
         May 18, 2010 | 5:43 p.m.
         for Bethel's news story style
         """
         if end is None or start.Date() == end.Date():
-            time = self.formatTime(start, sep=sep)
+            time = self.format_time(start, sep=sep)
             return start.strftime('%B %d, %Y') + time
         else: 
             if start.Month() == end.Month() and start.year() == end.year():
@@ -347,39 +364,191 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
 
 InitializeClass(NewsItemVersion)
 
-ContentHTML = XSLTTransformer('newsitem.xslt', __file__)
-IntroHTML = XSLTTransformer('newsitem_intro.xslt', __file__)
+def categoryVocabularyMaker(context, catfunc, titlefunc):
+    """Create a vocabulary for subjects or target audiences"""
+    sn = context.service_news
+    _catFunc = getattr(sn,catfunc)
+    _titleFunc = getattr(sn,titlefunc)
+    cats = [ (c[0].replace('&nbsp;&nbsp;', '-'),
+              c[1]) for c in _catFunc(context) ]
 
-class NewsItemView(silvaviews.View):
-    """ View on a News Item (either Article / Agenda )
+    #simplevocabulary.fromItems does not work here because it doesn't
+    #set Term titles, which are used by the widget for the stuff
+    # inside the <option> tag.
+    # It's SimpleTerm(value, token, title)
+    sv = SimpleVocabulary( [ SimpleTerm(c[1],c[1],c[0]) for c in cats ] )
+    return sv
+
+@grok.provider(IContextSourceBinder)
+def subjects(context):
+    #context s an INewsItemVersion
+    return categoryVocabularyMaker(context, 'filtered_subject_form_tree',
+                                             'subject_title')
+
+@grok.provider(IContextSourceBinder)
+def target_audiences(context):
+    #context s an INewsItemVersion
+    return categoryVocabularyMaker(context, 'filtered_ta_form_tree',
+                                   'target_audience_title')
+
+@grok.provider(IContextSourceBinder)
+def link_method(context):
+    values = [(u"article",u"Article"),
+              (u"external_link",u"External Link"),
+              (u"nothing",u"Nothing")
+              ]
+    return SimpleVocabulary( [ SimpleTerm(v[0],v[0],v[1]) for v in values ] ) 
+
+class NewsItemDataManager(baseforms.ObjectDataManager):
+    """Data Manager for News Items
+    (this is needed since the names of each property in INewsItemProperties
+    match up with instance methods and not properties"""
+    def get(self, identifier):
+        try:
+            prop = getattr(self.content, identifier)
+        except AttributeError:
+            raise KeyError(identifier)
+        if callable(prop):
+            v = prop()
+            #schema's need the value to be hashable.  subjects and target_audiences
+            # are returned as Lists, so convert to tuples
+            if isinstance(v, ListType):
+                v = tuple(v)
+            return v
+        else:
+            return prop
+    
+    def set(self, identifier, value):
+        if not hasattr(self.content, 'set_' + identifier):
+            setattr(self.content, identifier, value)
+        else:
+            getattr(self.content, 'set_' + identifier)(value)
+
+class INewsItemProperties(Interface):
+    """This schema defines the editable properties for
+       news items (which appears in the infopanel when editing
+       news items"""
+    subjects =  Set(
+        title=u'Subjects',
+        description=u'the subjects for this item',
+        required=True,
+        min_length=1,
+        value_type=Choice(
+            title=u'Subjects',
+            source=subjects
+        )
+    )
+    target_audiences = Set(
+        title=u'Target Audiences',
+        description=u'the target audiences for this item',
+        value_type=Choice(
+            title=(u'Target Audiences'),
+            source=target_audiences
+            ),
+        required=True,
+        min_length=1
+    )
+    link_method = Choice( 
+        title=u"Link Method",
+        description=u"what to link this article to when displayed in syndication",
+        source=link_method,
+        required = True
+        )
+    external_link = TextLine(
+        title=u"External Link",
+        description=u"if link method is 'external link', the url of the external link, otherwise leave blank",
+        required = False
+        )
+    
+    @invariant
+    def externalLinkMethod(event):
+        if (event.link_method == 'external_link' and \
+            not event.external_link):
+            raise Invalid("`External Link` is required when `Link Method` is set to `External Link`")
+
+class ViewNewsProperties(silvaforms.form.ZopeForm, baseforms.Form):
+    grok.context(INewsItemVersion)
+    
+    prefix = 'newsproperties'
+    ignoreRequest = True
+    ignoreContent = False
+    mode = DISPLAY
+    dataManager = NewsItemDataManager
+    label = "News Properties"
+    fields = silvaforms.Fields(INewsItemProperties)
+    
+class ViewNewsPropertiesTemplate(baseforms.form_templates.FormTemplate):
+    pt.view(ViewNewsProperties)
+
+class EditNewsProperties(silvaforms.form.ZopeForm, baseforms.Form):
+    """Form for editing the news properties of a news item version.
+       This is displayed in the 'edit properties' dialog in the layout
+       editor"""
+    grok.context(INewsItemVersion)
+    prefix = 'newsproperties'
+    ignoreRequest = False
+    ignoreContent = False
+    dataManager = NewsItemDataManager
+    label = "Edit News Properties"
+    fields = silvaforms.Fields(INewsItemProperties)
+    actions = baseforms.Actions(EditAction())
+
+    
+class EditNewsPropertiesTemplate(baseforms.form_templates.FormTemplate):
+    pt.view(EditNewsProperties)
+
+class NewsPropertiesPortlet(silvaviews.Viewlet):
+    """Portlet to display the news properties in the right
+       column of the news story template ONLY when previewing the content.
+       This is so the news properties can be displayed when previewing
+       (since they aren't shown anywhere else, and the news properties
+       tool is disabled when the content is published)
     """
+    grok.viewletmanager(PropertiesPreviewProvider)
     grok.context(INewsItem)
+    grok.require("silva.ReadSilvaContent")
+    
+    def render(self):
+        """render the 'viewnewsproperties' browser view if the request is
+         for the preview_html (or layouteditor).  'viewnewsproperties' displays
+         the news properties as a zeam display form."""
+        if IPreviewLayer.providedBy(self.request):
+            ad = getMultiAdapter((self.context.get_previewable(), self.request),
+                                 name='viewnewsproperties')
+            return ad()
+        #viewlets ALWAYS need to return a string or unicode
+        return ""
 
-    @CachedProperty
-    def article_date(self):
-        article_date = self.content.display_datetime()
-        if not article_date:
-            article_date = self.content.publication_time()
-        if article_date:
-            news_service = getUtility(IServiceNews)
-            return news_service.format_date(
-                article_date)
-        return u''
+#class NewsItemView(silvaviews.View):
+    #""" View on a News Item (either Article / Agenda )
+    #"""
+    #grok.context(INewsItem)
 
-    @CachedProperty
-    def article(self):
-        return ContentHTML.transform(self.content, self.request)
+    #@CachedProperty
+    #def article_date(self):
+        #article_date = self.content.display_datetime()
+        #if not article_date:
+            #article_date = self.content.publication_time()
+        #if article_date:
+            #news_service = getUtility(IServiceNews)
+            #return news_service.format_date(
+                #article_date)
+        #return u''
+
+    #@CachedProperty
+    #def article(self):
+        #return ContentHTML.transform(self.content, self.request)
 
 
-class NewsItemListItemView(NewsItemView):
-    """ Render as a list items (search results)
-    """
-    grok.context(INewsItem)
-    grok.name('search_result')
+#class NewsItemListItemView(NewsItemView):
+    #""" Render as a list items (search results)
+    #"""
+    #grok.context(INewsItem)
+    #grok.name('search_result')
 
-    @CachedProperty
-    def article(self):
-        return IntroHTML.transform(self.content, self.request)
+    #@CachedProperty
+    #def article(self):
+        #return IntroHTML.transform(self.content, self.request)
 
 
 @grok.subscribe(INewsItemVersion, IContentPublishedEvent)
