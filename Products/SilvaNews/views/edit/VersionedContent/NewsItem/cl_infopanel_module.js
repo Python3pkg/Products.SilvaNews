@@ -84,7 +84,7 @@
                 visible: false,
                 submitLabel: "Save Properties",
                 defaultTitle: "Edit News Properties",
-                dialogUrl: objurl + "/../editnewsproperties",
+                dialogUrl: objurl + "/editnewsproperties",
                 submitCallback: {fn: this.saveProperties, scope: this}
             }, this.infopanel.app);
             /*add the dialog directly inside the 'content-layout' container.
@@ -113,7 +113,6 @@
             /* display indicator gif */
             var indicator = Selector.query('img.indicator', if_doc.body, true);
             Dom.setStyle(indicator,'display','inline');
-
             var postData = getData(if_doc.body);
             /* the 'save properties' button is not captured via
                getData (YUI doesn't consider it data), but it is

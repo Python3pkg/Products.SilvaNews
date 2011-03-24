@@ -23,8 +23,8 @@ from Products.Silva import SilvaPermissions
 
 # SilvaNews
 from Products.SilvaNews.interfaces import IServiceNews
-#from Products.SilvaNews.NewsItem import (NewsItemView, NewsItemListItemView,
-#    IntroHTML)
+from Products.SilvaNews.NewsItem import NewsItemListItemView
+
 from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
 
 from Products.SilvaNews.datetimeutils import (datetime_with_timezone,
@@ -310,10 +310,10 @@ class AgendaItemInlineView(silvaviews.View):
         return u'<div>' + self.intro + u"</div>"
 
 
-#class AgendaItemListItemView(NewsItemListItemView, AgendaViewMixin):
-    #""" Render as a list items (search results)
-    #"""
-    #grok.context(IAgendaItem)
+class AgendaItemListItemView(NewsItemListItemView, AgendaViewMixin):
+    """ Render as a list items (search results)
+    """
+    grok.context(IAgendaItem)
 
 
 class AgendaItemICS(silvaviews.View):

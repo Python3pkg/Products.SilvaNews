@@ -25,6 +25,7 @@ from silva.core.interfaces.events import IContentPublishedEvent
 from silva.core.references.interfaces import IReferenceService
 from silva.core.views import views as silvaviews
 from silva.core.views.interfaces import IPreviewLayer
+from silva.core.smi.interfaces import ISMILayer
 from silva.core.contentlayout.contentlayout import ContentLayout
 from silva.core.contentlayout.editor import PropertiesPreviewProvider
 from silva.core.services.interfaces import ICataloging
@@ -32,7 +33,7 @@ from silva.core.layout.interfaces import IMetadata
 from zeam.form import silva as silvaforms
 from zeam.form.silva.actions import EditAction
 from zeam.form import base as baseforms
-from zeam.form.base.markers import DISPLAY
+from zeam.form.base.markers import DISPLAY, NO_VALUE
 
 from Products.Silva.VersionedContent import CatalogedVersionedContent
 from Products.Silva.Version import CatalogedVersion
@@ -40,7 +41,7 @@ from Products.Silva import SilvaPermissions
 from Products.Silva.transform.renderer.xsltrendererbase import XSLTTransformer
 from Products.SilvaNews.interfaces import INewsItem, INewsItemVersion
 from Products.SilvaNews.interfaces import (INewsPublication, IServiceNews,
-    INewsViewer)
+     INewsViewer, INewsItemSchema)
 from Products.SilvaNews.datetimeutils import datetime_to_unixtimestamp
 
 _ = MessageFactory('silva_news')
@@ -174,7 +175,7 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
         if image is None:
             return u''
         tag = (u'<a class="newsitemthumbnaillink" href="%s">%s</a>' %
-               (self.item_url(), image.tag(thumbnail=1)))
+               (self.article_url(), image.tag(thumbnail=1)))
         if divclass:
             tag = u'<div class="%s">%s</div>' % (divclass, tag)
         return tag
@@ -273,7 +274,7 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
         return self._link_method
     
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'item_url')
+                              'article_url')
     @CachedProperty
     def article_url(self):
         """compute the url for this item.  Different from absolute_url, this
@@ -382,41 +383,6 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
 
 InitializeClass(NewsItemVersion)
 
-def categoryVocabularyMaker(context, catfunc, titlefunc):
-    """Create a vocabulary for subjects or target audiences"""
-    sn = context.service_news
-    _catFunc = getattr(sn,catfunc)
-    _titleFunc = getattr(sn,titlefunc)
-    cats = [ (c[0].replace('&nbsp;&nbsp;', '-'),
-              c[1]) for c in _catFunc(context) ]
-
-    #simplevocabulary.fromItems does not work here because it doesn't
-    #set Term titles, which are used by the widget for the stuff
-    # inside the <option> tag.
-    # It's SimpleTerm(value, token, title)
-    sv = SimpleVocabulary( [ SimpleTerm(c[1],c[1],c[0]) for c in cats ] )
-    return sv
-
-@grok.provider(IContextSourceBinder)
-def subjects(context):
-    #context s an INewsItemVersion
-    return categoryVocabularyMaker(context, 'filtered_subject_form_tree',
-                                             'subject_title')
-
-@grok.provider(IContextSourceBinder)
-def target_audiences(context):
-    #context s an INewsItemVersion
-    return categoryVocabularyMaker(context, 'filtered_ta_form_tree',
-                                   'target_audience_title')
-
-@grok.provider(IContextSourceBinder)
-def link_method(context):
-    values = [(u"article",u"Article"),
-              (u"external_link",u"External Link"),
-              (u"nothing",u"Nothing")
-              ]
-    return SimpleVocabulary( [ SimpleTerm(v[0],v[0],v[1]) for v in values ] ) 
-
 class NewsItemDataManager(baseforms.ObjectDataManager):
     """Data Manager for News Items
     (this is needed since the names of each property in INewsItemProperties
@@ -442,48 +408,6 @@ class NewsItemDataManager(baseforms.ObjectDataManager):
         else:
             getattr(self.content, 'set_' + identifier)(value)
 
-class INewsItemProperties(Interface):
-    """This schema defines the editable properties for
-       news items (which appears in the infopanel when editing
-       news items"""
-    subjects =  Set(
-        title=u'Subjects',
-        description=u'the subjects for this item',
-        required=True,
-        min_length=1,
-        value_type=Choice(
-            title=u'Subjects',
-            source=subjects
-        )
-    )
-    target_audiences = Set(
-        title=u'Target Audiences',
-        description=u'the target audiences for this item',
-        value_type=Choice(
-            title=(u'Target Audiences'),
-            source=target_audiences
-            ),
-        required=True,
-        min_length=1
-    )
-    link_method = Choice( 
-        title=u"Link Method",
-        description=u"what to link this article to when displayed in syndication",
-        source=link_method,
-        required = True
-        )
-    external_link = TextLine(
-        title=u"External Link",
-        description=u"if link method is 'external link', the url of the external link, otherwise leave blank",
-        required = False
-        )
-    
-    @invariant
-    def externalLinkMethod(event):
-        if (event.link_method == 'external_link' and \
-            not event.external_link):
-            raise Invalid("`External Link` is required when `Link Method` is set to `External Link`")
-
 class ViewNewsProperties(silvaforms.form.ZopeForm, baseforms.Form):
     grok.context(INewsItemVersion)
     
@@ -493,27 +417,43 @@ class ViewNewsProperties(silvaforms.form.ZopeForm, baseforms.Form):
     mode = DISPLAY
     dataManager = NewsItemDataManager
     label = "News Properties"
-    fields = silvaforms.Fields(INewsItemProperties)
+    fields = silvaforms.Fields(INewsItemSchema)
     
 class ViewNewsPropertiesTemplate(baseforms.form_templates.FormTemplate):
     pt.view(ViewNewsProperties)
 
+class SupportsEmptyValueEditAction(EditAction):
+    """This is needed because zeam.form.ztk's EditAction passes when
+       a text field's value is empty, rather than setting the value
+       to empty/none/default, etc"""
+    
+    def applyData(self, form, content, data):
+        for field in form.fields:
+            value = data.get(field.identifier)
+            if value is NO_VALUE and not field.required:
+                value = data.getDefault(field)
+            content.set(field.identifier, value)
+        
 class EditNewsProperties(silvaforms.form.ZopeForm, baseforms.Form):
     """Form for editing the news properties of a news item version.
        This is displayed in the 'edit properties' dialog in the layout
-       editor"""
+       editor
+       
+       We put this under the ISMILayer so it can take full advantage of
+       automatic resource inclusion (css/js)"""
     grok.context(INewsItemVersion)
+    grok.layer(ISMILayer)
     prefix = 'newsproperties'
     ignoreRequest = False
     ignoreContent = False
     dataManager = NewsItemDataManager
     label = "Edit News Properties"
-    fields = silvaforms.Fields(INewsItemProperties)
-    actions = baseforms.Actions(EditAction())
-
+    fields = silvaforms.Fields(INewsItemSchema)
+    actions = baseforms.Actions(SupportsEmptyValueEditAction())
     
 class EditNewsPropertiesTemplate(baseforms.form_templates.FormTemplate):
     pt.view(EditNewsProperties)
+    
 
 class NewsPropertiesPortlet(silvaviews.Viewlet):
     """Portlet to display the news properties in the right

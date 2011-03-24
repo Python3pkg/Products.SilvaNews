@@ -3,7 +3,7 @@
 # $Id$
 
 from five import grok
-from zope.interface import Interface
+from zope.interface import Interface, invariant
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zope.schema.interfaces import IContextSourceBinder
@@ -38,7 +38,7 @@ class INewsItem(IVersionedContentLayout):
 def subjects_source(context):
     service = getUtility(IServiceNews)
     result = []
-    for value, title, depth in service.subject_tree():
+    for value, title, depth in service.filtered_subject_tree(context):
         result.append(SimpleTerm(
             value=value, token=value, title="-" * depth + title))
     return SimpleVocabulary(result)
@@ -48,10 +48,18 @@ def subjects_source(context):
 def target_audiences_source(context):
     service = getUtility(IServiceNews)
     result = []
-    for value, title, depth in service.target_audience_tree():
+    for value, title, depth in service.filtered_ta_tree(context):
         result.append(SimpleTerm(
             value=value, token=value, title="-" * depth + title))
     return SimpleVocabulary(result)
+
+@grok.provider(IContextSourceBinder)
+def link_method_source(context):
+    values = [(u"article",u"Article"),
+              (u"external_link",u"External Link"),
+              (u"nothing",u"Nothing")
+              ]
+    return SimpleVocabulary( [ SimpleTerm(v[0],v[0],v[1]) for v in values ] ) 
 
 
 class ISubjectTASchema(Interface):
@@ -62,13 +70,35 @@ class ISubjectTASchema(Interface):
             u'Only those selected will appear in this area of the site. '
             u'Select nothing to have all show up.'),
         value_type=schema.Choice(source=subjects_source),
-        required=False)
+        required=True)
     target_audiences = schema.List(
         title=_(u"target audiences"),
         description=_(u'Select the target audiences to filter on.'),
         value_type=schema.Choice(source=target_audiences_source),
-        required=False)
+        required=True)
 
+class INewsItemSchema(ISubjectTASchema):
+    """This schema defines the editable properties for
+       news items (which appears in the infopanel when editing
+       news items"""
+    link_method = schema.Choice( 
+        title=u"link method",
+        description=u"what to link this article to when displayed in syndication",
+        source=link_method_source,
+        required = True
+        )
+    external_link = schema.TextLine(
+        title=u"external link",
+        description=u"if link method is 'external link', the url of the external link, otherwise leave blank",
+        required = False,
+        default=u""
+        )
+    
+    @invariant
+    def externalLinkMethod(event):
+        if (event.link_method == 'external_link' and \
+            not event.external_link):
+            raise Invalid("`External Link` is required when `Link Method` is set to `External Link`")
 
 class INewsItemVersion(IVersion, IContentLayout):
     """Silva news item version.

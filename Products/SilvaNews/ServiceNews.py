@@ -224,6 +224,13 @@ class ServiceNews(SilvaService, CategoryMixin, TimezoneMixin):
         if audject:
             audject = audject[0].subjects()
         return self.subject_form_tree(audject)
+    
+    def filtered_subject_tree(self, context):
+        """similar to form_tree, but not for formulator forms"""
+        audject = context.superValues('Silva News Category Filter')
+        if audject:
+            audject = audject[0].subjects()
+        return self.subject_tree(audject)
 
     def filtered_ta_form_tree(self, context):
         """ tries to acquire the nearest news category filter
@@ -235,6 +242,13 @@ class ServiceNews(SilvaService, CategoryMixin, TimezoneMixin):
         if audject:
             audject = audject[0].target_audiences()
         return self.target_audience_form_tree(audject)
+    
+    def filtered_ta_tree(self, context):
+        """ similar to form_tree but not for formulator forms"""
+        audject = context.superValues('Silva News Category Filter')
+        if audject:
+            audject = audject[0].target_audiences()
+        return self.target_audience_tree(audject)
 
     security.declareProtected('View', 'get_target_audiences')
     def get_target_audiences(self):

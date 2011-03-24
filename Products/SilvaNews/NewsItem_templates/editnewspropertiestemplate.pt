@@ -6,22 +6,15 @@
 var objurl = '<span tal:replace="python:context.get_editable().absolute_url()" />/edit';
 var containerurl = '<span tal:replace="python:context.get_container().absolute_url() + '/'" />';
  <tal:rep replace="structure string:</script>" />
-
-<script type="text/javascript"
-    tal:attributes="src string:$silva_url/globals/js/jscalendar/calendar.js"></script>
- <script type="text/javascript"
-    tal:attributes="src string:$silva_url/globals/js/jscalendar/lang/calendar-en.js"></script>
- <script type="text/javascript"
-    tal:attributes="src string:$silva_url/globals/js/jscalendar/calendar-setup.js"></script>
- <link rel="stylesheet" type="text/css"
-    tal:attributes="href string:$silva_url/globals/js/jscalendar/calendar-blue.css" />
- <link rel="stylesheet" type="text/css"
+<span tal:replace="structure provider:resources" />
+<link rel="stylesheet" type="text/css"
     tal:attributes="href string:${base_url}/++resource++silva.core.contentlayout.browser.resources/smi.css" />
 
 <style type="text/css">
 .field {
  clear: both;
  padding: 5px;
+ overflow: hidden;
 }
 .field:nth-child(odd) {
  background-color: #f6f6f6;
@@ -51,6 +44,7 @@ h1, .actions {
 <body class="bethel-skin yui-skin-sam" id="editiframebody">
 
  <form action="." tal:attributes="action python:request.URL" method="post"
+       class="zeam-form"
        enctype="multipart/form-data">
   <h1 tal:condition="python:view.label"
       tal:content="python:view.label" />
