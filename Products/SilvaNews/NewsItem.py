@@ -483,11 +483,26 @@ class NewsItemViewMixin(object):
          news item views
     """
     
+    def get_real_content(self):
+        """sometimes this mixin is used as part of an ITemplateView, in which
+           case the content (NewsItemVersion or whatever) is actually the
+           'version' attribute, NOT the 'content' attribute
+        """
+        content = None
+        if hasattr(self, 'content'):
+            content = self.content
+        elif hasattr(self, 'version'):
+            #self.version (rather than self.content) happens when this mixin
+            # is part of a silva.core.contentlayout.ITemplateView
+            content = self.version
+        return content
+    
     @CachedProperty
     def article_date(self):
-        article_date = self.content.display_datetime()
+        content = self.get_real_content()
+        article_date = content.display_datetime()
         if not article_date:
-            article_date = self.content.publication_time()
+            article_date = content.publication_time()
         if article_date:
             news_service = getUtility(IServiceNews)
             return news_service.format_date(article_date)
@@ -518,9 +533,6 @@ class NewsItemTemplateView(NewsItemViewMixin, TemplateView):
     grok.context(INewsItemTemplate)
     grok.name(u'')
     
-    def article_date(self):
-        return "date"
-
 @grok.subscribe(INewsItemVersion, IContentPublishedEvent)
 def news_item_published(content, event):
     if content.display_datetime() is None:

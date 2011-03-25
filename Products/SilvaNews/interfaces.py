@@ -508,4 +508,7 @@ class IServiceNews(ISilvaService):
 
 class INewsItemTemplate(ITemplate):
     """A one-column template for news items"""
+
+class IAgendaItemTemplate(ITemplate):
+    """A one-column template for agenda items"""
     

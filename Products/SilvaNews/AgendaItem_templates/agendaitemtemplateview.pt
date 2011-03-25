@@ -1,0 +1,42 @@
+<div class="newsitem"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="silva_news">
+<div
+  tal:define="inLE view/in_layout_editor;
+              md nocall:context/service_metadata;
+              display_dt view/version/display_datetime"
+  tal:omit-tag="not:inLE"
+  tal:attributes="class python:inLE and 'yui-skin-sam' or nothing">
+  <h2 tal:replace="structure view/render_page_title" />
+  <p class="eventactions">
+    <a i18n:attributes="title"
+       tal:attributes="href view/event_url"
+       title="Add this event to your calendar">
+      <img tal:attributes="src view/event_img_url" />
+      <tal:msg i18n:translate="">Add this event to my calendar</tal:msg>
+    </a>
+  </p>
+  <div class="newsiteminfo">
+<!--    <p class="publicationdate" tal:condition="view/article_date">
+      <span class="label" i18n:translate="">Publication date: </span>
+      <span class="value" tal:content="view/article_date" />
+    </p>-->
+    <p class="location" tal:condition="view/version/get_location">
+      <span class="label" i18n:translate="">Location: </span>
+      <span class="value" tal:content="view/version/get_location" />
+    </p>
+    <p class="startdate" tal:condition="view/formatted_start_date">
+      <span class="label" i18n:translate="">Start: </span>
+      <span class="value" tal:content="view/formatted_start_date" />
+    </p>
+    <p class="enddate" tal:condition="view/formatted_end_date">
+      <span class="label" i18n:translate="">End: </span>
+      <span class="value" tal:content="view/formatted_end_date" />
+    </p>
+    <tal:content replace="structure provider:propertiespreviewprovider" />
+  </div>
+  <div id="newsitemcontent" tal:attributes="class python:'newsitemcontent%s'%(inLE and ' slot' or '')"
+        tal:content="structure python:view.render_parts('newsitemcontent')" />
+</div>
+</div>

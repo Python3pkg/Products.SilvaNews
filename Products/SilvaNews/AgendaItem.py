@@ -19,11 +19,12 @@ from Products.SilvaNews.interfaces import INewsViewer
 # Silva
 from silva.core import conf as silvaconf
 from silva.core.views import views as silvaviews
+from silva.core.contentlayout.templates.template import Template, TemplateView
 from Products.Silva import SilvaPermissions
 
 # SilvaNews
-from Products.SilvaNews.interfaces import IServiceNews
-from Products.SilvaNews.NewsItem import NewsItemListItemView
+from Products.SilvaNews.interfaces import IServiceNews, IAgendaItemTemplate
+from Products.SilvaNews.NewsItem import NewsItemListItemView, NewsItemViewMixin
 
 from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
 
@@ -34,16 +35,13 @@ from dateutil.rrule import rrulestr
 
 _marker = object()
 
-
 class AgendaItem(NewsItem):
     """Base class for agenda items.
     """
     security = ClassSecurityInfo()
     implements(IAgendaItem)
     silvaconf.baseclass()
-
 InitializeClass(AgendaItem)
-
 
 class AgendaItemVersion(NewsItemVersion):
     """Base class for agenda item versions.
@@ -258,15 +256,18 @@ class AgendaItemVersion(NewsItemVersion):
         #MAKE SURE you convert to unicode when you retrieve this from
         #the catalog!
         return (u''.join(summary)).encode('utf-8')
-
 InitializeClass(AgendaItemVersion)
 
-
-class AgendaViewMixin(object):
+class AgendaViewMixin(NewsItemViewMixin):
 
     def event_img_url(self):
-        return '%s/++resource++Products.SilvaNews/date.png' % \
-            absoluteURL(self.context, self.request)
+        #XXX should this use resourcebase, if present, so cacing works better?
+        datepng = '%s/++resource++Products.SilvaNews/date.png'
+        resourcebase = self.request.get('resourcebase', None)
+        if not resourcebase:
+            return datepng%(absoluteURL(self.context, self.request))
+        else:
+            return datepng%(absoluteURL(resourcebase, self.request))
 
     def event_url(self):
         return "%s/event.ics" % absoluteURL(self.context, self.request)
@@ -275,22 +276,44 @@ class AgendaViewMixin(object):
     def timezone(self):
         timezone = getattr(self.request, 'timezone', None)
         if not timezone:
-            timezone = self.content.get_timezone()
+            timezone = self.get_real_content().get_timezone()
         return timezone
 
     @CachedProperty
     def formatted_start_date(self):
-        dt = self.content.get_start_datetime(self.timezone)
+        content = self.get_real_content()
+        dt = content.get_start_datetime(self.timezone)
         if dt:
             service_news = getUtility(IServiceNews)
-            return service_news.format_date(dt, not self.content.is_all_day())
+            return service_news.format_date(dt, not content.is_all_day())
 
     @CachedProperty
     def formatted_end_date(self):
-        dt = self.content.get_end_datetime(self.timezone)
+        content = self.get_real_content()
+        dt = content.get_end_datetime(self.timezone)
         if dt:
             service_news = getUtility(IServiceNews)
-            return service_news.format_date(dt, not self.content.is_all_day())
+            return service_news.format_date(dt, not content.is_all_day())
+
+@grok.global_utility
+class AgendaItemTemplate(Template):
+    """Custom Content Template for Agenda Items"""
+    grok.implements(IAgendaItemTemplate)
+    grok.name('Products.SilvaNews.AgendaItem.AgendaItemTemplate')
+    
+    name = "Agenda Item (standard)"
+    description = __doc__
+    icon = "www/newsitem-layout-icon.png"
+    slotnames = ['newsitemcontent']
+    
+class AgendaItemTemplateView(AgendaViewMixin, TemplateView):
+    grok.context(IAgendaItemTemplate)
+    grok.name(u'')
+
+class AgendaItemListItemView(NewsItemListItemView, AgendaViewMixin):
+    """ Render as a list items (search results)
+    """
+    grok.context(IAgendaItem)
 
 class AgendaItemInlineView(silvaviews.View):
     """ Inline rendering for calendar event tooltip """
@@ -302,13 +325,6 @@ class AgendaItemInlineView(silvaviews.View):
 
     def render(self):
         return u'<div>' + self.intro + u"</div>"
-
-
-class AgendaItemListItemView(NewsItemListItemView, AgendaViewMixin):
-    """ Render as a list items (search results)
-    """
-    grok.context(IAgendaItem)
-
 
 class AgendaItemICS(silvaviews.View):
     """ render an ics event
