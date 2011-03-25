@@ -13,6 +13,7 @@ from zope import schema
 from silva.core.interfaces import (IAsset, ISilvaService, IPublication, IContent,
                                    IContentLayout, IVersionedContentLayout,
                                    IVersion)
+from silva.core.contentlayout.templates.interfaces import ITemplate
 
 from Products.SilvaExternalSources.interfaces import IExternalSource
 from Products.SilvaNews.datetimeutils import zone_names
@@ -504,3 +505,7 @@ class IServiceNews(ISilvaService):
         Each tuple is an (indent, subject) pair.
         """
 
+
+class INewsItemTemplate(ITemplate):
+    """A one-column template for news items"""
+    

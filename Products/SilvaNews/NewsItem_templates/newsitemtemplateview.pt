@@ -1,0 +1,22 @@
+<div class="newsitem"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="silva_news">
+<div
+  tal:define="inLE view/in_layout_editor;
+              md nocall:context/service_metadata;
+              display_dt view/version/display_datetime"
+  tal:omit-tag="not:inLE"
+  tal:attributes="class python:inLE and 'yui-skin-sam' or nothing">
+  <h2 tal:replace="structure view/render_page_title" />
+  <div class="newsiteminfo">
+    <p class="publicationdate" tal:condition="view/article_date">
+      <span class="label" i18n:translate="">Publication date:</span>
+      <span class="value" tal:content="view/article_date" />
+    </p>
+    <tal:content replace="structure provider:propertiespreviewprovider" />
+  </div>
+  <div id="newsitemcontent" tal:attributes="class python:'newsitemcontent%s'%(inLE and ' slot' or '')"
+        tal:content="structure python:view.render_parts('newsitemcontent')" />
+</div>
+</div>

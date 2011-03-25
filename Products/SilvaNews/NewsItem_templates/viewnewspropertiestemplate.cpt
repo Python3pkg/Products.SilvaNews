@@ -1,4 +1,4 @@
-<div class="box zeam-form zeam-form-ready">
+<div class="box newsproperties zeam-form zeam-form-ready">
   <h3 tal:condition="view.label"
           tal:content="view.label" /> 
 

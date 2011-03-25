@@ -28,6 +28,7 @@ from silva.core.views.interfaces import IPreviewLayer
 from silva.core.smi.interfaces import ISMILayer
 from silva.core.contentlayout.contentlayout import ContentLayout
 from silva.core.contentlayout.editor import PropertiesPreviewProvider
+from silva.core.contentlayout.templates.template import Template, TemplateView
 from silva.core.services.interfaces import ICataloging
 from silva.core.layout.interfaces import IMetadata
 from zeam.form import silva as silvaforms
@@ -40,7 +41,8 @@ from Products.Silva.VersionedContent import CatalogedVersionedContent
 from Products.Silva.Version import CatalogedVersion
 from Products.Silva import SilvaPermissions
 from Products.Silva.transform.renderer.xsltrendererbase import XSLTTransformer
-from Products.SilvaNews.interfaces import INewsItem, INewsItemVersion
+from Products.SilvaNews.interfaces import (INewsItem, INewsItemVersion, 
+                                           INewsItemTemplate)
 from Products.SilvaNews.interfaces import (INewsPublication, IServiceNews,
      INewsViewer, INewsItemSchema)
 from Products.SilvaNews.datetimeutils import datetime_to_unixtimestamp
@@ -87,10 +89,7 @@ class NewsItem(CatalogedVersionedContent):
         """
         version = getattr(self, self.get_unapproved_version())
         version.set_display_datetime(dt)
-
-
 InitializeClass(NewsItem)
-
 
 class NewsItemVersion(CatalogedVersion, ContentLayout):
     """Base class for news item versions.
@@ -389,8 +388,6 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
                 return start.strftime('%B %d - ') + end.strftime('%B %d, %Y')
             else:
                 return start.strftime('%B %d - ') + end.strftime('%B %d')
-            
-
 InitializeClass(NewsItemVersion)
 
 class ViewNewsProperties(silvaforms.form.ZopeForm, baseforms.Form):
@@ -481,12 +478,11 @@ class NewsPropertiesPortlet(silvaviews.Viewlet):
         #viewlets ALWAYS need to return a string or unicode
         return ""
 
-class NewsItemListItemView(silvaviews.View):
-    """ Render as a list items (search results)
+class NewsItemViewMixin(object):
+    """  Mixin to gather common code between the multiple
+         news item views
     """
-    grok.context(INewsItem)
-    grok.name('search_result')
-
+    
     @CachedProperty
     def article_date(self):
         article_date = self.content.display_datetime()
@@ -497,9 +493,33 @@ class NewsItemListItemView(silvaviews.View):
             return news_service.format_date(article_date)
         return u''
 
+class NewsItemListItemView(NewsItemViewMixin, silvaviews.View):
+    """ Render as a list items (search results)
+    """
+    grok.context(INewsItem)
+    grok.name('search_result')
+
     @CachedProperty
     def article(self):
         return IMetadata(self.context)('syndication','teaser')
+
+@grok.global_utility
+class NewsItemTemplate(Template):
+    """Custom Content Template for News Items"""
+    grok.implements(INewsItemTemplate)
+    grok.name('Products.SilvaNews.NewsItem.NewsItemTemplate')
+    
+    name = "News Item (standard)"
+    description = __doc__
+    icon = "www/newsitem-layout-icon.png"
+    slotnames = ['newsitemcontent']
+    
+class NewsItemTemplateView(NewsItemViewMixin, TemplateView):
+    grok.context(INewsItemTemplate)
+    grok.name(u'')
+    
+    def article_date(self):
+        return "date"
 
 @grok.subscribe(INewsItemVersion, IContentPublishedEvent)
 def news_item_published(content, event):
@@ -523,3 +543,4 @@ def get_default_viewer(context):
             if default and INewsViewer.providedBy(default):
                 return default
     return None
+
