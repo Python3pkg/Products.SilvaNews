@@ -19,8 +19,10 @@ from Products.SilvaNews.interfaces import INewsViewer
 # Silva
 from silva.core import conf as silvaconf
 from silva.core.views import views as silvaviews
+from silva.core.views.interfaces import IPreviewLayer
 from silva.core.contentlayout.templates.template import Template, TemplateView
 from Products.Silva import SilvaPermissions
+from Products.Silva.errors import NotViewable
 
 # SilvaNews
 from Products.SilvaNews.interfaces import IServiceNews, IAgendaItemTemplate
@@ -336,7 +338,12 @@ class AgendaItemICS(silvaviews.View):
     def update(self):
         self.viewer = INewsViewer(self.context, None)
         self.request.response.setHeader('Content-Type', 'text/calendar')
-        self.content = self.context.get_viewable()
+        if IPreviewLayer.providedBy(self.request):
+            self.content = self.context.get_previewable()
+        else:
+            self.content = self.context.get_viewable()
+        if not self.content:
+            raise NotViewable()
         self.event_factory = getAdapter(self.content, IEvent)
 
     def render(self):
