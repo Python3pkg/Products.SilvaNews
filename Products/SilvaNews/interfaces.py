@@ -3,7 +3,7 @@
 # $Id$
 
 from five import grok
-from zope.interface import Interface, invariant
+from zope.interface import Interface, invariant, Invalid
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zope.schema.interfaces import IContextSourceBinder
@@ -20,19 +20,15 @@ from Products.SilvaNews.datetimeutils import zone_names
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('silva_news')
 
-
 class IInlineViewer(IExternalSource):
     """Marker interface for Inline News Viewer"""
-
 
 class ISilvaNewsExtension(Interface):
     """Marker interface for SNN Extension"""
 
-
 class INewsItem(IVersionedContentLayout):
     """Silva News Item interface
     """
-
 
 @grok.provider(IContextSourceBinder)
 def subjects_source(context):
@@ -42,7 +38,6 @@ def subjects_source(context):
         result.append(SimpleTerm(
             value=value, token=value, title="-" * depth + title))
     return SimpleVocabulary(result)
-
 
 @grok.provider(IContextSourceBinder)
 def target_audiences_source(context):
@@ -143,11 +138,9 @@ class INewsItemVersion(IVersion, IContentLayout):
         XXX what does this mean?
         (not used by all subclasses)"""
 
-
 class IAgendaItem(INewsItem):
     """Silva AgendaItem Version.
     """
-
 
 class IAgendaItemVersion(INewsItemVersion):
     def get_start_datetime():
@@ -171,10 +164,8 @@ class IAgendaItemVersion(INewsItemVersion):
     def set_location(value):
         """Sets the location"""
 
-
 class INewsPublication(IPublication):
     """Marker interface for INewsPublication"""
-
 
 class IFilter(IAsset):
 
@@ -196,10 +187,8 @@ class IFilter(IAsset):
         items from the object's list that are removed in the service)
         """
 
-
 class ICategoryFilter(IFilter):
     """A CategoryFilter is editable in silva.  It allows you to specify elements in the silva news article and silva news filter to hide from content authors"""
-
 
 class INewsItemFilter(IFilter):
     """Super-class for news item filters.
@@ -288,7 +277,6 @@ class INewsItemFilter(IFilter):
            This is _only_ used by News Viewers.
         """
 
-
 class INewsFilter(INewsItemFilter):
     """A filter for news items"""
 
@@ -311,7 +299,6 @@ class INewsFilter(INewsItemFilter):
         This is different because AgendaFilters search on start/end
         datetime, whereas NewsFilters look at display datetime"""
 
-
 class IAgendaFilter(INewsItemFilter):
     """A filter for agenda items"""
 
@@ -324,7 +311,6 @@ class IAgendaFilter(INewsItemFilter):
         """Returns all published items for a particular month
            FOR: the SMI 'items' tab"""
 
-
 class IViewer(IContent):
     """Base interface for SilvaNews Viewers"""
 
@@ -332,7 +318,6 @@ _number_to_show = [
     (_(u"number of days"), 1),
     (_(u"number of items"), 0)
 ]
-
 
 @grok.provider(IContextSourceBinder)
 def show_source(context):
@@ -391,7 +376,6 @@ def news_source(context):
                                 title="%s (%s)" % (source.get_title(), path),
                                 token=str(intids.register(source))))
     return SimpleVocabulary(terms)
-
 
 class INewsViewer(IViewer):
     """A viewer of news items.
@@ -458,7 +442,6 @@ class INewsViewer(IViewer):
 class IAggregator(INewsViewer):
     """interface for RSSAggregator"""
 
-
 class IAgendaViewer(INewsViewer):
     def days_to_show():
         """Return number of days to show on front page.
@@ -467,7 +450,6 @@ class IAgendaViewer(INewsViewer):
     def set_days_to_show(number):
         """Sets the number of days to show in the agenda.
         """
-
 
 class IServiceNews(ISilvaService):
     """A service that provides trees of subjects and target_audiences.

@@ -31,6 +31,7 @@ from silva.core.contentlayout.editor import PropertiesPreviewProvider
 from silva.core.services.interfaces import ICataloging
 from silva.core.layout.interfaces import IMetadata
 from zeam.form import silva as silvaforms
+from zeam.form.silva.form import SilvaDataManager
 from zeam.form.silva.actions import EditAction
 from zeam.form import base as baseforms
 from zeam.form.base.markers import DISPLAY, NO_VALUE
@@ -264,14 +265,23 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
         return list(self._target_audiences or [])
     
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'external_link')
-    def external_link(self):
+                              'get_external_link')
+    def get_external_link(self):
         return self._external_link
+    
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'external_link')
+    external_link = get_external_link
+
  
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'link_method')
-    def link_method(self):
+                              'get_link_method')
+    def get_link_method(self):
         return self._link_method
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'link_method')
+    link_method = get_link_method
     
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'article_url')
@@ -383,49 +393,35 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
 
 InitializeClass(NewsItemVersion)
 
-class NewsItemDataManager(baseforms.ObjectDataManager):
-    """Data Manager for News Items
-    (this is needed since the names of each property in INewsItemProperties
-    match up with instance methods and not properties"""
-    def get(self, identifier):
-        try:
-            prop = getattr(self.content, identifier)
-        except AttributeError:
-            raise KeyError(identifier)
-        if callable(prop):
-            v = prop()
-            #schema's need the value to be hashable.  subjects and target_audiences
-            # are returned as Lists, so convert to tuples
-            if isinstance(v, ListType):
-                v = tuple(v)
-            return v
-        else:
-            return prop
-    
-    def set(self, identifier, value):
-        if not hasattr(self.content, 'set_' + identifier):
-            setattr(self.content, identifier, value)
-        else:
-            getattr(self.content, 'set_' + identifier)(value)
-
 class ViewNewsProperties(silvaforms.form.ZopeForm, baseforms.Form):
+    """Form for viewing the news properties.  This is displayed in the
+       right column of the news story template when previewing or
+       in the layout editor.
+       
+       Note: we can't use zeam.form.silva.forms.ZMIForm (which is essentially
+       what the base classes are) because ZMIForm requires ViewManagementScreens
+    """
+    
     grok.context(INewsItemVersion)
+    grok.require("silva.ReadSilvaContent")
     
     prefix = 'newsproperties'
     ignoreRequest = True
     ignoreContent = False
     mode = DISPLAY
-    dataManager = NewsItemDataManager
+    dataManager = SilvaDataManager
     label = "News Properties"
     fields = silvaforms.Fields(INewsItemSchema)
     
 class ViewNewsPropertiesTemplate(baseforms.form_templates.FormTemplate):
+    """ViewNewsProperties has a custom template"""
     pt.view(ViewNewsProperties)
 
 class SupportsEmptyValueEditAction(EditAction):
     """This is needed because zeam.form.ztk's EditAction passes when
        a text field's value is empty, rather than setting the value
-       to empty/none/default, etc"""
+       to empty/none/default, etc
+       XXX: NOTE: this can be removed once the bug in zeam is fixed"""
     
     def applyData(self, form, content, data):
         for field in form.fields:
@@ -440,20 +436,28 @@ class EditNewsProperties(silvaforms.form.ZopeForm, baseforms.Form):
        editor
        
        We put this under the ISMILayer so it can take full advantage of
-       automatic resource inclusion (css/js)"""
+       automatic resource inclusion (css/js)
+       
+       Note: we can't use zeam.form.silva.forms.SilvaForm (or SMIForm)
+       because it's __call__ wraps the form around a layout (the SMI layout).
+       Since this is displayed in a popup, that is not desired.  It would
+       be possible to use it anyways, but define a new (empty) layout, however
+       that is too much work to have a form with it's own (empty) layout.
+    """
     grok.context(INewsItemVersion)
     grok.layer(ISMILayer)
+    grok.require("silva.ChangeSilvaContent")
     prefix = 'newsproperties'
     ignoreRequest = False
     ignoreContent = False
-    dataManager = NewsItemDataManager
+    dataManager = SilvaDataManager
     label = "Edit News Properties"
     fields = silvaforms.Fields(INewsItemSchema)
-    actions = baseforms.Actions(SupportsEmptyValueEditAction())
+    actions = silvaforms.Actions(SupportsEmptyValueEditAction())
     
 class EditNewsPropertiesTemplate(baseforms.form_templates.FormTemplate):
+    """EditNewsProperties also has it's own template"""
     pt.view(EditNewsProperties)
-    
 
 class NewsPropertiesPortlet(silvaviews.Viewlet):
     """Portlet to display the news properties in the right
@@ -468,7 +472,7 @@ class NewsPropertiesPortlet(silvaviews.Viewlet):
     
     def render(self):
         """render the 'viewnewsproperties' browser view if the request is
-         for the preview_html (or layouteditor).  'viewnewsproperties' displays
+         for the ++preview++ or ++layouteditor++.  'viewnewsproperties' displays
          the news properties as a zeam display form."""
         if IPreviewLayer.providedBy(self.request):
             ad = getMultiAdapter((self.context.get_previewable(), self.request),

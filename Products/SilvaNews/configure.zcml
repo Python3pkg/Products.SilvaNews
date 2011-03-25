@@ -15,9 +15,6 @@
   <include package="silva.core.views" />
   <include package="silva.resourceinclude" />
 
-  <include package="silva.core.views" />
-  <include package="silva.resourceinclude" />
-
   <five:registerPackage package="." />
 
   <!-- Grok Silva News -->

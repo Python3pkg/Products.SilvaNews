@@ -292,12 +292,6 @@ class AgendaViewMixin(object):
             service_news = getUtility(IServiceNews)
             return service_news.format_date(dt, not self.content.is_all_day())
 
-
-#class AgendaItemView(NewsItemView, AgendaViewMixin):
-    #""" Index view for agenda items """
-    #grok.context(IAgendaItem)
-
-
 class AgendaItemInlineView(silvaviews.View):
     """ Inline rendering for calendar event tooltip """
     grok.context(IAgendaItem)
