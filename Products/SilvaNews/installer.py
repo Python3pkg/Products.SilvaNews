@@ -21,6 +21,17 @@ class SilvaNewsInstaller(DefaultInstaller):
         if not hasattr(root.aq_explicit,'service_news'):
             factory = root.manage_addProduct['SilvaNews']
             factory.manage_addServiceNews('service_news')
+            
+        if hasattr(root.aq_explicit, 'service_contentlayout'):
+            scl = root.service_contentlayout
+            scl.set_default_template('Silva Article',
+                                     'Products.SilvaNews.NewsItem.NewsItemTemplate')
+            scl.set_allowed_templates('Silva Article',
+                                     ['Products.SilvaNews.NewsItem.NewsItemTemplate'])
+            scl.set_default_template('Silva Agenda Item',
+                                     'Products.SilvaNews.AgendaItem.AgendaItemTemplate')
+            scl.set_allowed_templates('Silva Agenda Item',
+                                     ['Products.SilvaNews.AgendaItem.AgendaItemTemplate'])
 
     def uninstall_custom(self, root):
         self.unregister_views(root.service_view_registry)
