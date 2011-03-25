@@ -18,10 +18,10 @@
     </a>
   </p>
   <div class="newsiteminfo">
-<!--    <p class="publicationdate" tal:condition="view/article_date">
+    <p class="publicationdate" tal:condition="view/article_date">
       <span class="label" i18n:translate="">Publication date: </span>
       <span class="value" tal:content="view/article_date" />
-    </p>-->
+    </p>
     <p class="location" tal:condition="view/version/get_location">
       <span class="label" i18n:translate="">Location: </span>
       <span class="value" tal:content="view/version/get_location" />
