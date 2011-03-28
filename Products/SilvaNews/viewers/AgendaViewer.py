@@ -16,6 +16,7 @@ from zope.i18nmessageid import MessageFactory
 
 # Zope
 import Products
+from zope import schema
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 
@@ -31,7 +32,8 @@ from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from Products.SilvaNews import datetimeutils
 from Products.SilvaNews.interfaces import IAgendaItemVersion, IAgendaViewer
 from Products.SilvaNews.interfaces import IServiceNews
-from Products.SilvaNews.viewers.NewsViewer import NewsViewer
+from Products.SilvaNews.viewers.NewsViewer import (NewsViewer,
+                                                   INewsViewerSchema)
 from Products.SilvaNews.htmlcalendar import HTMLCalendar
 from Products.SilvaExternalSources.ExternalSource import ExternalSource
 
@@ -60,7 +62,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
 
     def __init__(self, id):
         AgendaViewer.inheritedAttribute('__init__')(self, id)
-        self._days_to_show = 31
+        self._number_to_show = 31
         self._number_is_days = True
         self._starting_date = None
 
@@ -74,7 +76,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
     
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'starting_date')
-    def starting_date(self):
+    def get_starting_date(self):
         """returns the starting date, if specified, for the day range"""
         return self._starting_date
 
@@ -158,6 +160,21 @@ class AgendaViewer(NewsViewer, ExternalSource):
 
 InitializeClass(AgendaViewer)
 
+class IAgendaViewerSchema(INewsViewerSchema):
+    starting_date = schema.Datetime(
+        title=_(u"starting date"),
+        description=_(u"If this property is set, the items for the next N "
+                      u"days will be retrieved from the specified date rather "
+                      u"than the current date. "
+                      u"Uses the `timezone` property of this viewer"),
+        required=False
+    )
+
+class AgendaViewerEditForm(silvaforms.SMIEditForm):
+    """SMI Edit Form for agenda viewers"""
+    grok.context(IAgendaViewer)
+    fields = silvaforms.Fields(IAgendaViewerSchema)
+    fields['number_is_days'].mode = u'radio'
 
 class ICalendarResources(IDefaultBrowserLayer):
     silvaconf.resource('calendar.css')
@@ -258,7 +275,6 @@ class CalendarView(object):
                 '<a href="%s?day=%d&amp;month=%d&amp;year=%d">%d</a>' % \
             (cal_url, date.day, date.month, date.year, date.day))
 
-
 class AgendaViewerExternalSourceView(silvaviews.View, CalendarView):
     """
     Month calendar to be rendered as external source inside a
@@ -290,7 +306,6 @@ class AgendaViewerExternalSourceView(silvaviews.View, CalendarView):
     def render(self):
         return self.calendar.formatmonth(self.year, self.month)
 
-
 class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
     """ View with month calendar and listing of event registered of the
     selected day"""
@@ -313,7 +328,12 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
 
     def update(self):
         alsoProvides(self.request, ICalendarResources)
-        now = datetime.now(self.context.get_timezone())
+        #XXX here use the start_datetime
+        if (self.context.get_starting_date()):
+            now = self.context.get_starting_date().replace(
+                tzinfo=self.context.get_timezone())
+        else:
+            now = datetime.now(self.context.get_timezone())
         self.month = int(self.request.get('month', now.month))
         self.year = int(self.request.get('year', now.year))
 
@@ -408,7 +428,6 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
             '<a class="nextmonth caljump" href="%s">&gt</a>' % \
                 self.next_month_url()
 
-
 class AgendaViewerYearCalendar(silvaviews.Page, CalendarView):
     """ Year Calendar representation
     """
@@ -435,14 +454,12 @@ class AgendaViewerYearCalendar(silvaviews.Page, CalendarView):
     def render(self):
         return self.calendar.formatyear(self.year)
 
-
 class IViewResources(IJQueryResources):
     silvaconf.resource('fullcalendar/fullcalendar.js')
     silvaconf.resource('calendar.js')
     silvaconf.resource('qtip.js')
     silvaconf.resource('fullcalendar/fullcalendar.css')
     silvaconf.resource('qtip.css')
-
 
 class AgendaViewerJSCalendar(silvaviews.Page):
     """ Agenda view advanced javascript calendar """
@@ -455,7 +472,6 @@ class AgendaViewerJSCalendar(silvaviews.Page):
     @property
     def events_json_url(self):
         return absoluteURL(self.context, self.request) + '/++rest++events'
-
 
 class AgendaViewerICSCalendar(silvaviews.View):
     """ Agenda viewer ics format """
@@ -470,7 +486,6 @@ class AgendaViewerICSCalendar(silvaviews.View):
 
     def render(self):
         return self.calendar.as_string()
-
 
 class AgendaViewerSubscribeView(silvaviews.Page):
     """ View that display the Subcribe url to the calendar """

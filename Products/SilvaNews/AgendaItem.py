@@ -220,6 +220,10 @@ class AgendaItemVersion(NewsItemVersion):
                               'idx_start_datetime')
     idx_start_datetime = get_start_datetime
 
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'idx_end_datetime')
+    idx_end_datetime = get_end_datetime
+
     #--------HTML Rendering helper functions----------#
 
     #formatEventSummary is for the SilvaNewsCalendar
