@@ -489,6 +489,11 @@ class AgendaViewerICSCalendar(silvaviews.View):
 
 class AgendaViewerSubscribeView(silvaviews.Page):
     """ View that display the Subcribe url to the calendar """
+    #XXX this needs to be wrapped around the default content template.
+    #    but what's the BEST approach to do so for all Pages?  We could
+    #    one-off for the Page's which should be wrapped (could be many, easy
+    #    to miss, tedious to maintain), or automatically do this for all pages
+    #    (by default?  Or does it need to be enabled?)
     grok.context(IAgendaViewer)
     grok.name('subscribe.html')
 
