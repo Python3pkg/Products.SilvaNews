@@ -29,7 +29,7 @@ class NewsItemFeedEntryAdapter(feedentry.DocumentFeedEntryAdapter):
         elif self.version.link_method()=='nothing':
             return ''
         else:
-            return super(NewsItemFeedEntryAdapter, self).url(self)
+            return super(NewsItemFeedEntryAdapter, self).url()
 
 
 class AgendaItemFeedEntryAdapter(NewsItemFeedEntryAdapter):

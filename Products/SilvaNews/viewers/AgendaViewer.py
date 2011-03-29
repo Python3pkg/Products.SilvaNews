@@ -62,7 +62,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
 
     def __init__(self, id):
         AgendaViewer.inheritedAttribute('__init__')(self, id)
-        self._number_to_show = 31
+        self._number_to_show = 25
         self._number_is_days = True
         self._starting_date = None
 

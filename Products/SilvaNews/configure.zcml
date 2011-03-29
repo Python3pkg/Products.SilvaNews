@@ -14,6 +14,7 @@
   <include package="infrae.rest" />
   <include package="silva.core.views" />
   <include package="silva.resourceinclude" />
+  <include package="silva.core.contentlayout" />
 
   <five:registerPackage package="." />
 

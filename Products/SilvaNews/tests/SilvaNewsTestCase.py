@@ -15,7 +15,9 @@ class SilvaNewsLayer(SilvaLayer):
 
     def _install_application(self, app):
         super(SilvaNewsLayer, self)._install_application(app)
+        app.root.service_extensions.install("silva.core.contentlayout")
         app.root.service_extensions.install('SilvaNews')
+        app.root.service_news.set_timezone_name('Europe/Amsterdam')
         transaction.commit()
 
 

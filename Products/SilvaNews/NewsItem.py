@@ -284,7 +284,6 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
     
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'article_url')
-    @CachedProperty
     def article_url(self):
         """compute the url for this item.  Different from absolute_url, this
            will return the external link if settings dictacte"""
@@ -315,11 +314,12 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
     def fulltext(self):
         """Returns all data as a flat string for full text-search
         """
-        #XXX not implemented for contentlayout
-        return ""
         keywords = list(self._subjects)
         keywords.extend(self._target_audiences)
-        keywords.extend(super(NewsItemVersion, self).fulltext())
+        #XXX not implemented for contentlayout
+        #for now, add the title to get the tests to work
+        keywords.extend(self.get_title().split())
+        #keywords.extend(super(NewsItemVersion, self).fulltext())
         return " ".join(keywords)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
