@@ -191,21 +191,21 @@ VERSION:2.0
 X-WR-CALNAME:Agenda
 X-WR-TIMEZONE:Europe/Amsterdam
 BEGIN:VEVENT
-DTEND;VALUE=DATE:20100912
-DTSTART;VALUE=DATE:20100910
-SUMMARY:Event2
-UID:%d@silvanews
-URL:http://localhost/root/source1/event2
-END:VEVENT
-BEGIN:VEVENT
 DTEND:20100904T092000Z
 DTSTART:20100904T082000Z
 SUMMARY:Event héhé“π”
 UID:%d@silvanews
 URL:http://localhost/root/source1/event
 END:VEVENT
+BEGIN:VEVENT
+DTEND;VALUE=DATE:20100912
+DTSTART;VALUE=DATE:20100910
+SUMMARY:Event2
+UID:%d@silvanews
+URL:http://localhost/root/source1/event2
+END:VEVENT
 END:VCALENDAR
-""".replace("\n", "\r\n") % (uids[1], uids[0])
+""".replace("\n", "\r\n") % (uids[0], uids[1])
         self.assert_no_udiff(data, self.browser.contents, term="\r\n")
 
     def assert_no_udiff(self, s1, s2, term="\n"):
