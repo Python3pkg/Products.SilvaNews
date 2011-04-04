@@ -75,7 +75,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
 
     
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                                'starting_date')
+                                'get_starting_date')
     def get_starting_date(self):
         """returns the starting date, if specified, for the day range"""
         return self._starting_date
