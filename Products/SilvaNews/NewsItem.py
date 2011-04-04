@@ -35,6 +35,7 @@ from zeam.form import silva as silvaforms
 from zeam.form.silva.form import SilvaDataManager
 from zeam.form.silva.actions import EditAction
 from zeam.form import base as baseforms
+from zeam.form.base.form_templates import FormTemplate
 from zeam.form.base.markers import DISPLAY, NO_VALUE
 
 from Products.Silva.VersionedContent import CatalogedVersionedContent
@@ -410,7 +411,7 @@ class ViewNewsProperties(silvaforms.form.ZopeForm, baseforms.Form):
     label = "News Properties"
     fields = silvaforms.Fields(INewsItemSchema)
     
-class ViewNewsPropertiesTemplate(baseforms.form_templates.FormTemplate):
+class ViewNewsPropertiesTemplate(FormTemplate):
     """ViewNewsProperties has a custom template"""
     pt.view(ViewNewsProperties)
 
