@@ -9,12 +9,12 @@ from zope.i18nmessageid import MessageFactory
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass # Zope 2.12
 
-from DateTime import DateTime
 from datetime import datetime
 
 # SilvaNews
 from Products.Silva import SilvaPermissions
-from Products.SilvaNews.datetimeutils import UTC, local_timezone
+from Products.SilvaNews.datetimeutils import (UTC, local_timezone,
+    start_of_month, end_of_month, datetime_to_unixtimestamp)
 from Products.SilvaNews.filters.NewsItemFilter import NewsItemFilter,brainsorter
 from Products.SilvaNews.interfaces import (IAgendaFilter, IAgendaItem,
     ISubjectTASchema, news_source)
@@ -74,37 +74,20 @@ class AgendaFilter(NewsItemFilter):
 
         month = int(month)
         year = int(year)
-        startdate = DateTime(
-            datetime(year, month, 1, tzinfo=timezone)).earliestTime()
-        endmonth = month + 1
-        if month == 12:
-            endmonth = 1
-            year = year + 1
-        enddate = DateTime(
-            datetime(year, endmonth, 1, tzinfo=timezone)).earliestTime()
-
+        startdate = start_of_month(datetime(
+            year, month, 1, tzinfo=timezone))
+        enddate = end_of_month(startdate)
+        u = datetime_to_unixtimestamp
         # end dt first
         query = self._prepare_query()
         query['sort_order'] = 'ascending'
         query['sort_on'] = 'idx_end_datetime'
-        query['idx_end_datetime'] = {'query': [startdate, enddate],
-                                     'range': 'minmax' }
+        query['idx_timestamp_ranges'] = {
+            'query': [u(startdate), u(enddate)]}
         result = self._query(**query)
 
-        del query['idx_end_datetime']
-        query['idx_start_datetime'] = {'query': [startdate, enddate],
-                                       'range': 'minmax'}
         query['sort_on'] = 'idx_start_datetime'
-        result_startdt = self._query(**query)
-
-        result = [r for r in result]
-        result_items = [ r.object_path for r in result ]
-
-        for item in result_startdt:
-            edt = item.end_datetime
-            if not edt or edt.month() != month or edt.year() != year \
-               and item.object_path not in result_items:
-                result.append(item)
+        result = list(self._query(**query))
         result.sort(brainsorter)
         return result
 
