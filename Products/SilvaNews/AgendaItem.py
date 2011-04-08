@@ -267,7 +267,6 @@ InitializeClass(AgendaItemVersion)
 class AgendaViewMixin(NewsItemViewMixin):
 
     def event_img_url(self):
-        #XXX should this use resourcebase, if present, so cacing works better?
         datepng = '%s/++resource++Products.SilvaNews/date.png'
         resourcebase = self.request.get('resourcebase', None)
         if not resourcebase:
