@@ -51,16 +51,16 @@ from Products.SilvaNews.datetimeutils import datetime_to_unixtimestamp
 _ = MessageFactory('silva_news')
 
 #for formatting the time according to Bethel's standards
-time_re = re.compile('((:00)|((12:00 )?(am|pm)))',re.I)
+time_re = re.compile('((:00)|((12:00 )?(AM|PM)))',re.I)
 def time_replace(matchobj):
     g0 = matchobj.group(0)
-    if g0 == 'am':
+    if g0 == 'AM':
         return 'a.m.'
-    elif g0 == 'pm':
+    elif g0 == 'PM':
         return 'p.m.'
-    elif g0 == '12:00 pm':
+    elif g0 == '12:00 PM':
         return 'noon'
-    elif g0 == '12:00 am':
+    elif g0 == '12:00 AM':
         return 'midnight'
     elif g0 == ':00': #strip it!
         pass
@@ -343,7 +343,7 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
         """helper func to format the time to bethel's
            official standard"""
         def doTime1(t):
-            a = t.AMPMMinutes()
+            a = t.strftime('%I:%M %p')
             a = time_re.sub(time_replace,a)
             if a[0] == '0':
                 return a[1:]
@@ -365,9 +365,9 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
                 return a + u'\u2013' + b
 
         #first, if start has no time, return empty
-        if start.hour() == 0 and start.minute() == 0:
+        if start.hour == 0 and start.minute == 0:
             return ''
-        if not end or start == end or (end.hour()==0 and end.minute() == 0):
+        if not end or start == end or (end.hour==0 and end.minute == 0):
             return sep + doTime1(start)
         else:
             return sep + doTime2(start,end)

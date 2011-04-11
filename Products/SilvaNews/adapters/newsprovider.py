@@ -86,13 +86,13 @@ class NewsItemReference(object):
         return dt
 
     def start_datetime(self):
-        return getattr(self._item.aq_explicit, 'start_datetime', lambda: None)()
+        return getattr(self._item.aq_explicit, 'get_start_datetime', lambda: None)()
 
     def end_datetime(self):
-        return getattr(self._item.aq_explicit, 'end_datetime', lambda: None)()
+        return getattr(self._item.aq_explicit, 'get_end_datetime', lambda: None)()
 
     def location(self):
-        return getattr(self._item.aq_explicit, 'location', lambda: None)()
+        return getattr(self._item.aq_explicit, 'get_location', lambda: None)()
 
     def get_news_item(self):
         return self._item
