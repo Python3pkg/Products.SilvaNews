@@ -352,14 +352,14 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
             a = doTime1(ta)
             b = doTime1(tb)
             #if the two times aren't on the same day
-            if ta.parts()[0:3] != tb.parts()[0:3]:
+            if ta.timetuple()[0:3] != tb.timetuple()[0:3]:
                 #XXX not sure what to do here?
                 #there was an event which started at 6pm April 3 and
                 # went through 6pm April 4.  The date was "6-4" with no
                 # indication that the even spanned multiple days
                 pass
             #same part of day (am or pm)
-            if ta.ampm() == tb.ampm() and a not in ('noon','midnight'):
+            if ta.strftime('%p') == tb.strftime('%p') and a not in ('noon','midnight'):
                 return a[:-5] + u'\u2013' + b
             else:
                 return a + u'\u2013' + b
