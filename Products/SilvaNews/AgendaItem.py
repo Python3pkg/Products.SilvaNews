@@ -1,6 +1,7 @@
 # Copyright (c) 2002-2011 Infrae. All rights reserved.
 # See also LICENSE.txt
 # $Revision: 1.21 $
+from cgi import escape
 from icalendar import vDatetime, Calendar
 from zope.interface import implements
 from zope.component import getAdapter, getUtility
@@ -238,15 +239,15 @@ class AgendaItemVersion(NewsItemVersion):
         except:
             pass
 
-        summary = [html_quote(title)]
+        summary = [escape(title)]
         #for items just added, they don't have a start datetime yet.
-        if not self.start_datetime():
+        if not self.get_start_datetime():
             return (u''.join(summary))
-        date = self.formatTime(self.start_datetime(),self.end_datetime())
+        date = self.format_time(self.get_start_datetime(),self.get_end_datetime())
         if date:
             summary.append(date)
-        if self.location():
-            summary.append(u', ' + html_quote(self.location()))
+        if self.get_location():
+            summary.append(u', ' + escape(self.get_location()))
         teaser = self.service_metadata.getMetadataValue(self, 'syndication','teaser')
         if teaser:
             #remove any trailing whitespace, append period and teaser
