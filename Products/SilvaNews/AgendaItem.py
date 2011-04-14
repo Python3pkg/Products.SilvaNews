@@ -231,8 +231,7 @@ class AgendaItemVersion(NewsItemVersion):
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'format_event_summary')
     def format_event_summary(self):
-        #XXX this is new, for the silva news calendar
-        # (and, I think needs to be adjusted slightly, according to a fp case
+        #this is for the silva news calendar
         title = self.get_title() or str(self.getPhysicalPath())
         try:
             title = unicode(title,'utf-8')
@@ -245,9 +244,10 @@ class AgendaItemVersion(NewsItemVersion):
             return (u''.join(summary))
         date = self.format_time(self.get_start_datetime(),self.get_end_datetime())
         if date:
+            summary.append(' ')
             summary.append(date)
         if self.get_location():
-            summary.append(u', ' + escape(self.get_location()))
+            summary.append(u'| ' + escape(self.get_location()))
         teaser = self.service_metadata.getMetadataValue(self, 'syndication','teaser')
         if teaser:
             #remove any trailing whitespace, append period and teaser
@@ -256,6 +256,7 @@ class AgendaItemVersion(NewsItemVersion):
                 summary.append(u'. ')
             else: #add extra padding "just in case"
                 summary.append(' ')
+            summary.append("| ")
             summary.append(teaser)
         #creating a byte-encoded string instead of unicode
         #unicode strings with non-ascii characters break the
