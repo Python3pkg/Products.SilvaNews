@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <silva xmlns="http://infrae.com/namespace/silva"
     {namespaces} silva_version="{version}">
-  <folder id="export">
+  <folder id="export" last_author="author">
     <metadata>
       <set id="silva-content">
         <silva-content:maintitle>Export Folder</silva-content:maintitle>
+        <silva-content:navtitle />
         <silva-content:shorttitle/>
       </set>
       <set id="silva-extra">
@@ -23,12 +24,23 @@
         <silva-extra:publicationtime/>
         <silva-extra:subject/>
       </set>
+        <set xmlns:syn="https://bethel.edu/namespaces/syndication" id="syndication">
+         <syn:img-feature>
+         </syn:img-feature>
+         <syn:img-featurehover>
+         </syn:img-featurehover>
+         <syn:img-preview>
+         </syn:img-preview>
+         <syn:teaser>
+         </syn:teaser>
+        </set>
     </metadata>
     <content>
       <silvanews:newspublication id="newspub">
         <metadata>
           <set id="silva-content">
             <silva-content:maintitle>NewsPublication</silva-content:maintitle>
+            <silva-content:navtitle />
             <silva-content:shorttitle/>
           </set>
           <set id="silva-extra">
@@ -53,10 +65,11 @@
         </metadata>
         <content>
           <default>
-            <auto_toc depth="-1" display_desc_flag="False" id="index" show_icon="False" sort_order="silva" types="Silva Article,Silva Agenda Item">
+      <auto_toc depth="-1" display_desc_flag="True" id="index" last_author="author" show_icon="True" sort_order="alpha" types="Silva Article,Silva Agenda Item">
               <metadata>
                 <set id="silva-content">
                   <silva-content:maintitle>NewsPublication</silva-content:maintitle>
+                  <silva-content:navtitle />
                   <silva-content:shorttitle/>
                 </set>
                 <set id="silva-extra">
@@ -75,12 +88,22 @@
                   <silva-extra:publicationtime/>
                   <silva-extra:subject/>
                 </set>
+        <set xmlns:syn="https://bethel.edu/namespaces/syndication" id="syndication">
+         <syn:img-feature>
+         </syn:img-feature>
+         <syn:img-featurehover>
+         </syn:img-featurehover>
+         <syn:img-preview>
+         </syn:img-preview>
+         <syn:teaser>
+         </syn:teaser>
+        </set>
               </metadata>
             </auto_toc>
           </default>
           <silvanews:plainagendaitem id="event">
             <workflow>
-              <version id="0">
+              <version id="0" last_author="author">
                 <status>public</status>
                 <publication_datetime>YYYY-MM-DDTHH:MM:SS</publication_datetime>
                 <expiration_datetime/>
@@ -99,6 +122,7 @@
               <metadata>
                 <set id="silva-content">
                   <silva-content:maintitle>Some event</silva-content:maintitle>
+                  <silva-content:navtitle />
                   <silva-content:shorttitle/>
                 </set>
                 <set id="silva-extra">
@@ -117,8 +141,20 @@
                   <silva-extra:publicationtime>YYYY-MM-DDTHH:MM:SS</silva-extra:publicationtime>
                   <silva-extra:subject/>
                 </set>
+        <set xmlns:syn="https://bethel.edu/namespaces/syndication" id="syndication">
+         <syn:img-feature>
+         </syn:img-feature>
+         <syn:img-featurehover>
+         </syn:img-featurehover>
+         <syn:img-preview>
+         </syn:img-preview>
+         <syn:teaser>
+         </syn:teaser>
+        </set>
               </metadata>
-              <doc:doc/>
+       <contentlayout:layout>
+        Products.SilvaNews.AgendaItem.AgendaItemTemplate
+       </contentlayout:layout>
             </content>
           </silvanews:plainagendaitem>
         </content>

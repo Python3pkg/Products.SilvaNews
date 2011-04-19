@@ -40,8 +40,12 @@ def set_attribute_as_naive_datetime(content, name, attrs, ns=None):
     def extract(value):
         if value == '':
             return None
+        #XXX this doesn't work -- the tests fail for a date of 2010-09-30T08:00:00Z
+        # when the tests are run in GMT-6
         dt = datetimeparse(value).astimezone(
             local_timezone).replace(tzinfo=None)
+        #dt = datetimeparse(value).astimezone(
+        #    content.service_news.get_timezone())
         return dt
     return set_attribute(
         content, name, attrs, ns=ns, extract=extract)

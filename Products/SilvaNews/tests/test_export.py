@@ -52,6 +52,7 @@ class TestExport(SilvaXMLTestCase):
         factory.manage_addNewsViewer('viewer', 'News Viewer')
         self.root.export.filter.set_sources([self.root.export.newspub])
         self.root.export.viewer.set_filters([self.root.export.filter])
+        self.root.export.viewer.set_year_range(3)
         xml, info = xmlexport.exportToString(self.root.export)
         self.assertExportEqual(xml, 'export_newsviewer.xml', globs=globals())
 
@@ -71,6 +72,8 @@ class TestExport(SilvaXMLTestCase):
         version.set_subjects(['all'])
         version.set_target_audiences(['generic'])
         version.set_display_datetime(datetime(2010, 9, 30, 10, 0, 0))
+        version.set_link_method("external_link")
+        version.set_external_link("http://www.google.com")
         xml, info = xmlexport.exportToString(self.root.export)
         self.assertExportEqual(xml, 'export_newsitem.xml', globs=globals())
 

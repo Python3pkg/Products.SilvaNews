@@ -12,9 +12,9 @@ from silva.core.references.reference import canonical_path
 
 from Products.SilvaNews import interfaces
 from Products.SilvaNews.datetimeutils import utc_datetime
-from Products.SilvaDocument.silvaxml.xmlexport import DocumentVersionProducer
 from Products.Silva.silvaxml.xmlexport import (ExternalReferenceError,
     theXMLExporter, VersionedContentProducer, SilvaBaseProducer)
+from silva.app.page.xmlexport import ContentLayoutProducerMixin
 
 
 NS_SILVA_NEWS = 'http://infrae.com/namespace/silva-news-network'
@@ -174,7 +174,8 @@ class NewsViewerProducer(SilvaBaseProducer, ReferenceSupportExporter):
              'number_to_show': str(self.context.number_to_show()),
              'number_to_show_archive': str(
                     self.context.number_to_show_archive()),
-             'number_is_days': str(self.context.number_is_days())})
+             'number_is_days': str(self.context.number_is_days()),
+             'year_range': str(self.context.year_range())})
         self.filters()
         self.metadata()
         self.endElementNS(NS_SILVA_NEWS,'newsviewer')
@@ -200,7 +201,8 @@ class AgendaViewerProducer(NewsViewerProducer):
             {'id': self.context.id,
              'days_to_show': str(self.context.days_to_show()),
              'number_to_show_archive': str(
-                    self.context.number_to_show_archive())})
+                    self.context.number_to_show_archive()),
+             'starting_date': iso_datetime(self.get_starting_date())})
         self.filters()
         self.metadata()
         self.endElementNS(NS_SILVA_NEWS,'agendaviewer')
@@ -221,7 +223,8 @@ class PlainArticleProducer(VersionedContentProducer):
         self.endElementNS(NS_SILVA_NEWS,'plainarticle')
 
 
-class PlainArticleVersionProducer(DocumentVersionProducer):
+class PlainArticleVersionProducer(ContentLayoutProducerMixin,
+                                  SilvaBaseProducer):
     """Export a version of a PlainArticle object to XML.
     """
     grok.adapts(interfaces.INewsItemVersion, Interface)
@@ -234,10 +237,12 @@ class PlainArticleVersionProducer(DocumentVersionProducer):
              'subjects': ','.join(self.context.subjects()),
              'target_audiences': ','.join(self.context.target_audiences()),
              'display_datetime': iso_datetime(
-                self.context.display_datetime())})
+                self.context.display_datetime()),
+             'external_link': self.context.get_external_link(),
+             'link_method': self.context.get_link_method()
+             })
         self.metadata()
-        node = self.context.content.documentElement.getDOMObj()
-        self.sax_node(node)
+        self.content_layout_xml()
         self.endElement('content')
 
 
@@ -256,7 +261,8 @@ class PlainAgendaItemProducer(VersionedContentProducer):
         self.endElementNS(NS_SILVA_NEWS,'plainagendaitem')
 
 
-class PlainAgendaItemVersionProducer(DocumentVersionProducer):
+class PlainAgendaItemVersionProducer(ContentLayoutProducerMixin,
+                                     SilvaBaseProducer):
     """Export a version of an AgendaItem object to XML.
     """
     grok.adapts(interfaces.IAgendaItemVersion, Interface)
@@ -277,8 +283,7 @@ class PlainAgendaItemVersionProducer(DocumentVersionProducer):
              'display_datetime': iso_datetime(
                 self.context.display_datetime())})
         self.metadata()
-        node = self.context.content.documentElement.getDOMObj()
-        self.sax_node(node)
+        self.content_layout_xml()
         self.endElement('content')
 
 

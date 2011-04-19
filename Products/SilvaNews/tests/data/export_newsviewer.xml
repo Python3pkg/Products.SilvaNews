@@ -174,7 +174,7 @@
      </default>
     </content>
    </silvanews:newspublication>
-   <silvanews:newsviewer id="viewer" number_is_days="0" number_to_show="25" number_to_show_archive="10">
+   <silvanews:newsviewer id="viewer" number_is_days="0" number_to_show="25" number_to_show_archive="10" year_range="3">
     <silvanews:filters>
      <silvanews:filter target="export/filter">
      </silvanews:filter>

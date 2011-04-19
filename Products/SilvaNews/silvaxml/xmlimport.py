@@ -8,9 +8,7 @@ from Products.Silva.silvaxml.xmlimport import (
 from Products.Silva import mangle
 from silva.core import conf as silvaconf
 
-from Products.SilvaDocument.silvaxml.xmlimport import (
-    DocXMLHandler, resolve_path)
-from Products.SilvaDocument.silvaxml import NS_SILVA_DOCUMENT
+from Products.SilvaDocument.silvaxml.xmlimport import (resolve_path)
 from Products.SilvaNews.silvaxml.xmlexport import NS_SILVA_NEWS
 from Products.SilvaNews.silvaxml.helpers import *
 from Products.SilvaNews.PlainArticle import (
@@ -18,6 +16,9 @@ from Products.SilvaNews.PlainArticle import (
 from Products.SilvaNews.PlainAgendaItem import (
     PlainAgendaItem, PlainAgendaItemVersion)
 from Products.SilvaNews.datetimeutils import get_timezone
+from silva.app.page.xmlexport import NS_CL
+from silva.app.page.xmlimport import (ContentLayoutPartHandler,
+                                      ConfigElementHandler)
 
 silvaconf.namespace(NS_SILVA_NEWS)
 
@@ -35,6 +36,7 @@ class SNNHandlerMixin(object):
         set_attribute_as_int(obj, 'number_to_show', attrs)
         set_attribute_as_int(obj, 'number_to_show_archive', attrs)
         set_attribute_as_int(obj, 'days_to_show', attrs)
+        set_attribute_as_int(obj, 'year_range', attrs)
         if attrs.has_key((None,'excluded_items')):
             eis = attrs[(None,'excluded_items')]
             for ei in eis.split(','):
@@ -53,6 +55,10 @@ class PlainArticleHandler(SilvaBaseHandler):
             uid = self.generateOrReplaceId(id)
             object = PlainArticle(uid)
             self.parent()._setObject(uid, object)
+            last_author = attrs.get((None, 'last_author'),None)
+            if last_author:
+                self.setAuthor(getattr(self.parent(), uid), self.parent(),
+                               last_author)
             self.setResultId(uid)
 
     def endElementNS(self, name, qname):
@@ -64,7 +70,7 @@ class PlainArticleContentHandler(SilvaBaseHandler):
     silvaconf.baseclass()
 
     def getOverrides(self):
-        return{(NS_SILVA_DOCUMENT, 'doc'): DocXMLHandler}
+        return{(NS_CL, 'part'): ContentLayoutPartHandler}
 
     def startElementNS(self, name, qname, attrs):
         if name == (NS_URI, 'content'):
@@ -79,6 +85,11 @@ class PlainArticleContentHandler(SilvaBaseHandler):
             set_attribute_as_list(version, 'target_audiences', attrs)
             set_attribute_as_list(version, 'subjects', attrs)
             set_attribute_as_naive_datetime(version, 'display_datetime', attrs)
+
+            last_author = attrs.get((None, 'last_author'),None)
+            if last_author:
+                self.setAuthor(getattr(self.parent(), uid), self.parent(),
+                               last_author)
 
             self.setResultId(id)
             updateVersionCount(self)
@@ -101,6 +112,12 @@ class PlainAgendaItemHandler(SilvaBaseHandler):
             uid = self.generateOrReplaceId(id)
             object = PlainAgendaItem(uid)
             self.parent()._setObject(uid, object)
+
+            last_author = attrs.get((None, 'last_author'),None)
+            if last_author:
+                self.setAuthor(getattr(self.parent(), uid), self.parent(),
+                               last_author)
+
             self.setResultId(uid)
 
     def endElementNS(self, name, qname):
@@ -112,7 +129,7 @@ class PlainAgendaItemContentHandler(SilvaBaseHandler):
     silvaconf.baseclass()
 
     def getOverrides(self):
-        return{(NS_SILVA_DOCUMENT, 'doc'): DocXMLHandler}
+        return {(NS_CL, 'part'): ContentLayoutPartHandler}
 
     def startElementNS(self, name, qname, attrs):
         if name == (NS_URI, 'content'):
@@ -137,6 +154,11 @@ class PlainAgendaItemContentHandler(SilvaBaseHandler):
             set_attribute_as_datetime(version, 'end_datetime', attrs, tz=tz)
             set_attribute_as_naive_datetime(version, 'display_datetime', attrs)
 
+            last_author = attrs.get((None, 'last_author'),None)
+            if last_author:
+                self.setAuthor(getattr(self.parent(), uid), self.parent(),
+                               last_author)
+
             self.setResultId(id)
             updateVersionCount(self)
 
@@ -159,6 +181,10 @@ class NewsPublicationHandler(SilvaBaseHandler):
             uid = generateUniqueId(id, parent)
             factory = self.parent().manage_addProduct['SilvaNews']
             factory.manage_addNewsPublication(uid, '', create_default=0)
+            last_author = attrs.get((None, 'last_author'),None)
+            if last_author:
+                self.setAuthor(getattr(self.parent(), uid), self.parent(),
+                               last_author)
             self.setResultId(uid)
 
     def endElementNS(self, name, qname):
@@ -210,6 +236,7 @@ class AgendaViewerHandler(SNNHandlerMixin, SilvaBaseHandler):
             factory.manage_addAgendaViewer(uid,'')
             obj = getattr(self.parent(),uid)
             self.set_attrs(attrs,obj)
+            set_attribute_as_naive_datetime(obj, 'starting_date', attrs)
             self.setResultId(uid)
 
     def endElementNS(self, name, qname):
@@ -271,6 +298,7 @@ class CategoryFilterHandler(SNNHandlerMixin, SilvaBaseHandler):
         if name == (NS_SILVA_NEWS, 'categoryfilter'):
             self.storeMetadata()
             self.notifyImport()
+
 
 class RSSAggregatorHandler(SilvaBaseHandler):
     """Import a defined RSS Aggregator.
