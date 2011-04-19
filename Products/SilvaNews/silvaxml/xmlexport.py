@@ -279,6 +279,8 @@ class PlainAgendaItemVersionProducer(ContentLayoutProducerMixin,
              'location': self.context.get_location(),
              'recurrence': self.context.get_recurrence() or '',
              'all_day': str(self.context.is_all_day()),
+             'external_link': self.context.get_external_link() or '',
+             'link_method': self.context.get_link_method() or '',
              'timezone_name': self.context.get_timezone_name(),
              'display_datetime': iso_datetime(
                 self.context.display_datetime())})

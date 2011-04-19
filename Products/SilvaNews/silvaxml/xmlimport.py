@@ -85,6 +85,8 @@ class PlainArticleContentHandler(SilvaBaseHandler):
             set_attribute_as_list(version, 'target_audiences', attrs)
             set_attribute_as_list(version, 'subjects', attrs)
             set_attribute_as_naive_datetime(version, 'display_datetime', attrs)
+            set_attribute(version, 'external_link', attrs)
+            set_attribute(version, 'link_method', attrs)
 
             last_author = attrs.get((None, 'last_author'),None)
             if last_author:

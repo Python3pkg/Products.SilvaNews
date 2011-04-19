@@ -109,9 +109,11 @@
                 <expiration_datetime/>
               </version>
             </workflow>
-            <content all_day="True"
+            <content 
+                all_day="True"
                 display_datetime="YYYY-MM-DDTHH:MM:SS"
-                end_datetime="YYYY-MM-DDTHH:MM:SS"
+                end_datetime="YYYY-MM-DDTHH:MM:SS" external_link=""
+                link_method="article"
                 location="Rotterdam"
                 recurrence="FREQ=DAILY;UNTIL=20100910T123212Z"
                 start_datetime="YYYY-MM-DDTHH:MM:SS"

@@ -60,6 +60,11 @@ class TestImport(SilvaXMLTestCase):
         self.assertEquals(parts[0].get_config(),
                           {'rich_text': u'<p>Test</p>'})
         
+        self.assertEquals(version.get_external_link(),
+                          'http://www.google.com')
+        self.assertEquals(version.get_link_method(),
+                          'external_link')
+        
 
     def test_import_agenda_item(self):
         self.import_file('import_agendaitem.xml', globs=globals())

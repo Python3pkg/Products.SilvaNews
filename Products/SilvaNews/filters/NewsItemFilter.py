@@ -174,7 +174,7 @@ class NewsItemFilterBase(object):
         return list(result)
     
     def _query(self, **kw):
-        logger.info('query %s', repr(kw))
+        logger.debug('query %s', repr(kw))
         return self.service_catalog(kw)
 
 InitializeClass(NewsItemFilterBase)
@@ -473,8 +473,6 @@ class NewsItemFilter(Filter, NewsItemFilterBase):
         else:
             query['idx_start_datetime'] = {'query': date,
                                            'range': 'min'}
-        #from zLOG import LOG,INFO
-        #LOG('query',INFO,query)
         result = self._query(**query)
         filtered_result = [r for r in result if not r.object_path in self._excluded_items]
 

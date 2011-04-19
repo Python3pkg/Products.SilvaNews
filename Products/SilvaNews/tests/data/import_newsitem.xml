@@ -85,7 +85,8 @@
                 <expiration_datetime/>
               </version>
             </workflow>
-            <content display_datetime="2010-09-30T08:00:00Z" subjects="all" target_audiences="generic" version_id="0">
+            <content display_datetime="2010-09-30T08:00:00Z" subjects="all" target_audiences="generic" version_id="0" external_link="http://www.google.com" link_method="external_link"
+>
               <metadata>
                 <set id="silva-content">
                   <silva-content:maintitle>Some news</silva-content:maintitle>
