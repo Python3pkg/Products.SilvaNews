@@ -252,10 +252,11 @@ class AgendaItemVersion(NewsItemVersion):
         if teaser:
             #remove any trailing whitespace, append period and teaser
             summary[-1] = summary[-1].rstrip()
-            if not summary[-1].endswith('.'):
-                summary.append(u'. ')
-            else: #add extra padding "just in case"
-                summary.append(' ')
+            #
+            #if not summary[-1].endswith('.'):
+            #    summary.append(u'. ')
+            #else: #add extra padding "just in case"
+            summary.append(' ')
             summary.append("| ")
             summary.append(teaser)
         #creating a byte-encoded string instead of unicode
