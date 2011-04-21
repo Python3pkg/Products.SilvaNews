@@ -155,3 +155,13 @@ class NewsBaseTestCase(SilvaNewsTestCase):
         self.newsviewer = self.add_news_viewer(
             self.root, 'newsviewer', 'NewsViewer')
         self.newsviewer.add_filter(self.newsfilter)
+
+        self.agendafilter = self.add_agenda_filter(
+            self.root, 'agendafilter','agendafilter')
+        self.agendafilter.set_subjects(['sub'])
+        self.agendafilter.set_target_audiences(['ta'])
+        self.agendafilter.set_sources([self.source1])
+        
+        self.agendaviewer = self.add_agenda_viewer(
+            self.root, 'agendaviewer', 'AgendaViewer')
+        self.agendaviewer.add_filter(self.agendafilter)
