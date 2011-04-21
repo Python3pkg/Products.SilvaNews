@@ -10,6 +10,7 @@ from silva.core.conf import component
 
 from App.class_init import InitializeClass
 from DateTime import DateTime
+from datetime import date, timedelta
 
 from Products.SilvaNews.adapters import interfaces
 from Products.SilvaNews.interfaces import INewsViewer, IAggregator
@@ -21,9 +22,17 @@ class NewsViewerNewsProvider(component.Adapter):
     silvaconf.context(INewsViewer)
     implements(interfaces.INewsProvider)
 
-    def getitems(self, number):
-        results = self.context.get_items()
+    def getitems(self, number, recurrence_limit):
+        initial_results = self.context.get_items()
+        results = []
         ret = []
+        if recurrence_limit:
+            for r in initial_results:
+                if date.today() - timedelta(recurrence_limit) <= \
+                   r.getObject().get_start_datetime().date():
+                    results.append(r)
+        else:
+            results = initial_results
         if not number or len(results) < number:
             number = len(results)
         for item in results[:number]:

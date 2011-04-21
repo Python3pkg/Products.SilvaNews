@@ -130,12 +130,12 @@ class InlineViewer(CodeSource):
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_items')
-    def get_items(self, number, viewer, model):
+    def get_items(self, number, viewer, model, recurrence_limit=None):
         """returns the items for the selected viewer"""
         provider = self.get_viewer(viewer, model)
         if provider is None:
             return []
-        return INewsProvider(provider).getitems(number)
+        return INewsProvider(provider).getitems(number, recurrence_limit)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_viewer')

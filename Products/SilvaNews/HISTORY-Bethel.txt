@@ -8,6 +8,9 @@ SilvaNewsnetwork 2.9.2
 -----------------------
 ?? XXX move this to the egg's docs directory
 
+- add ability to limit the number of days a recurring or long running event
+  is displayed
+
 SilvaNewsNetwork 2.7-bethel-2 (unreleased)
 ------------------------------------------
 
