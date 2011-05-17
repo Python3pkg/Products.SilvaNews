@@ -24,8 +24,7 @@ from Products.SilvaNews.viewers.NewsViewer import NewsViewer
 from Products.SilvaNews.interfaces import IAggregator
 from Products.SilvaNews import feedparser
 
-#XXX
-#from bethel.core.zopecache import timed
+from silva.core.cache.descriptors import cached_method
 
 class RSSAggregator(NewsViewer):
     """The aggregator is used to display content from RSS feeds,
@@ -80,7 +79,7 @@ class RSSAggregator(NewsViewer):
     security.declareProtected(
         SilvaPermissions.AccessContentsInformation,
         'get_merged_feed_contents')
-    #@timed.timedcache(1800,key_with_params=True,func_in_class=True) #cache for 30 minutes
+    @cached_method(expire=1800)
     def get_merged_feed_contents(self):
         feed_data = self.get_feed_contents()
         ret = []
