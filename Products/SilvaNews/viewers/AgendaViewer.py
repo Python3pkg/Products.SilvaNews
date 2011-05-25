@@ -306,6 +306,7 @@ class AgendaViewerExternalSourceView(silvaviews.View, CalendarView):
     def render(self):
         return self.calendar.formatmonth(self.year, self.month)
 
+
 class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
     """ View with month calendar and listing of event registered of the
     selected day"""
@@ -428,6 +429,7 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
             '<a class="nextmonth caljump" href="%s">&gt</a>' % \
                 self.next_month_url()
 
+
 class AgendaViewerYearCalendar(silvaviews.Page, CalendarView):
     """ Year Calendar representation
     """
@@ -454,12 +456,14 @@ class AgendaViewerYearCalendar(silvaviews.Page, CalendarView):
     def render(self):
         return self.calendar.formatyear(self.year)
 
+
 class IViewResources(IJQueryResources):
     silvaconf.resource('fullcalendar/fullcalendar.js')
     silvaconf.resource('calendar.js')
     silvaconf.resource('qtip.js')
     silvaconf.resource('fullcalendar/fullcalendar.css')
     silvaconf.resource('qtip.css')
+
 
 class AgendaViewerJSCalendar(silvaviews.Page):
     """ Agenda view advanced javascript calendar """

@@ -49,6 +49,14 @@ def target_audiences_source(context):
             value=value, token=value, title="-" * depth + title))
     return SimpleVocabulary(result)
 
+def get_subjects_tree(form):
+    service = getUtility(IServiceNews)
+    return service._subjects
+
+def get_target_audiences_tree(form):
+    service = getUtility(IServiceNews)
+    return service._target_audiences
+
 @grok.provider(IContextSourceBinder)
 def link_method_source(context):
     values = [(u"article",u"Article"),
