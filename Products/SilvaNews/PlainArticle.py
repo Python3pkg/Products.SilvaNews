@@ -19,6 +19,7 @@ from silva.core.conf.interfaces import ITitledContent
 from zeam.form import silva as silvaforms
 from zope import interface, schema
 from zope.i18nmessageid import MessageFactory
+from silva.core.contentlayout.interfaces.schema import ITemplateSchema
 
 _ = MessageFactory('silva_news')
 
@@ -66,7 +67,7 @@ class ArticleAddForm(silvaforms.SMIAddForm):
     grok.context(INewsItem)
     grok.name(u"Silva Article")
 
-    fields = silvaforms.Fields(ITitledContent, IArticleSchema)
+    fields = silvaforms.Fields(ITitledContent, IArticleSchema, ITemplateSchema)
 
 
 class ArticleEditProperties(silvaforms.RESTKupuEditProperties):

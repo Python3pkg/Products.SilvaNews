@@ -1,0 +1,23 @@
+<div class="box newsproperties zeam-form zeam-form-ready">
+  <h3 tal:condition="view.label"
+          tal:content="view.label" /> 
+
+  <p tal:condition="view.description"
+     tal:content="view.description" />
+
+  <div class="form-fields"
+       tal:condition="view.fieldWidgets">
+    <div class="form-display-row" tal:repeat="widget view.fieldWidgets">
+      <span class="form-display-label" for="#"
+             tal:attributes="for widget.htmlId()"
+             tal:content="widget.title" />:
+      <tal:widget tal:content="structure widget.render()" />
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+    // Send form init event
+    $('.zeam-form').trigger('zeam-form-ready');
+});
+</script>

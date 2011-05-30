@@ -30,7 +30,7 @@ class Node:
 
     def set_id(self, id):
         if id in self._root.getIds():
-            raise DuplicateIdError, 'id already in use - %s' % id
+            raise DuplicateIdError('id already in use - %s' % id)
         del self._root._references[self._id]
         self._id = id
         self._root._references[id] = self
@@ -67,6 +67,22 @@ class Node:
             ret.append(el)
             ret += el.getElements()
         return ret
+
+    def find(self, id):
+        if self._id == id:
+            return self
+        for child in self._children:
+            match = child.find(id)
+            if match:
+                return match
+        return None
+
+    def get_subtree_ids(self):
+        results = [self._id]
+        for el in self._children:
+            results.extend(el.get_subtree_ids())
+        return results
+
 
     def find(self, id):
         if self._id == id:

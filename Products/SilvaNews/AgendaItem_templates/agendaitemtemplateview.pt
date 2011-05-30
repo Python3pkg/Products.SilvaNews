@@ -1,10 +1,14 @@
 <div class="newsitem"
-  xmlns:metal="http://xml.zope.org/namespaces/metal"
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   i18n:domain="silva_news">
-  <h2 class="heading newsitemheading"
-    tal:content="structure content/get_title" />
+<div
+  tal:define="inLE view/in_layout_editor;
+              md nocall:context/service_metadata;
+              display_dt view/version/display_datetime"
+  tal:omit-tag="not:inLE"
+  tal:attributes="class python:inLE and 'yui-skin-sam' or nothing">
+  <h2 tal:replace="structure view/render_page_title" />
   <p class="eventactions">
     <a i18n:attributes="title"
        tal:attributes="href view/event_url"
@@ -18,9 +22,9 @@
       <span class="label" i18n:translate="">Publication date: </span>
       <span class="value" tal:content="view/article_date" />
     </p>
-    <p class="location" tal:condition="content/get_location">
+    <p class="location" tal:condition="view/version/get_location">
       <span class="label" i18n:translate="">Location: </span>
-      <span class="value" tal:content="content/get_location" />
+      <span class="value" tal:content="view/version/get_location" />
     </p>
     <p class="startdate" tal:condition="view/formatted_start_date">
       <span class="label" i18n:translate="">Start: </span>
@@ -30,6 +34,9 @@
       <span class="label" i18n:translate="">End: </span>
       <span class="value" tal:content="view/formatted_end_date" />
     </p>
+    <tal:content replace="structure provider:propertiespreviewprovider" />
   </div>
-  <div class="newsitemcontent" tal:content="structure view/article" />
+  <div id="newsitemcontent" tal:attributes="class python:'newsitemcontent%s'%(inLE and ' slot' or '')"
+        tal:content="structure python:view.render_parts('newsitemcontent')" />
+</div>
 </div>

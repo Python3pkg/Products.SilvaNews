@@ -1,6 +1,7 @@
 # Copyright (c) 2002-2011 Infrae. All rights reserved.
 # See also LICENSE.txt
 # $Revision: 1.21 $
+from cgi import escape
 from icalendar import vDatetime, Calendar
 from zope.interface import implements
 from zope.component import getAdapter, getUtility
@@ -19,12 +20,15 @@ from Products.SilvaNews.interfaces import INewsViewer
 # Silva
 from silva.core import conf as silvaconf
 from silva.core.views import views as silvaviews
+from silva.core.views.interfaces import IPreviewLayer
+from silva.core.contentlayout.templates.template import Template, TemplateView
 from Products.Silva import SilvaPermissions
+from Products.Silva.errors import NotViewable
 
 # SilvaNews
-from Products.SilvaNews.interfaces import IServiceNews
-from Products.SilvaNews.NewsItem import (NewsItemView, NewsItemListItemView,
-    IntroHTML)
+from Products.SilvaNews.interfaces import IServiceNews, IAgendaItemTemplate
+from Products.SilvaNews.NewsItem import NewsItemListItemView, NewsItemViewMixin
+
 from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
 
 from Products.SilvaNews.datetimeutils import (datetime_with_timezone,
@@ -34,16 +38,13 @@ from dateutil.rrule import rrulestr
 
 _marker = object()
 
-
 class AgendaItem(NewsItem):
     """Base class for agenda items.
     """
     security = ClassSecurityInfo()
     implements(IAgendaItem)
     silvaconf.baseclass()
-
 InitializeClass(AgendaItem)
-
 
 class AgendaItemVersion(NewsItemVersion):
     """Base class for agenda item versions.
@@ -220,15 +221,61 @@ class AgendaItemVersion(NewsItemVersion):
                               'idx_start_datetime')
     idx_start_datetime = get_start_datetime
 
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'idx_end_datetime')
+    idx_end_datetime = get_end_datetime
 
+    #--------HTML Rendering helper functions----------#
+
+    #formatEventSummary is for the SilvaNewsCalendar
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'format_event_summary')
+    def format_event_summary(self):
+        #this is for the silva news calendar
+        title = self.get_title() or str(self.getPhysicalPath())
+        try:
+            title = unicode(title,'utf-8')
+        except:
+            pass
+
+        summary = [escape(title)]
+        #for items just added, they don't have a start datetime yet.
+        if not self.get_start_datetime():
+            return (u''.join(summary))
+        date = self.format_time(self.get_start_datetime(),self.get_end_datetime())
+        if date:
+            summary.append(' ')
+            summary.append(date)
+        if self.get_location():
+            summary.append(u'| ' + escape(self.get_location()))
+        teaser = self.service_metadata.getMetadataValue(self, 'syndication','teaser')
+        if teaser:
+            #remove any trailing whitespace, append period and teaser
+            summary[-1] = summary[-1].rstrip()
+            #
+            #if not summary[-1].endswith('.'):
+            #    summary.append(u'. ')
+            #else: #add extra padding "just in case"
+            summary.append(' ')
+            summary.append("| ")
+            summary.append(teaser)
+        #creating a byte-encoded string instead of unicode
+        #unicode strings with non-ascii characters break the
+        #'look at record' view of the record in the zmi service_catalog
+        #MAKE SURE you convert to unicode when you retrieve this from
+        #the catalog!
+        return (u''.join(summary)).encode('utf-8')
 InitializeClass(AgendaItemVersion)
 
-
-class AgendaViewMixin(object):
+class AgendaViewMixin(NewsItemViewMixin):
 
     def event_img_url(self):
-        return '%s/++resource++Products.SilvaNews/date.png' % \
-            absoluteURL(self.context, self.request)
+        datepng = '%s/++resource++Products.SilvaNews/date.png'
+        resourcebase = self.request.get('resourcebase', None)
+        if not resourcebase:
+            return datepng%(absoluteURL(self.context, self.request))
+        else:
+            return datepng%(absoluteURL(resourcebase, self.request))
 
     def event_url(self):
         return "%s/event.ics" % absoluteURL(self.context, self.request)
@@ -237,28 +284,44 @@ class AgendaViewMixin(object):
     def timezone(self):
         timezone = getattr(self.request, 'timezone', None)
         if not timezone:
-            timezone = self.content.get_timezone()
+            timezone = self.get_real_content().get_timezone()
         return timezone
 
     @CachedProperty
     def formatted_start_date(self):
-        dt = self.content.get_start_datetime(self.timezone)
+        content = self.get_real_content()
+        dt = content.get_start_datetime(self.timezone)
         if dt:
             service_news = getUtility(IServiceNews)
-            return service_news.format_date(dt, not self.content.is_all_day())
+            return service_news.format_date(dt, not content.is_all_day())
 
     @CachedProperty
     def formatted_end_date(self):
-        dt = self.content.get_end_datetime(self.timezone)
+        content = self.get_real_content()
+        dt = content.get_end_datetime(self.timezone)
         if dt:
             service_news = getUtility(IServiceNews)
-            return service_news.format_date(dt, not self.content.is_all_day())
+            return service_news.format_date(dt, not content.is_all_day())
 
+@grok.global_utility
+class AgendaItemTemplate(Template):
+    """Custom Content Template for Agenda Items"""
+    grok.implements(IAgendaItemTemplate)
+    grok.name('Products.SilvaNews.AgendaItem.AgendaItemTemplate')
+    
+    name = "Agenda Item (standard)"
+    description = __doc__
+    icon = "www/newsitem-layout-icon.png"
+    slotnames = ['newsitemcontent']
+    
+class AgendaItemTemplateView(AgendaViewMixin, TemplateView):
+    grok.context(IAgendaItemTemplate)
+    grok.name(u'')
 
-class AgendaItemView(NewsItemView, AgendaViewMixin):
-    """ Index view for agenda items """
+class AgendaItemListItemView(NewsItemListItemView, AgendaViewMixin):
+    """ Render as a list items (search results)
+    """
     grok.context(IAgendaItem)
-
 
 class AgendaItemInlineView(silvaviews.View):
     """ Inline rendering for calendar event tooltip """
@@ -271,13 +334,6 @@ class AgendaItemInlineView(silvaviews.View):
     def render(self):
         return u'<div>' + self.intro + u"</div>"
 
-
-class AgendaItemListItemView(NewsItemListItemView, AgendaViewMixin):
-    """ Render as a list items (search results)
-    """
-    grok.context(IAgendaItem)
-
-
 class AgendaItemICS(silvaviews.View):
     """ render an ics event
     """
@@ -288,7 +344,12 @@ class AgendaItemICS(silvaviews.View):
     def update(self):
         self.viewer = INewsViewer(self.context, None)
         self.request.response.setHeader('Content-Type', 'text/calendar')
-        self.content = self.context.get_viewable()
+        if IPreviewLayer.providedBy(self.request):
+            self.content = self.context.get_previewable()
+        else:
+            self.content = self.context.get_viewable()
+        if not self.content:
+            raise NotViewable()
         self.event_factory = getAdapter(self.content, IEvent)
 
     def render(self):

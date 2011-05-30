@@ -21,6 +21,17 @@ class SilvaNewsInstaller(DefaultInstaller):
         if not hasattr(root.aq_explicit,'service_news'):
             factory = root.manage_addProduct['SilvaNews']
             factory.manage_addServiceNews('service_news')
+            
+        if hasattr(root.aq_explicit, 'service_contentlayout'):
+            scl = root.service_contentlayout
+            scl.set_default_template('Silva Article',
+                                     'Products.SilvaNews.NewsItem.NewsItemTemplate')
+            scl.set_allowed_templates('Silva Article',
+                                     ['Products.SilvaNews.NewsItem.NewsItemTemplate'])
+            scl.set_default_template('Silva Agenda Item',
+                                     'Products.SilvaNews.AgendaItem.AgendaItemTemplate')
+            scl.set_allowed_templates('Silva Agenda Item',
+                                     ['Products.SilvaNews.AgendaItem.AgendaItemTemplate'])
 
     def uninstall_custom(self, root):
         self.unregister_views(root.service_view_registry)
@@ -36,6 +47,11 @@ class SilvaNewsInstaller(DefaultInstaller):
         collection.importSet(fh)
         sm.addTypeMapping('Silva News Publication', ['snn-np-settings'])
         sm.addTypeMapping('Silva News ICS Publication', ['snn-np-settings'])
+        mts = ['Silva News Viewer', 'Silva RSS Aggregator',
+               'Silva Agenda Viewer', 'Silva Article Version',
+               'Silva Agenda Item Version',]
+        for t in mts:
+            sm.addTypeMapping(t, ['syndication'])
         sm.initializeMetadata()
 
     def unconfigure_extra_metadata(self, root):
@@ -108,7 +124,8 @@ class SilvaNewsInstaller(DefaultInstaller):
         catalog = root.service_catalog
 
         columns = ['object_path','get_end_datetime','get_start_datetime',
-            'get_location','get_title', 'display_datetime','get_intro', 'sort_index']
+            'get_location','get_title', 'display_datetime','get_intro', 'sort_index',
+            'external_link']
 
         indexes = [
             ('object_path', 'FieldIndex'),

@@ -76,7 +76,7 @@ class ViewerEditTestBase(BaseTest):
     def test_change_things(self):
         form = self.get_edit_form()
         control = form.get_control('editform.field.timezone_name')
-        self.assertEquals('local', control.value)
+        self.assertEquals('Europe/Amsterdam', control.value)
         control.value = 'Europe/Paris'
         control = form.get_control('editform.field.first_weekday')
         self.assertEquals('0', control.value)

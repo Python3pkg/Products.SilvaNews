@@ -1,0 +1,105 @@
+Copyright (c) 2002-2008 Bethel University. All rights reserved.
+See also LICENSE.txt
+
+History of Bethel's Changes to SilvaNews
+========================================
+
+SilvaNewsnetwork 2.9.2
+-----------------------
+?? XXX move this to the egg's docs directory
+
+- add ability to limit the number of days a recurring or long running event
+  is displayed
+
+SilvaNewsNetwork 2.7-bethel-2 (unreleased)
+------------------------------------------
+
+- add support for importing news items from pre-CLE silva setups
+- do not load the layout editor's news item tool if the news item
+  is published (causes a javascript error)
+- Switch to Google's CDN for YUI and jquery and detect whether or not to use
+  secured connections for loading
+- Added an optional starting date for the date range in agenda viewers
+- Updated formatDateLine to handle date range 
+- Remove references to imageasset_tag
+- Added a new method for selecting all news items in a filter by userid.
+- The DateTime Widget popup defaults to midnight for the time.
+- Converted the teaser property to a kupupopup window.
+- the installer installs the silvanews-viewers metadata set
+  (for long-running-items
+- added a 'reverse order' option to the stock INV
+- the stock INV 'news viewer' (viewer) parameter is now a
+  lookup window which shows all News Viewer, Agenda Viewer,
+  RSS Aggregators
+- upgrader for SNN 2.7 which converts text teasers to
+  silvaxmlattributes
+- added caching for RSSAggregator item retrievals
+- fixed set_teaser
+- NewsItem.PUT now sets the model (so the teaser can render
+  during reindexing)
+- AgendaViewers support configuring news image asset tags (in the edit screens only,
+  not the public view)
+- Change format for times (ServiceNews.format_date) to replace change 12:00 PM to noon
+  12:00 am to midnight, and replace AM with a.m. and PM with p.m.
+- adjust the timedcache decorator parameters
+- Added support for popup calendars!
+- Added a viewlet to display newsproperties using the IRightColumnContent
+  (i.e. in the "right column" of the content template"), only when previewing
+  the page (silva.ReadSilvaContent permission), so that the SMI edit screen
+  will display the properties when the content is published.
+
+SilvaNewsNetwork 2.7-bethel-1 (2009/02/16)
+------------------------------------------
+
+- Updated Bethel SilvaNewsNetwork to work with Silva 2.1
+
+SilvaNewsNetwork 2.1.1-bethel-5
+-------------------------------
+
+- modified public news_viewer view
+
+- backported a fix from vendor 2.2 release so external sources
+  work
+
+- Fixed NewsItemVersion.image_object to use self.content.get_content(),
+
+- added param on NewsViewer.image_asset_by_tag to return thumbnail
+  image or web-format image.
+
+- AgendaItem.formatEventSummary wasn't computing times starting at noon
+  correctly
+  
+SilvaNewsNetwork 2.1.1-bethel-4
+-------------------------------
+- Added support for SilvaUCLSubjectAudienceFilters.  Filters and NewsItems
+  (both default types) now look for a audject filter, and only display those
+  categories allowed by the audject filter.
+
+SilvaNewsNetwork 2.1.1-bethel-3
+-------------------------------
+
+- news/agenda viewers display links to 5 years previous and 2 years ahead
+  only. (to prevent link checkers from continuously checking in the
+  future/past)
+
+SilvaNewsNetwork 2.1.1-bethel-2
+-------------------------------
+
+- fixed issue where AgendaFilter.get_items did not return ranged events
+  with both start and end times outside the range.
+
+SilvaNewsNetwork 2.1.1-bethel-1
+-------------------------------
+
+- Preview of Agendas and Articles displays all properties.
+
+SilvaNewsNetwork 2.0.1.1-bethel
+-------------------------------
+
+- show display_datetime in newsitems tab_status screen
+
+- hide publish_now_flag in newsitems tab_status screen
+
+- news items 'edit items' tab next/previous buttons now work
+
+- can suppress_title of NewsViewers

@@ -102,6 +102,41 @@ class AgendaFilter(NewsItemFilter):
         """Returns the allowed meta_types for this filter"""
         return self._allowed_meta_types
 
+    def _get_items_in_range(self, startdate, enddate, meta_types=None):
+        #XXX aaltepet -- this is new in our branch, where is it used (AgendaCalendar?)
+        result = []
+
+        # end_datetime items first
+        query = self._prepare_query()
+        query['idx_end_datetime'] = {'query':[startdate, enddate],
+                                     'range':'minmax'}
+        query['sort_on'] = 'idx_end_datetime'
+        query['sort_order'] = 'ascending'
+        result_enddt = self._query(**query)
+
+        for item in result_enddt:
+            if item.object_path not in self._excluded_items:
+                result.append(item)
+
+        del query['idx_end_datetime']
+        query['idx_start_datetime'] = {'query': [startdate, enddate],
+                                                'range': 'minmax'}
+        query['sort_on'] = 'idx_start_datetime'
+        result_startdt = self._query(**query)
+
+        result = [r for r in result]
+
+        for item in result_startdt:
+            edt = item.end_datetime
+            if item.object_path not in self._excluded_items:
+                #only include those with an end date outside of the
+                #range...end dates within the range were caught during
+                #the first query
+                if not edt or \
+                   (edt > startdate and edt < enddate):
+                    result.append(item)
+        result.sort(brainsorter)
+        return result
 InitializeClass(AgendaFilter)
 
 

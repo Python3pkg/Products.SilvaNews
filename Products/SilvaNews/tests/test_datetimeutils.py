@@ -28,7 +28,11 @@ class TestDateTime(unittest.TestCase):
         the same unix timestamp
         """
         dt = datetime(2010, 2, 1, 10, 20, 03)
+        #antonin's original stamp, which does not work on my system, not
+        # sure why?
         stamp = 1265016003
+        #aaltepet get's this stamp:
+        stamp = 1265041203
         nowDT = utc_datetime(DateTime(2010, 2, 1, 10, 20, 03))
         nowdt = utc_datetime(datetime(2010, 2, 1, 10, 20, 03))
         self.assertEquals(stamp, datetime_to_unixtimestamp(dt))

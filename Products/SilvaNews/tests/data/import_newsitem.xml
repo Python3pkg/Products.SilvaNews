@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<silva xmlns="http://infrae.com/namespace/silva" xmlns:doc="http://infrae.com/namespace/silva-document" xmlns:silva-content="http://infrae.com/namespace/metadata/silva-content" xmlns:silva-extra="http://infrae.com/namespace/metadata/silva-extra" xmlns:silva-find="http://infrae.com/namespace/silva-find" xmlns:silvanews="http://infrae.com/namespace/silva-news-network" silva_version="Silva 2.3b2">
+<silva xmlns="http://infrae.com/namespace/silva" xmlns:doc="http://infrae.com/namespace/silva-document" xmlns:silva-content="http://infrae.com/namespace/metadata/silva-content" xmlns:silva-extra="http://infrae.com/namespace/metadata/silva-extra" xmlns:silva-find="http://infrae.com/namespace/silva-find" xmlns:silvanews="http://infrae.com/namespace/silva-news-network" xmlns:contentlayout="http://infrae.com/ns/silva-contentlayout" silva_version="Silva 2.3b2">
   <folder id="export">
     <metadata>
       <set id="silva-content">
@@ -79,13 +79,14 @@
           </default>
           <silvanews:plainarticle id="news">
             <workflow>
-              <version id="0">
+              <version id="0" last_author="author">
                 <status>unapproved</status>
                 <publication_datetime/>
                 <expiration_datetime/>
               </version>
             </workflow>
-            <content display_datetime="2010-09-30T08:00:00Z" subjects="all" target_audiences="generic" version_id="0">
+            <content display_datetime="2010-09-30T08:00:00Z" subjects="all" target_audiences="generic" version_id="0" external_link="http://www.google.com" link_method="external_link"
+>
               <metadata>
                 <set id="silva-content">
                   <silva-content:maintitle>Some news</silva-content:maintitle>
@@ -108,7 +109,14 @@
                   <silva-extra:subject/>
                 </set>
               </metadata>
-              <doc:doc/>
+<contentlayout:layout>Products.SilvaNews.NewsItem.NewsItemTemplate</contentlayout:layout>
+<contentlayout:part>
+  <contentlayout:name>cs_rich_text</contentlayout:name>
+  <contentlayout:slot>newsitemcontent</contentlayout:slot>
+  <contentlayout:config>
+    <contentlayout:rich_text type="TinyMCEField">&lt;p&gt;Test&lt;/p&gt;</contentlayout:rich_text>
+  </contentlayout:config>
+</contentlayout:part>
             </content>
           </silvanews:plainarticle>
         </content>

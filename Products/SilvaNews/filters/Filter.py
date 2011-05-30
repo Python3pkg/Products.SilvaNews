@@ -29,7 +29,6 @@ class Filter(NonPublishable, SimpleItem.SimpleItem):
 
     grok.implements(IFilter)
     grok.baseclass()
-    _allowed_source_types = ['Silva News Publication']
 
     def __init__(self, id):
         super(Filter, self).__init__(id)

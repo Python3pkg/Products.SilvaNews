@@ -24,6 +24,7 @@ from Products.SilvaNews.viewers.NewsViewer import NewsViewer
 from Products.SilvaNews.interfaces import IAggregator
 from Products.SilvaNews import feedparser
 
+from silva.core.cache.descriptors import cached_method
 
 class RSSAggregator(NewsViewer):
     """The aggregator is used to display content from RSS feeds,
@@ -42,16 +43,12 @@ class RSSAggregator(NewsViewer):
     def __init__(self, id):
         super(RSSAggregator, self).__init__(id)
         self._rss_feeds = []
-        self._last_updated = 0
-        self._caching_period = 360 # in seconds
-        self._v_cache = None
 
     # MANIPULATORS
 
     security.declareProtected(
         SilvaPermissions.ChangeSilvaContent, 'set_feeds')
     def set_feeds(self, rss_feeds):
-        self._v_cache = None
         self._rss_feeds = rss_feeds
         self._rss_feeds.sort()
 
@@ -70,17 +67,7 @@ class RSSAggregator(NewsViewer):
         keys are the feeds set with set_feeds, values are dicts describing
         the feeds content.
         """
-        now = time.time()
-        last = now - self._caching_period
-        cache = getattr(self, '_v_cache', None)
-        if cache is None or cache[0] < last:
-            # cache needs to be rebuilt
-            ret = self._read_feeds()
-            self._v_cache = (now, ret)
-        else:
-            # deliver cached result
-            ret = cache[1]
-        return ret
+        return self._read_feeds()
 
     def _read_feeds(self):
         ret = {}
@@ -92,13 +79,14 @@ class RSSAggregator(NewsViewer):
     security.declareProtected(
         SilvaPermissions.AccessContentsInformation,
         'get_merged_feed_contents')
+    @cached_method(expire=1800)
     def get_merged_feed_contents(self):
         feed_data = self.get_feed_contents()
         ret = []
         for uri, channel in feed_data.items():
             for item in channel['items']:
                 item['parent_channel'] = {'title':channel['feed']['title'],
-                                          'link':channel['feed'].get('link',uri)}
+                                          'uri':uri}
                 ret.append((item.get('date_parsed',None),item))
         ret.sort(reverse=True)
         return [ r[1] for r in ret ]

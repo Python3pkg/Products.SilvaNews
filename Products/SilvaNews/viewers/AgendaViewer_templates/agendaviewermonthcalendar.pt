@@ -5,9 +5,7 @@
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   i18n:domain="silva_news">
 
-  <h2 class="heading" tal:content="context/get_title">
-    View News
-  </h2>
+  <h2 tal:replace="structure provider:contenttitle" />
 
   <div class="calendar_actions">
     <a i18n:translate=""

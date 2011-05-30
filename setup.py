@@ -49,6 +49,7 @@ setup(name='Products.SilvaNews',
         'silva.core.smi',
         'silva.core.upgrade',
         'silva.core.views',
+        'silva.core.cache',
         'z3locales',
         'zeam.form.silva',
         'zeam.utils.batch',
@@ -67,6 +68,7 @@ setup(name='Products.SilvaNews',
       [zodbupdate]
       renames = Products.SilvaNews:CLASS_CHANGES
       [zeam.form.components]
+      tree = Products.SilvaNews.widgets.tree:register
       recurrence = Products.SilvaNews.widgets.recurrence:register
       """
       )

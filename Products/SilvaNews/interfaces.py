@@ -3,54 +3,67 @@
 # $Id$
 
 from five import grok
-from zope.interface import Interface
+from zope.interface import Interface, invariant, Invalid
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope import schema
 
-from silva.core.interfaces import IAsset, ISilvaService, IPublication, IContent
+from silva.core.interfaces import (IAsset, ISilvaService, IPublication, IContent,
+                                   IContentLayout, IVersionedContentLayout,
+                                   IVersion)
+from silva.core.contentlayout.templates.interfaces import ITemplate
 
-from Products.SilvaDocument.interfaces import IDocument, IDocumentVersion
 from Products.SilvaExternalSources.interfaces import IExternalSource
 from Products.SilvaNews.datetimeutils import zone_names
 
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('silva_news')
 
-
 class IInlineViewer(IExternalSource):
     """Marker interface for Inline News Viewer"""
-
 
 class ISilvaNewsExtension(Interface):
     """Marker interface for SNN Extension"""
 
-
-class INewsItem(IDocument):
+class INewsItem(IVersionedContentLayout):
     """Silva News Item interface
     """
-
 
 @grok.provider(IContextSourceBinder)
 def subjects_source(context):
     service = getUtility(IServiceNews)
     result = []
-    for value, title, depth in service.subject_tree():
+    for value, title, depth in service.filtered_subject_tree(context):
         result.append(SimpleTerm(
             value=value, token=value, title="-" * depth + title))
     return SimpleVocabulary(result)
-
 
 @grok.provider(IContextSourceBinder)
 def target_audiences_source(context):
     service = getUtility(IServiceNews)
     result = []
-    for value, title, depth in service.target_audience_tree():
+    for value, title, depth in service.filtered_ta_tree(context):
         result.append(SimpleTerm(
             value=value, token=value, title="-" * depth + title))
     return SimpleVocabulary(result)
+
+def get_subjects_tree(form):
+    service = getUtility(IServiceNews)
+    return service._subjects
+
+def get_target_audiences_tree(form):
+    service = getUtility(IServiceNews)
+    return service._target_audiences
+
+@grok.provider(IContextSourceBinder)
+def link_method_source(context):
+    values = [(u"article",u"Article"),
+              (u"external_link",u"External Link"),
+              (u"nothing",u"Nothing")
+              ]
+    return SimpleVocabulary( [ SimpleTerm(v[0],v[0],v[1]) for v in values ] ) 
 
 
 class ISubjectTASchema(Interface):
@@ -61,15 +74,37 @@ class ISubjectTASchema(Interface):
             u'Only those selected will appear in this area of the site. '
             u'Select nothing to have all show up.'),
         value_type=schema.Choice(source=subjects_source),
-        required=False)
+        required=True)
     target_audiences = schema.List(
         title=_(u"target audiences"),
         description=_(u'Select the target audiences to filter on.'),
         value_type=schema.Choice(source=target_audiences_source),
-        required=False)
+        required=True)
 
+class INewsItemSchema(ISubjectTASchema):
+    """This schema defines the editable properties for
+       news items (which appears in the infopanel when editing
+       news items"""
+    link_method = schema.Choice( 
+        title=u"link method",
+        description=u"what to link this article to when displayed in syndication",
+        source=link_method_source,
+        required = True
+        )
+    external_link = schema.TextLine(
+        title=u"external link",
+        description=u"if link method is 'external link', the url of the external link, otherwise leave blank",
+        required = False,
+        default=u""
+        )
+    
+    @invariant
+    def externalLinkMethod(event):
+        if (event.link_method == 'external_link' and \
+            not event.external_link):
+            raise Invalid("`External Link` is required when `Link Method` is set to `External Link`")
 
-class INewsItemVersion(IDocumentVersion):
+class INewsItemVersion(IVersion, IContentLayout):
     """Silva news item version.
 
     This contains the real content for a news item.
@@ -112,11 +147,9 @@ class INewsItemVersion(IDocumentVersion):
         XXX what does this mean?
         (not used by all subclasses)"""
 
-
 class IAgendaItem(INewsItem):
     """Silva AgendaItem Version.
     """
-
 
 class IAgendaItemVersion(INewsItemVersion):
     def get_start_datetime():
@@ -140,10 +173,8 @@ class IAgendaItemVersion(INewsItemVersion):
     def set_location(value):
         """Sets the location"""
 
-
 class INewsPublication(IPublication):
     """Marker interface for INewsPublication"""
-
 
 class IFilter(IAsset):
 
@@ -165,10 +196,8 @@ class IFilter(IAsset):
         items from the object's list that are removed in the service)
         """
 
-
 class ICategoryFilter(IFilter):
     """A CategoryFilter is editable in silva.  It allows you to specify elements in the silva news article and silva news filter to hide from content authors"""
-
 
 class INewsItemFilter(IFilter):
     """Super-class for news item filters.
@@ -257,7 +286,6 @@ class INewsItemFilter(IFilter):
            This is _only_ used by News Viewers.
         """
 
-
 class INewsFilter(INewsItemFilter):
     """A filter for news items"""
 
@@ -280,7 +308,6 @@ class INewsFilter(INewsItemFilter):
         This is different because AgendaFilters search on start/end
         datetime, whereas NewsFilters look at display datetime"""
 
-
 class IAgendaFilter(INewsItemFilter):
     """A filter for agenda items"""
 
@@ -293,7 +320,6 @@ class IAgendaFilter(INewsItemFilter):
         """Returns all published items for a particular month
            FOR: the SMI 'items' tab"""
 
-
 class IViewer(IContent):
     """Base interface for SilvaNews Viewers"""
 
@@ -301,7 +327,6 @@ _number_to_show = [
     (_(u"number of days"), 1),
     (_(u"number of items"), 0)
 ]
-
 
 @grok.provider(IContextSourceBinder)
 def show_source(context):
@@ -360,7 +385,6 @@ def news_source(context):
                                 title="%s (%s)" % (source.get_title(), path),
                                 token=str(intids.register(source))))
     return SimpleVocabulary(terms)
-
 
 class INewsViewer(IViewer):
     """A viewer of news items.
@@ -427,7 +451,6 @@ class INewsViewer(IViewer):
 class IAggregator(INewsViewer):
     """interface for RSSAggregator"""
 
-
 class IAgendaViewer(INewsViewer):
     def days_to_show():
         """Return number of days to show on front page.
@@ -436,7 +459,6 @@ class IAgendaViewer(INewsViewer):
     def set_days_to_show(number):
         """Sets the number of days to show in the agenda.
         """
-
 
 class IServiceNews(ISilvaService):
     """A service that provides trees of subjects and target_audiences.
@@ -491,3 +513,10 @@ class IServiceNews(ISilvaService):
         Each tuple is an (indent, subject) pair.
         """
 
+
+class INewsItemTemplate(ITemplate):
+    """A one-column template for news items"""
+
+class IAgendaItemTemplate(ITemplate):
+    """A one-column template for agenda items"""
+    

@@ -13,12 +13,23 @@ class NewsItemFeedEntryAdapter(feedentry.DocumentFeedEntryAdapter):
     grok.context(INewsItem)
 
     def html_description(self):
-        return self.version.get_intro()
+        return self.ms.getMetadataValue(self.version, 'syndication','teaser')
 
     def date_published(self):
         """ This field is used for ordering.
         """
         return self.version.display_datetime()
+
+    def url(self):
+        #override the parent url method, to take into account
+        # external urls -- if external url and display_method are
+        # set, then the url should be to the external url
+        if self.version.link_method()=='external_link':
+            return self.version.external_link()
+        elif self.version.link_method()=='nothing':
+            return ''
+        else:
+            return super(NewsItemFeedEntryAdapter, self).url()
 
 
 class AgendaItemFeedEntryAdapter(NewsItemFeedEntryAdapter):

@@ -1,0 +1,108 @@
+<html>
+ <head tal:define="base_url request/resourcebase/absolute_url;
+                   silva_url python:context.get_root().absolute_url()">
+ <title>Edit Properties</title>
+ <tal:rep replace="structure string:<script type='text/javascript'>" />
+var objurl = '<span tal:replace="python:context.get_editable().absolute_url()" />/edit';
+var containerurl = '<span tal:replace="python:context.get_container().absolute_url() + '/'" />';
+ <tal:rep replace="structure string:</script>" />
+<span tal:replace="structure provider:resources" />
+<link rel="stylesheet" type="text/css"
+    tal:attributes="href string:${base_url}/++resource++silva.core.contentlayout.browser.resources/smi.css" />
+
+<style type="text/css">
+.field {
+ clear: both;
+ padding: 5px;
+ overflow: hidden;
+}
+.field:nth-child(odd) {
+ background-color: #f6f6f6;
+}
+.field:hover {
+ background-color: #eee;
+}
+.field label {
+ font-weight: bold;
+}
+.field-designator {
+ width: 50%;
+ float:left;
+}
+.field-widget {
+ margin-left: 50%;
+ padding: 5px;
+}
+h1, .actions {
+ display: none;
+}
+</style>
+    
+    
+</head>
+
+<body class="bethel-skin yui-skin-sam" id="editiframebody">
+
+ <form action="." tal:attributes="action python:request.URL" method="post"
+       class="zeam-form"
+       enctype="multipart/form-data">
+  <h1 tal:condition="python:view.label"
+      tal:content="python:view.label" />
+
+  <p tal:condition="python:view.description"
+     tal:content="python:view.description">Description</p>
+
+  <p class="form-status"
+     tal:condition="python:view.status"
+     tal:content="python:view.status">Status</p>
+
+  <div class="form-error"
+     tal:condition="python:view.errors">
+   <ul tal:condition="python:view.formErrors"
+       tal:repeat="error python:view.formErrors">
+    <li> <span tal:replace="python:error.title" /> </li>
+   </ul>
+  </div>
+
+  <div class="form-fields"
+       tal:condition="python:view.fieldWidgets">
+    <div class="field" tal:repeat="widget python:view.fieldWidgets">
+     <div class="field-designator">
+      <label class="field-label" for="#"
+             tal:attributes="for python:widget.htmlId()"
+             tal:content="python:widget.title" />
+      <span class="field-required"
+            i18n:translate=""
+            tal:condition="python:widget.required">(required)</span>
+      <br />
+      <tal:description tal:condition="python:widget.description">
+        <span class="field-description"
+              tal:content="python:widget.description">
+        </span><br />
+      </tal:description>
+      <tal:error tal:define="error python:widget.error"
+                 tal:condition="error">
+        <span class="field-error"
+              tal:content="python:error.title">
+          Error
+        </span>
+        <br />
+      </tal:error>
+     </div>
+     <div class="field-widget">
+      <tal:widget tal:content="structure python:widget.render()" />
+     </div>
+    </div>
+  </div>
+
+  <div class="actions"
+       tal:condition="python:view.actionWidgets">
+   <div class="action" tal:repeat="widget python:view.actionWidgets">
+     <tal:widget tal:content="structure python:widget.render()" />
+   </div>
+  </div>
+
+</form>
+
+</body>
+</html>

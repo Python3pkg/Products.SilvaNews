@@ -1,0 +1,30 @@
+<div tal:define="id widget.htmlId()"
+     class="recurrence-widget" id="${id}">
+  <div class="recurrence-sentence">
+  </div>
+  <input type="hidden"
+         size="30"
+         class="recurrence-data"
+         name="${widget.identifier}"
+         value="${widget.inputValue()}"
+         id="${id}-input" />
+  <div id="${id}-popup" class="recurrence-popup" style="display: none">
+    <div>
+      <div>
+        Please select a recurrence type:
+        <select>
+          <option value="">-- Select recurrence type --</option>
+          <option value="daily-widget">Daily</option>
+          <option value="weekly-widget">Weekly</option>
+          <option value="monthly-widget">Monthly</option>
+          <option value="yearly-widget">Yearly</option>
+        </select>
+      </div>
+      <div style="display: none" class="widget daily-widget"></div>
+      <div style="display: none" class="widget weekly-widget"></div>
+      <div style="display: none" class="widget monthly-widget"></div>
+      <div style="display: none" class="widget yearly-widget"></div>
+      <div class="sentence-val"></div>
+    </div>
+  </div>
+</div>

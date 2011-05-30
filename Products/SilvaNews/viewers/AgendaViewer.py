@@ -16,6 +16,7 @@ from zope.i18nmessageid import MessageFactory
 
 # Zope
 import Products
+from zope import schema
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 
@@ -31,7 +32,8 @@ from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from Products.SilvaNews import datetimeutils
 from Products.SilvaNews.interfaces import IAgendaItemVersion, IAgendaViewer
 from Products.SilvaNews.interfaces import IServiceNews
-from Products.SilvaNews.viewers.NewsViewer import NewsViewer
+from Products.SilvaNews.viewers.NewsViewer import (NewsViewer,
+                                                   INewsViewerSchema)
 from Products.SilvaNews.htmlcalendar import HTMLCalendar
 from Products.SilvaExternalSources.ExternalSource import ExternalSource
 
@@ -60,8 +62,9 @@ class AgendaViewer(NewsViewer, ExternalSource):
 
     def __init__(self, id):
         AgendaViewer.inheritedAttribute('__init__')(self, id)
-        self._days_to_show = 31
+        self._number_to_show = 25
         self._number_is_days = True
+        self._starting_date = None
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'days_to_show')
@@ -70,16 +73,29 @@ class AgendaViewer(NewsViewer, ExternalSource):
         """
         return self._days_to_show
 
+    
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                                'get_starting_date')
+    def get_starting_date(self):
+        """returns the starting date, if specified, for the day range"""
+        return self._starting_date
+
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items')
     def get_items(self):
         """Gets the items from the filters
         """
-        func = lambda x: x.get_next_items(self._days_to_show)
+        func = lambda x: x.get_next_items(self._days_to_show,
+                                          starting_date=self._starting_date)
         sortattr = None
         if len(self.get_filters()) > 1:
             sortattr = 'start_datetime'
         return self._get_items_helper(func,sortattr)
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'get_items_from_date')
+    def get_items_from_date(self,date=None, sortattr='start_datetime'):
+        return super(AgendaViewer, self).get_items_from_date(self, date, sortattr)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items_by_date')
@@ -136,9 +152,29 @@ class AgendaViewer(NewsViewer, ExternalSource):
         view.parameters = parameters
         return view()
 
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                                'set_starting_date')
+    def set_starting_date(self, date):
+        """set self._starting_date"""
+        self._starting_date = date
 
 InitializeClass(AgendaViewer)
 
+class IAgendaViewerSchema(INewsViewerSchema):
+    starting_date = schema.Datetime(
+        title=_(u"starting date"),
+        description=_(u"If this property is set, the items for the next N "
+                      u"days will be retrieved from the specified date rather "
+                      u"than the current date. "
+                      u"Uses the `timezone` property of this viewer"),
+        required=False
+    )
+
+class AgendaViewerEditForm(silvaforms.SMIEditForm):
+    """SMI Edit Form for agenda viewers"""
+    grok.context(IAgendaViewer)
+    fields = silvaforms.Fields(IAgendaViewerSchema)
+    fields['number_is_days'].mode = u'radio'
 
 class ICalendarResources(IDefaultBrowserLayer):
     silvaconf.resource('calendar.css')
@@ -239,7 +275,6 @@ class CalendarView(object):
                 '<a href="%s?day=%d&amp;month=%d&amp;year=%d">%d</a>' % \
             (cal_url, date.day, date.month, date.year, date.day))
 
-
 class AgendaViewerExternalSourceView(silvaviews.View, CalendarView):
     """
     Month calendar to be rendered as external source inside a
@@ -294,7 +329,12 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
 
     def update(self):
         alsoProvides(self.request, ICalendarResources)
-        now = datetime.now(self.context.get_timezone())
+        #XXX here use the start_datetime
+        if (self.context.get_starting_date()):
+            now = self.context.get_starting_date().replace(
+                tzinfo=self.context.get_timezone())
+        else:
+            now = datetime.now(self.context.get_timezone())
         self.month = int(self.request.get('month', now.month))
         self.year = int(self.request.get('year', now.year))
 
@@ -437,7 +477,6 @@ class AgendaViewerJSCalendar(silvaviews.Page):
     def events_json_url(self):
         return absoluteURL(self.context, self.request) + '/++rest++events'
 
-
 class AgendaViewerICSCalendar(silvaviews.View):
     """ Agenda viewer ics format """
     grok.context(IAgendaViewer)
@@ -452,9 +491,13 @@ class AgendaViewerICSCalendar(silvaviews.View):
     def render(self):
         return self.calendar.as_string()
 
-
 class AgendaViewerSubscribeView(silvaviews.Page):
     """ View that display the Subcribe url to the calendar """
+    #XXX this needs to be wrapped around the default content template.
+    #    but what's the BEST approach to do so for all Pages?  We could
+    #    one-off for the Page's which should be wrapped (could be many, easy
+    #    to miss, tedious to maintain), or automatically do this for all pages
+    #    (by default?  Or does it need to be enabled?)
     grok.context(IAgendaViewer)
     grok.name('subscribe.html')
 

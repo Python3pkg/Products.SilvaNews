@@ -16,24 +16,24 @@ from zope.i18nmessageid import MessageFactory
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 
+from silva.core.views.interfaces import IPreviewLayer
 from Products.SilvaNews.datetimeutils import (get_timezone,
     RRuleData, UTC)
 from Products.SilvaNews.AgendaItem import AgendaItem, AgendaItemVersion
 from Products.SilvaNews.interfaces import IAgendaItem, IServiceNews
 from Products.SilvaNews.interfaces import (
-    subjects_source, target_audiences_source, timezone_source)
-from Products.SilvaNews.widgets.recurrence import Recurrence
+    IAgendaItemVersion, timezone_source, INewsItemSchema)
+from Products.SilvaNews import NewsItem
+from Products.SilvaNews.widgets.recurrence import (Recurrence, 
+                                                   IRecurrenceResources)
 
 _ = MessageFactory('silva_news')
-
 
 class PlainAgendaItemVersion(AgendaItemVersion):
     """Silva News PlainAgendaItemVersion
     """
     security = ClassSecurityInfo()
     meta_type = "Silva Agenda Item Version"
-
-
 InitializeClass(PlainAgendaItemVersion)
 
 
@@ -47,42 +47,37 @@ class PlainAgendaItem(AgendaItem):
     silvaconf.icon("www/agenda_item.png")
     silvaconf.priority(3.8)
     silvaconf.versionClass(PlainAgendaItemVersion)
-
-
 InitializeClass(PlainAgendaItem)
 
-
-class IAgendaItemSchema(interface.Interface):
-    timezone_name = schema.Choice(
-        source=timezone_source,
-        title=_(u"timezone"),
-        description=_(u"Defines the time zone for dates"),
-        required=True)
+class IAgendaItemSchema(INewsItemSchema):
+    _location = schema.TextLine(
+        title=_(u"location"),
+        description=_(u"The location where the event is taking place."),
+        required=False)
+    
     start_datetime = schema.Datetime(
         title=_(u"start date/time"),
         required=True)
+    
     end_datetime = schema.Datetime(
         title=_(u"end date/time"),
         required=False)
+    
     _all_day = schema.Bool(
         title=_(u"all day"))
+    
     recurrence = Recurrence(title=_("recurrence"), required=False)
+    
     end_recurrence_datetime = schema.Datetime(
         title=_(u"recurrence end date"),
         description=_(u"Date on which the recurrence stops. Required if "
                       u"any recurrence is set"),
         required=False)
-    _location = schema.TextLine(
-        title=_(u"location"),
-        description=_(u"The location where the event is taking place."),
-        required=False)
-    subjects = schema.List(
-        title=_(u"subjects"),
-        value_type=schema.Choice(source=subjects_source),
-        required=True)
-    target_audiences = schema.List(
-        title=_(u"target audiences"),
-        value_type=schema.Choice(source=target_audiences_source),
+    
+    timezone_name = schema.Choice(
+        source=timezone_source,
+        title=_(u"timezone"),
+        description=_(u"Defines the time zone for dates"),
         required=True)
 
     @interface.invariant
@@ -104,7 +99,7 @@ class IAgendaItemSchema(interface.Interface):
             return
         if content.start_datetime > content.end_datetime:
             raise interface.Invalid(
-                _(u"End date must not is before start date."))
+                _(u"Start date must be before end date."))
 
     @interface.invariant
     def enforce_end_recurrence_date_after_start_date(content):
@@ -121,11 +116,9 @@ class IAgendaItemSchema(interface.Interface):
             raise interface.Invalid(
                 _(u"End recurrence date must not be before end date."))
 
-
 def get_default_tz_name(form):
     util = getUtility(IServiceNews)
     return util.get_timezone_name()
-
 
 def process_data(data):
     """preprocess the data before setting the content"""
@@ -150,7 +143,6 @@ def process_data(data):
         del data['recurrence_end_datetime']
     return data
 
-
 class AgendaItemAddForm(silvaforms.SMIAddForm):
     grok.context(IAgendaItem)
     grok.name(u"Silva Agenda Item")
@@ -163,13 +155,37 @@ class AgendaItemAddForm(silvaforms.SMIAddForm):
         return super(AgendaItemAddForm, self)._edit(parent, content, data)
 
 
-class EditAction(silvaforms.EditAction):
+class EditAction(NewsItem.SupportsEmptyValueEditAction):
+    """Override custom edit action, so empty textlines can be saved.
+    NOTE: this can be removed once the bug is addressed in zeam"""
     def applyData(self, form, content, data):
         data = process_data(data)
         return super(EditAction, self).applyData(form, content, data)
 
+class ViewNewsProperties(NewsItem.ViewNewsProperties):
+    """viewlet to display the agenda item's properties within
+       the edit/preview while editing the item"""
+    grok.context(IAgendaItemVersion)
+    fields = silvaforms.Fields(IAgendaItemSchema)
+    fields['timezone_name'].defaultValue = get_default_tz_name
+    
+    def update(self):
+        """when in preview, add the recurrence resources"""
+        if IPreviewLayer.providedBy(self.request):
+            interface.alsoProvides(self.request, IRecurrenceResources)
+
+class EditNewsProperties(NewsItem.EditNewsProperties):
+    """Form for editing the news properties of a news item version.
+       This is displayed in the 'edit properties' dialog in the layout
+       editor"""
+    grok.context(IAgendaItemVersion)
+    fields = silvaforms.Fields(IAgendaItemSchema)
+    fields['timezone_name'].defaultValue = get_default_tz_name
+    actions = silvaforms.Actions(EditAction())
 
 class AgendaEditProperties(silvaforms.RESTKupuEditProperties):
+    """Obviously, this one is for the properties popup in kupu (which
+       Bethel doesn't use"""
     grok.context(IAgendaItem)
 
     label = _(u"agenda item properties")

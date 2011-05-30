@@ -1,112 +1,231 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <silva xmlns="http://infrae.com/namespace/silva"
   {namespaces} silva_version="{version}">
-  <folder id="export">
+ <folder id="export" last_author="author">
+  <metadata>
+   <set id="silva-content">
+    <silva-content:maintitle>
+     Export Folder
+    </silva-content:maintitle>
+    <silva-content:navtitle>
+    </silva-content:navtitle>
+    <silva-content:shorttitle>
+    </silva-content:shorttitle>
+   </set>
+   <set id="silva-extra">
+    <silva-extra:comment>
+    </silva-extra:comment>
+    <silva-extra:contactemail>
+    </silva-extra:contactemail>
+    <silva-extra:contactname>
+    </silva-extra:contactname>
+    <silva-extra:content_description>
+    </silva-extra:content_description>
+    <silva-extra:creationtime>
+     YYYY-MM-DDTHH:MM:SS
+    </silva-extra:creationtime>
+    <silva-extra:creator>
+     author
+    </silva-extra:creator>
+    <silva-extra:expirationtime>
+    </silva-extra:expirationtime>
+    <silva-extra:hide_from_tocs>
+     do not hide
+    </silva-extra:hide_from_tocs>
+    <silva-extra:keywords>
+    </silva-extra:keywords>
+    <silva-extra:language>
+    </silva-extra:language>
+    <silva-extra:lastauthor>
+     author
+    </silva-extra:lastauthor>
+    <silva-extra:modificationtime>
+     YYYY-MM-DDTHH:MM:SS
+    </silva-extra:modificationtime>
+    <silva-extra:publicationtime>
+    </silva-extra:publicationtime>
+    <silva-extra:subject>
+    </silva-extra:subject>
+   </set>
+   <set xmlns:syn="https://bethel.edu/namespaces/syndication" id="syndication">
+    <syn:img-feature>
+    </syn:img-feature>
+    <syn:img-featurehover>
+    </syn:img-featurehover>
+    <syn:img-preview>
+    </syn:img-preview>
+    <syn:teaser>
+    </syn:teaser>
+   </set>
+  </metadata>
+  <content>
+   <silvanews:newspublication id="newspub">
     <metadata>
-      <set id="silva-content">
-        <silva-content:maintitle>Export Folder</silva-content:maintitle>
-        <silva-content:shorttitle/>
-      </set>
-      <set id="silva-extra">
-        <silva-extra:comment/>
-        <silva-extra:contactemail/>
-        <silva-extra:contactname/>
-        <silva-extra:content_description/>
-        <silva-extra:creationtime>YYYY-MM-DDTHH:MM:SS</silva-extra:creationtime>
-        <silva-extra:creator>author</silva-extra:creator>
-        <silva-extra:expirationtime/>
-        <silva-extra:hide_from_tocs>do not hide</silva-extra:hide_from_tocs>
-        <silva-extra:keywords/>
-        <silva-extra:language/>
-        <silva-extra:lastauthor>author</silva-extra:lastauthor>
-        <silva-extra:modificationtime>YYYY-MM-DDTHH:MM:SS</silva-extra:modificationtime>
-        <silva-extra:publicationtime/>
-        <silva-extra:subject/>
-      </set>
+     <set id="silva-content">
+      <silva-content:maintitle>
+       NewsPublication
+      </silva-content:maintitle>
+      <silva-content:navtitle>
+      </silva-content:navtitle>
+      <silva-content:shorttitle>
+      </silva-content:shorttitle>
+     </set>
+     <set id="silva-extra">
+      <silva-extra:comment>
+      </silva-extra:comment>
+      <silva-extra:contactemail>
+      </silva-extra:contactemail>
+      <silva-extra:contactname>
+      </silva-extra:contactname>
+      <silva-extra:content_description>
+      </silva-extra:content_description>
+      <silva-extra:creationtime>
+       YYYY-MM-DDTHH:MM:SS
+      </silva-extra:creationtime>
+      <silva-extra:creator>
+       author
+      </silva-extra:creator>
+      <silva-extra:expirationtime>
+      </silva-extra:expirationtime>
+      <silva-extra:hide_from_tocs>
+       hide
+      </silva-extra:hide_from_tocs>
+      <silva-extra:keywords>
+      </silva-extra:keywords>
+      <silva-extra:language>
+      </silva-extra:language>
+      <silva-extra:lastauthor>
+       author
+      </silva-extra:lastauthor>
+      <silva-extra:modificationtime>
+       YYYY-MM-DDTHH:MM:SS
+      </silva-extra:modificationtime>
+      <silva-extra:publicationtime>
+      </silva-extra:publicationtime>
+      <silva-extra:subject>
+      </silva-extra:subject>
+     </set>
+     <set xmlns:snn-np-settings="http://infrae.com/namespace/metadata/snn-np-settings" id="snn-np-settings">
+      <snn-np-settings:is_private>
+       no
+      </snn-np-settings:is_private>
+     </set>
     </metadata>
     <content>
-      <silvanews:newspublication id="newspub">
-        <metadata>
-          <set id="silva-content">
-            <silva-content:maintitle>NewsPublication</silva-content:maintitle>
-            <silva-content:shorttitle/>
-          </set>
-          <set id="silva-extra">
-            <silva-extra:comment/>
-            <silva-extra:contactemail/>
-            <silva-extra:contactname/>
-            <silva-extra:content_description/>
-            <silva-extra:creationtime>YYYY-MM-DDTHH:MM:SS</silva-extra:creationtime>
-            <silva-extra:creator>author</silva-extra:creator>
-            <silva-extra:expirationtime/>
-            <silva-extra:hide_from_tocs>hide</silva-extra:hide_from_tocs>
-            <silva-extra:keywords/>
-            <silva-extra:language/>
-            <silva-extra:lastauthor>author</silva-extra:lastauthor>
-            <silva-extra:modificationtime>YYYY-MM-DDTHH:MM:SS</silva-extra:modificationtime>
-            <silva-extra:publicationtime/>
-            <silva-extra:subject/>
-          </set>
-          <set xmlns:snn-np-settings="http://infrae.com/namespace/metadata/snn-np-settings" id="snn-np-settings">
-            <snn-np-settings:is_private>no</snn-np-settings:is_private>
-          </set>
-        </metadata>
-        <content>
-          <default>
-            <auto_toc depth="-1" display_desc_flag="False" id="index" show_icon="False" sort_order="silva" types="Silva Article,Silva Agenda Item">
-              <metadata>
-                <set id="silva-content">
-                  <silva-content:maintitle>NewsPublication</silva-content:maintitle>
-                  <silva-content:shorttitle/>
-                </set>
-                <set id="silva-extra">
-                  <silva-extra:comment/>
-                  <silva-extra:contactemail/>
-                  <silva-extra:contactname/>
-                  <silva-extra:content_description/>
-                  <silva-extra:creationtime>YYYY-MM-DDTHH:MM:SS</silva-extra:creationtime>
-                  <silva-extra:creator>author</silva-extra:creator>
-                  <silva-extra:expirationtime/>
-                  <silva-extra:hide_from_tocs>do not hide</silva-extra:hide_from_tocs>
-                  <silva-extra:keywords/>
-                  <silva-extra:language/>
-                  <silva-extra:lastauthor>author</silva-extra:lastauthor>
-                  <silva-extra:modificationtime>YYYY-MM-DDTHH:MM:SS</silva-extra:modificationtime>
-                  <silva-extra:publicationtime/>
-                  <silva-extra:subject/>
-                </set>
-              </metadata>
-            </auto_toc>
-          </default>
-        </content>
-      </silvanews:newspublication>
-      <silvanews:agendafilter excluded_items="" id="filter" keep_to_path="0" subjects="" target_audiences="">
-        <silvanews:sources>
-          <silvanews:source target="export/newspub"/>
-        </silvanews:sources>
-        <metadata>
-          <set id="silva-content">
-            <silva-content:maintitle>Agenda Filter</silva-content:maintitle>
-            <silva-content:shorttitle/>
-          </set>
-          <set id="silva-extra">
-            <silva-extra:comment/>
-            <silva-extra:contactemail/>
-            <silva-extra:contactname/>
-            <silva-extra:content_description/>
-            <silva-extra:creationtime>YYYY-MM-DDTHH:MM:SS</silva-extra:creationtime>
-            <silva-extra:creator>author</silva-extra:creator>
-            <silva-extra:expirationtime/>
-            <silva-extra:hide_from_tocs>do not hide</silva-extra:hide_from_tocs>
-            <silva-extra:keywords/>
-            <silva-extra:language/>
-            <silva-extra:lastauthor>author</silva-extra:lastauthor>
-            <silva-extra:modificationtime>YYYY-MM-DDTHH:MM:SS</silva-extra:modificationtime>
-            <silva-extra:publicationtime/>
-            <silva-extra:subject/>
-          </set>
-        </metadata>
-      </silvanews:agendafilter>
+     <default>
+      <auto_toc depth="-1" display_desc_flag="True" id="index" last_author="author" show_icon="True" sort_order="alpha" types="Silva Article,Silva Agenda Item">
+       <metadata>
+        <set id="silva-content">
+         <silva-content:maintitle>
+          NewsPublication
+         </silva-content:maintitle>
+         <silva-content:navtitle>
+         </silva-content:navtitle>
+         <silva-content:shorttitle>
+         </silva-content:shorttitle>
+        </set>
+        <set id="silva-extra">
+         <silva-extra:comment>
+         </silva-extra:comment>
+         <silva-extra:contactemail>
+         </silva-extra:contactemail>
+         <silva-extra:contactname>
+         </silva-extra:contactname>
+         <silva-extra:content_description>
+         </silva-extra:content_description>
+         <silva-extra:creationtime>
+          YYYY-MM-DDTHH:MM:SS
+         </silva-extra:creationtime>
+         <silva-extra:creator>
+          author
+         </silva-extra:creator>
+         <silva-extra:expirationtime>
+         </silva-extra:expirationtime>
+         <silva-extra:hide_from_tocs>
+          do not hide
+         </silva-extra:hide_from_tocs>
+         <silva-extra:keywords>
+         </silva-extra:keywords>
+         <silva-extra:language>
+         </silva-extra:language>
+         <silva-extra:lastauthor>
+          author
+         </silva-extra:lastauthor>
+         <silva-extra:modificationtime>
+          YYYY-MM-DDTHH:MM:SS
+         </silva-extra:modificationtime>
+         <silva-extra:publicationtime>
+         </silva-extra:publicationtime>
+         <silva-extra:subject>
+         </silva-extra:subject>
+        </set>
+        <set xmlns:syn="https://bethel.edu/namespaces/syndication" id="syndication">
+         <syn:img-feature>
+         </syn:img-feature>
+         <syn:img-featurehover>
+         </syn:img-featurehover>
+         <syn:img-preview>
+         </syn:img-preview>
+         <syn:teaser>
+         </syn:teaser>
+        </set>
+       </metadata>
+      </auto_toc>
+     </default>
     </content>
-  </folder>
+   </silvanews:newspublication>
+   <silvanews:agendafilter excluded_items="" id="filter" keep_to_path="0" subjects="" target_audiences="">
+    <silvanews:sources>
+     <silvanews:source target="export/newspub">
+     </silvanews:source>
+    </silvanews:sources>
+    <metadata>
+     <set id="silva-content">
+      <silva-content:maintitle>
+       Agenda Filter
+      </silva-content:maintitle>
+      <silva-content:navtitle>
+      </silva-content:navtitle>
+      <silva-content:shorttitle>
+      </silva-content:shorttitle>
+     </set>
+     <set id="silva-extra">
+      <silva-extra:comment>
+      </silva-extra:comment>
+      <silva-extra:contactemail>
+      </silva-extra:contactemail>
+      <silva-extra:contactname>
+      </silva-extra:contactname>
+      <silva-extra:content_description>
+      </silva-extra:content_description>
+      <silva-extra:creationtime>
+       YYYY-MM-DDTHH:MM:SS
+      </silva-extra:creationtime>
+      <silva-extra:creator>
+       author
+      </silva-extra:creator>
+      <silva-extra:expirationtime>
+      </silva-extra:expirationtime>
+      <silva-extra:hide_from_tocs>
+       do not hide
+      </silva-extra:hide_from_tocs>
+      <silva-extra:keywords>
+      </silva-extra:keywords>
+      <silva-extra:language>
+      </silva-extra:language>
+      <silva-extra:lastauthor>
+       author
+      </silva-extra:lastauthor>
+      <silva-extra:modificationtime>
+       YYYY-MM-DDTHH:MM:SS
+      </silva-extra:modificationtime>
+      <silva-extra:publicationtime>
+      </silva-extra:publicationtime>
+      <silva-extra:subject>
+      </silva-extra:subject>
+     </set>
+    </metadata>
+   </silvanews:agendafilter>
+  </content>
+ </folder>
 </silva>

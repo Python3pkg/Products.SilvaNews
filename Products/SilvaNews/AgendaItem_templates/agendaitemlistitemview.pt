@@ -37,7 +37,7 @@
    <tal:insertintro replace="structure view/article" />
   </div>
   <p class="p articlelink">
-   <a href="#" tal:attributes="href context/@@absolute_url" i18n:translate="">
+   <a href="#" tal:attributes="href content/article_url" i18n:translate="">
     more ...
    </a>
   </p>

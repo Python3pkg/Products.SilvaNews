@@ -33,6 +33,7 @@ class TestAgendaItemAddTestCase(unittest.TestCase):
         form.get_control('addform.field.start_datetime.min').value = '20'
         form.get_control('addform.field.subjects').value = ['generic']
         form.get_control('addform.field.target_audiences').value = ['all']
+        form.get_control('addform.field.link_method').value = 'article'
 
         status = form.get_control('addform.action.save_edit').submit()
         self.assertEquals(200, status)

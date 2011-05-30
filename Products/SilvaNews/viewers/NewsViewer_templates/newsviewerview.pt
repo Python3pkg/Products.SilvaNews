@@ -7,8 +7,7 @@
   tal:define="
     formatdate nocall:context/service_news/format_date;">
 
-  <h2 class="heading" tal:content="context/get_title"
-    tal:condition="not:context/suppress_title | context/suppress_title | nothing" />
+  <h2 tal:replace="structure provider:contenttitle" />
   <div class="searchbox">
     <form tal:attributes="action view/search_url"
       method="get">

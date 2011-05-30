@@ -35,10 +35,12 @@ from silva.core.references.reference import ReferenceSet
 
 # SilvaNews
 from Products.SilvaNews.interfaces import (INewsViewer, IServiceNews,
-    show_source, timezone_source, week_days_source, filters_source)
+    show_source, timezone_source, week_days_source, filters_source,
+    IAgendaViewer)
 from Products.SilvaNews.ServiceNews import TimezoneMixin
 from Products.SilvaNews.traverser import set_parent
-
+from BTrees.OOBTree import OOBTree
+import bisect
 
 logger = getLogger('Products.SilvaNews.NewsViewer')
 
@@ -192,7 +194,7 @@ class NewsViewer(Content, SimpleItem, TimezoneMixin):
             'query': self.filter_meta_types}
         return [brain.getObject() for brain in util(query)]
 
-    def _get_items_helper(self, func, sortattr=None):
+    def _get_items_helper(self, func, sortattr=None, nogenerator=True):
         #1) helper function for get_items...this was the same
         #code in NV and AV.  Now this helper contains that code
         #and calls func(obj) for each filter to actually
@@ -201,37 +203,83 @@ class NewsViewer(Content, SimpleItem, TimezoneMixin):
         #   i.e. a result item.  It's a catalog metadata column
         #   use it for fast sort / merging of multiple filters
         #   e.g. on display_datetime or start_datetime
-        results = []
+        results = OOBTree()
         for newsfilter in self._get_filters_reference_set():
-            res = func(newsfilter)
-            results += res
-
-        results = self._remove_doubles(results)
-
+            for result in func(newsfilter):
+                results[result.object_path] = result
+        
         if sortattr:
-            results = [(getattr(r,sortattr,None),
-                       getattr(r,'object_path',None),r) for r in results ]
-            results.sort()
-            results = [ r[2] for r in results ]
-            results.reverse()
-        return results
+            #now use bisect to insert the items in a sorted manner
+            sortedresults = []
+            for r in results.itervalues():
+                #Why do we also add r.silva_object_url?  Because for some reason, comparing
+                # mybrains sometimes raises an error that you can't compare a mybrains
+                # with an implicitacquirerwrapper.  So, silva_object_url is meant as
+                # a quickly-findable unique value
+                bisect.insort_right(sortedresults,(getattr(r,sortattr,None),r.object_path,r))
+            #events should be ordered oldest first
+            # (i.e. it's happening sooner)
+            #news should be ordered newest first
+            # and so sortedresults should be reversed
+            if not IAgendaViewer.providedBy(self):
+                sortedresults.reverse()
+            if nogenerator:
+                return [ r[2] for r in sortedresults ]
+            else:
+                def make_generator(l):
+                    for item in l:
+                        yield item[2]
+                return make_generator(sortedresults)
+        else:
+            if nogenerator:
+                return results.values()
+            else:
+                return results.itervalues()
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items')
-    def get_items(self):
+    def get_items(self, number=None, number_is_days=None):
         """Gets the items from the filters
         """
-        func = lambda x: x.get_last_items(self._number_to_show,
-                                          self._number_is_days)
+        func = lambda x: x.get_last_items(number or self._number_to_show,
+                                          number_is_days or self._number_is_days)
         #merge/sort results if > 1 filter
         sortattr = None
         if self.has_filter():
             sortattr = 'display_datetime'
-        results = self._get_items_helper(func,sortattr)
+        results = self._get_items_helper(func,'display_datetime')
+
         if not self._number_is_days:
             return results[:self._number_to_show]
 
         return results
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'get_items_from_date')
+    def get_items_from_date(self,date=None, sortattr='display_datetime'):
+        """Gets the items from the filters, like get_items only
+           starts at a specific date
+        """
+        #XXX aaltepet: where is this used?
+        if not date:
+            date = DateTime()
+            
+        func = lambda x: x.get_last_items_from_date(self._number_to_show,
+                                                    date,
+                                                    self._number_is_days)
+        results = self._get_items_helper(func,sortattr)
+
+        if sortattr:
+            results = [ (getattr(r,sortattr,None),getattr(r,'object_path',None),r) for r in results ]
+            results.sort()
+            results = [ r[2] for r in results ]
+            results.reverse()
+        return results
+ 
+    def get_items_by_month_datetime(self, datetime):
+        """ gets the items from the filters by date, given a zope DateTime"""
+        return self.get_items_by_date(datetime.month(), datetime.year())
+
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items_by_date')
@@ -244,6 +292,18 @@ class NewsViewer(Content, SimpleItem, TimezoneMixin):
         if self.has_filter():
             sortattr = 'sort_index'
         return self._get_items_helper(func,sortattr)
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'get_items_for_year')
+    def get_items_for_year(self, year, sortattr='display_datetime'):
+        #year is a number
+        # returns all items for the given year.  sortattr is an attribute
+        # that is a metadata column, not a zcatalog index.
+        start = DateTime(year,1,1).earliestTime()
+        end = (start+364).latestTime()
+        func = lambda x: x._get_items_in_range(start,end)
+        return self._get_items_helper(func,sortattr,no_generator=False)
+
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_items_by_date_range')
@@ -266,18 +326,6 @@ class NewsViewer(Content, SimpleItem, TimezoneMixin):
         if self.has_filter():
             sortattr = 'sort_index'
         return self._get_items_helper(func,sortattr)
-
-    def _remove_doubles(self, resultlist):
-        """Removes double items from a resultset from a ZCatalog-query
-        (useful when the resultset is built out of more than 1 query)
-        """
-        retval = []
-        paths = []
-        for item in resultlist:
-            if not item.getPath() in paths:
-                paths.append(item.getPath())
-                retval.append(item)
-        return retval
 
     # MANIPULATORS
 
@@ -448,12 +496,12 @@ class NewsViewerSearchView(silvaviews.Page, NewsViewerListView):
         self.request.timezone = self.context.get_timezone()
         self.query = self.request.get('query', '')
         self.results = []
+        self.request['title-extra'] = "Search Archives"
         try:
             self.results = map(self._set_parent,
                                self.context.search_items(self.query) or [])
         except:
             pass
-
 
 @grok.provider(IContextSourceBinder)
 def monthes(context):
@@ -526,5 +574,6 @@ class NewsViewerArchivesView(silvaforms.PublicForm, NewsViewerListView):
         self.request.timezone = self.context.get_timezone()
         # always execute action
         self.request.form['form.action.update'] = '1'
+        self.request['title-extra'] = "Archives"
 
 

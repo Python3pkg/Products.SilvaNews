@@ -15,13 +15,8 @@ class TestJsonEventsAPI(NewsBaseTestCase):
         super(TestJsonEventsAPI, self).setUp()
         self.browser = self.layer.get_browser()
         self.browser.options.handle_errors = False
-        self.filter = self.add_agenda_filter(
-            self.root, 'afilter', 'Agenda Filter')
-        self.filter.set_subjects(['sub'])
-        self.filter.set_target_audiences(['ta'])
-        self.filter.set_sources([self.source1])
         self.agenda = self.add_agenda_viewer(self.root, 'agenda', 'Agenda')
-        self.agenda.set_filters([self.root.afilter])
+        self.agenda.set_filters([self.agendafilter])
         self.agenda.set_timezone_name('Europe/Amsterdam')
         sdt = datetime(2010, 9, 4, 10, 20, tzinfo=self.agenda.get_timezone())
 
