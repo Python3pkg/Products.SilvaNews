@@ -11,6 +11,8 @@ SilvaNewsnetwork 2.9.2
 - add ability to limit the number of days a recurring or long running event
   is displayed
 
+- adjusted the preview url when accessing edit tab for a published an article/agenda
+
 SilvaNewsNetwork 2.7-bethel-2 (unreleased)
 ------------------------------------------
 
