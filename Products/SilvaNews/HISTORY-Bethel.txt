@@ -4,14 +4,15 @@ See also LICENSE.txt
 History of Bethel's Changes to SilvaNews
 ========================================
 
-SilvaNewsnetwork 2.9.2
------------------------
-?? XXX move this to the egg's docs directory
+SilvaNewsNetwork 2.9.2dev-bethel.1 (2011-07-22)
+-----------------------------------------------
 
 - add ability to limit the number of days a recurring or long running event
   is displayed
 
 - adjusted the preview url when accessing edit tab for a published an article/agenda
+
+- adjusted format event summar
 
 SilvaNewsNetwork 2.7-bethel-2 (unreleased)
 ------------------------------------------
