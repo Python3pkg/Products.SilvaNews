@@ -12,7 +12,7 @@ SilvaNewsNetwork 2.9.2dev-bethel.1 (2011-07-22)
 
 - adjusted the preview url when accessing edit tab for a published an article/agenda
 
-- adjusted format event summar
+- adjusted format event summary
 
 SilvaNewsNetwork 2.7-bethel-2 (unreleased)
 ------------------------------------------
