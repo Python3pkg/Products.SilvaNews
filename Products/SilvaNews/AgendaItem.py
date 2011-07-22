@@ -247,7 +247,7 @@ class AgendaItemVersion(NewsItemVersion):
             summary.append(' ')
             summary.append(date)
         if self.get_location():
-            summary.append(u'| ' + escape(self.get_location()))
+            summary.append(u' | ' + escape(self.get_location()))
         teaser = self.service_metadata.getMetadataValue(self, 'syndication','teaser')
         if teaser:
             #remove any trailing whitespace, append period and teaser
