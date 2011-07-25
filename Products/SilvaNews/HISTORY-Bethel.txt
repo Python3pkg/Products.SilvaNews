@@ -4,6 +4,12 @@ See also LICENSE.txt
 History of Bethel's Changes to SilvaNews
 ========================================
 
+SilvaNewsNetwork 2.9.2dev-bethel.2 (unreleased)
+-----------------------------------------------
+
+- fixed InlineNewsViewer.get_viewer, so it resolves a path rather than using
+  getattr for local lookups
+
 SilvaNewsNetwork 2.9.2dev-bethel.1 (2011-07-22)
 -----------------------------------------------
 

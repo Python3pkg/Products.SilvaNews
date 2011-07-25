@@ -140,8 +140,8 @@ class InlineViewer(CodeSource):
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_viewer')
     def get_viewer(self, viewer, model):
-        """returns the title of a viewer"""
-        return getattr(model, viewer, None)
+        """resolves the path to a viewer, returning the viewer"""
+        return model.restrictedTraverse(viewer, None)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'limit_intro')
