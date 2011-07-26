@@ -87,7 +87,7 @@ class NewsItemVersion(NewsCategorization, document.DocumentVersion):
             to minimally 1 element
         """
         # XXX fix intro, remove this function.
-        return u""
+        return u"XXX: FIXME"
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_description')
