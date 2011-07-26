@@ -54,7 +54,7 @@ def target_audiences_source(context):
 
 
 class ISubjectTASchema(Interface):
-    subjects = schema.List(
+    subjects = schema.Set(
         title=_(u"subjects"),
         description=_(
             u'Select the news subjects to filter on. '
@@ -62,7 +62,7 @@ class ISubjectTASchema(Interface):
             u'Select nothing to have all show up.'),
         value_type=schema.Choice(source=subjects_source),
         required=False)
-    target_audiences = schema.List(
+    target_audiences = schema.Set(
         title=_(u"target audiences"),
         description=_(u'Select the target audiences to filter on.'),
         value_type=schema.Choice(source=target_audiences_source),

@@ -150,12 +150,12 @@ class IICSNewsPublicationSchema(Interface):
         title=_(u"URL"),
         description=_(u"remote URL of the ics calendar file"),
         required=True)
-    _subjects = schema.List(
+    _subjects = schema.Set(
         title=_(u"subjects"),
         description=_(u"select the subjects that will be set on events"),
         value_type=schema.Choice(source=subjects_source),
         required=True)
-    _target_audiences = schema.List(
+    _target_audiences = schema.Set(
         title=_(u"target audiences"),
         description=_(u"select the target audiences "
                       u"that will be set on events"),

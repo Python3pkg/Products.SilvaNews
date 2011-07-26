@@ -113,7 +113,7 @@ class RSSAggregatorAddForm(silvaforms.SMIAddForm):
 
 
 class IRSSAggregatorSchema(Interface):
-    feeds = schema.List(
+    feeds = schema.Tuple(
                 value_type=schema.TextLine(),
                 title=_(u'feeds'),
                 description=_(u'List the URLs of RSS feeds (one per line) '
