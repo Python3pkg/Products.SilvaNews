@@ -16,8 +16,8 @@ CLASS_CHANGES = {
         'Products.SilvaNews.indexing IntegerRangesIndex':
             'silva.app.news.indexing IntegerRangesIndex',
 
-        'Products.SilvaNews.viewers.RSSAgregator RSSAgregator':
-            'silva.app.news.viewers.RSSAgregator RSSAgregator',
+        'Products.SilvaNews.viewers.RSSAggregator RSSAggregator':
+            'silva.app.news.viewers.RSSAggregator RSSAggregator',
         'Products.SilvaNews.viewers.NewsViewer NewsViewer':
             'silva.app.news.viewers.NewsViewer NewsViewer',
         'Products.SilvaNews.viewers.AgendaViewer AgendaViewer':
@@ -38,7 +38,7 @@ CLASS_CHANGES = {
         'Products.SilvaNews.filters.AgendaFilter AgendaFilter':
             'silva.app.news.filters.AgendaFilter AgendaFilter',
         'Products.SilvaNews.filters.NewsFilter NewsFilter':
-            'silva.app.news.filters.NewsFilter NewsFitler',
+            'silva.app.news.filters.NewsFilter NewsFilter',
         'Products.SilvaNews.filters.CategoryFilter CategoryFilter':
             'silva.app.news.filters.CategoryFilter CategoryFilter',
     }

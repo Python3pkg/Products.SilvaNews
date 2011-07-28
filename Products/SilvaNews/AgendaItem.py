@@ -210,7 +210,7 @@ class AgendaItem(NewsItem):
     """
     security = ClassSecurityInfo()
     implements(IAgendaItem)
-    meta_type = "Silva Agenda Item"
+    meta_type = "Obsolete Agenda Item"
     silvaconf.icon("www/agenda_item.png")
     silvaconf.priority(3.8)
     silvaconf.versionClass(AgendaItemVersion)

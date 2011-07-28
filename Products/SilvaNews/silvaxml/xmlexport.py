@@ -51,7 +51,7 @@ class PlainArticleVersionProducer(DocumentVersionProducer):
              'subjects': ','.join(self.context.get_subjects()),
              'target_audiences': ','.join(self.context.get_target_audiences()),
              'display_datetime': iso_datetime(
-                self.context.display_datetime())})
+                self.context.get_display_datetime())})
         self.metadata()
         node = self.context.content.documentElement.getDOMObj()
         self.sax_node(node)
@@ -92,7 +92,7 @@ class PlainAgendaItemVersionProducer(DocumentVersionProducer):
              'all_day': str(self.context.is_all_day()),
              'timezone_name': self.context.get_timezone_name(),
              'display_datetime': iso_datetime(
-                self.context.display_datetime())})
+                self.context.get_display_datetime())})
         self.metadata()
         node = self.context.content.documentElement.getDOMObj()
         self.sax_node(node)
