@@ -1,8 +1,0 @@
-<configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:grok="http://namespaces.zope.org/grok">
-
-  <include package="Products.Silva" file="ftesting.zcml" />
-  <include package="Products.SilvaNews" />
-
-</configure>
