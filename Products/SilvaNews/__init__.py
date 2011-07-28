@@ -30,6 +30,10 @@ CLASS_CHANGES = {
             'silva.app.news.ServiceNews ServiceNews',
         'Products.SilvaNews.interfaces IServiceNews':
             'silva.app.news.interfaces IServiceNews',
+        'Products.SilvaNews.Tree Root':
+            'silva.app.news.Tree Root',
+        'Products.SilvaNews.Tree Node':
+            'silva.app.news.Tree Node',
 
         'Products.SilvaNews.filters.AgendaFilter AgendaFilter':
             'silva.app.news.filters.AgendaFilter AgendaFilter',
