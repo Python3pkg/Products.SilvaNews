@@ -1,39 +1,20 @@
 <configure
    xmlns="http://namespaces.zope.org/zope"
-   xmlns:i18n="http://namespaces.zope.org/i18n"
    xmlns:grok="http://namespaces.zope.org/grok"
    xmlns:five="http://namespaces.zope.org/five"
-   xmlns:browser="http://namespaces.zope.org/browser"
    i18n_domain="silva_news">
 
   <include package="five.grok" />
-  <include package="zeam.form.silva" />
-  <include package="infrae.rest" />
   <include package="silva.core.smi" />
   <include package="silva.core.views" />
   <include package="silva.core.upgrade" />
 
   <include package="Products.Silva" />
-  <include package="silva.app.document" />
+  <include package="Products.SilvaDocument" />
 
   <five:registerPackage package="." />
 
   <!-- Grok Silva News -->
   <grok:grok package="." />
-
-  <!-- i18n -->
-  <i18n:registerTranslations directory="i18n" />
-
-  <view for="Products.SilvaNews.interfaces.INewsItem"
-        factory="Products.SilvaNews.traverser.NewsItemAbsoluteURL"
-        type="zope.publisher.interfaces.http.IHTTPRequest"
-        name="absolute_url"
-        permission="zope.Public" />
-
-  <view for="Products.SilvaNews.interfaces.INewsItemVersion"
-        factory="Products.SilvaNews.traverser.NewsItemVersionAbsoluteURL"
-        type="zope.publisher.interfaces.http.IHTTPRequest"
-        name="absolute_url"
-        permission="zope.Public" />
 
 </configure>

@@ -1,6 +1,0 @@
-<a id="${widget.htmlId()}"
-   target="${widget.htmlTarget()}"
-   class="${widget.htmlClass()}"
-   href="${widget.getURL()}"
-   tal:content="widget.inputValue()" />
-

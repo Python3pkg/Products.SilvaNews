@@ -2,7 +2,7 @@ from silva.core.upgrade.upgrader.upgrade_300 import VERSION_A1
 from silva.core.upgrade.upgrade import BaseUpgrader
 
 
-class UpgradeCatalog(BaseUpgrader):
+class CatalogUpgrader(BaseUpgrader):
 
     def validate(self, root):
         return bool(root.service_catalog)
@@ -32,6 +32,13 @@ class UpgradeCatalog(BaseUpgrader):
         return root
 
 
-upgrade_catalog = UpgradeCatalog(VERSION_A1, "Silva Root")
+class SilvaNewsRootUpgrader(BaseUpgrader):
 
+    def upgrade(self, root):
+        return root
+
+
+
+upgrade_catalog = CatalogUpgrader(VERSION_A1, "Silva Root")
+upgrade_root = SilvaNewsRootUpgrader(VERSION_A1, "Silva Root")
 

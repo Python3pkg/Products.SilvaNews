@@ -3,27 +3,13 @@
 # See also LICENSE.txt
 # $Id$
 
-from five import grok
-from zope.interface import Interface
-from zope import schema
-from zope.i18nmessageid import MessageFactory
-
 # Zope
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
-
 from Products.Silva import SilvaPermissions
-
-from Products.SilvaNews.interfaces import INewsCategorization
-from Products.SilvaNews.interfaces import get_subjects_tree, get_target_audiences_tree
-from Products.SilvaNews.interfaces import subjects_source, target_audiences_source
-from Products.SilvaNews.widgets.tree import Tree
-
-_ = MessageFactory('silva_news')
 
 
 class NewsCategorization(object):
-    grok.implements(INewsCategorization)
     security = ClassSecurityInfo()
 
     def __init__(self, id):
@@ -57,17 +43,4 @@ class NewsCategorization(object):
 
 InitializeClass(NewsCategorization)
 
-
-
-class INewsCategorizationSchema(Interface):
-    subjects = Tree(
-        title=_(u"subjects"),
-        value_type=schema.Choice(source=subjects_source),
-        tree=get_subjects_tree,
-        required=True)
-    target_audiences = Tree(
-        title=_(u"target audiences"),
-        value_type=schema.Choice(source=target_audiences_source),
-        tree=get_target_audiences_tree,
-        required=True)
 

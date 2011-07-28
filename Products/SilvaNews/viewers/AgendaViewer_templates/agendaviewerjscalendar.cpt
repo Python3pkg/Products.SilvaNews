@@ -1,3 +1,0 @@
-<a id="events-location" tal:attributes="href view.events_json_url"></a>
-<div id="calendar">
-</div>

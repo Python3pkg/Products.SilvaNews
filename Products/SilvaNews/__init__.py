@@ -7,55 +7,35 @@ from Products.SilvaNews.installer import install
 from silva.core import conf as silvaconf
 
 silvaconf.extension_name("SilvaNews")
-silvaconf.extension_title("Silva News Network")
-silvaconf.extension_depends(["silva.app.document", "SilvaExternalSources"])
-
-
-def initialize(context):
-    from Products.SilvaNews import indexing
-    context.registerClass(
-        indexing.IntegerRangesIndex,
-        permission = 'Add Pluggable Index',
-        constructors = (indexing.manage_addIntegerRangesIndexForm,
-                        indexing.manage_addIntegerRangesIndex),
-        visibility=None)
+silvaconf.extension_title("Silva Obsolete News Network")
+silvaconf.extension_depends(["SilvaDocument", "SilvaExternalSources"])
 
 
 # Specify import path for old classes (for upgrade)
 CLASS_CHANGES = {
-        'Products.SilvaNews.silvaxmlattribute SilvaXMLAttribute':
-            'OFS.SimpleItem SimpleItem',
+        'Products.SilvaNews.indexing IntegerRangesIndex':
+            'silva.app.news.indexing IntegerRangesIndex',
 
-        # filters
+        'Products.SilvaNews.viewers.RSSAgregator RSSAgregator':
+            'silva.app.news.viewers.RSSAgregator RSSAgregator',
+        'Products.SilvaNews.viewers.NewsViewer NewsViewer':
+            'silva.app.news.viewers.NewsViewer NewsViewer',
+        'Products.SilvaNews.viewers.AgendaViewer AgendaViewer':
+            'silva.app.news.viewers.AgendaViewer AgendaViewer',
 
-        'Products.SilvaNews.AgendaFilter AgendaFilter':
-            'Products.SilvaNews.filters.AgendaFilter AgendaFilter',
-        'Products.SilvaNews.CategoryFilter CategoryFilter':
-            'Products.SilvaNews.filters.CategoryFilter CategoryFilter',
-        'Products.SilvaNews.Filter Filter':
-            'Products.SilvaNews.filters.Filter Filter',
-        'Products.SilvaNews.NewsFilter NewsFilter':
-            'Products.SilvaNews.filters.NewsFilter NewsFilter',
-        'Products.SilvaNews.NewsItemFilter NewsItemFilter':
-            'Products.SilvaNews.filters.NewsItemFilter NewsItemFilter',
+        'Products.SilvaNews.NewsPublication NewsPublication':
+            'silva.app.news.NewsPublication NewsPublication',
 
-        # viewers
+        'Products.SilvaNews.ServiceNews ServiceNews':
+            'silva.app.news.ServiceNews ServiceNews',
+        'Products.SilvaNews.interfaces IServiceNews':
+            'silva.app.news.interfaces IServiceNews',
 
-        'Products.SilvaNews.AgendaViewer AgendaViewer':
-            'Products.SilvaNews.viewers.AgendaViewer AgendaViewer',
-        'Products.SilvaNews.NewsViewer NewsViewer':
-            'Products.SilvaNews.viewers.NewsViewer NewsViewer',
-        'Products.SilvaNews.RSSAggregator RSSAggregator':
-            'Products.SilvaNews.viewers.RSSAggregator RSSAggregator',
-
-        # contents
-        'Products.SilvaNews.PlainAgendaItem PlainAgendaItem':
-            'Products.SilvaNews.AgendaItem AgendaItem',
-        'Products.SilvaNews.PlainAgendaItem PlainAgendaItemVersion':
-            'Products.SilvaNews.AgendaItem AgendaItemVersion',
-        'Products.SilvaNews.PlainArticle PlainArticle':
-            'Products.SilvaNews.NewsItem NewsItem',
-        'Products.SilvaNews.PlainArticle PlainArticleVersion':
-            'Products.SilvaNews.NewsItem NewsItemVersion',
+        'Products.SilvaNews.filters.AgendaFilter AgendaFilter':
+            'silva.app.news.filters.AgendaFilter AgendaFilter',
+        'Products.SilvaNews.filters.NewsFilter NewsFilter':
+            'silva.app.news.filters.NewsFilter NewsFitler',
+        'Products.SilvaNews.filters.CategoryFilter CategoryFilter':
+            'silva.app.news.filters.CategoryFilter CategoryFilter',
     }
 
