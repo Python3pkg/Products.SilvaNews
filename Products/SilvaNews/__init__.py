@@ -16,6 +16,9 @@ CLASS_CHANGES = {
         'Products.SilvaNews.indexing IntegerRangesIndex':
             'silva.app.news.indexing IntegerRangesIndex',
 
+        'Products.SilvaNews.InlineViewer.InlineViewer InlineViewer':
+            'Products.SilvaExternalSources.CodeSource CodeSource',
+
         'Products.SilvaNews.viewers.RSSAggregator RSSAggregator':
             'silva.app.news.viewers.RSSAggregator RSSAggregator',
         'Products.SilvaNews.viewers.NewsViewer NewsViewer':

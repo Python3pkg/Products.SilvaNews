@@ -53,12 +53,31 @@ class NewsItemUpgrader(DocumentUpgrader):
         factory = parent.manage_addProduct['silva.app.news']
         factory.manage_addNewsItem(identifier, title)
 
+    def copy_version(self, source, target, ensure=False):
+        super(NewsItemUpgrader, self).copy_version(source, target, ensure)
+        target._subjects = set(source._subjects)
+        target._target_audiences = set(source._target_audiences)
+        target._display_datetime = source._display_datetime
+
 
 class AgendaItemUpgrader(DocumentUpgrader):
 
     def create_document(self, parent, identifier, title):
         factory = parent.manage_addProduct['silva.app.news']
         factory.manage_addAgendaItem(identifier, title)
+
+    def copy_version(self, source, target, ensure=False):
+        super(AgendaItemUpgrader, self).copy_version(source, target, ensure)
+        target._subjects = source._subjects
+        target._target_audiences = source._target_audiences
+        target._display_datetime = source._display_datetime
+        target._start_datetime = source._start_datetime
+        target._end_datetime = source._end_datetime
+        target._display_time = source._display_time
+        target._location = source._location
+        target._recurrence = source._recurrence
+        target._all_day = source._all_day
+        target._timezone_name = source._timezone_name
 
 
 upgrade_catalog = CatalogUpgrader(VERSION_A1, "Silva Root")
