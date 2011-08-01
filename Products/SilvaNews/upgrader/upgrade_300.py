@@ -10,7 +10,7 @@ class CatalogUpgrader(BaseUpgrader):
         return bool(root.service_catalog)
 
     def upgrade(self, root):
-        catalog = root.service_catalog._catalog
+        catalog = root.service_catalog
 
         columns = ['get_end_datetime','get_start_datetime',
             'get_location','get_title', 'display_datetime',
@@ -18,10 +18,10 @@ class CatalogUpgrader(BaseUpgrader):
 
         indexes = ['idx_end_datetime', 'idx_display_datetime',
             'idx_parent_path', 'idx_start_datetime', 'idx_target_audiences',
-            'idx_timestamp_ranges', 'idx_subjects']
+            'idx_timestamp_ranges', 'idx_subjects', 'idx_is_private']
 
-        existing_columns = catalog.schema
-        existing_indexes = catalog.indexes
+        existing_columns = catalog.schema()
+        existing_indexes = catalog.indexes()
 
         for column_name in columns:
             if column_name in existing_columns:
