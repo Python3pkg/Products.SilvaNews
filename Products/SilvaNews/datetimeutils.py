@@ -98,8 +98,8 @@ def datetime_to_unixtimestamp(dt):
     """do not handle UTC leap seconds.
     """
     delta = utc_datetime(dt) - epoch
-    return (delta.microseconds +
-        (delta.seconds + delta.days * 24 * 3600) * 10**6) / 10**6
+    return int((delta.microseconds +
+        (delta.seconds + delta.days * 24 * 3600) * 10**6) / 10**6)
 
 
 def end_of_day(dt):
