@@ -6,6 +6,8 @@ from five import grok
 
 import localdatetime
 
+from zope.component import getUtility
+
 from App.class_init import InitializeClass
 from AccessControl import ClassSecurityInfo
 from OFS.SimpleItem import SimpleItem
@@ -23,6 +25,26 @@ from Products.SilvaNews.datetimeutils import (local_timezone, get_timezone,
                                               zone_names)
 
 from datetime import datetime
+
+def expand_tree(items, tree, up=False):
+    results = set(items)
+    for item in items:
+        node = tree.find(item)
+        for node_id in node.get_subtree_ids():
+            results.add(node_id)
+        if up:
+            for node_id in node.ancestors_ids():
+                results.add(node_id)
+    return results
+
+def expand_subjects(subjects, up=False):
+    service = getUtility(IServiceNews)
+    return expand_tree(subjects, service._subjects, up=up)
+
+def expand_target_audiences(tas, up=False):
+    service = getUtility(IServiceNews)
+    return expand_tree(tas, service._target_audiences, up=up)
+
 
 
 class TimezoneMixin(object):

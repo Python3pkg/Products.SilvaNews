@@ -77,27 +77,24 @@ class Node:
                 return match
         return None
 
-    def get_subtree_ids(self):
+    def get_subtree_ids(self, max_depth=None):
         results = [self._id]
+        if max_depth is not None and max_depth <= 0:
+            return results
         for el in self._children:
-            results.extend(el.get_subtree_ids())
+            results.extend(el.get_subtree_ids(
+                max_depth=max_depth and (max_depth - 1)))
         return results
 
+    def ancestors(self):
+        current = self
+        while current._parent is not None:
+            yield current
+            current = current._parent
 
-    def find(self, id):
-        if self._id == id:
-            return self
-        for child in self._children:
-            match = child.find(id)
-            if match:
-                return match
-        return None
-
-    def get_subtree_ids(self):
-        results = [self._id]
-        for el in self._children:
-            results.extend(el.get_subtree_ids())
-        return results
+    def ancestors_ids(self):
+        for node in self.ancestors():
+            yield node._id
 
 
 class Root(Node):
@@ -116,3 +113,5 @@ class Root(Node):
 
     def _delElement(self, child):
         del self._references[child.id()]
+
+
