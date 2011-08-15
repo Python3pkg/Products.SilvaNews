@@ -80,7 +80,23 @@ class AgendaItemUpgrader(DocumentUpgrader):
         target._timezone_name = source._timezone_name
 
 
-upgrade_catalog = CatalogUpgrader(VERSION_A1, "Silva Root")
-upgrade_root = RootUpgrader(VERSION_A1, "Silva Root")
-upgrade_newsitem = NewsItemUpgrader(VERSION_A1, "Obsolete Article")
-upgrade_agendaitem = AgendaItemUpgrader(VERSION_A1, "Obsolete Agenda Item")
+class FilterUpgrader(BaseUpgrader):
+
+    def available(self, content):
+        return isinstance(content._excluded_items, list)
+
+    def upgrade(self, content):
+        content._excluded_items = set(content._excluded_items)
+        return content
+
+
+upgrade_catalog = CatalogUpgrader(
+    VERSION_A1, "Silva Root")
+upgrade_root = RootUpgrader(
+    VERSION_A1, "Silva Root")
+upgrade_newsitem = NewsItemUpgrader(
+    VERSION_A1, "Obsolete Article")
+upgrade_agendaitem = AgendaItemUpgrader(
+    VERSION_A1, "Obsolete Agenda Item")
+upgrade_filter = FilterUpgrader(
+    VERSION_A1, ("Silva Agenda Filter", "Silva News Filter"))

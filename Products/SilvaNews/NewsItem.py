@@ -166,7 +166,7 @@ class NewsItem(Document.Document):
     meta_type = "Obsolete Article"
     silvaconf.icon("www/news_item.png")
     silvaconf.priority(3.7)
-    silvaconf.versionClass(NewsItemVersion)
+    silvaconf.version_class(NewsItemVersion)
 
     security.declareProtected(SilvaPermissions.ApproveSilvaContent,
                               'set_next_version_display_datetime')
