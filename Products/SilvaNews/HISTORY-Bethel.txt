@@ -4,6 +4,13 @@ See also LICENSE.txt
 History of Bethel's Changes to SilvaNews
 ========================================
 
+SilvaNewsNetwork 2.9.2dev-bethel.3 (2011-08-17)
+-----------------------------------------------
+
+- fixed sorting method for agenda viewers.  Pass in the correct sorting 
+  attribute (get_start_datetime) and always pass in this attribute so that
+  sorting will always happen.
+
 SilvaNewsNetwork 2.9.2dev-bethel.2 (2011-07-25)
 -----------------------------------------------
 

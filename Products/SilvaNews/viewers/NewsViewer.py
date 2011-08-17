@@ -212,9 +212,9 @@ class NewsViewer(Content, SimpleItem, TimezoneMixin):
             #now use bisect to insert the items in a sorted manner
             sortedresults = []
             for r in results.itervalues():
-                #Why do we also add r.silva_object_url?  Because for some reason, comparing
+                #Why do we also add r.object_path?  Because for some reason, comparing
                 # mybrains sometimes raises an error that you can't compare a mybrains
-                # with an implicitacquirerwrapper.  So, silva_object_url is meant as
+                # with an implicitacquirerwrapper.  So, object_path is meant as
                 # a quickly-findable unique value
                 bisect.insort_right(sortedresults,(getattr(r,sortattr,None),r.object_path,r))
             #events should be ordered oldest first

@@ -87,9 +87,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
         """
         func = lambda x: x.get_next_items(self._days_to_show,
                                           starting_date=self._starting_date)
-        sortattr = None
-        if len(self.get_filters()) > 1:
-            sortattr = 'start_datetime'
+        sortattr = 'get_start_datetime'
         return self._get_items_helper(func,sortattr)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
@@ -104,9 +102,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
         """
         func = lambda x: x.get_agenda_items_by_date(month,year,
             timezone=self.get_timezone())
-        sortattr = None
-        if len(self.get_filters()) > 1:
-            sortattr = 'start_datetime'
+        sortattr = 'get_start_datetime'
         results = self._get_items_helper(func,sortattr)
         return results
 
@@ -117,9 +113,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
         """
         allowed_meta_types = self.get_allowed_meta_types()
         func = lambda x: x.search_items(keywords,allowed_meta_types)
-        sortattr = None
-        if len(self.get_filters()) > 1:
-            sortattr = 'start_datetime'
+        sortattr = 'get_start_datetime'
         results = self._get_items_helper(func,sortattr)
         return results
 
