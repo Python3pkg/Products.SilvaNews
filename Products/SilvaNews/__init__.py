@@ -8,7 +8,7 @@ from silva.core import conf as silvaconf
 
 silvaconf.extension_name("SilvaNews")
 silvaconf.extension_title("Silva Obsolete News Network")
-silvaconf.extension_depends(["SilvaDocument", "SilvaExternalSources"])
+silvaconf.extension_depends(["Silva", "SilvaDocument", "SilvaExternalSources"])
 
 
 # Specify import path for old classes (for upgrade)

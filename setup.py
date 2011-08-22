@@ -13,7 +13,7 @@ def product_readme(filename):
 
 setup(name='Products.SilvaNews',
       version=version,
-      description="News extension for Silva",
+      description="News extension for Silva 2.x.",
       long_description=product_readme("README.txt") + "\n" +
                        product_readme("HISTORY.txt"),
 
