@@ -69,7 +69,13 @@ def build_html_tree(node, vocabulary, value, _depth=0, _force_checked=False):
             html += child_html
         return status, html
 
-    item = vocabulary.getTerm(node.id())
+    try:
+        item = vocabulary.getTerm(node.id())
+    except LookupError:
+        #the node (which is made up of values from this field), does not 
+        # exist in the vocabulary, so quietly continue
+        # XXX is there a better way to handle this?
+        return status, ''
 
     if _force_checked or item.value in value:
         status = CHECKED

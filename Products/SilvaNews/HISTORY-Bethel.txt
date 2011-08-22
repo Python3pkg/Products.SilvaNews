@@ -4,6 +4,13 @@ See also LICENSE.txt
 History of Bethel's Changes to SilvaNews
 ========================================
 
+SilvaNewsNetwork 2.9.2dev-bethel.4 (unreleased)
+-----------------------------------------------
+
+- added an edit view for CategoryFilters
+
+- quietly ignore invalid nodes in the Tree widget
+
 SilvaNewsNetwork 2.9.2dev-bethel.3 (2011-08-17)
 -----------------------------------------------
 

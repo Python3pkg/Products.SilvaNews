@@ -1,6 +1,8 @@
 # Copyright (c) 2002-2011 Infrae. All rights reserved.
 # See also LICENSE.txt
 # $Id$
+import copy
+
 from five import grok
 from zope.component import getUtility
 
@@ -87,18 +89,18 @@ class Filter(NonPublishable, SimpleItem.SimpleItem):
         removed_subjects = []
         removed_target_audiences = []
 
-        subjects = self._subjects[:]
-        target_audiences = self._target_audiences[:]
+        #use copy rather than [:], so that the categories can be sets
+        # since the CategoryFilter edit screen uses sets not lists
+        subjects = copy.copy(self._subjects)
+        target_audiences = copy.copy(self._target_audiences)
 
         new_subs = []
-        for i in range(len(subjects)):
-            s = subjects[i]
-            if  s in service_subjects:
+        for s in subjects:
+            if s in service_subjects:
                 new_subs.append(s)
 
         new_tas = []
-        for i in range(len(target_audiences)):
-            ta = target_audiences[i]
+        for ta in target_audiences:
             if ta in service_target_audiences:
                 new_tas.append(ta)
 
