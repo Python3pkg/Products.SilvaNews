@@ -2,7 +2,8 @@
 # See also LICENSE.txt
 
 from Products.Silva.silvaxml.xmlimport import (
-    SilvaBaseHandler, NS_URI, updateVersionCount)
+    SilvaBaseHandler, updateVersionCount)
+from Products.Silva.silvaxml.xmlimport import NS_SILVA_URI as NS_URI
 from Products.Silva import mangle
 from silva.core import conf as silvaconf
 
@@ -14,7 +15,7 @@ from Products.SilvaNews.AgendaItem import (
     AgendaItem, AgendaItemVersion)
 from Products.SilvaNews.datetimeutils import get_timezone
 from Products.SilvaDocument.silvaxml.xmlimport import DocXMLHandler
-from Products.SilvaDocument.silvaxml import NS_SILVA_DOCUMENT
+from Products.SilvaDocument.silvaxml import NS_DOCUMENT_URI as NS_SILVA_DOCUMENT
 
 silvaconf.namespace(NS_SILVA_NEWS)
 
