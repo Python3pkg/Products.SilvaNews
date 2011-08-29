@@ -4,7 +4,7 @@ See also LICENSE.txt
 History of Bethel's Changes to SilvaNews
 ========================================
 
-SilvaNewsNetwork 2.9.2dev-bethel.4 (unreleased)
+SilvaNewsNetwork 2.9.2dev-bethel.4 (2011-08-29)
 -----------------------------------------------
 
 - added an edit view for CategoryFilters
