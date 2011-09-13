@@ -42,8 +42,6 @@ from Products.Silva.VersionedContent import CatalogedVersionedContent
 from Products.Silva.Version import CatalogedVersion
 from Products.Silva import SilvaPermissions
 from Products.Silva.transform.renderer.xsltrendererbase import XSLTTransformer
-from Products.SilvaNews.ServiceNews import (
-        expand_subjects, expand_target_audiences)
 from Products.SilvaNews.interfaces import (INewsItem, INewsItemVersion, 
                                            INewsItemTemplate)
 from Products.SilvaNews.interfaces import (INewsPublication, IServiceNews,
@@ -257,8 +255,7 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'idx_subjects')
-    def idx_subjects(self):
-        return expand_subjects(self.get_subjects())
+    idx_subjects = get_subjects
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_target_audiences')
@@ -301,8 +298,7 @@ class NewsItemVersion(CatalogedVersion, ContentLayout):
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'idx_target_audiences')
-    def idx_target_audiences(self):
-        return expand_target_audiences(self.get_target_audiences())
+    idx_target_audiences = get_target_audiences
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'last_author_fullname')

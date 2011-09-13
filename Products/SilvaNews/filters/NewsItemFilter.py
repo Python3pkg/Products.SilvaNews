@@ -19,6 +19,8 @@ import Products.Silva.SilvaPermissions as SilvaPermissions
 from Products.SilvaNews.interfaces import IServiceNews
 from Products.SilvaNews.interfaces import INewsItem,INewsFilter,INewsItemFilter
 from Products.SilvaNews.filters.Filter import Filter
+from Products.SilvaNews.ServiceNews import (
+        expand_subjects, expand_target_audiences)
 from Products.SilvaNews.datetimeutils import (utc_datetime, local_timezone,
     datetime_to_unixtimestamp)
 
@@ -48,7 +50,7 @@ class NewsItemFilterBase(object):
     _source_reference_name = 'filter-source'
     _allowed_source_types = ['Silva News Publication']
     
-    def _prepare_query ( self, meta_types=None ):
+    def _prepare_query( self, meta_types=None ):
         """private method preparing the common fields for a catalog query.
 
         Return: dict holding the query parameters
@@ -158,21 +160,11 @@ class NewsItemFilterBase(object):
                 self._excluded_items.remove(objectpath)
 
     def _collect_subjects(self, service):
-        result = set()
-        for sub in self._subjects:
-            node = service._subjects.find(sub)
-            if node is not None:
-                result = result.union(set(node.get_subtree_ids()))
-        return list(result)
+        return list(expand_subjects(self._subjects))
 
     def _collect_target_audiences(self, service):
-        result = set()
-        for sub in self._target_audiences:
-            node = service._target_audiences.find(sub)
-            if node is not None:
-                result = result.union(set(node.get_subtree_ids()))
-        return list(result)
-    
+        return list(expand_target_audiences(self._target_audiences))
+
     def _query(self, **kw):
         logger.debug('query %s', repr(kw))
         return self.service_catalog(kw)

@@ -30,21 +30,18 @@ def expand_tree(items, tree, up=False):
     results = set(items)
     for item in items:
         node = tree.find(item)
-        for node_id in node.get_subtree_ids():
-            results.add(node_id)
+        results |= set(node.get_subtree_ids())
         if up:
-            for node_id in node.ancestors_ids():
-                results.add(node_id)
+            results |= set(node.ancestors_ids())
     return results
 
-def expand_subjects(subjects, up=False):
-    service = getUtility(IServiceNews)
+def expand_subjects(subjects, up=False, service=None):
+    service = service or getUtility(IServiceNews)
     return expand_tree(subjects, service._subjects, up=up)
 
-def expand_target_audiences(tas, up=False):
-    service = getUtility(IServiceNews)
+def expand_target_audiences(tas, up=False, service=None):
+    service = service or getUtility(IServiceNews)
     return expand_tree(tas, service._target_audiences, up=up)
-
 
 
 class TimezoneMixin(object):

@@ -112,13 +112,15 @@ def start_of_day(dt):
     return dt.replace(hour=0, minute=0, second=0, microsecond=0)
 
 def start_of_week(dt, first_weekday=0):
-    delta = relativedelta(days=-((dt.weekday() - first_weekday)  % 7))
-    return start_of_day(dt + delta)
+    delta = relativedelta(days=((dt.weekday() - first_weekday)  % 7))
+    result = start_of_day(dt - delta)
+    return result
 
 def end_of_week(dt, first_weekday=0):
-    lastweek_day = (first_weekday - 1) % 7
-    delta = relativedelta(days=((lastweek_day + dt.weekday()) % 7))
-    return end_of_day(dt + delta)
+    last_weekday = (first_weekday - 1) % 7
+    delta = relativedelta(days=((last_weekday - dt.weekday()) % 7))
+    result = end_of_day(dt + delta)
+    return result
 
 def start_of_month(dt):
     return dt.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
