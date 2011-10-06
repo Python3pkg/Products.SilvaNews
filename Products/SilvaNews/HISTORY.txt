@@ -1,10 +1,10 @@
 ChangeLog
 =========
 
-SilvaNewsNetwork 2.9.3 (unreleased)
+SilvaNewsNetwork 2.9.3 (06/10/2011)
 -----------------------------------
 
-- ...
+- Fix Filter subjects and target audiences edition.
 
 SilvaNewsNetwork 2.9.2 (2011-07-27)
 -----------------------------------
