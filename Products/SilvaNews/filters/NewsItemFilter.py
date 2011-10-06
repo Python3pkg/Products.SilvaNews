@@ -180,8 +180,8 @@ class NewsItemFilter(Filter):
             fulltext = keywords.split(' '),
             version_status = 'public',
             path = map(lambda p: "/".join(p), self._get_sources_path()),
-            subjects = self._subjects,
-            target_audiences = self._target_audiences,
+            subjects = self.get_subjects(),
+            target_audiences = self.get_target_audiences(),
             meta_type = meta_types,
             sort_on = 'idx_display_datetime',
             sort_order = 'descending')

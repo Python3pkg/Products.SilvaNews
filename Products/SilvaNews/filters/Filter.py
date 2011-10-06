@@ -82,30 +82,10 @@ class Filter(NonPublishable, SimpleItem.SimpleItem):
         items from the object's list that are removed in the service)
         """
         service_news = getUtility(IServiceNews)
-        service_subjects = [s[0] for s in service_news.get_subjects()]
-        service_target_audiences = [t[0] for t in service_news.get_target_audiences()]
+        self._subjects = set(self._subjects).intersection(
+            set(s[0] for s in service_news.get_subjects()))
 
-        removed_subjects = []
-        removed_target_audiences = []
-
-        subjects = self._subjects[:]
-        target_audiences = self._target_audiences[:]
-
-        new_subs = []
-        for i in range(len(subjects)):
-            s = subjects[i]
-            if  s in service_subjects:
-                new_subs.append(s)
-
-        new_tas = []
-        for i in range(len(target_audiences)):
-            ta = target_audiences[i]
-            if ta in service_target_audiences:
-                new_tas.append(ta)
-
-        self._subjects = new_subs
-        self._target_audiences = new_tas
-
-        return removed_subjects + removed_target_audiences
+        self._target_audiences = set(self._target_audiences).intersection(
+            set(t[0] for t in service_news.get_target_audiences()))
 
 InitializeClass(Filter)
