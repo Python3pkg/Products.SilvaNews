@@ -8,8 +8,9 @@ def set_attribute(content, name, attrs, extract=None, ns=None):
             value = extract(attrs[ns_name])
         else:
             value = attrs[ns_name]
-        setter = getattr(content, "set_%s" % name)
-        setter(value)
+        if value:
+            setter = getattr(content, "set_%s" % name)
+            setter(value)
         return value
 
 def set_attribute_as_list(content, name, attrs, ns=None, sep=","):

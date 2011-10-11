@@ -226,9 +226,11 @@ class CalendarDatetime(object):
         if self._recurrence is None:
             return [self.get_unixtimestamp_range()]
         duration = self.get_duration()
+
         def get_interval(datetime):
             return (datetime_to_unixtimestamp(datetime),
                 datetime_to_unixtimestamp(datetime + duration),)
+
         event_list = None
         if after and before:
             event_list = self._recurrence.between(after, before, inc=True)

@@ -20,9 +20,6 @@ class SilvaNewsInstallerTestCase(SilvaNewsTestCase):
         #ensure catalog columns are setup
         catalog = self.catalog
         columns = ['object_path',
-                   'get_end_datetime',
-                   'get_start_datetime',
-                   'get_location',
                    'get_title',
                    'display_datetime',
                    'get_intro']
@@ -36,8 +33,6 @@ class SilvaNewsInstallerTestCase(SilvaNewsTestCase):
         indexes = [
             ('object_path', 'FieldIndex'),
             ('idx_parent_path', 'FieldIndex'),
-            ('idx_start_datetime', 'DateIndex'),
-            ('idx_end_datetime', 'DateIndex'),
             ('idx_display_datetime', 'DateIndex'),
             ('idx_subjects', 'KeywordIndex'),
             ('idx_target_audiences', 'KeywordIndex'),

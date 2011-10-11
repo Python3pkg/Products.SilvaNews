@@ -1,17 +1,18 @@
 from zope.interface import implements
+
+from OFS.SimpleItem import SimpleItem
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.PluginIndexes.interfaces import IPluggableIndex
 from Products.PluginIndexes.common.util import parseIndexRequest
 from Products.PluginIndexes.common import safe_callable
-from BTrees.IIBTree import (IISet, multiunion, difference,
-    intersection, union)
+
+from BTrees.IIBTree import IISet, multiunion, difference
+from BTrees.IIBTree import intersection, union
 from BTrees.IOBTree import IOBTree
 from BTrees.OIBTree import OIBTree
 from BTrees.Length import Length
-from OFS.SimpleItem import SimpleItem
 
 _marker = []
-
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 manage_addIntegerRangesIndexForm = \
     PageTemplateFile('www/add_integer_ranges_index.zpt', globals())
@@ -30,7 +31,6 @@ class IntegerRangesIndex(SimpleItem):
     """ Index a set of integer ranges:
         [(1,2), (12,23), (12, 22)]
     """
-
     implements(IPluggableIndex)
     meta_type = 'IntegerRangesIndex'
 
@@ -239,3 +239,4 @@ class IntegerRangesIndex(SimpleItem):
         except AttributeError:
             datum = _marker
         return datum
+

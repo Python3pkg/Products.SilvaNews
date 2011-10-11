@@ -2,7 +2,6 @@ from os import path
 
 from App.Common import package_home
 
-from silva.core.services.catalog import RecordStyle
 from silva.core.conf.installer import DefaultInstaller
 
 from Products.SilvaNews.interfaces import ISilvaNewsExtension
@@ -107,14 +106,12 @@ class SilvaNewsInstaller(DefaultInstaller):
         """Sets the ZCatalog up"""
         catalog = root.service_catalog
 
-        columns = ['object_path','get_end_datetime','get_start_datetime',
-            'get_location','get_title', 'display_datetime','get_intro', 'sort_index']
+        columns = ['object_path', 'get_title', 'display_datetime',
+                   'get_intro', 'sort_index']
 
         indexes = [
             ('object_path', 'FieldIndex'),
             ('idx_parent_path', 'FieldIndex'),
-            ('idx_start_datetime', 'DateIndex'),
-            ('idx_end_datetime', 'DateIndex'),
             ('idx_display_datetime', 'DateIndex'),
             ('idx_timestamp_ranges', 'IntegerRangesIndex'),
             ('idx_subjects', 'KeywordIndex'),
@@ -132,14 +129,6 @@ class SilvaNewsInstaller(DefaultInstaller):
         for field_name, field_type in indexes:
             if field_name in existing_indexes:
                 continue
-            if field_type == 'ZCTextIndex':
-                extra = RecordStyle(
-                    {'doc_attr':field_name,
-                     'lexicon_id':'silva_lexicon',
-                     'index_type':'Okapi BM25 Rank'}
-                    )
-                catalog.addIndex(field_name, field_type, extra)
-            else:
-                catalog.addIndex(field_name, field_type)
+            catalog.addIndex(field_name, field_type)
 
 install = SilvaNewsInstaller("SilvaNews", ISilvaNewsExtension)

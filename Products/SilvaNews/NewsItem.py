@@ -25,7 +25,7 @@ from Products.SilvaNews.interfaces import INewsItem, INewsItemVersion
 from Products.SilvaNews.interfaces import (INewsPublication, IServiceNews,
     INewsViewer)
 from Products.SilvaNews.datetimeutils import datetime_to_unixtimestamp
-
+from Products.SilvaMetadata.Index import MetadataCatalogingAttributes
 _ = MessageFactory('silva_news')
 
 
@@ -71,9 +71,6 @@ class NewsItemVersion(DocumentVersion):
         self._target_audiences = []
         self._display_datetime = None
 
-    # XXX I would rather have this get called automatically on setting
-    # the publication datetime, but that would have meant some nasty monkey-
-    # patching would be required...
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                                 'set_display_datetime')
     def set_display_datetime(self, ddt):
@@ -93,10 +90,6 @@ class NewsItemVersion(DocumentVersion):
             see 'set_display_datetime'
         """
         return self._display_datetime
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                                'idx_display_datetime')
-    idx_display_datetime = display_datetime
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_display_datetime')
@@ -192,10 +185,6 @@ class NewsItemVersion(DocumentVersion):
             source, 'snn-np-settings', 'is_private')
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'idx_is_private')
-    idx_is_private = is_private
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_subjects')
     def get_subjects(self):
         """Returns the subjects
@@ -207,10 +196,6 @@ class NewsItemVersion(DocumentVersion):
     subjects = get_subjects
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'idx_subjects')
-    idx_subjects = get_subjects
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'get_target_audiences')
     def get_target_audiences(self):
         """Returns the target audiences
@@ -220,10 +205,6 @@ class NewsItemVersion(DocumentVersion):
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'target_audiences')
     target_audiences = get_target_audiences
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'idx_target_audiences')
-    idx_target_audiences = get_target_audiences
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'last_author_fullname')
@@ -251,16 +232,31 @@ class NewsItemVersion(DocumentVersion):
         binding = self.service_metadata.getMetadata(self)
         return binding.get('silva-extra', 'publicationtime')
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'sort_index')
+
+InitializeClass(NewsItemVersion)
+
+
+class NewsItemVersionCatalogingAttributes(MetadataCatalogingAttributes):
+    grok.context(INewsItemVersion)
+
     def sort_index(self):
-        dt = self.display_datetime()
+        dt = self.context.display_datetime()
         if dt:
             return datetime_to_unixtimestamp(dt)
         return None
 
+    def idx_target_audiences(self):
+        return self.context.get_target_audiences()
 
-InitializeClass(NewsItemVersion)
+    def idx_subjects(self):
+        return self.context.get_subjects()
+
+    def idx_is_private(self):
+        return self.context.is_private()
+
+    def idx_display_datetime(self):
+        return self.context.display_datetime()
+
 
 ContentHTML = XSLTTransformer('newsitem.xslt', __file__)
 IntroHTML = XSLTTransformer('newsitem_intro.xslt', __file__)

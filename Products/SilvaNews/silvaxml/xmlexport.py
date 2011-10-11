@@ -253,7 +253,7 @@ class PlainAgendaItemProducer(VersionedContentProducer):
                             {'id': self.context.id})
         self.workflow()
         self.versions()
-        self.endElementNS(NS_SILVA_NEWS,'plainagendaitem')
+        self.endElementNS(NS_SILVA_NEWS, 'plainagendaitem')
 
 
 class PlainAgendaItemVersionProducer(DocumentVersionProducer):
@@ -268,17 +268,22 @@ class PlainAgendaItemVersionProducer(DocumentVersionProducer):
             {'version_id': self.context.id,
              'subjects': ','.join(self.context.subjects()),
              'target_audiences': ','.join(self.context.target_audiences()),
-             'start_datetime': iso_datetime(self.context.get_start_datetime()),
-             'end_datetime': iso_datetime(self.context.get_end_datetime()),
-             'location': self.context.get_location(),
-             'recurrence': self.context.get_recurrence() or '',
-             'all_day': str(self.context.is_all_day()),
-             'timezone_name': self.context.get_timezone_name(),
              'display_datetime': iso_datetime(
                 self.context.display_datetime())})
         self.metadata()
-        node = self.context.content.documentElement.getDOMObj()
-        self.sax_node(node)
+        self.sax_node(self.context.content.documentElement.getDOMObj())
+        for occurrence in self.context.get_occurrences():
+            self.startElementNS(
+                NS_SILVA_NEWS, 'occurrence',
+                {'start_datetime': iso_datetime(
+                        occurrence.get_start_datetime()),
+                 'end_datetime': iso_datetime(
+                        occurrence.get_end_datetime()),
+                 'location': occurrence.get_location(),
+                 'recurrence': occurrence.get_recurrence() or '',
+                 'all_day': str(occurrence.is_all_day()),
+                 'timezone_name': occurrence.get_timezone_name()})
+            self.endElementNS(NS_SILVA_NEWS, 'occurrence')
         self.endElement('content')
 
 

@@ -91,16 +91,11 @@
                 <expiration_datetime/>
               </version>
             </workflow>
-            <content all_day="True"
-                display_datetime="2010-09-30T08:00:00Z"
-                end_datetime="2010-09-01T09:00:00Z"
-                location="Rotterdam"
-                recurrence="FREQ=DAILY;UNTIL=20100910T123212Z"
-                start_datetime="2010-09-01T08:00:00Z"
-                subjects="all"
-                target_audiences="generic"
-                timezone_name="Europe/Amsterdam"
-                version_id="0">
+            <content
+               display_datetime="2010-09-30T08:00:00Z"
+               subjects="all"
+               target_audiences="generic"
+               version_id="0">
               <metadata>
                 <set id="silva-content">
                   <silva-content:maintitle>Some event</silva-content:maintitle>
@@ -124,6 +119,14 @@
                 </set>
               </metadata>
               <doc:doc/>
+              <silvanews:occurrence
+                 all_day="True"
+                 end_datetime="2010-09-01T09:00:00Z"
+                 location="Rotterdam"
+                 recurrence="FREQ=DAILY;UNTIL=20100910T123212Z"
+                 start_datetime="2010-09-01T08:00:00Z"
+                 timezone_name="Europe/Amsterdam">
+              </silvanews:occurrence>
             </content>
           </silvanews:plainagendaitem>
         </content>

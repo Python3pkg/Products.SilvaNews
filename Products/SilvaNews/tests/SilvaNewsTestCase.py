@@ -3,6 +3,7 @@
 # $Id$
 
 from Products.Silva.testing import SilvaLayer
+from Products.SilvaNews.AgendaItem import AgendaItemOccurrence, _marker
 from DateTime import DateTime
 import transaction
 import Products.SilvaNews
@@ -77,24 +78,29 @@ class SilvaNewsTestCase(unittest.TestCase):
         item._update_publication_status()
         return item
 
-    def add_published_agenda_item(self, parent, id, title, sdt, edt=None, **kw):
+    def add_published_agenda_item(
+        self, parent, id, title, sdt, edt=_marker, all_day=_marker):
+
         factory = parent.manage_addProduct['SilvaNews']
-        factory.manage_addPlainAgendaItem(id, title, **kw)
+        factory.manage_addPlainAgendaItem(id, title)
         item = getattr(parent, id)
-        ver = item.get_editable()
-        ver.set_start_datetime(sdt)
-        if edt:
-            ver.set_end_datetime(edt)
-        ver.set_subjects(['sub'])
-        ver.set_target_audiences(['ta'])
-        ver.set_display_datetime(DateTime())
-        item.set_next_version_publication_datetime(DateTime())
+        version = item.get_editable()
+
+        version.set_occurrences([
+                AgendaItemOccurrence(
+                    start_datetime=sdt,
+                    end_datetime=edt,
+                    all_day=all_day)])
+        version.set_subjects(['sub'])
+        version.set_target_audiences(['ta'])
+        version.set_display_datetime(DateTime())
+        item.set_next_version_publication_datetime(DateTime() - 10)
         item.approve_version()
-        item._update_publication_status()
         return getattr(parent, id)
 
 
 class NewsBaseTestCase(SilvaNewsTestCase):
+
     def setUp(self):
         super(NewsBaseTestCase, self).setUp()
         self.sm = self.root.service_metadata

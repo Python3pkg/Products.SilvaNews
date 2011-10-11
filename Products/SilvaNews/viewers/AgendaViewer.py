@@ -78,7 +78,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
         func = lambda x: x.get_next_items(self._days_to_show)
         sortattr = None
         if len(self.get_filters()) > 1:
-            sortattr = 'start_datetime'
+            sortattr = 'sort_index'
         return self._get_items_helper(func,sortattr)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
@@ -90,7 +90,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
             timezone=self.get_timezone())
         sortattr = None
         if len(self.get_filters()) > 1:
-            sortattr = 'start_datetime'
+            sortattr = 'sort_index'
         results = self._get_items_helper(func,sortattr)
         return results
 
@@ -103,7 +103,7 @@ class AgendaViewer(NewsViewer, ExternalSource):
         func = lambda x: x.search_items(keywords,allowed_meta_types)
         sortattr = None
         if len(self.get_filters()) > 1:
-            sortattr = 'start_datetime'
+            sortattr = 'sort_index'
         results = self._get_items_helper(func,sortattr)
         return results
 
@@ -203,12 +203,13 @@ class CalendarView(object):
         """ index all the days for which the event has an occurrence between
         start and end.
         """
-        cd = event.get_calendar_datetime()
-        for datetime_range in cd.get_datetime_ranges(start, end):
-            for occurence in datetimeutils.DayWalk(datetime_range[0],
-                                                   datetime_range[1],
-                                                   self.context.get_timezone()):
-                self._index_event(occurence, event)
+        for occurrence in event.get_occurrences():
+            cd = occurrence.get_calendar_datetime()
+            for datetime_range in cd.get_datetime_ranges(start, end):
+                for day in datetimeutils.DayWalk(
+                    datetime_range[0], datetime_range[1],
+                    self.context.get_timezone()):
+                    self._index_event(day, event)
 
     def _index_event(self, adate, event):
         """ (internal) actual indexing of an event.

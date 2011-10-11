@@ -2,6 +2,10 @@
 # See also LICENSE.txt
 # $Id$
 
+from datetime import datetime
+from operator import attrgetter
+
+from five import grok
 from zope import schema
 from zope.i18nmessageid import MessageFactory
 
@@ -9,17 +13,14 @@ from zope.i18nmessageid import MessageFactory
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass # Zope 2.12
 
-from datetime import datetime
-
 # SilvaNews
 from Products.Silva import SilvaPermissions
 from Products.SilvaNews.datetimeutils import (UTC, local_timezone,
     start_of_month, end_of_month, datetime_to_unixtimestamp)
-from Products.SilvaNews.filters.NewsItemFilter import NewsItemFilter,brainsorter
+from Products.SilvaNews.filters.NewsItemFilter import NewsItemFilter
 from Products.SilvaNews.interfaces import (IAgendaFilter, IAgendaItem,
     ISubjectTASchema, news_source)
 
-from five import grok
 from silva.core import conf as silvaconf
 from zeam.form import silva as silvaforms
 
@@ -78,18 +79,10 @@ class AgendaFilter(NewsItemFilter):
             year, month, 1, tzinfo=timezone))
         enddate = end_of_month(startdate)
         u = datetime_to_unixtimestamp
-        # end dt first
-        query = self._prepare_query()
-        query['sort_order'] = 'ascending'
-        query['sort_on'] = 'idx_end_datetime'
+        query = self._prepare_query(sort=False)
         query['idx_timestamp_ranges'] = {
             'query': [u(startdate), u(enddate)]}
-        result = self._query(**query)
-
-        query['sort_on'] = 'idx_start_datetime'
-        result = list(self._query(**query))
-        result.sort(brainsorter)
-        return result
+        return sorted(self._query(**query), key=attrgetter('sort_index'))
 
     def _is_agenda_addable(self, addable_dict):
         return (

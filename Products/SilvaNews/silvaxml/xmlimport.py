@@ -13,6 +13,7 @@ from Products.SilvaDocument.silvaxml.xmlimport import (
 from Products.SilvaDocument.silvaxml import NS_SILVA_DOCUMENT
 from Products.SilvaNews.silvaxml.xmlexport import NS_SILVA_NEWS
 from Products.SilvaNews.silvaxml.helpers import *
+from Products.SilvaNews.AgendaItem import AgendaItemOccurrence
 from Products.SilvaNews.PlainArticle import (
     PlainArticle, PlainArticleVersion)
 from Products.SilvaNews.PlainAgendaItem import (
@@ -108,40 +109,49 @@ class PlainAgendaItemHandler(SilvaBaseHandler):
             self.notifyImport()
 
 
+class AgendaItemOccurrenceHandler(SilvaBaseHandler):
+    silvaconf.baseclass()
+
+    def startElementNS(self, name, qname, attrs):
+        if name == (NS_SILVA_NEWS, 'occurrence'):
+            occurrence = AgendaItemOccurrence()
+            set_attribute(occurrence, 'location', attrs)
+            set_attribute(occurrence, 'recurrence', attrs)
+            tz_name = set_attribute(occurrence, 'timezone_name', attrs)
+            tz = None
+            if tz_name:
+                tz = get_timezone(tz_name)
+            set_attribute_as_bool(occurrence, 'all_day', attrs)
+            set_attribute_as_datetime(occurrence, 'start_datetime', attrs, tz=tz)
+            set_attribute_as_datetime(occurrence, 'end_datetime', attrs, tz=tz)
+
+            self.parentHandler().occurrences.append(occurrence)
+
 class PlainAgendaItemContentHandler(SilvaBaseHandler):
     silvaconf.baseclass()
 
     def getOverrides(self):
-        return{(NS_SILVA_DOCUMENT, 'doc'): DocXMLHandler}
+        return{(NS_SILVA_DOCUMENT, 'doc'): DocXMLHandler,
+               (NS_SILVA_NEWS, 'occurrence'): AgendaItemOccurrenceHandler}
 
     def startElementNS(self, name, qname, attrs):
         if name == (NS_URI, 'content'):
             id = attrs[(None, 'version_id')].encode('utf-8')
             if not mangle.Id(self._parent, id).isValid():
                 return
-            version = PlainAgendaItemVersion(id)
-            parent = self.parent()
-            parent._setObject(id, version)
-            version = version.__of__(parent)
+            self.parent()._setObject(id, PlainAgendaItemVersion(id))
+            self.setResultId(id)
 
+            version = self.result()
             set_attribute_as_list(version, 'target_audiences', attrs)
             set_attribute_as_list(version, 'subjects', attrs)
-            set_attribute(version, 'location', attrs)
-            set_attribute(version, 'recurrence', attrs)
-            tz_name = set_attribute(version, 'timezone_name', attrs)
-            tz = None
-            if tz_name:
-                tz = get_timezone(tz_name)
-            set_attribute_as_bool(version, 'all_day', attrs)
-            set_attribute_as_datetime(version, 'start_datetime', attrs, tz=tz)
-            set_attribute_as_datetime(version, 'end_datetime', attrs, tz=tz)
             set_attribute_as_naive_datetime(version, 'display_datetime', attrs)
-
-            self.setResultId(id)
+            self.occurrences = []
             updateVersionCount(self)
 
     def endElementNS(self, name, qname):
         if name == (NS_URI, 'content'):
+            self.result().set_occurrences(self.occurrences)
             self.storeMetadata()
             self.storeWorkflow()
 

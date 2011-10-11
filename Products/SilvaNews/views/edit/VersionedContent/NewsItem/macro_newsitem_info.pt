@@ -56,16 +56,6 @@
       <tal:audiences repeat="aid audience_ids"><tal:aid content="python: model.service_news.target_audience_title(aid)" /><br /></tal:audiences>
     </tal:newsarticleaudience>
   </p>
-  <p tal:define="startdate python: mangle.DateTime(model.get_viewable().get_start_datetime())"
-    tal:condition="startdate">
-    <span i18n:translate="" class="subhead">start</span><br />
-    <tal:startdate content="startdate" />
-  </p>
-  <p tal:define="enddate python: mangle.DateTime(model.get_viewable().get_end_datetime())"
-    tal:condition="enddate">
-    <span i18n:translate="" class="subhead">end</span><br />
-    <tal:enddate content="enddate" />
-  </p>
   <p tal:define="publicationdate python: mangle.DateTime(model.get_public_version_publication_datetime())"
     tal:condition="publicationdate">
     <span i18n:translate="" class="subhead">publication date</span><br />
@@ -76,11 +66,26 @@
     <span i18n:translate="" class="subhead">display date</span><br />
     <tal:startdate content="displaydate" />
   </p>
-  <p tal:define="location python: model.get_viewable().get_location()"
-    tal:condition="location">
-    <span i18n:translate="" class="subhead">location</span><br />
-    <tal:enddate content="location" />
-  </p>
+
+  <ul>
+    <li tal:repeat="occurrence python:model.get_viewable().get_occurrences()">
+      <p tal:define="startdate python: mangle.DateTime(occurrence.get_start_datetime())"
+         tal:condition="startdate">
+        <span i18n:translate="" class="subhead">start</span><br />
+        <tal:startdate content="startdate" />
+      </p>
+      <p tal:define="enddate python: mangle.DateTime(occurrence.get_end_datetime())"
+         tal:condition="enddate">
+        <span i18n:translate="" class="subhead">end</span><br />
+        <tal:enddate content="enddate" />
+      </p>
+      <p tal:define="location python: occurrence.get_location()"
+         tal:condition="location">
+        <span i18n:translate="" class="subhead">location</span><br />
+        <tal:enddate content="location" />
+      </p>
+    </li>
+  </ul>
 </div>
 </metal:newsagendaiteminfo>
 

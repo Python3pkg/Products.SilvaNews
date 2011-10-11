@@ -25,14 +25,15 @@ class TestAgendaItemAddTestCase(unittest.TestCase):
         self.assertTrue(form)
         form.get_control('addform.field.id').value = 'event'
         form.get_control('addform.field.title').value = 'Event'
-        form.get_control('addform.field.timezone_name').value = 'Europe/Paris'
-        form.get_control('addform.field.start_datetime.day').value = '01'
-        form.get_control('addform.field.start_datetime.month').value = '09'
-        form.get_control('addform.field.start_datetime.year').value = '2010'
-        form.get_control('addform.field.start_datetime.hour').value = '10'
-        form.get_control('addform.field.start_datetime.min').value = '20'
         form.get_control('addform.field.subjects').value = ['generic']
         form.get_control('addform.field.target_audiences').value = ['all']
+
+        form.get_control('addform.field.occurrences.field.0.field.timezone_name').value = 'Europe/Paris'
+        form.get_control('addform.field.occurrences.field.0.field.start_datetime.day').value = '01'
+        form.get_control('addform.field.occurrences.field.0.field.start_datetime.month').value = '09'
+        form.get_control('addform.field.occurrences.field.0.field.start_datetime.year').value = '2010'
+        form.get_control('addform.field.occurrences.field.0.field.start_datetime.hour').value = '10'
+        form.get_control('addform.field.occurrences.field.0.field.start_datetime.min').value = '20'
 
         status = form.get_control('addform.action.save_edit').submit()
         self.assertEquals(200, status)
@@ -44,10 +45,15 @@ class TestAgendaItemAddTestCase(unittest.TestCase):
 
         self.assertEquals('event', item.id)
         self.assertEquals('Event', version.get_title())
-        self.assertEquals('Europe/Paris', version.get_timezone_name())
         self.assertEquals([u'generic'], version.subjects())
         self.assertEquals([u'all'], version.target_audiences())
+
+        occurrences = version.get_occurrences()
+        self.assertEquals(len(occurrences), 1)
+        occurrence = occurrences[0]
+
+        self.assertEquals('Europe/Paris', occurrence.get_timezone_name())
         self.assertEquals(
             datetime(2010, 9, 1, 10, 20, 0,
                      tzinfo=get_timezone('Europe/Paris')),
-            version.get_start_datetime())
+            occurrence.get_start_datetime())

@@ -1,10 +1,10 @@
 <div class="newsitem"
-  xmlns:metal="http://xml.zope.org/namespaces/metal"
-  xmlns:tal="http://xml.zope.org/namespaces/tal"
-  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-  i18n:domain="silva_news">
+     xmlns:metal="http://xml.zope.org/namespaces/metal"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="silva_news">
   <h2 class="heading newsitemheading"
-    tal:content="structure content/get_title" />
+      tal:content="structure content/get_title" />
   <p class="eventactions">
     <a i18n:attributes="title"
        tal:attributes="href view/event_url"
@@ -18,18 +18,20 @@
       <span class="label" i18n:translate="">Publication date: </span>
       <span class="value" tal:content="view/article_date" />
     </p>
-    <p class="location" tal:condition="content/get_location">
-      <span class="label" i18n:translate="">Location: </span>
-      <span class="value" tal:content="content/get_location" />
-    </p>
-    <p class="startdate" tal:condition="view/formatted_start_date">
-      <span class="label" i18n:translate="">Start: </span>
-      <span class="value" tal:content="view/formatted_start_date" />
-    </p>
-    <p class="enddate" tal:condition="view/formatted_end_date">
-      <span class="label" i18n:translate="">End: </span>
-      <span class="value" tal:content="view/formatted_end_date" />
-    </p>
+    <div class="occurrence" tal:repeat="occurrence view/occurrences">
+      <div class="location" tal:condition="occurrence/location">
+        <span class="label" i18n:translate="">Location: </span>
+        <span class="value" tal:content="occurrence/location" />
+      </div>
+      <div class="startdate" tal:condition="occurrence/start">
+        <span class="label" i18n:translate="">Start: </span>
+        <span class="value" tal:content="occurrence/start" />
+      </div>
+      <div class="enddate" tal:condition="occurrence/end">
+        <span class="label" i18n:translate="">End: </span>
+        <span class="value" tal:content="occurrence/end" />
+      </div>
+    </div>
   </div>
   <div class="newsitemcontent" tal:content="structure view/article" />
 </div>

@@ -1,36 +1,34 @@
 # Copyright (c) 2002-2011 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Revision: 1.21 $
+# $Id$
+
 from icalendar import vDatetime, Calendar
-from zope.interface import implements
-from zope.component import getAdapter, getUtility
-from zope.traversing.browser import absoluteURL
-from zope.cachedescriptors.property import CachedProperty
+from icalendar.interfaces import IEvent
+from dateutil.rrule import rrulestr
+
 from five import grok
+from zope.component import getUtility, getMultiAdapter
+from zope.traversing.browser import absoluteURL
 
 # Zope
 from AccessControl import ClassSecurityInfo
+from Acquisition import Explicit
 from App.class_init import InitializeClass # Zope 2.12
 
-# Silva interfaces
-from Products.SilvaNews.interfaces import IAgendaItem, IAgendaItemVersion
-from Products.SilvaNews.interfaces import INewsViewer
-
 # Silva
-from silva.core import conf as silvaconf
 from silva.core.views import views as silvaviews
 from Products.Silva import SilvaPermissions
 
 # SilvaNews
+from Products.SilvaNews.interfaces import IAgendaItem, IAgendaItemVersion
+from Products.SilvaNews.interfaces import INewsViewer
 from Products.SilvaNews.interfaces import IServiceNews
-from Products.SilvaNews.NewsItem import (NewsItemView, NewsItemListItemView,
-    IntroHTML)
+from Products.SilvaNews.NewsItem import NewsItemView, NewsItemListItemView
+from Products.SilvaNews.NewsItem import IntroHTML
 from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
-
+from Products.SilvaNews.NewsItem import NewsItemVersionCatalogingAttributes
 from Products.SilvaNews.datetimeutils import (datetime_with_timezone,
     CalendarDatetime, datetime_to_unixtimestamp, get_timezone, RRuleData, UTC)
-from icalendar.interfaces import IEvent
-from dateutil.rrule import rrulestr
 
 _marker = object()
 
@@ -39,16 +37,13 @@ class AgendaItem(NewsItem):
     """Base class for agenda items.
     """
     security = ClassSecurityInfo()
-    implements(IAgendaItem)
-    silvaconf.baseclass()
+    grok.implements(IAgendaItem)
+    grok.baseclass()
 
 InitializeClass(AgendaItem)
 
 
-class AgendaItemVersion(NewsItemVersion):
-    """Base class for agenda item versions.
-    """
-
+class AgendaItemOccurrence(Explicit):
     security = ClassSecurityInfo()
 
     _start_datetime = None
@@ -59,90 +54,65 @@ class AgendaItemVersion(NewsItemVersion):
     _all_day = False
     _timezone_name = None
 
-    implements(IAgendaItemVersion)
-    silvaconf.baseclass()
+    def __init__(self,
+                 start_datetime=_marker,
+                 end_datetime=_marker,
+                 display_time=_marker,
+                 location=_marker,
+                 all_day=_marker,
+                 timezone_name=_marker,
+                 recurrence=_marker,
+                 end_recurrence_datetime=_marker):
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_timezone_name')
+        if timezone_name is not _marker:
+            self.set_timezone_name(timezone_name)
+            timezone = get_timezone(timezone_name)
+        else:
+            timezone = get_timezone(None)
+
+        if start_datetime is not _marker:
+            start_datetime = start_datetime.replace(tzinfo=timezone)
+            self.set_start_datetime(start_datetime)
+        if end_datetime is not _marker:
+            end_datetime = end_datetime.replace(tzinfo=timezone)
+            self.set_end_datetime(end_datetime)
+        if display_time is not _marker:
+            self.set_display_time(display_time)
+        if location is not _marker:
+            self.set_location(location)
+        if recurrence is not _marker:
+            recurrence = RRuleData(recurrence)
+            if end_recurrence_datetime is not _marker:
+                recurrence['UNTIL'] = vDatetime(
+                    end_recurrence_datetime.replace(
+                        tzinfo=timezone).astimezone(UTC))
+            self.set_recurrence(str(recurrence))
+        if all_day is not _marker:
+            self.set_all_day(all_day)
+
     def set_timezone_name(self, name):
         self._timezone_name = name
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_timezone_name')
+    security.declareProtected(
+        SilvaPermissions.AccessContentsInformation, 'get_timezone_name')
     def get_timezone_name(self):
-        timezone_name = getattr(self, '_timezone_name', None)
+        timezone_name = self._timezone_name
         if timezone_name is None:
-            timezone_name = getUtility(IServiceNews).get_timezone_name()
+            return getUtility(IServiceNews).get_timezone_name()
         return timezone_name
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_timezone')
     def get_timezone(self):
         if not hasattr(self, '_v_timezone'):
             self._v_timezone = get_timezone(self.get_timezone_name())
         return self._v_timezone
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_rrule')
-    def get_rrule(self):
-        if self._recurrence is not None:
-            return rrulestr(str(self._recurrence),
-                            dtstart=self._start_datetime)
-        return None
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_calendar_datetime')
-    def get_calendar_datetime(self):
-        if not self._start_datetime:
-            return None
-        return CalendarDatetime(self._start_datetime,
-                                self._end_datetime,
-                                recurrence=self.get_rrule())
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_display_time')
-    def set_display_time(self, display_time):
-        self._display_time = display_time
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_start_datetime')
     def set_start_datetime(self, value):
         self._start_datetime = datetime_with_timezone(
             value, self.get_timezone())
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_end_datetime')
-    def set_end_datetime(self, value):
-        self._end_datetime = datetime_with_timezone(
-            value, self.get_timezone())
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_recurrence')
-    def set_recurrence(self, recurrence):
-        self._recurrence = recurrence
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_location')
-    def set_location(self, value):
-        self._location = value
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_all_day')
-    def set_all_day(self, value):
-        self._all_day = bool(value)
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'display_time')
-    def display_time(self):
-        """returns True if the time parts of the datetimes should be displayed
-        """
-        return self._display_time
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_start_datetime')
+    security.declareProtected(
+        SilvaPermissions.AccessContentsInformation, 'get_start_datetime')
     def get_start_datetime(self, tz=_marker):
-        """Returns the start date/time
-        """
         if tz is _marker:
             tz = self.get_timezone()
         cd = self.get_calendar_datetime()
@@ -150,11 +120,21 @@ class AgendaItemVersion(NewsItemVersion):
             return cd.get_start_datetime(tz)
         return None
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_end_datetime')
+    def get_calendar_datetime(self):
+        if not self._start_datetime:
+            return None
+        return CalendarDatetime(
+            self._start_datetime,
+            self._end_datetime,
+            recurrence=self.get_rrule())
+
+    def set_end_datetime(self, value):
+        self._end_datetime = datetime_with_timezone(
+            value, self.get_timezone())
+
+    security.declareProtected(
+        SilvaPermissions.AccessContentsInformation, 'get_end_datetime')
     def get_end_datetime(self, tz=_marker):
-        """Returns the start date/time
-        """
         if tz is _marker:
             tz = self.get_timezone()
         cd = self.get_calendar_datetime()
@@ -162,14 +142,13 @@ class AgendaItemVersion(NewsItemVersion):
             return cd.get_end_datetime(tz)
         return None
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_recurrence')
+    def set_recurrence(self, recurrence):
+        self._recurrence = recurrence
+
     def get_recurrence(self):
         if self._recurrence is not None:
             return str(self._recurrence)
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_recurrence')
     def get_end_recurrence_datetime(self):
         if self._recurrence is not None:
             dt_string = RRuleData(self.get_recurrence()).get('UNTIL')
@@ -177,51 +156,87 @@ class AgendaItemVersion(NewsItemVersion):
                 return vDatetime.from_ical(dt_string).\
                     replace(tzinfo=UTC).astimezone(self.get_timezone())
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_location')
+    def get_rrule(self):
+        if self._recurrence is not None:
+            return rrulestr(str(self._recurrence), dtstart=self._start_datetime)
+        return None
+
+    def set_location(self, value):
+        self._location = value
+
+    security.declareProtected(
+        SilvaPermissions.AccessContentsInformation, 'get_location')
     def get_location(self):
-        """Returns location manual
-        """
         return self._location
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'is_all_day')
+    def set_all_day(self, value):
+        self._all_day = bool(value)
+
+    security.declareProtected(
+        SilvaPermissions.AccessContentsInformation, 'is_all_day')
     def is_all_day(self):
         return self._all_day
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_all_day')
+    security.declareProtected(
+        SilvaPermissions.AccessContentsInformation, 'get_all_day')
     get_all_day = is_all_day
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'fulltext')
+
+InitializeClass(AgendaItemOccurrence)
+
+
+class AgendaItemVersion(NewsItemVersion):
+    """Base class for agenda item versions.
+    """
+    security = ClassSecurityInfo()
+    grok.implements(IAgendaItemVersion)
+    grok.baseclass()
+
+    _occurrences = []
+
+    security.declareProtected(
+        SilvaPermissions.ChangeSilvaContent, 'set_occurrences')
+    def set_occurrences(self, occurrences):
+        self._occurrences = occurrences
+
+    security.declareProtected(
+        SilvaPermissions.AccessContentsInformation, 'get_occurrences')
+    def get_occurrences(self):
+        # Secuity check in ZODB
+        return map(lambda o: o.__of__(self), self._occurrences)
+
+    security.declareProtected(
+        SilvaPermissions.AccessContentsInformation, 'fulltext')
     def fulltext(self):
         """Deliver the contents as plain text, for full-text search
         """
-        parenttext = AgendaItemVersion.inheritedAttribute('fulltext')(self)
-        return "%s %s" % (parenttext, self._location)
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'sort_index')
-    def sort_index(self):
-        dt = self.get_start_datetime()
-        if dt:
-            return datetime_to_unixtimestamp(dt)
-        return None
-
-    # indexes
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'idx_timestamp_ranges')
-    def idx_timestamp_ranges(self):
-        return self.get_calendar_datetime().\
-            get_unixtimestamp_ranges()
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'idx_start_datetime')
-    idx_start_datetime = get_start_datetime
+        fulltext = [super(AgendaItemVersion, self).fulltext()]
+        for occurrence in self.get_occurrences():
+            fulltext.append(occurrence.get_location())
+        return " ".join(fulltext)
 
 
 InitializeClass(AgendaItemVersion)
+
+
+class AgendaItemVersionCatalogingAttributes(
+    NewsItemVersionCatalogingAttributes):
+    grok.context(IAgendaItemVersion)
+
+    def sort_index(self):
+        occurrences = self.context.get_occurrences()
+        if len(occurrences):
+            dt = occurrences[0].get_start_datetime()
+            if dt:
+                return datetime_to_unixtimestamp(dt)
+        return None
+
+    def idx_timestamp_ranges(self):
+        ranges = []
+        for occurrence in self.context.get_occurrences():
+            ranges.extend(
+                occurrence.get_calendar_datetime().get_unixtimestamp_ranges())
+        return ranges
 
 
 class AgendaViewMixin(object):
@@ -233,26 +248,16 @@ class AgendaViewMixin(object):
     def event_url(self):
         return "%s/event.ics" % absoluteURL(self.context, self.request)
 
-    @CachedProperty
-    def timezone(self):
-        timezone = getattr(self.request, 'timezone', None)
-        if not timezone:
-            timezone = self.content.get_timezone()
-        return timezone
+    def occurrences(self):
+        format = getUtility(IServiceNews).format_date
+        for occurrence in self.content.get_occurrences():
+            timezone = occurrence.get_timezone()
+            yield {'start': format(occurrence.get_start_datetime(timezone),
+                                   occurrence.is_all_day()),
+                   'end': format(occurrence.get_end_datetime(timezone),
+                                 occurrence.is_all_day()),
+                   'location': occurrence.get_location()}
 
-    @CachedProperty
-    def formatted_start_date(self):
-        dt = self.content.get_start_datetime(self.timezone)
-        if dt:
-            service_news = getUtility(IServiceNews)
-            return service_news.format_date(dt, not self.content.is_all_day())
-
-    @CachedProperty
-    def formatted_end_date(self):
-        dt = self.content.get_end_datetime(self.timezone)
-        if dt:
-            service_news = getUtility(IServiceNews)
-            return service_news.format_date(dt, not self.content.is_all_day())
 
 
 class AgendaItemView(NewsItemView, AgendaViewMixin):
@@ -279,7 +284,7 @@ class AgendaItemListItemView(NewsItemListItemView, AgendaViewMixin):
 
 
 class AgendaItemICS(silvaviews.View):
-    """ render an ics event
+    """Render an ics event.
     """
     grok.context(IAgendaItem)
     grok.require('zope2.View')
@@ -287,14 +292,14 @@ class AgendaItemICS(silvaviews.View):
 
     def update(self):
         self.viewer = INewsViewer(self.context, None)
-        self.request.response.setHeader('Content-Type', 'text/calendar')
-        self.content = self.context.get_viewable()
-        self.event_factory = getAdapter(self.content, IEvent)
+        self.factory = getMultiAdapter((self.content, self.request), IEvent)
 
     def render(self):
         cal = Calendar()
         cal.add('prodid', '-//Silva News Calendaring//lonely event//')
         cal.add('version', '2.0')
-        cal.add_component(self.event_factory(self.viewer, self.request))
+        for event in self.factory(self.viewer):
+            cal.add_component(event)
+        self.response.setHeader('Content-Type', 'text/calendar')
         return cal.as_string()
 

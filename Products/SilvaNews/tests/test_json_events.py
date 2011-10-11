@@ -67,10 +67,10 @@ class TestJsonEventsAPI(NewsBaseTestCase):
         # event 3 is out of range
         self.assertEquals(2, len(data))
         self.assertEquals(
-            'agenda-item-%s' % intids.getId(self.event1.get_viewable()),
+            'agenda-item-%s-0' % intids.getId(self.event1.get_viewable()),
             data[0]['id'])
         self.assertEquals(
-            'agenda-item-%s' % intids.getId(self.event2.get_viewable()),
+            'agenda-item-%s-0' % intids.getId(self.event2.get_viewable()),
             data[1]['id'])
 
 

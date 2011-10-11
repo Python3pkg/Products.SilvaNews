@@ -2,23 +2,22 @@
 # See also LICENSE.txt
 # $Id$
 
-from icalendar import vDatetime
-
 from five import grok
+from zope import interface, schema
+from zope.component import IFactory
+from zope.component import getUtility
+from zope.i18nmessageid import MessageFactory
+
 from silva.core import conf as silvaconf
 from silva.core.conf.interfaces import ITitledContent
 from zeam.form import silva as silvaforms
-from zope import interface, schema
-from zope.component import getUtility
-from zope.i18nmessageid import MessageFactory
 
 # Zope
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 
-from Products.SilvaNews.datetimeutils import (get_timezone,
-    RRuleData, UTC)
 from Products.SilvaNews.AgendaItem import AgendaItem, AgendaItemVersion
+from Products.SilvaNews.AgendaItem import AgendaItemOccurrence
 from Products.SilvaNews.interfaces import IAgendaItem, IServiceNews
 from Products.SilvaNews.interfaces import (
     subjects_source, target_audiences_source, timezone_source)
@@ -32,7 +31,6 @@ class PlainAgendaItemVersion(AgendaItemVersion):
     """
     security = ClassSecurityInfo()
     meta_type = "Silva Agenda Item Version"
-
 
 InitializeClass(PlainAgendaItemVersion)
 
@@ -48,11 +46,10 @@ class PlainAgendaItem(AgendaItem):
     silvaconf.priority(3.8)
     silvaconf.versionClass(PlainAgendaItemVersion)
 
-
 InitializeClass(PlainAgendaItem)
 
 
-class IAgendaItemSchema(interface.Interface):
+class IAgendaItemOccurrenceSchema(interface.Interface):
     timezone_name = schema.Choice(
         source=timezone_source,
         title=_(u"timezone"),
@@ -64,7 +61,7 @@ class IAgendaItemSchema(interface.Interface):
     end_datetime = schema.Datetime(
         title=_(u"end date/time"),
         required=False)
-    _all_day = schema.Bool(
+    all_day = schema.Bool(
         title=_(u"all day"))
     recurrence = Recurrence(title=_("recurrence"), required=False)
     end_recurrence_datetime = schema.Datetime(
@@ -72,18 +69,10 @@ class IAgendaItemSchema(interface.Interface):
         description=_(u"Date on which the recurrence stops. Required if "
                       u"any recurrence is set"),
         required=False)
-    _location = schema.TextLine(
+    location = schema.TextLine(
         title=_(u"location"),
         description=_(u"The location where the event is taking place."),
         required=False)
-    subjects = schema.Set(
-        title=_(u"subjects"),
-        value_type=schema.Choice(source=subjects_source),
-        required=True)
-    target_audiences = schema.Set(
-        title=_(u"target audiences"),
-        value_type=schema.Choice(source=target_audiences_source),
-        required=True)
 
     @interface.invariant
     def enforce_end_recurrence_datetime(content):
@@ -122,33 +111,30 @@ class IAgendaItemSchema(interface.Interface):
                 _(u"End recurrence date must not be before end date."))
 
 
+grok.global_utility(
+    AgendaItemOccurrence, provides=IFactory,
+    name=IAgendaItemOccurrenceSchema.__identifier__, direct=True)
+
+
+class IAgendaItemSchema(interface.Interface):
+    occurrences = schema.List(
+        title=_(u"occurrences"),
+        description=_(u"when and where the event will happens."),
+        value_type=schema.Object(schema=IAgendaItemOccurrenceSchema),
+        min_length=1)
+    subjects = schema.Set(
+        title=_(u"subjects"),
+        value_type=schema.Choice(source=subjects_source),
+        required=True)
+    target_audiences = schema.Set(
+        title=_(u"target audiences"),
+        value_type=schema.Choice(source=target_audiences_source),
+        required=True)
+
+
 def get_default_tz_name(form):
     util = getUtility(IServiceNews)
     return util.get_timezone_name()
-
-
-def process_data(data):
-    """preprocess the data before setting the content"""
-    timezone = get_timezone(data['timezone_name'])
-    date_fields = ['start_datetime',
-                   'end_datetime',
-                   'end_recurrence_datetime']
-    # set timezone on datetime fields
-    for name in date_fields:
-        if data.has_key(name) and data[name] is not silvaforms.NO_VALUE:
-            data[name] = data[name].replace(tzinfo=timezone)
-
-    # copy data from end recurrence datetime to the recurrence field
-    if data.has_key('recurrence') and \
-            data['recurrence'] is not silvaforms.NO_VALUE:
-        recurrence = RRuleData(data['recurrence'])
-        recurrence['UNTIL'] = vDatetime(
-            data['end_recurrence_datetime'].astimezone(UTC))
-        data['recurrence'] = str(recurrence)
-
-    if data.has_key('recurrence_end_datetime'):
-        del data['recurrence_end_datetime']
-    return data
 
 
 class AgendaItemAddForm(silvaforms.SMIAddForm):
@@ -156,17 +142,11 @@ class AgendaItemAddForm(silvaforms.SMIAddForm):
     grok.name(u"Silva Agenda Item")
 
     fields = silvaforms.Fields(ITitledContent, IAgendaItemSchema)
-    fields['timezone_name'].defaultValue = get_default_tz_name
-
-    def _edit(self, parent, content, data):
-        data = process_data(data)
-        return super(AgendaItemAddForm, self)._edit(parent, content, data)
-
-
-class EditAction(silvaforms.EditAction):
-    def applyData(self, form, content, data):
-        data = process_data(data)
-        return super(EditAction, self).applyData(form, content, data)
+    fields['occurrences'].mode = 'long'
+    fields['occurrences'].allowOrdering = False
+    fields['occurrences'].valueField.dataManager = silvaforms.SilvaDataManager
+    fields['occurrences'].valueField.objectFields[
+        'timezone_name'].defaultValue = get_default_tz_name
 
 
 class AgendaEditProperties(silvaforms.RESTKupuEditProperties):
@@ -174,4 +154,15 @@ class AgendaEditProperties(silvaforms.RESTKupuEditProperties):
 
     label = _(u"agenda item properties")
     fields = silvaforms.Fields(IAgendaItemSchema)
-    actions = silvaforms.Actions(EditAction())
+    fields['occurrences'].mode = 'long'
+    fields['occurrences'].allowOrdering = False
+    fields['occurrences'].valueField.dataManager = silvaforms.SilvaDataManager
+    fields['occurrences'].valueField.objectFields[
+        'timezone_name'].defaultValue = get_default_tz_name
+
+    actions = silvaforms.Actions(silvaforms.EditAction())
+
+
+# Prevent object validation, AgendaItemOccurrence doesn't validate
+import zope.schema._field
+zope.schema._field.Object._validate = zope.schema._field.Field._validate

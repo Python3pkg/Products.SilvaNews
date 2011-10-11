@@ -56,20 +56,26 @@ class TestImport(SilvaXMLTestCase):
         self.assertTrue(hasattr(self.root.export.newspub, 'event'))
         version = self.root.export.newspub.event.get_viewable()
 
-        self.assertEquals('Europe/Amsterdam', version.get_timezone_name())
-        timezone = version.get_timezone()
-        self.assertEquals(datetime(2010, 9, 1, 10, 0, 0, tzinfo=timezone),
-            version.get_start_datetime())
-        self.assertEquals('Rotterdam', version.get_location())
-        self.assertTrue(version.is_all_day())
         self.assertEquals(['all'], version.subjects())
         self.assertEquals(['generic'], version.target_audiences())
-        self.assertEquals('FREQ=DAILY;UNTIL=20100910T123212Z',
-            version.get_recurrence())
-        self.assertEquals('Europe/Amsterdam', version.get_timezone_name())
         self.assertEquals(
             datetime(2010, 9, 30, 10, 0, 0),
             version.display_datetime())
+
+        occurrences = version.get_occurrences()
+        self.assertEquals(len(occurrences), 1)
+
+        occurrence = occurrences[0]
+        timezone = occurrence.get_timezone()
+        self.assertEquals('Europe/Amsterdam', occurrence.get_timezone_name())
+        self.assertEquals('Rotterdam', occurrence.get_location())
+        self.assertTrue(occurrence.is_all_day())
+        self.assertEquals(
+            datetime(2010, 9, 1, 10, 0, 0, tzinfo=timezone),
+            occurrence.get_start_datetime())
+        self.assertEquals(
+            'FREQ=DAILY;UNTIL=20100910T123212Z',
+            occurrence.get_recurrence())
 
 
 def test_suite():

@@ -8,8 +8,9 @@ from Products.SilvaNews.interfaces import INewsItem, IAgendaItem
 
 
 class NewsItemFeedEntryAdapter(feedentry.DocumentFeedEntryAdapter):
-    """Adapter for Silva News Items (article, agenda) to get an atom/rss feed entry 
-    representation."""
+    """Adapter for Silva News Items (article, agenda) to get an
+    atom/rss feed entry representation.
+    """
     grok.context(INewsItem)
 
     def html_description(self):
@@ -24,12 +25,29 @@ class NewsItemFeedEntryAdapter(feedentry.DocumentFeedEntryAdapter):
 class AgendaItemFeedEntryAdapter(NewsItemFeedEntryAdapter):
     grok.context(IAgendaItem)
 
+    def _get_occurrence(self):
+        occurrences = self.version.get_occurrences()
+        if len(occurrences):
+            return occurrences[0]
+        return None
+
     def location(self):
-        return self.version.get_location()
+        occurrrence = self._get_occurrence()
+        if occurrrence is not None:
+            return occurrrence.get_location()
+        return None
 
     def start_datetime(self):
-        return self.version.get_start_datetime().isoformat()
+        occurrrence = self._get_occurrence()
+        if occurrrence is not None:
+            return occurrrence.get_start_datetime().isoformat()
+        return None
 
     def end_datetime(self):
-        edt = self.version.get_end_datetime()
-        return (edt and edt.isoformat()) or edt
+        occurrrence = self._get_occurrence()
+        if occurrrence is not None:
+            dt = occurrrence.get_end_datetime()
+            if dt:
+                return dt.isoformat()
+        return None
+

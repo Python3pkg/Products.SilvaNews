@@ -2,17 +2,21 @@
 # See also LICENSE.txt
 # $Revision$
 
-from zope.component import getUtility
+import logging
+from datetime import datetime
+from operator import attrgetter
+
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 from DateTime import DateTime
-from datetime import datetime
 import Products
 
 from five import grok
+from zope.component import getUtility
 
 # Silva
 from silva.core.services.interfaces import ICataloging
+from silva.core.references.reference import ReferenceSet
 import Products.Silva.SilvaPermissions as SilvaPermissions
 
 # Silva/News interfaces
@@ -22,20 +26,11 @@ from Products.SilvaNews.filters.Filter import Filter
 from Products.SilvaNews.datetimeutils import (utc_datetime, local_timezone,
     datetime_to_unixtimestamp)
 
-from silva.core.references.reference import ReferenceSet
-
-import logging
 logger = logging.getLogger('silvanews.itemfilter')
 
 
 class MetaTypeException(Exception):
     pass
-
-def brainsorter(a, b):
-    atime = a.get_start_datetime
-    btime = b.get_start_datetime
-    return cmp(atime, btime)
-
 
 class NewsItemFilter(Filter):
     """Super-class for news item filters.
@@ -206,7 +201,7 @@ class NewsItemFilter(Filter):
                 result = result.union(set(node.get_subtree_ids()))
         return list(result)
 
-    def _prepare_query ( self, meta_types=None ):
+    def _prepare_query(self, meta_types=None, sort=True):
         """private method preparing the common fields for a catalog query.
 
         Return: dict holding the query parameters
@@ -225,13 +220,13 @@ class NewsItemFilter(Filter):
         if not meta_types:
             meta_types = self.get_allowed_meta_types()
         query['meta_type'] = meta_types
-        # Workaround for ProxyIndex bug
-        query['sort_on'] = 'idx_display_datetime'
-        query['sort_order'] = 'descending'
+        if sort:
+            query['sort_on'] = 'idx_display_datetime'
+            query['sort_order'] = 'descending'
         return query
 
     def _query(self, **kw):
-        logger.info('query %s', repr(kw))
+        logger.debug('query %s', repr(kw))
         return self.service_catalog(kw)
 
     def _query_items(self, **kw):
@@ -410,7 +405,7 @@ class NewsItemFilter(Filter):
         query = self._prepare_query(meta_types)
         self.__filter_on_date_range(query, start, end)
         results = self._query_items(**query)
-        results.sort(brainsorter)
+        results.sort(key=attrgetter('sort_index'))
         return results
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
