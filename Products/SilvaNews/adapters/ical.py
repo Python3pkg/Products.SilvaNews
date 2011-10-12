@@ -17,12 +17,20 @@ from Products.SilvaNews.datetimeutils import UTC
 from Products.SilvaNews.interfaces import IAgendaItemVersion, IAgendaViewer
 
 
+def asdatetime(date):
+    if date is not None:
+        return date.asdatetime().astimezone(UTC)
+    return None
+
+
 class AgendaItemInfo(object):
 
     def __init__(self, item, request):
         self.summary = item.get_title()
         self.url = absoluteURL(item, request)
         self.description = item.get_intro(request=request)
+        self.created = asdatetime(item.get_creation_datetime())
+        self.last_modified = asdatetime(item.get_modification_datetime())
         self.__uid_base = getUtility(IIntIds).register(item)
         self.__uid_count = 0
 
@@ -77,11 +85,16 @@ class AgendaEvent(Event):
         if location:
             self['LOCATION'] = vText(location)
 
+        # Generic properties
+        self['URL'] = info.url
         self['UID'] = info.uid()
         self['SUMMARY'] = vText(info.summary)
+        if info.created:
+            self['CREATED'] = vDatetime(info.created)
+        if info.last_modified:
+            self['LAST-MODIFIED'] = vDatetime(info.last_modified)
         if info.description:
             self['DESCRIPTION'] = vText(info.description)
-        self['URL'] = info.url
 
 
 class AgendaCalendar(Calendar, grok.MultiAdapter):
