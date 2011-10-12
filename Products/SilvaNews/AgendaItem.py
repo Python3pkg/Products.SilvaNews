@@ -47,7 +47,6 @@ class AgendaItemOccurrence(Explicit):
     security = ClassSecurityInfo()
     _start_datetime = None
     _end_datetime = None
-    _display_time = True
     _location = ''
     _recurrence = None
     _all_day = False
@@ -56,7 +55,6 @@ class AgendaItemOccurrence(Explicit):
     def __init__(self,
                  start_datetime=_marker,
                  end_datetime=_marker,
-                 display_time=_marker,
                  location=_marker,
                  all_day=_marker,
                  timezone_name=_marker,
@@ -75,8 +73,6 @@ class AgendaItemOccurrence(Explicit):
         if end_datetime is not _marker:
             end_datetime = end_datetime.replace(tzinfo=timezone)
             self.set_end_datetime(end_datetime)
-        if display_time is not _marker:
-            self.set_display_time(display_time)
         if location is not _marker:
             self.set_location(location)
         if recurrence is not _marker:
