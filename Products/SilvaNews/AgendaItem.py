@@ -45,7 +45,6 @@ InitializeClass(AgendaItem)
 
 class AgendaItemOccurrence(Explicit):
     security = ClassSecurityInfo()
-
     _start_datetime = None
     _end_datetime = None
     _display_time = True
@@ -300,6 +299,7 @@ class AgendaItemICS(silvaviews.View):
         cal.add('version', '2.0')
         for event in self.factory(self.viewer):
             cal.add_component(event)
-        self.response.setHeader('Content-Type', 'text/calendar')
+        self.response.setHeader(
+            'Content-Type', 'text/calendar; charset=UTF-8')
         return cal.as_string()
 

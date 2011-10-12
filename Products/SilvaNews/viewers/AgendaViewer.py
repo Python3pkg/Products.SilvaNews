@@ -86,8 +86,8 @@ class AgendaViewer(NewsViewer, ExternalSource):
     def get_items_by_date(self, month, year):
         """Gets the items from the filters
         """
-        func = lambda x: x.get_agenda_items_by_date(month,year,
-            timezone=self.get_timezone())
+        func = lambda x: x.get_agenda_items_by_date(
+            month, year, timezone=self.get_timezone())
         sortattr = None
         if len(self.get_filters()) > 1:
             sortattr = 'sort_index'
@@ -445,8 +445,8 @@ class AgendaViewerICSCalendar(silvaviews.View):
     grok.name('calendar.ics')
 
     def update(self):
-        self.request.timezone = self.context.get_timezone()
-        self.request.response.setHeader('Content-Type', 'text/calendar')
+        self.response.setHeader(
+            'Content-Type', 'text/calendar; charset=UTF-8')
         self.calendar = getMultiAdapter(
             (self.context, self.request,), ICalendar)
 

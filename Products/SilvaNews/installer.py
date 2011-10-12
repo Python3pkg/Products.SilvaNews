@@ -34,7 +34,6 @@ class SilvaNewsInstaller(DefaultInstaller):
         fh = open(xml_file, 'r')
         collection.importSet(fh)
         sm.addTypeMapping('Silva News Publication', ['snn-np-settings'])
-        sm.addTypeMapping('Silva News ICS Publication', ['snn-np-settings'])
         sm.initializeMetadata()
 
     def unconfigure_extra_metadata(self, root):
@@ -43,7 +42,6 @@ class SilvaNewsInstaller(DefaultInstaller):
         if 'snn-np-settings' in collection.objectIds():
             collection.manage_delObjects(['snn-np-settings'])
         sm.removeTypeMapping('Silva News Publication',['snn-np-settings'])
-        sm.removeTypeMapping('Silva News ICS Publication',['snn-np-settings'])
 
     def register_views(self, reg):
         """Register core views on registry.
