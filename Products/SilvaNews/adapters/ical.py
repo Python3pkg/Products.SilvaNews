@@ -17,6 +17,21 @@ from Products.SilvaNews.datetimeutils import UTC
 from Products.SilvaNews.interfaces import IAgendaItemVersion, IAgendaViewer
 
 
+class AgendaItemInfo(object):
+
+    def __init__(self, item, request):
+        self.summary = item.get_title()
+        self.url = absoluteURL(item, request)
+        self.description = item.get_intro(request=request)
+        self.__uid_base = getUtility(IIntIds).register(item)
+        self.__uid_count = 0
+
+    def uid(self):
+        uid = "%d@%d@silvanews" % (self.__uid_base, self.__uid_count)
+        self.__uid_count += 1
+        return uid
+
+
 class AgendaFactoryEvent(grok.MultiAdapter):
     grok.adapts(IAgendaItemVersion, IBrowserRequest)
     grok.implements(IEvent)
@@ -25,19 +40,16 @@ class AgendaFactoryEvent(grok.MultiAdapter):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.info =  AgendaItemInfo(context, request)
 
     def __call__(self, viewer):
-        title = self.context.get_title()
-        url = absoluteURL(self.context, self.request)
-        base = getUtility(IIntIds).register(self.context)
-        for index, occurrence in enumerate(self.context.get_occurrences()):
-            uid = "%d@%d@silvanews" % (base, index)
-            yield AgendaEvent(title, url, uid, occurrence, viewer)
+        for occurrence in self.context.get_occurrences():
+            yield AgendaEvent(self.info, occurrence, viewer)
 
 
 class AgendaEvent(Event):
 
-    def __init__(self, title, url, uid, occurrence, viewer=None):
+    def __init__(self, info, occurrence, viewer=None):
         super(AgendaEvent, self).__init__()
         if viewer is not None:
             timezone = viewer.get_timezone()
@@ -65,9 +77,11 @@ class AgendaEvent(Event):
         if location:
             self['LOCATION'] = vText(location)
 
-        self['UID'] = uid
-        self['SUMMARY'] = vText(title)
-        self['URL'] = url
+        self['UID'] = info.uid()
+        self['SUMMARY'] = vText(info.summary)
+        if info.description:
+            self['DESCRIPTION'] = vText(info.description)
+        self['URL'] = info.url
 
 
 class AgendaCalendar(Calendar, grok.MultiAdapter):
