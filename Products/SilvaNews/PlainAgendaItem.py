@@ -130,6 +130,11 @@ class IAgendaItemSchema(interface.Interface):
         title=_(u"target audiences"),
         value_type=schema.Choice(source=target_audiences_source),
         required=True)
+    external_url = schema.URI(
+        title=_(u"external URL"),
+        description=_(u"external URL with more information about this event."),
+        required=False)
+
 
 
 def get_default_tz_name(form):
@@ -142,7 +147,7 @@ class AgendaItemAddForm(silvaforms.SMIAddForm):
     grok.name(u"Silva Agenda Item")
 
     fields = silvaforms.Fields(ITitledContent, IAgendaItemSchema)
-    fields['occurrences'].mode = 'long'
+    fields['occurrences'].mode = 'list'
     fields['occurrences'].allowOrdering = False
     fields['occurrences'].valueField.dataManager = silvaforms.SilvaDataManager
     fields['occurrences'].valueField.objectFields[
@@ -154,7 +159,7 @@ class AgendaEditProperties(silvaforms.RESTKupuEditProperties):
 
     label = _(u"agenda item properties")
     fields = silvaforms.Fields(IAgendaItemSchema)
-    fields['occurrences'].mode = 'long'
+    fields['occurrences'].mode = 'list'
     fields['occurrences'].allowOrdering = False
     fields['occurrences'].valueField.dataManager = silvaforms.SilvaDataManager
     fields['occurrences'].valueField.objectFields[

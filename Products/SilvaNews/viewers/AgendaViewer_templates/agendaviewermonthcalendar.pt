@@ -10,8 +10,10 @@
   </h2>
 
   <div class="calendar_actions">
-    <a i18n:translate=""
-       tal:attributes="href view/subscribe_url" class="next">subscribe</a>
+    <a tal:attributes="href view/subscribe_url" class="next">
+      <img tal:attributes="src view/subscribe_img_url" />
+      <tal:msg i18n:translate="">Subscribe to this calendar</tal:msg>
+    </a>
   </div>
 
   <div class="calendar" tal:content="structure view/render_calendar" />

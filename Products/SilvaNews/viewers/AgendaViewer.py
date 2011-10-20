@@ -282,13 +282,6 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
     def context_absolute_url(self):
         return absoluteURL(self.context, self.request)
 
-    def item_calevent_url(self, newsitem):
-        return str(absoluteURL(newsitem, self.request)) + '/event.ics'
-
-    def item_id(self, news_item):
-        util = getUtility(IIntIds)
-        return "event_%s" % util.register(self.context)
-
     @property
     def archive_url(self):
         return self.context_absolute_url + '/archives'
@@ -345,6 +338,10 @@ class AgendaViewerMonthCalendar(silvaviews.View, CalendarView):
         if self._day_events:
             return _(u"Events on ${day}", mapping={'day': day})
         return _(u"No events on ${day}", mapping={'day': day})
+
+    def subscribe_img_url(self):
+        return '%s/++resource++Products.SilvaNews/date.png' % \
+            self.context_absolute_url
 
     def subscribe_url(self):
         return "%s/subscribe.html" % self.context_absolute_url
@@ -439,7 +436,7 @@ class AgendaViewerJSCalendar(silvaviews.Page):
         return absoluteURL(self.context, self.request) + '/++rest++events'
 
 
-class AgendaViewerICSCalendar(silvaviews.View):
+class AgendaViewerICS(silvaviews.View):
     """ Agenda viewer ics format """
     grok.context(IAgendaViewer)
     grok.name('calendar.ics')

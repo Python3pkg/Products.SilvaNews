@@ -60,6 +60,11 @@ class IArticleSchema(interface.Interface):
         title=_(u"target audiences"),
         value_type=schema.Choice(source=target_audiences_source),
         required=True)
+    external_url = schema.URI(
+        title=_(u"external URL"),
+        description=_(u"external URL with more information "
+                      u"about this news item."),
+        required=False)
 
 
 class ArticleAddForm(silvaforms.SMIAddForm):

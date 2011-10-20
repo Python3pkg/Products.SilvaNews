@@ -65,6 +65,8 @@ class NewsItemVersion(DocumentVersion):
     grok.baseclass()
     grok.implements(INewsItemVersion)
 
+    _external_url = None
+
     def __init__(self, id):
         super(NewsItemVersion, self).__init__(id)
         self._subjects = []
@@ -104,6 +106,11 @@ class NewsItemVersion(DocumentVersion):
                               'set_target_audiences')
     def set_target_audiences(self, target_audiences):
         self._target_audiences = list(target_audiences)
+
+    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+                              'set_external_url')
+    def set_external_url(self, url):
+        self._external_url = url
 
     # ACCESSORS
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
@@ -146,6 +153,11 @@ class NewsItemVersion(DocumentVersion):
         if reference is None:
             return None
         return reference.target
+
+    security.declareProtected(SilvaPermissions.AccessContentsInformation,
+                              'get_external_url')
+    def get_external_url(self):
+        return self._external_url
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                                 'get_description')
