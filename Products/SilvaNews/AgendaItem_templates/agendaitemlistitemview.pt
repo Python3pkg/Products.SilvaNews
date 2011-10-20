@@ -32,6 +32,14 @@
         <span class="value" tal:content="occurrence/end" />
       </div>
     </div>
+    <div class="externalurl"
+         tal:define="external_url content.get_external_url()"
+         tal:condition="external_url">
+      <span class="label" i18n:translate="">Url: </span>
+      <a href="#" class="value"
+         tal:attributes="href external_url"
+         tal:content="external_url">URL</a>
+    </div>
   </div>
   <div class="newsintro">
    <img tal:define="classname string:newsitem-thumbnail"

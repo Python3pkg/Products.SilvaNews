@@ -9,6 +9,14 @@
       <span class="label" i18n:translate="">Publication date:</span>
       <span class="value" tal:content="view/article_date" />
     </div>
+    <div class="externalurl"
+         tal:define="external_url content.get_external_url()"
+         tal:condition="external_url">
+      <span class="label" i18n:translate="">Url: </span>
+      <a href="#" class="value"
+         tal:attributes="href external_url"
+         tal:content="external_url">URL</a>
+    </div>
   </div>
   <div class="newsintro">
    <img
