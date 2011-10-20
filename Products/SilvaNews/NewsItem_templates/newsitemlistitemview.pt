@@ -10,7 +10,7 @@
       <span class="value" tal:content="view/article_date" />
     </div>
     <div class="externalurl"
-         tal:define="external_url content.get_external_url()"
+         tal:define="external_url content/get_external_url"
          tal:condition="external_url">
       <span class="label" i18n:translate="">Url: </span>
       <a href="#" class="value"
