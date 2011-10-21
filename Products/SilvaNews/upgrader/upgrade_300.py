@@ -58,6 +58,7 @@ class NewsItemUpgrader(DocumentUpgrader):
         target._subjects = set(source._subjects)
         target._target_audiences = set(source._target_audiences)
         target._display_datetime = source._display_datetime
+        target._external_url = source._external_url
 
 
 class AgendaItemUpgrader(DocumentUpgrader):
@@ -71,13 +72,8 @@ class AgendaItemUpgrader(DocumentUpgrader):
         target._subjects = source._subjects
         target._target_audiences = source._target_audiences
         target._display_datetime = source._display_datetime
-        target._start_datetime = source._start_datetime
-        target._end_datetime = source._end_datetime
-        target._display_time = source._display_time
-        target._location = source._location
-        target._recurrence = source._recurrence
-        target._all_day = source._all_day
-        target._timezone_name = source._timezone_name
+        target._external_url = source._external_url
+        target._occurrences = list( source._occurrences)
 
 
 class FilterUpgrader(BaseUpgrader):
