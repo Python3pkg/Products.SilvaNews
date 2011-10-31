@@ -21,7 +21,6 @@ from App.class_init import InitializeClass
 # Silva
 from Products.Silva import SilvaPermissions
 from silva.core import conf as silvaconf
-from silva.core.layout.jquery.interfaces import IJQueryResources
 from silva.core.views import views as silvaviews
 from zeam.form import silva as silvaforms
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
@@ -425,7 +424,7 @@ class IJSCalendarResources(IDefaultBrowserLayer):
 class AgendaViewerJSCalendar(silvaviews.Page):
     """ Agenda view advanced javascript calendar """
     grok.context(IAgendaViewer)
-    grok.name('fullcalendar')
+    grok.name('calendar.html')
 
     @property
     def events_json_url(self):
