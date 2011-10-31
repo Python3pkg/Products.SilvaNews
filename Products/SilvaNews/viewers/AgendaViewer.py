@@ -9,7 +9,6 @@ import calendar
 from five import grok
 from zope.component import getMultiAdapter, getUtility
 from zope.traversing.browser import absoluteURL
-from zope.intid.interfaces import IIntIds
 from zope.interface import alsoProvides
 from zope.cachedescriptors.property import CachedProperty
 from zope.i18nmessageid import MessageFactory
@@ -415,7 +414,7 @@ class AgendaViewerYearCalendar(silvaviews.Page, CalendarView):
         return self.calendar.formatyear(self.year)
 
 
-class IViewResources(IJQueryResources):
+class IJSCalendarResources(IDefaultBrowserLayer):
     silvaconf.resource('fullcalendar/fullcalendar.js')
     silvaconf.resource('calendar.js')
     silvaconf.resource('qtip.js')
@@ -427,9 +426,6 @@ class AgendaViewerJSCalendar(silvaviews.Page):
     """ Agenda view advanced javascript calendar """
     grok.context(IAgendaViewer)
     grok.name('fullcalendar')
-
-    def update(self):
-        alsoProvides(self.request, IViewResources)
 
     @property
     def events_json_url(self):

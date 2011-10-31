@@ -39,7 +39,12 @@
   <browser:resourceLayerInclude
      layer="silva.core.layout.interfaces.ISilvaLayer"
      context=".interfaces.IAgendaViewer"
-     resources=".viewers.AgendaViewer.IViewResources" />
+     resources="silva.core.layout.jquery.interfaces.IJQueryResources" />
+
+  <browser:resourceLayerInclude
+     layer="silva.core.layout.interfaces.ISilvaLayer"
+     context=".interfaces.IAgendaViewer"
+     resources=".viewers.AgendaViewer.IJSCalendarResources" />
 
   <view for="Products.SilvaNews.interfaces.INewsItem"
         factory="Products.SilvaNews.traverser.NewsItemAbsoluteURL"
