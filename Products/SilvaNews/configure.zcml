@@ -36,6 +36,11 @@
      include="ui-recurrence.css"
      base="Products.SilvaNews.widgets" />
 
+  <browser:resourceLayerInclude
+     layer="silva.core.layout.interfaces.ISilvaLayer"
+     context=".interfaces.IAgendaViewer"
+     resources=".viewers.AgendaViewer.IViewResources" />
+
   <view for="Products.SilvaNews.interfaces.INewsItem"
         factory="Products.SilvaNews.traverser.NewsItemAbsoluteURL"
         type="zope.publisher.interfaces.http.IHTTPRequest"
