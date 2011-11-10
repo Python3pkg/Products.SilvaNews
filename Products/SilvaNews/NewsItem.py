@@ -32,6 +32,7 @@ class NewsItemVersion(NewsCategorization, Document.DocumentVersion):
     security = ClassSecurityInfo()
     grok.implements(INewsItemVersion)
     meta_type = "Obsolete Article Version"
+    _external_url = None        # For backward compatibility.
 
     def __init__(self, id):
         super(NewsItemVersion, self).__init__(id)
