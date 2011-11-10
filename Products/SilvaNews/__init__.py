@@ -28,6 +28,9 @@ CLASS_CHANGES = {
     'Products.SilvaNews.InlineViewer InlineViewer':
         'Products.SilvaExternalSources.CodeSource CodeSource',
 
+    'Products.SilvaNews.AgendaItem.AgendaItemOccurrence':
+        'silva.app.news.AgendaItem.content AgendaItemOccurrence',
+
     'Products.SilvaNews.viewers.RSSAggregator RSSAggregator':
         'silva.app.news.viewers.RSSAggregator RSSAggregator',
     'Products.SilvaNews.viewers.NewsViewer NewsViewer':

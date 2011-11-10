@@ -2,12 +2,8 @@
 # See also LICENSE.txt
 # $Id$
 
-from icalendar import vDatetime
-from dateutil.rrule import rrulestr
-
 # ztk
 from five import grok
-from zope.component import getUtility
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
 
@@ -21,15 +17,12 @@ from Products.Silva import SilvaPermissions
 
 # SilvaNews
 from Products.SilvaNews.interfaces import IAgendaItem, IAgendaItemVersion
-from silva.app.news.interfaces import IServiceNews
 from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
-
-from Products.SilvaNews.datetimeutils import (datetime_with_timezone,
-    CalendarDatetime, datetime_to_unixtimestamp, get_timezone, RRuleData, UTC)
-
+from Products.SilvaNews.datetimeutils import datetime_to_unixtimestamp
 
 _marker = object()
 _ = MessageFactory('silva_news')
+
 
 class AgendaItemVersion(NewsItemVersion):
     """Silva News AgendaItemVersion
@@ -39,144 +32,18 @@ class AgendaItemVersion(NewsItemVersion):
     security = ClassSecurityInfo()
     meta_type = "Silva Agenda Item Version"
 
-    _start_datetime = None
-    _end_datetime = None
-    _display_time = True
-    _location = ''
-    _recurrence = None
-    _all_day = False
-    _timezone_name = None
+    _occurrences = []
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_timezone_name')
-    def set_timezone_name(self, name):
-        self._timezone_name = name
+    security.declareProtected(
+        SilvaPermissions.ChangeSilvaContent, 'set_occurrences')
+    def set_occurrences(self, occurrences):
+        self._occurrences = occurrences
 
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_timezone_name')
-    def get_timezone_name(self):
-        timezone_name = getattr(self, '_timezone_name', None)
-        if timezone_name is None:
-            timezone_name = getUtility(IServiceNews).get_timezone_name()
-        return timezone_name
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_timezone')
-    def get_timezone(self):
-        if not hasattr(self, '_v_timezone'):
-            self._v_timezone = get_timezone(self.get_timezone_name())
-        return self._v_timezone
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_rrule')
-    def get_rrule(self):
-        if self._recurrence is not None:
-            return rrulestr(str(self._recurrence),
-                            dtstart=self._start_datetime)
-        return None
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_calendar_datetime')
-    def get_calendar_datetime(self):
-        if not self._start_datetime:
-            return None
-        return CalendarDatetime(self._start_datetime,
-                                self._end_datetime,
-                                recurrence=self.get_rrule())
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_display_time')
-    def set_display_time(self, display_time):
-        self._display_time = display_time
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_start_datetime')
-    def set_start_datetime(self, value):
-        self._start_datetime = datetime_with_timezone(
-            value, self.get_timezone())
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_end_datetime')
-    def set_end_datetime(self, value):
-        self._end_datetime = datetime_with_timezone(
-            value, self.get_timezone())
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_recurrence')
-    def set_recurrence(self, recurrence):
-        self._recurrence = recurrence
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_location')
-    def set_location(self, value):
-        self._location = value
-
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
-                              'set_all_day')
-    def set_all_day(self, value):
-        self._all_day = bool(value)
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'display_time')
-    def display_time(self):
-        """returns True if the time parts of the datetimes should be displayed
-        """
-        return self._display_time
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_start_datetime')
-    def get_start_datetime(self, tz=_marker):
-        """Returns the start date/time
-        """
-        if tz is _marker:
-            tz = self.get_timezone()
-        cd = self.get_calendar_datetime()
-        if cd:
-            return cd.get_start_datetime(tz)
-        return None
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_end_datetime')
-    def get_end_datetime(self, tz=_marker):
-        """Returns the start date/time
-        """
-        if tz is _marker:
-            tz = self.get_timezone()
-        cd = self.get_calendar_datetime()
-        if cd:
-            return cd.get_end_datetime(tz)
-        return None
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_recurrence')
-    def get_recurrence(self):
-        if self._recurrence is not None:
-            return str(self._recurrence)
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_recurrence')
-    def get_end_recurrence_datetime(self):
-        if self._recurrence is not None:
-            dt_string = RRuleData(self.get_recurrence()).get('UNTIL')
-            if dt_string:
-                return vDatetime.from_ical(dt_string).\
-                    replace(tzinfo=UTC).astimezone(self.get_timezone())
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_location')
-    def get_location(self):
-        """Returns location manual
-        """
-        return self._location
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'is_all_day')
-    def is_all_day(self):
-        return self._all_day
-
-    security.declareProtected(SilvaPermissions.AccessContentsInformation,
-                              'get_all_day')
-    get_all_day = is_all_day
+    security.declareProtected(
+        SilvaPermissions.AccessContentsInformation, 'get_occurrences')
+    def get_occurrences(self):
+        # Secuity check in ZODB
+        return map(lambda o: o.__of__(self), self._occurrences)
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'fulltext')
