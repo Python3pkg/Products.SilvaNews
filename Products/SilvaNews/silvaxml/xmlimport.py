@@ -13,7 +13,6 @@ from Products.SilvaNews.NewsItem import (
     NewsItem, NewsItemVersion)
 from Products.SilvaNews.AgendaItem import (
     AgendaItem, AgendaItemVersion)
-from Products.SilvaNews.datetimeutils import get_timezone
 from Products.SilvaDocument.silvaxml.xmlimport import DocXMLHandler
 from Products.SilvaDocument.silvaxml import NS_DOCUMENT_URI as NS_SILVA_DOCUMENT
 
@@ -125,17 +124,6 @@ class AgendaItemContentHandler(SilvaBaseHandler):
 
             helpers.set_attribute_as_list(version, 'target_audiences', attrs)
             helpers.set_attribute_as_list(version, 'subjects', attrs)
-            helpers.set_attribute(version, 'location', attrs)
-            helpers.set_attribute(version, 'recurrence', attrs)
-            tz_name = helpers.set_attribute(version, 'timezone_name', attrs)
-            tz = None
-            if tz_name:
-                tz = get_timezone(tz_name)
-            helpers.set_attribute_as_bool(version, 'all_day', attrs)
-            helpers.set_attribute_as_datetime(
-                version, 'start_datetime', attrs, tz=tz)
-            helpers.set_attribute_as_datetime(
-                version, 'end_datetime', attrs, tz=tz)
             helpers.set_attribute_as_naive_datetime(
                 version, 'display_datetime', attrs)
 

@@ -1,5 +1,5 @@
 from dateutil.parser import parse as datetimeparse
-from Products.SilvaNews.datetimeutils import local_timezone
+from silva.app.news.datetimeutils import local_timezone
 
 def set_attribute(content, name, attrs, extract=None, ns=None):
     ns_name = (ns, name)

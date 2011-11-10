@@ -4,7 +4,6 @@
 
 # ztk
 from five import grok
-from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
 
 # Zope
@@ -18,10 +17,9 @@ from Products.Silva import SilvaPermissions
 # SilvaNews
 from Products.SilvaNews.interfaces import IAgendaItem, IAgendaItemVersion
 from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
-from Products.SilvaNews.datetimeutils import datetime_to_unixtimestamp
+from silva.app.news.datetimeutils import datetime_to_unixtimestamp
 
 _marker = object()
-_ = MessageFactory('silva_news')
 
 
 class AgendaItemVersion(NewsItemVersion):

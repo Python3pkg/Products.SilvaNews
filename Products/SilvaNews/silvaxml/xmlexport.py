@@ -5,7 +5,7 @@ from five import grok
 from zope.interface import Interface
 
 from Products.SilvaNews import interfaces
-from Products.SilvaNews.datetimeutils import utc_datetime
+from silva.app.news.datetimeutils import utc_datetime
 from Products.SilvaDocument.silvaxml.xmlexport import DocumentVersionProducer
 from Products.Silva.silvaxml.xmlexport import (
     theXMLExporter, VersionedContentProducer)
@@ -85,12 +85,6 @@ class PlainAgendaItemVersionProducer(DocumentVersionProducer):
             {'version_id': self.context.id,
              'subjects': ','.join(self.context.get_subjects()),
              'target_audiences': ','.join(self.context.get_target_audiences()),
-             'start_datetime': iso_datetime(self.context.get_start_datetime()),
-             'end_datetime': iso_datetime(self.context.get_end_datetime()),
-             'location': self.context.get_location(),
-             'recurrence': self.context.get_recurrence() or '',
-             'all_day': str(self.context.is_all_day()),
-             'timezone_name': self.context.get_timezone_name(),
              'display_datetime': iso_datetime(
                 self.context.get_display_datetime())})
         self.metadata()

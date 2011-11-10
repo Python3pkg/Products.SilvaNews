@@ -2,7 +2,6 @@
 # See also LICENSE.txt
 
 from five import grok
-from zope.i18nmessageid import MessageFactory
 
 # Zope
 from AccessControl import ClassSecurityInfo
@@ -17,13 +16,11 @@ from silva.core import conf as silvaconf
 from silva.core.interfaces import IRoot
 from silva.core.views import views as silvaviews
 
-from Products.SilvaNews.interfaces import INewsItem, INewsItemVersion
-from silva.app.news.interfaces import INewsPublication
-from Products.SilvaNews.datetimeutils import (datetime_to_unixtimestamp,
-    CalendarDatetime)
 from Products.SilvaNews.NewsCategorization import NewsCategorization
-
-_ = MessageFactory('silva_news')
+from Products.SilvaNews.interfaces import INewsItem, INewsItemVersion
+from silva.app.news.datetimeutils import CalendarDatetime
+from silva.app.news.datetimeutils import datetime_to_unixtimestamp
+from silva.app.news.interfaces import INewsPublication
 
 
 class NewsItemVersion(NewsCategorization, Document.DocumentVersion):
@@ -38,9 +35,6 @@ class NewsItemVersion(NewsCategorization, Document.DocumentVersion):
         super(NewsItemVersion, self).__init__(id)
         self._display_datetime = None
 
-    # XXX I would rather have this get called automatically on setting
-    # the publication datetime, but that would have meant some nasty monkey-
-    # patching would be required...
     security.declareProtected(SilvaPermissions.ChangeSilvaContent,
                                 'set_display_datetime')
     def set_display_datetime(self, ddt):
