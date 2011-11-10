@@ -8,6 +8,7 @@ from zope.interface import implements
 
 # Zope
 from AccessControl import ClassSecurityInfo
+from Acquisition import Explicit
 from App.class_init import InitializeClass
 
 # Silva
@@ -20,6 +21,10 @@ from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
 from silva.app.news.datetimeutils import datetime_to_unixtimestamp
 
 _marker = object()
+
+
+class AgendaItemOccurrence(Explicit):
+    pass
 
 
 class AgendaItemVersion(NewsItemVersion):
