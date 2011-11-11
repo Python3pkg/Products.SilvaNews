@@ -1,6 +1,11 @@
 ChangeLog
 =========
 
+SilvaNewsNetwork 3.0 (unreleased)
+---------------------------------
+
+- ...
+
 SilvaNewsNetwork 3.0b1 (2011/11/11)
 -----------------------------------
 

@@ -5,7 +5,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '3.0b1'
+version = '3.0dev'
 
 def product_readme(filename):
     return  open(os.path.join('Products', 'SilvaNews', filename)).read()
