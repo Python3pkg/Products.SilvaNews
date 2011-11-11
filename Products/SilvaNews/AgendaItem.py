@@ -18,6 +18,7 @@ from Products.Silva import SilvaPermissions
 from Products.SilvaNews.interfaces import IAgendaItem, IAgendaItemVersion
 from Products.SilvaNews.NewsItem import NewsItem, NewsItemVersion
 from silva.app.news.datetimeutils import datetime_to_unixtimestamp
+# This is used by migration code.
 from silva.app.news.AgendaItem.content import AgendaItemOccurrence
 
 _marker = object()

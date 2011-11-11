@@ -5,7 +5,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '3.0dev'
+version = '3.0b1'
 
 def product_readme(filename):
     return  open(os.path.join('Products', 'SilvaNews', filename)).read()
@@ -34,22 +34,18 @@ setup(name='Products.SilvaNews',
       zip_safe=False,
       install_requires=[
         'five.grok',
-        'icalendar',
         'Products.Silva',
         'Products.SilvaDocument',
         'python-dateutil',
         'setuptools',
+        'silva.app.news',
         'silva.core.conf',
         'silva.core.interfaces',
-        'silva.core.services',
         'silva.core.smi',
         'silva.core.upgrade',
         'silva.core.views',
         'z3locales',
-        'zope.component',
-        'zope.i18nmessageid',
         'zope.interface',
-        'zope.intid',
         ],
       entry_points = """
       [zodbupdate]
