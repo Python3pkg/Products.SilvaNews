@@ -15,6 +15,12 @@ from Products.SilvaNews.datetimeutils import (local_timezone,
     datetime_to_unixtimestamp, get_timezone)
 
 
+def format_date(date):
+    if date is None:
+        return ''
+    return date.utcdatetime().strftime('%Y%m%dT%H%M%SZ')
+
+
 class TestEvent(SilvaNewsTestCase):
 
     def test_event_indexing(self):
@@ -182,33 +188,39 @@ class TestCalendar(NewsBaseTestCase):
             'http://localhost/root/agenda/calendar.ics')
         self.assertEquals(200, status)
         get_id = getUtility(IIntIds).register
-        uids = (get_id(self.event2.get_viewable()),
-                get_id(self.event1.get_viewable()))
+        v1 = self.event2.get_viewable()
+        v2 = self.event1.get_viewable()
         data = """BEGIN:VCALENDAR
 PRODID:-//Infrae SilvaNews Calendaring//NONSGML Calendar//EN
 VERSION:2.0
 X-WR-CALNAME:Agenda
 X-WR-TIMEZONE:Europe/Amsterdam
 BEGIN:VEVENT
-CREATED:
+CREATED:{created1}
 DTEND;VALUE=DATE:20120612
 DTSTART;VALUE=DATE:20120610
-LAST-MODIFIED:
+LAST-MODIFIED:{modified1}
 SUMMARY:Event2
-UID:%d@0@silvanews
+UID:{id1}@0@silvanews
 URL:http://localhost/root/source1/event2
 END:VEVENT
 BEGIN:VEVENT
-CREATED:
+CREATED:{created2}
 DTEND:20120604T092000Z
 DTSTART:20120604T082000Z
-LAST-MODIFIED:
+LAST-MODIFIED:{modified2}
 SUMMARY:Event héhé“π”
-UID:%d@0@silvanews
+UID:{id2}@0@silvanews
 URL:http://localhost/root/source1/event1
 END:VEVENT
 END:VCALENDAR
-""".replace("\n", "\r\n") % uids
+""".replace("\n", "\r\n").format(
+            id1=get_id(v1),
+            created1=format_date(v1.get_creation_datetime()),
+            modified1=format_date(v1.get_modification_datetime()),
+            id2=get_id(v2),
+            created2=format_date(v2.get_creation_datetime()),
+            modified2=format_date(v2.get_modification_datetime()))
         self.assert_no_udiff(data, self.browser.contents, term="\r\n")
 
     def assert_no_udiff(self, s1, s2, term="\n"):
