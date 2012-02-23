@@ -1,10 +1,17 @@
 ChangeLog
 =========
 
-SilvaNewsNetwork 2.9.4 (unreleased)
+SilvaNewsNetwork 2.9.4 (02/23/2012)
 -----------------------------------
 
-- ...
+- Add an external URL field on news item and agenda item.
+
+- Add the possibility to fill-in multiple location and times on agenda item.
+
+- Various fixes on the ICS support (unicode support, more fields).
+
+- Fix inclusion of the Javascript calendar.
+
 
 SilvaNewsNetwork 2.9.3 (06/10/2011)
 -----------------------------------
