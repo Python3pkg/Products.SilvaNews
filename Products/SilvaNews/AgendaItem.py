@@ -14,6 +14,7 @@ from zope.traversing.browser import absoluteURL
 from AccessControl import ClassSecurityInfo
 from Acquisition import Explicit
 from App.class_init import InitializeClass # Zope 2.12
+from zExceptions import NotFound
 
 # Silva
 from silva.core.views import views as silvaviews
@@ -286,6 +287,9 @@ class AgendaItemICS(silvaviews.View):
     grok.name('event.ics')
 
     def update(self):
+        if self.content is None:
+            # The event is not publish.
+            raise NotFound('event.ics')
         self.viewer = INewsViewer(self.context, None)
         self.factory = getMultiAdapter((self.content, self.request), IEvent)
 
