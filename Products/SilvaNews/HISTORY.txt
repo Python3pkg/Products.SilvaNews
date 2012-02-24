@@ -4,7 +4,7 @@ ChangeLog
 SilvaNewsNetwork 2.9.5 (unreleased)
 -----------------------------------
 
-- ...
+- Return 404 on ICS file of non-published events.
 
 SilvaNewsNetwork 2.9.4 (02/23/2012)
 -----------------------------------
