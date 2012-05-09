@@ -99,7 +99,7 @@ class InlineViewer(CodeSource):
         with open(filename, 'r') as fd:
             self._setObject('rss10.gif', Image('rss10.gif', 'RSS (1.0)', fd))
 
-    security.declareProtected(SilvaPermissions.ChangeSilvaContent,
+    security.declareProtected(SilvaPermissions.ReadSilvaContent,
                                 'get_viewers')
     def get_viewers(self, model=None, request=None):
         """returns a list of available viewers
