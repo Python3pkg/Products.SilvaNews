@@ -1,10 +1,13 @@
 ChangeLog
 =========
 
-SilvaNewsNetwork 2.9.5 (unreleased)
+SilvaNewsNetwork 2.9.5 (05/10/2012)
 -----------------------------------
 
 - Return 404 on ICS file of non-published events.
+
+- Fix invalid permission to let people that don't have an editor role
+  where an inline viewer is defined use it in their documents.
 
 SilvaNewsNetwork 2.9.4 (02/23/2012)
 -----------------------------------
