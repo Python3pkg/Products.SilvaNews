@@ -7,7 +7,7 @@ from icalendar.interfaces import IEvent
 from dateutil.rrule import rrulestr
 
 from five import grok
-from zope.component import getUtility, getMultiAdapter
+from zope.component import getUtility, queryMultiAdapter
 from zope.traversing.browser import absoluteURL
 
 # Zope
@@ -290,8 +290,10 @@ class AgendaItemICS(silvaviews.View):
         if self.content is None:
             # The event is not publish.
             raise NotFound('event.ics')
+        self.factory = queryMultiAdapter((self.content, self.request), IEvent)
+        if self.factory is None:
+            raise NotFound('event.ics')
         self.viewer = INewsViewer(self.context, None)
-        self.factory = getMultiAdapter((self.content, self.request), IEvent)
 
     def render(self):
         cal = Calendar()
