@@ -30,7 +30,7 @@ class AgendaItemVersion(NewsItemVersion):
     grok.implements(IAgendaItemVersion)
 
     security = ClassSecurityInfo()
-    meta_type = "Silva Agenda Item Version"
+    meta_type = "Obsolete Agenda Item Version"
 
     _occurrences = []
 
