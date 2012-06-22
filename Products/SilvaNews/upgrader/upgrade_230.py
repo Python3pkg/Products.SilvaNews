@@ -81,13 +81,14 @@ class NewsFilterUpgrader(BaseUpgrader):
 
     def upgrade(self, content):
         root = content.get_root()
+        allowed = content.get_allowed_types()
         for source in content._sources:
             try:
                 target = root.unrestrictedTraverse(source)
             except StandardError as e:
                 logger.error('could not find object %s : %s' % (source, e))
                 continue
-            if target.meta_type in content._allowed_source_types:
+            if target.meta_type in allowed:
                 content.add_source(target)
             else:
                 logger.warn('content type %s is not an allowed source' %
@@ -101,7 +102,7 @@ class NewsViewerUpgrader(BaseUpgrader):
     def validate(self, content):
         return hasattr(content, '_filters')
 
-
+    def upgrade(self, content):
         root = content.get_root()
         for flt in content._filters:
             try:
@@ -109,11 +110,7 @@ class NewsViewerUpgrader(BaseUpgrader):
             except StandardError as e:
                 logger.error('could not find object %s : %s' % (flt, e))
                 continue
-            if target.meta_type in content.filter_meta_types:
-                content.add_filter(target)
-            else:
-                logger.warn('content type %s is not an allowed filter type' %
-                    target.meta_type)
+            content.add_filter(target)
         del content._filters
         return content
 

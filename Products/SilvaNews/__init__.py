@@ -13,6 +13,9 @@ silvaconf.extension_depends(["Silva", "SilvaDocument", "SilvaExternalSources"])
 
 # Specify import path for old classes (for upgrade)
 CLASS_CHANGES = {
+    'Products.SilvaNews.silvaxmlattribute SilvaXMLAttribute':
+        'OFS.SimpleItem SimpleItem',
+
     'Products.SilvaNews.PlainAgendaItem PlainAgendaItem':
         'Products.SilvaNews.AgendaItem AgendaItem',
     'Products.SilvaNews.PlainAgendaItem PlainAgendaItemVersion':
@@ -30,6 +33,13 @@ CLASS_CHANGES = {
 
     'Products.SilvaNews.AgendaItem AgendaItemOccurrence':
         'silva.app.news.AgendaItem.content AgendaItemOccurrence',
+
+    'Products.SilvaNews.AgendaViewer AgendaViewer':
+        'silva.app.news.viewers.AgendaViewer AgendaViewer',
+    'Products.SilvaNews.NewsViewer NewsViewer':
+        'silva.app.news.viewers.NewsViewer NewsViewer',
+    'Products.SilvaNews.RSSAggregator RSSAggregator':
+        'silva.app.news.viewers.RSSAggregator RSSAggregator',
 
     'Products.SilvaNews.viewers.RSSAggregator RSSAggregator':
         'silva.app.news.viewers.RSSAggregator RSSAggregator',
@@ -50,6 +60,12 @@ CLASS_CHANGES = {
     'Products.SilvaNews.Tree Node':
         'silva.app.news.Tree Node',
 
+    'Products.SilvaNews.AgendaFilter AgendaFilter':
+        'silva.app.news.filters.AgendaFilter AgendaFilter',
+    'Products.SilvaNews.CategoryFilter CategoryFilter':
+        'silva.app.news.filters.CategoryFilter CategoryFilter',
+    'Products.SilvaNews.NewsFilter NewsFilter':
+        'silva.app.news.filters.NewsFilter NewsFilter',
     'Products.SilvaNews.filters.AgendaFilter AgendaFilter':
         'silva.app.news.filters.AgendaFilter AgendaFilter',
     'Products.SilvaNews.filters.NewsFilter NewsFilter':
