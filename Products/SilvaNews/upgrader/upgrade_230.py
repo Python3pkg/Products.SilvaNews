@@ -112,7 +112,7 @@ class NewsViewerUpgrader(BaseUpgrader):
             if target.meta_type in content.filter_meta_types:
                 content.add_filter(target)
             else:
-                logger.warn('Content type %s is not an allowed filter type' %
+                logger.warn('content type %s is not an allowed filter type' %
                     target.meta_type)
         del content._filters
         return content
