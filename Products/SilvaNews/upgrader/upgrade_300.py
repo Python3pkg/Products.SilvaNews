@@ -4,6 +4,7 @@ from silva.core.upgrade.upgrader.upgrade_300 import VERSION_A1
 from silva.core.upgrade.upgrade import BaseUpgrader
 from zope.interface import implements
 
+from Acquisition import aq_base
 from Products.SilvaDocument.upgrader.upgrade_300 import DocumentUpgrader
 
 
@@ -43,7 +44,8 @@ class RootUpgrader(BaseUpgrader):
         extensions = root.service_extensions
         # If Silva News is installed, we need to refresh it, and
         # install silva.app.news for the migration.
-        if extensions.is_installed('SilvaNews'):
+        if (hasattr(aq_base(root), 'service_news') or
+            extensions.is_installed('SilvaNews')):
             extensions.refresh('SilvaNews')
             if not extensions.is_installed('silva.app.news'):
                 extensions.install('silva.app.news')
