@@ -1,6 +1,9 @@
 
+from silva.core.interfaces import IPostUpgrader
 from silva.core.upgrade.upgrader.upgrade_300 import VERSION_A1
 from silva.core.upgrade.upgrade import BaseUpgrader
+from zope.interface import implements
+
 from Products.SilvaDocument.upgrader.upgrade_300 import DocumentUpgrader
 
 
@@ -96,3 +99,17 @@ upgrade_agendaitem = AgendaItemUpgrader(
     VERSION_A1, "Obsolete Agenda Item")
 upgrade_filter = FilterUpgrader(
     VERSION_A1, ("Silva Agenda Filter", "Silva News Filter"))
+
+
+class RootPostUpgrader(BaseUpgrader):
+    implements(IPostUpgrader)
+
+    def upgrade(self, root):
+        # We need to install the new SilvaDocument, and Silva Obsolete
+        # Document for the document migration.
+        extensions = root.service_extensions
+        if extensions.is_installed('SilvaNews'):
+            extensions.uninstall('SilvaNews')
+        return root
+
+root_post_upgrader = RootPostUpgrader(VERSION_A1, 'Silva Root')
