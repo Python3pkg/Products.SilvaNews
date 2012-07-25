@@ -56,7 +56,7 @@ class NewsItemUpgrader(DocumentUpgrader):
 
     def create_document(self, parent, identifier, title):
         factory = parent.manage_addProduct['silva.app.news']
-        factory.manage_addNewsItem(identifier, title)
+        return factory.manage_addNewsItem(identifier, title)
 
     def copy_version(self, source, target, ensure=False):
         super(NewsItemUpgrader, self).copy_version(source, target, ensure)
@@ -70,7 +70,7 @@ class AgendaItemUpgrader(DocumentUpgrader):
 
     def create_document(self, parent, identifier, title):
         factory = parent.manage_addProduct['silva.app.news']
-        factory.manage_addAgendaItem(identifier, title)
+        return factory.manage_addAgendaItem(identifier, title)
 
     def copy_version(self, source, target, ensure=False):
         super(AgendaItemUpgrader, self).copy_version(source, target, ensure)
