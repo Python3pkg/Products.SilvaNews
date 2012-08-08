@@ -1,10 +1,13 @@
 
 import logging
 
+from silva.app.news.interfaces import INewsPublication, INewsItemFilter
 from silva.core.upgrade.upgrade import BaseUpgrader, content_path
 from Products.ParsedXML.ParsedXML import ParsedXML
 from Products.SilvaNews.interfaces import INewsItem
 from Products.SilvaDocument.upgrader.upgrade_230 import DocumentUpgrader
+
+from zExceptions import NotFound
 
 logger = logging.getLogger('silva.core.upgrade')
 
@@ -32,7 +35,7 @@ class ArticleUpgrader(BaseUpgrader):
                 continue
             if not isinstance(version.content, ParsedXML):
                 logger.info(
-                    u'upgrade xmlattribute for %s.', content_path(version))
+                    u'Upgrade xmlattribute for %s.', content_path(version))
                 parsed_xml = version.content._content
                 version.content = parsed_xml
         return doc
@@ -73,26 +76,29 @@ agenda_item_recurrence_upgrader = NewsAgendaItemRecurrenceUpgrade(
     VERSION_B2, 'Obsolete Agenda Item Version')
 
 
-
 class NewsFilterUpgrader(BaseUpgrader):
 
     def validate(self, content):
-        return hasattr(content, '_sources')
+        return '_sources' in content.__dict__
 
     def upgrade(self, content):
+        logger.info(u"Upgrade News Filter %s.", content_path(content))
         root = content.get_root()
-        allowed = content.get_allowed_types()
         for source in content._sources:
             try:
                 target = root.unrestrictedTraverse(source)
-            except StandardError as e:
-                logger.error('could not find object %s : %s' % (source, e))
+            except (AttributeError, KeyError, NotFound, TypeError):
+                logger.error(
+                    u'Could not find content %s for News Filter %s.',
+                    source,
+                    content_path(content))
                 continue
-            if target.meta_type in allowed:
+            if INewsPublication.providedBy(target):
                 content.add_source(target)
             else:
-                logger.warn('content type %s is not an allowed source' %
-                    target.meta_type)
+                logger.error(
+                    u'Content type %s is not an allowed source for %s.',
+                    content_path(target), content_path(content))
         del content._sources
         return content
 
@@ -100,17 +106,25 @@ class NewsFilterUpgrader(BaseUpgrader):
 class NewsViewerUpgrader(BaseUpgrader):
 
     def validate(self, content):
-        return hasattr(content, '_filters')
+        return '_filters' in content.__dict__
 
     def upgrade(self, content):
+        logger.info(u"Upgrade News Viewer %s.", content_path(content))
         root = content.get_root()
         for flt in content._filters:
             try:
                 target = root.unrestrictedTraverse(flt)
-            except StandardError as e:
-                logger.error('could not find object %s : %s' % (flt, e))
+            except (AttributeError, KeyError, NotFound, TypeError):
+                logger.error(
+                    u'Could not find content %s for News Viewer %s.',
+                    flt, content_path(content))
                 continue
-            content.add_filter(target)
+            if INewsItemFilter.providedBy(target):
+                content.add_filter(target)
+            else:
+                logger.error(
+                    u'Content type %s is not an allowed filter for %s.',
+                    content_path(target), content_path(content))
         del content._filters
         return content
 

@@ -33,7 +33,7 @@ class NewsPublicationUpgrader(BaseUpgrader):
             else:
                 value = 'no'
             binding = self.metadata.getMetadata(container)
-            binding.setValues('snn-np-settings', {'is_private': value})
+            binding.setValues('snn-np-settings', {'is_private': value}, reindex=1)
             del container._is_private
         if container._getOb('index', None) is None:
                 factory = container.manage_addProduct['silva.app.news']
@@ -57,6 +57,6 @@ class NewsPublicationUpgrader(BaseUpgrader):
         return container
 
 
-news_publication_upgrader = NewsPublicationUpgrader(
+publication_upgrader = NewsPublicationUpgrader(
     VERSION_B2, 'Silva News Publication', 100)
 
