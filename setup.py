@@ -7,6 +7,11 @@ import os
 
 version = '3.0dev'
 
+tests_require = [
+    'Products.Silva [test]',
+    'Products.SilvaDocument [test]',
+    ]
+
 def product_readme(filename):
     return  open(os.path.join('Products', 'SilvaNews', filename)).read()
 
@@ -47,6 +52,8 @@ setup(name='Products.SilvaNews',
         'z3locales',
         'zope.interface',
         ],
+      tests_require = tests_require,
+      extras_require = {'test': tests_require},
       entry_points = """
       [zodbupdate]
       renames = Products.SilvaNews:CLASS_CHANGES
