@@ -17,7 +17,7 @@ VERSION_B2='2.3b2'
 VERSION_FINAL='2.3'
 
 
-class ArticleUpgrader(BaseUpgrader):
+class ArticleAttributeUpgrader(BaseUpgrader):
 
     def validate(self, doc):
         return INewsItem.providedBy(doc)
@@ -41,9 +41,15 @@ class ArticleUpgrader(BaseUpgrader):
         return doc
 
 
-article_upgrader_agenda = ArticleUpgrader(
+class ArticleDocumentUpgrader(DocumentUpgrader):
+    # Due to a bug in martian, we need to make a new sub class for
+    # this upgrader, in order to see it properly grokked.
+    pass
+
+
+article_upgrader_agenda = ArticleAttributeUpgrader(
     VERSION_B1, ['Obsolete Agenda Item', 'Obsolete Article'], -50)
-document_upgrader_agenda = DocumentUpgrader(
+document_upgrader_agenda = ArticleDocumentUpgrader(
     VERSION_B1, ['Obsolete Agenda Item', 'Obsolete Article'], 50)
 
 

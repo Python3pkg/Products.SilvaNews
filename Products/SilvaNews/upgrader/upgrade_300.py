@@ -78,7 +78,7 @@ class AgendaItemUpgrader(DocumentUpgrader):
         target._target_audiences = source._target_audiences
         target._display_datetime = source._display_datetime
         target._external_url = source._external_url
-        target._occurrences = list( source._occurrences)
+        target._occurrences = list(source._occurrences)
 
 
 class FilterUpgrader(BaseUpgrader):
