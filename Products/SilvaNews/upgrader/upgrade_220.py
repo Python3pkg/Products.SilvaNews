@@ -36,23 +36,23 @@ class NewsPublicationUpgrader(BaseUpgrader):
             binding.setValues('snn-np-settings', {'is_private': value}, reindex=1)
             del container._is_private
         if container._getOb('index', None) is None:
-                factory = container.manage_addProduct['silva.app.news']
-                factory.manage_addNewsViewer(
-                    'index', container.get_title_or_id())
-                factory.manage_addNewsFilter(
-                    'filter', 'Filter for %s' % container.get_title_or_id())
+            factory = container.manage_addProduct['silva.app.news']
+            factory.manage_addNewsViewer(
+                'index', container.get_title_or_id())
+            factory.manage_addNewsFilter(
+                'filter', 'Filter for %s' % container.get_title_or_id())
 
-                viewer = container._getOb('index')
-                filter = container._getOb('filter')
+            viewer = container._getOb('index')
+            filter = container._getOb('filter')
 
-                # Configure the new filter and viewer.
+            # Configure the new filter and viewer.
 
-                filter.set_subjects(
-                    self.news.get_subjects_tree().get_ids(1))
-                filter.set_target_audiences(
-                    self.news.get_target_audiences_tree().get_ids(1))
-                filter.add_source(container)
-                viewer.add_filter(filter)
+            filter.set_subjects(
+                self.news.get_subjects_tree().get_ids(1))
+            filter.set_target_audiences(
+                self.news.get_target_audiences_tree().get_ids(1))
+            filter.add_source(container)
+            viewer.add_filter(filter)
 
         return container
 

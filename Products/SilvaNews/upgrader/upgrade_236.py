@@ -2,7 +2,7 @@
 import logging
 
 from silva.core.upgrade.upgrade import BaseUpgrader, content_path
-from Products.SilvaNews.AgendaItem import AgendaItemOccurrence
+from silva.app.news.AgendaItem.content import AgendaItemOccurrence
 from DateTime import DateTime
 
 logger = logging.getLogger('silva.core.upgrade')
