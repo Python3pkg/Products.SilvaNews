@@ -1,10 +1,12 @@
 
+from silva.app.news.AgendaItem.content import AgendaItemOccurrence
 from silva.core.interfaces import IPostUpgrader
 from silva.core.upgrade.upgrader.upgrade_300 import VERSION_A1
 from silva.core.upgrade.upgrade import BaseUpgrader
 from zope.interface import implements
 
 from Acquisition import aq_base
+from DateTime import DateTime
 from Products.SilvaDocument.upgrader.upgrade_300 import DocumentUpgrader
 
 
@@ -78,7 +80,28 @@ class AgendaItemUpgrader(DocumentUpgrader):
         target._target_audiences = source._target_audiences
         target._display_datetime = source._display_datetime
         target._external_url = source._external_url
-        target._occurrences = list(source._occurrences)
+
+        occurrences = list(source._occurrences)
+        if occurrences:
+            target._occurrences = occurrences
+        else:
+            values = {}
+            for name in ['start_datetime',
+                         'end_datetime',
+                         'location',
+                         'recurrence',
+                         'all_day',
+                         'timezone_name']:
+                attr = '_' + name
+                if attr in source.__dict__:
+                    value = source.__dict__[attr]
+                    if isinstance(value, DateTime):
+                        value = value.asdatetime()
+                    if value is not None:
+                        values[name] = value
+                    del source.__dict__[attr]
+            if values:
+                target._occurrences = [AgendaItemOccurrence(**values)]
 
 
 class FilterUpgrader(BaseUpgrader):
