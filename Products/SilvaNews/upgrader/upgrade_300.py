@@ -99,7 +99,6 @@ class AgendaItemUpgrader(DocumentUpgrader):
                         value = value.asdatetime()
                     if value is not None:
                         values[name] = value
-                    del source.__dict__[attr]
             if values:
                 target._occurrences = [AgendaItemOccurrence(**values)]
 
