@@ -1,6 +1,6 @@
-# Copyright (c) 2002-2008 Infrae. All rights reserved.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2002-2012 Infrae. All rights reserved.
 # See also LICENSE.txt
-# $Id$
 
 # ztk
 from five import grok

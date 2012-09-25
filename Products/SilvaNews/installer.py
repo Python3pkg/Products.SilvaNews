@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2012  Infrae. All rights reserved.
+# See also LICENSE.txt
 
 from silva.core.conf.installer import DefaultInstaller
 from Products.SilvaNews.interfaces import ISilvaNewsExtension

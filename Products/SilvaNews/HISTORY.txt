@@ -1,10 +1,13 @@
 ChangeLog
 =========
 
-SilvaNewsNetwork 3.0 (unreleased)
----------------------------------
+SilvaNewsNetwork 3.0c1 (2012/09/25)
+-----------------------------------
 
-- ...
+- Update upgraders for ``silva.app.news`` to Silva 3.0c1. They can
+  work from Silva 2.1.
+
+- Improve tests.
 
 SilvaNewsNetwork 3.0b1 (2011/11/11)
 -----------------------------------
