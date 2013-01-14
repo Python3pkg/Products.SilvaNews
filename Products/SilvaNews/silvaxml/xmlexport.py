@@ -8,12 +8,9 @@ from zope.interface import Interface
 from Products.SilvaNews import interfaces
 from silva.app.news.datetimeutils import utc_datetime
 from Products.SilvaDocument.silvaxml.xmlexport import DocumentVersionProducer
-from Products.Silva.silvaxml.xmlexport import (
-    theXMLExporter, VersionedContentProducer)
+from Products.SilvaNews.silvaxml import NS_SILVA_NEWS
+from silva.core.xml import producers
 
-
-NS_SILVA_NEWS = 'http://infrae.com/namespace/silva-news-network'
-theXMLExporter.registerNamespace('silvanews', NS_SILVA_NEWS)
 
 def iso_datetime(dt):
     if dt:
@@ -24,7 +21,7 @@ def iso_datetime(dt):
     return ''
 
 
-class PlainArticleProducer(VersionedContentProducer):
+class PlainArticleProducer(producers.SilvaVersionedContentProducer):
     """Export a PlainArticle object to XML.
     """
     grok.adapts(interfaces.INewsItem, Interface)
@@ -34,8 +31,8 @@ class PlainArticleProducer(VersionedContentProducer):
         self.startElementNS(NS_SILVA_NEWS,
                             'plainarticle',
                             {'id': self.context.id})
-        self.workflow()
-        self.versions()
+        self.sax_workflow()
+        self.sax_versions()
         self.endElementNS(NS_SILVA_NEWS,'plainarticle')
 
 
@@ -59,7 +56,7 @@ class PlainArticleVersionProducer(DocumentVersionProducer):
         self.endElement('content')
 
 
-class PlainAgendaItemProducer(VersionedContentProducer):
+class PlainAgendaItemProducer(producers.SilvaVersionedContentProducer):
     """Export an AgendaItem object to XML.
     """
     grok.adapts(interfaces.IAgendaItem, Interface)
@@ -69,8 +66,8 @@ class PlainAgendaItemProducer(VersionedContentProducer):
         self.startElementNS(NS_SILVA_NEWS,
                             'plainagendaitem',
                             {'id': self.context.id})
-        self.workflow()
-        self.versions()
+        self.sax_workflow()
+        self.sax_versions()
         self.endElementNS(NS_SILVA_NEWS,'plainagendaitem')
 
 
@@ -88,7 +85,7 @@ class PlainAgendaItemVersionProducer(DocumentVersionProducer):
              'target_audiences': ','.join(self.context.get_target_audiences()),
              'display_datetime': iso_datetime(
                 self.context.get_display_datetime())})
-        self.metadata()
+        self.sax_metadata()
         node = self.context.content.documentElement.getDOMObj()
         self.sax_node(node)
         self.endElement('content')

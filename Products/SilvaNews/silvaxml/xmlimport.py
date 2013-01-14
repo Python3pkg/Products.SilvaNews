@@ -2,8 +2,7 @@
 # Copyright (c) 2002-2012 Infrae. All rights reserved.
 # See also LICENSE.txt
 
-from Products.Silva.silvaxml.xmlimport import (
-    SilvaBaseHandler, updateVersionCount)
+from silva.core.xml import handlers
 from Products.Silva.silvaxml.xmlimport import NS_SILVA_URI as NS_URI
 from Products.Silva import mangle
 from silva.core import conf as silvaconf
@@ -39,7 +38,7 @@ class SNNHandlerMixin(object):
                 obj.add_excluded_item(ei)
 
 
-class NewsItemHandler(SilvaBaseHandler):
+class NewsItemHandler(handlers.SilvaHandler):
     silvaconf.name('plainarticle')
 
     def getOverrides(self):
@@ -58,7 +57,7 @@ class NewsItemHandler(SilvaBaseHandler):
             self.notifyImport()
 
 
-class NewsItemContentHandler(SilvaBaseHandler):
+class NewsItemContentHandler(handlers.SilvaVersionHandler):
     silvaconf.baseclass()
 
     def getOverrides(self):
@@ -80,7 +79,7 @@ class NewsItemContentHandler(SilvaBaseHandler):
                 version, 'display_datetime', attrs)
 
             self.setResultId(id)
-            updateVersionCount(self)
+            self.updateVersionCount()
 
     def endElementNS(self, name, qname):
         if name == (NS_URI, 'content'):
@@ -88,7 +87,7 @@ class NewsItemContentHandler(SilvaBaseHandler):
             self.storeWorkflow()
 
 
-class AgendaItemHandler(SilvaBaseHandler):
+class AgendaItemHandler(handlers.SilvaHandler):
     silvaconf.name('plainagendaitem')
 
     def getOverrides(self):
@@ -107,7 +106,7 @@ class AgendaItemHandler(SilvaBaseHandler):
             self.notifyImport()
 
 
-class AgendaItemContentHandler(SilvaBaseHandler):
+class AgendaItemContentHandler(handlers.SilvaVersionHandler):
     silvaconf.baseclass()
 
     def getOverrides(self):
@@ -129,7 +128,7 @@ class AgendaItemContentHandler(SilvaBaseHandler):
                 version, 'display_datetime', attrs)
 
             self.setResultId(id)
-            updateVersionCount(self)
+            self.updateVersionCount()
 
     def endElementNS(self, name, qname):
         if name == (NS_URI, 'content'):
