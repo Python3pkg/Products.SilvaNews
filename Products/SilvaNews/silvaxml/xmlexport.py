@@ -50,7 +50,7 @@ class PlainArticleVersionProducer(DocumentVersionProducer):
              'target_audiences': ','.join(self.context.get_target_audiences()),
              'display_datetime': iso_datetime(
                 self.context.get_display_datetime())})
-        self.metadata()
+        self.sax_metadata()
         node = self.context.content.documentElement.getDOMObj()
         self.sax_node(node)
         self.endElement('content')
