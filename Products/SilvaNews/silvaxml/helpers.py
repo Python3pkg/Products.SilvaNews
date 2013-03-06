@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2012  Infrae. All rights reserved.
+# Copyright (c) 2012-2013 Infrae. All rights reserved.
 # See also LICENSE.txt
 from dateutil.parser import parse as datetimeparse
 from silva.app.news.datetimeutils import local_timezone

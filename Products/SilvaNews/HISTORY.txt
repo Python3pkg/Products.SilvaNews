@@ -1,10 +1,10 @@
 ChangeLog
 =========
 
-SilvaNewsNetwork 3.0 (unreleased)
+SilvaNewsNetwork 3.0 (2013/03/06)
 ---------------------------------
 
-- ...
+- Update Silva XML import and export API.
 
 SilvaNewsNetwork 3.0c1 (2012/09/25)
 -----------------------------------
