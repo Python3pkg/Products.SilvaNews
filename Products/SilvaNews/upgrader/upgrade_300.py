@@ -22,8 +22,7 @@ class CatalogUpgrader(BaseUpgrader):
         catalog = root.service_catalog
 
         columns = ['get_end_datetime','get_start_datetime',
-            'get_location','get_title', 'display_datetime',
-            'get_intro', 'sort_index']
+            'get_location','get_title', 'get_intro']
 
         indexes = ['idx_end_datetime', 'idx_display_datetime',
             'idx_parent_path', 'idx_start_datetime', 'idx_target_audiences',
