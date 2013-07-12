@@ -14,6 +14,7 @@ VERSION_SIX='2.3.6'
 
 
 class AgendaItemVersionUpgrader(BaseUpgrader):
+    tags = {'pre',}
 
     def upgrade(self, item):
         logger.debug(u'Update agenda item %s occurrences.', content_path(item))

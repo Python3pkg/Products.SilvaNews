@@ -21,6 +21,7 @@ VERSION_FINAL='2.3'
 
 
 class ArticleAttributeUpgrader(BaseUpgrader):
+    tags = {'pre',}
 
     def validate(self, doc):
         return INewsItem.providedBy(doc)
@@ -57,6 +58,7 @@ document_upgrader_agenda = ArticleDocumentUpgrader(
 
 
 class NewsAgendaItemVersionCleanup(BaseUpgrader):
+    tags = {'pre',}
 
     def validate(self, content):
         if hasattr(content, '_calendar_date_representation'):
@@ -69,6 +71,7 @@ class NewsAgendaItemVersionCleanup(BaseUpgrader):
 
 
 class NewsAgendaItemRecurrenceUpgrade(BaseUpgrader):
+    tags = {'pre',}
 
     def validate(self, content):
         return not hasattr(content, '_recurrence')

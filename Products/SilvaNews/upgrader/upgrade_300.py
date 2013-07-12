@@ -105,7 +105,8 @@ class AgendaItemUpgrader(DocumentUpgrader):
                 target._occurrences = [AgendaItemOccurrence(**values)]
 
 class AgendaViewerUpgrader(BaseUpgrader):
-    
+    tags = {'pre',}
+
     def validate(self, context):
         return hasattr(context, '_days_to_show')
 
