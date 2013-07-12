@@ -104,6 +104,16 @@ class AgendaItemUpgrader(DocumentUpgrader):
             if values:
                 target._occurrences = [AgendaItemOccurrence(**values)]
 
+class AgendaViewerUpgrader(BaseUpgrader):
+    
+    def validate(self, context):
+        return hasattr(context, '_days_to_show')
+
+    def upgrade(self, context):
+        context._number_to_show = context._days_to_show
+        context._number_is_days = True
+        delattr(context, '_days_to_show')
+        return context
 
 class FilterUpgrader(BaseUpgrader):
 
@@ -125,6 +135,8 @@ upgrade_agendaitem = AgendaItemUpgrader(
     VERSION_A1, "Obsolete Agenda Item")
 upgrade_filter = FilterUpgrader(
     VERSION_A1, ("Silva Agenda Filter", "Silva News Filter"))
+upgrade_agendaviewer = AgendaViewerUpgrader(
+    VERSION_A1, "Silva Agenda Viewer")
 
 
 class RootPostUpgrader(BaseUpgrader):

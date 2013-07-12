@@ -31,7 +31,6 @@ class SNNHandlerMixin(object):
         helpers.set_attribute_as_bool(obj, 'keep_to_path', attrs)
         helpers.set_attribute_as_int(obj, 'number_to_show', attrs)
         helpers.set_attribute_as_int(obj, 'number_to_show_archive', attrs)
-        helpers.set_attribute_as_int(obj, 'days_to_show', attrs)
         if attrs.has_key((None,'excluded_items')):
             eis = attrs[(None,'excluded_items')]
             for ei in eis.split(','):

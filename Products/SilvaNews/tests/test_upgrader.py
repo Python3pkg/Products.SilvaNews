@@ -9,6 +9,7 @@ from Products.SilvaNews.testing import FunctionalLayer
 from Products.SilvaNews.upgrader.upgrade_220 import publication_upgrader
 from Products.SilvaNews.upgrader.upgrade_230 import filter_upgrader
 from Products.SilvaNews.upgrader.upgrade_230 import viewer_upgrader
+from Products.SilvaNews.upgrader.upgrade_300 import upgrade_agendaviewer
 from Products.SilvaMetadata.interfaces import IMetadataService
 
 from zope.component import getUtility
@@ -17,6 +18,7 @@ from silva.core.services.interfaces import ICatalogService
 from silva.app.news.NewsPublication import NewsPublication
 from silva.app.news.filters.NewsFilter import NewsFilter
 from silva.app.news.viewers.NewsViewer import NewsViewer
+from silva.app.news.viewers.AgendaViewer import AgendaViewer
 from silva.app.news.interfaces import INewsFilter, INewsViewer
 
 
@@ -102,3 +104,17 @@ class UpgraderTestCase(unittest.TestCase):
                     {'meta_type': 'Silva News Publication',
                      'snn-np-settingsis_private': 'yes'})],
             ['/root/news'])
+
+    def test_upgrade_agenda_viewer(self):
+        """Test upgrade of agenda viewer
+        """
+        self.root._setObject('test_agenda_viewer',
+                AgendaViewer('test_agenda_viewer'))
+        viewer = self.root.test_agenda_viewer
+        viewer._days_to_show = 42 + 1138
+        self.assertTrue(upgrade_agendaviewer.validate(viewer))
+        self.assertEqual(upgrade_agendaviewer.upgrade(viewer), viewer)
+        self.assertFalse(upgrade_agendaviewer.validate(viewer))
+        self.assertEqual(viewer.get_number_to_show(), 1138 + 42)
+        self.assertTrue(viewer.get_number_is_days())
+
