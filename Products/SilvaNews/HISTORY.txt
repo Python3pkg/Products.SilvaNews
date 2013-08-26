@@ -1,10 +1,11 @@
 ChangeLog
 =========
 
-SilvaNewsNetwork 3.0.1 (unreleased)
+SilvaNewsNetwork 3.0.1 (2013/08/26)
 -----------------------------------
 
-- ...
+- Update upgraders: fix catalog indexes (too many were removed),
+  upgrade agenda viewers settings.
 
 SilvaNewsNetwork 3.0 (2013/03/06)
 ---------------------------------
