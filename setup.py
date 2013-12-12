@@ -18,7 +18,7 @@ def product_readme(filename):
 
 setup(name='Products.SilvaNews',
       version=version,
-      description="News extension for Silva 2.x.",
+      description="News extension for Silva 2",
       long_description=product_readme("README.txt") + "\n" +
                        product_readme("HISTORY.txt"),
 
@@ -31,7 +31,7 @@ setup(name='Products.SilvaNews',
       keywords='news silva zope2',
       author='Infrae',
       author_email='info@infrae.com',
-      url='http://infrae.com/products/silva',
+      url='https://github.com/silvacms/Products.SilvaNews',
       license='BSD',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
