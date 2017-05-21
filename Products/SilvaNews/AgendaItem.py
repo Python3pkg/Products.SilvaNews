@@ -43,7 +43,7 @@ class AgendaItemVersion(NewsItemVersion):
         SilvaPermissions.AccessContentsInformation, 'get_occurrences')
     def get_occurrences(self):
         # Secuity check in ZODB
-        return map(lambda o: o.__of__(self), self._occurrences)
+        return [o.__of__(self) for o in self._occurrences]
 
     security.declareProtected(SilvaPermissions.AccessContentsInformation,
                               'fulltext')

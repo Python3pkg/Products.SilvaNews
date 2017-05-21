@@ -39,7 +39,7 @@ class ArticleAttributeUpgrader(BaseUpgrader):
                 continue
             if not isinstance(version.content, ParsedXML):
                 logger.info(
-                    u'Upgrade xmlattribute for %s.', content_path(version))
+                    'Upgrade xmlattribute for %s.', content_path(version))
                 parsed_xml = version.content._content
                 version.content = parsed_xml
         return doc
@@ -94,14 +94,14 @@ class NewsFilterUpgrader(BaseUpgrader):
         return '_sources' in content.__dict__
 
     def upgrade(self, content):
-        logger.info(u"Upgrade News Filter %s.", content_path(content))
+        logger.info("Upgrade News Filter %s.", content_path(content))
         root = content.get_root()
         for source in content._sources:
             try:
                 target = root.unrestrictedTraverse(source)
             except (AttributeError, KeyError, NotFound, TypeError):
                 logger.error(
-                    u'Could not find content %s for News Filter %s.',
+                    'Could not find content %s for News Filter %s.',
                     source,
                     content_path(content))
                 continue
@@ -109,7 +109,7 @@ class NewsFilterUpgrader(BaseUpgrader):
                 content.add_source(target)
             else:
                 logger.error(
-                    u'Content type %s is not an allowed source for %s.',
+                    'Content type %s is not an allowed source for %s.',
                     content_path(target), content_path(content))
         del content._sources
         return content
@@ -121,21 +121,21 @@ class NewsViewerUpgrader(BaseUpgrader):
         return '_filters' in content.__dict__
 
     def upgrade(self, content):
-        logger.info(u"Upgrade News Viewer %s.", content_path(content))
+        logger.info("Upgrade News Viewer %s.", content_path(content))
         root = content.get_root()
         for flt in content._filters:
             try:
                 target = root.unrestrictedTraverse(flt)
             except (AttributeError, KeyError, NotFound, TypeError):
                 logger.error(
-                    u'Could not find content %s for News Viewer %s.',
+                    'Could not find content %s for News Viewer %s.',
                     flt, content_path(content))
                 continue
             if INewsItemFilter.providedBy(target):
                 content.add_filter(target)
             else:
                 logger.error(
-                    u'Content type %s is not an allowed filter for %s.',
+                    'Content type %s is not an allowed filter for %s.',
                     content_path(target), content_path(content))
         del content._filters
         return content

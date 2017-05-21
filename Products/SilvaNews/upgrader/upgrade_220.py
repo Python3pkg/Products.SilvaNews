@@ -26,11 +26,11 @@ class NewsPublicationUpgrader(BaseUpgrader):
         return getUtility(IServiceNews)
 
     def validate(self, container):
-        return (container.__dict__.has_key('_is_private') or
+        return ('_is_private' in container.__dict__ or
                 container._getOb('index', None) is None)
 
     def upgrade(self, container):
-        if container.__dict__.has_key('_is_private'):
+        if '_is_private' in container.__dict__:
             if container._is_private:
                 value = 'yes'
             else:

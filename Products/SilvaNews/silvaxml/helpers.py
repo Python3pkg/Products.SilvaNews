@@ -6,7 +6,7 @@ from silva.app.news.datetimeutils import local_timezone
 
 def set_attribute(content, name, attrs, extract=None, ns=None):
     ns_name = (ns, name)
-    if attrs.has_key(ns_name):
+    if ns_name in attrs:
         if extract is not None:
             value = extract(attrs[ns_name])
         else:

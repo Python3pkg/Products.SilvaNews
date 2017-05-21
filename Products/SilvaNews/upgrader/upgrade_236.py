@@ -17,7 +17,7 @@ class AgendaItemVersionUpgrader(BaseUpgrader):
     tags = {'pre',}
 
     def upgrade(self, item):
-        logger.debug(u'Update agenda item %s occurrences.', content_path(item))
+        logger.debug('Update agenda item %s occurrences.', content_path(item))
         if not item.get_occurrences():
             values = {}
             for name in ['start_datetime',
